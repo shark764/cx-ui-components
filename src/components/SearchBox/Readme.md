@@ -1,0 +1,3 @@
+```js
+<SearchBox placeholder='Search' />
+```

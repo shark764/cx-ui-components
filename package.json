@@ -1,0 +1,64 @@
+{
+  "name": "cx-ui-components",
+  "version": "0.0.1",
+  "description": "Front end react components for any cx-related projects",
+  "main": "lib/library.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "build:library": "webpack",
+    "styleguide": "styleguidist server",
+    "styleguide:build": "styleguidist build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/liveops/cx-ui-components.git"
+  },
+  "babel": {
+    "presets": [
+      "env",
+      "react"
+    ]
+  },
+  "author": "serenova",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/liveops/cx-ui-components/issues"
+  },
+  "homepage": "https://github.com/liveops/cx-ui-components#readme",
+  "dependencies": {
+    "font-awesome": "^4.7.0",
+    "radium": "^0.21.2",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "styled-components": "^3.0.2"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-eslint": "^7.2.3",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "css-loader": "^0.28.9",
+    "eslint": "^4.16.0",
+    "eslint-config-react-app": "^2.1.0",
+    "eslint-loader": "^1.9.0",
+    "eslint-plugin-flowtype": "^2.42.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-jsx-a11y": "^5.1.1",
+    "eslint-plugin-react": "^7.6.0",
+    "file-loader": "^1.1.6",
+    "html-loader": "^0.5.5",
+    "image-webpack-loader": "^4.0.0",
+    "json-loader": "^0.5.7",
+    "postcss-loader": "^2.0.10",
+    "react-styleguidist": "^6.2.0",
+    "style-loader": "^0.19.1",
+    "url-loader": "^0.6.2",
+    "webpack": "^3.10.0"
+  }
+}
