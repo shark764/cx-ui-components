@@ -7,10 +7,6 @@ import deploy.frontend
 import testing.acme
 
 def service = 'cx-ui-components'
-def c = new common()
-def g = new git()
-def h = new hipchat()
-def n = new node()
 
 node() {
 pwd = pwd()
@@ -19,16 +15,17 @@ echo pwd
 
 if (pwd ==~ /.*master.*/ ) {
   node() {
+    def b = new node.build()
     try {
       timeout(time: 1, unit: 'HOURS') {
         ansiColor('xterm') {
           stage ('SCM Checkout') {
-            g.checkOutFrom("${service}")
+            checkout scm
           }
           stage ('Export Properties') {
-            n.export()
+            b.export()
             build_version = readFile('version')
-            c.setDisplayName("${build_version}")
+            b.setDisplayName("${build_version}")
           }
           stage ('Build') {
             sh 'npm install'
@@ -63,7 +60,7 @@ if (pwd ==~ /.*master.*/ ) {
       error "Failed: ${err}"
     }
     finally {
-      c.cleanup()
+      b.cleanup()
     }
   }
 }
