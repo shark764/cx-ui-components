@@ -5,6 +5,7 @@ import common
 import git
 import hipchat
 import node
+import deploy.frontend
 
 def service = 'cx-ui-components'
 def c = new common()
