@@ -8,7 +8,7 @@ function HangUpIconSVG(props) {
     <style>
     {`
     .HangUpIconSVGbackground {
-        fill: #E43D5A;
+        fill: ${Colors.regularRed};
         stroke:${Colors.regularRed};
         stroke-miterlimit:10;
         stroke-width:'2px'

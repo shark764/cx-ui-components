@@ -78,25 +78,27 @@ else if (pwd ==~ /.*master.*/ ) {
         //     sh "git tag -a ${build_version} -m 'release ${build_version}, Jenkins tagged ${BUILD_TAG}'"
         //     sh "git push origin ${build_version}"
         //   }
-          stage ('Push to S3') {
-            n.push("${service}", "${build_version}");
-            try {
-            d.pull("${service}", "${build_version}") // pull down version of site from s3
-            d.versionFile("${build_version}") // make version file
-            d.confFile("dev", "${build_version}") // make conf file
-            d.deploy("styleguide") // push to s3
-            // d.invalidate("E3MJXQEHZTM4FB") // invalidate cloudfront
-            d.hipchatSuccess("${service}", "dev", "${build_version}", "${env.BUILD_USER}")
+          stage ('Deploy') {
+          
+            node() {
+              def d = new deploy.frontend()
+              try {
+                d.pull("cx-ui-components", "${build_version}") // pull down version of site from s3
+                d.versionFile("${build_version}") // make version file
+                d.confFile("Style-Guide", "${build_version}") // make conf file
+                d.deploy("dev","Style-Guide") // push to s3
+              }
+              catch(err) {
+                // Hipchat Failure
+                d.hipchatFailure("${service}", "dev", "${build_version}", "${env.BUILD_USER}")
+                echo "Failed: ${err}"
+                error "Failed: ${err}"
+              }
+              finally {
+                d.cleanup() // Cleanup
+              }
             }
-            catch(err) {
-            // Hipchat Failure
-            d.hipchatFailure("${service}", "dev", "${build_version}", "${env.BUILD_USER}")
-            echo "Failed: ${err}"
-            error "Failed: ${err}"
-            }
-            finally {
-            d.cleanup() // Cleanup
-            }
+          
           }
           
 
