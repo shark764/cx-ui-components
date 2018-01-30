@@ -84,8 +84,8 @@ else if (pwd ==~ /.*master.*/ ) {
             d.pull("${service}", "${build_version}") // pull down version of site from s3
             d.versionFile("${build_version}") // make version file
             d.confFile("dev", "${build_version}") // make conf file
-            d.deploy("dev","desktop") // push to s3
-            d.invalidate("E3MJXQEHZTM4FB") // invalidate cloudfront
+            d.deploy("styleguide") // push to s3
+            // d.invalidate("E3MJXQEHZTM4FB") // invalidate cloudfront
             d.hipchatSuccess("${service}", "dev", "${build_version}", "${env.BUILD_USER}")
             }
             catch(err) {

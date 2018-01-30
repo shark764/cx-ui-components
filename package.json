@@ -7,9 +7,9 @@
     "lib": "lib"
   },
   "scripts": {
-    "build:library": "webpack",
-    "styleguide": "styleguidist server",
-    "styleguide:build": "styleguidist build"
+    "start": "styleguidist server",
+    "build:styleguide": "styleguidist build",
+    "build:library": "webpack"
   },
   "repository": {
     "type": "git",

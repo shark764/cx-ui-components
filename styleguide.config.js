@@ -3,9 +3,21 @@ const path = require('path');
 module.exports = {
   styleguideDir: 'build',
   components: 'src/components/**/*.js',
-  styleguideComponents: {
-    Wrapper: path.join(__dirname, 'src/RootStyles.js'),
-  },
+  sections: [
+    {
+      name: 'Config Ui',
+      Wrapper: path.join(__dirname, 'src/RootStyles.js'),
+      // content: 'src/colors.md',
+      components: 'src/components/ConfigUi/**/*.js',
+      description: 'Config Ui components'
+    },
+    {
+      name: 'Scalable Vector Grapics',
+      // content: 'src/colors.md',
+      components: 'src/components/SVGs/**/*.js',
+      description: 'Svg Icons'
+    }
+  ],
   webpackConfig: {
     module: {
       loaders: [
@@ -13,9 +25,6 @@ module.exports = {
           test: /\.js?$/,
           loader: "babel-loader",
           exclude: /node_modules/,
-          query: {
-            presets: ["react", "es2015", "stage-0"]
-          }
         }, {
           test: /\.css$/,
           loader: 'style-loader!css-loader!postcss-loader',
