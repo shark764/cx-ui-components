@@ -12,7 +12,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import FontAwesomeIcon from '../FontAwesomeIcon';
+import { FontAwesomeIcon } from '../../../';
 
 const Wrapper = styled.div`
   display: inline-flex;
@@ -46,10 +46,10 @@ const Input = styled.input`
 const StyledIcon = styled(FontAwesomeIcon)`
   width: 46px;
   color: white;
-  background-color: #07487a;
+  background-color: ${props => props.theme.primaryColor};
   vertical-align: middle;
   text-align: center;
-  padding-top: 8px;
+  padding-top: 6px;
   margin: 1px 0;
   border-top-right-radius: 4px;
   border-bottom-right-radius: 4px;

@@ -43,7 +43,7 @@ function DetailHeader(props) {
 
 DetailHeader.propTypes = {
   id: PropTypes.string,
-  text: PropTypes.any,
+  text: PropTypes.string.isRequired,
 };
 
 export default DetailHeader;
