@@ -2,19 +2,21 @@ const path = require('path');
 
 module.exports = {
   styleguideDir: 'build',
-  components: 'src/components/**/*.js',
+  styleguideComponents: {
+    Wrapper: path.join(__dirname, 'src/RootStyles.js'),
+  },
+  components: 'src/components/**/index.js',
   sections: [
     {
       name: 'Config Ui',
-      Wrapper: path.join(__dirname, 'src/RootStyles.js'),
       // content: 'src/colors.md',
-      components: 'src/components/ConfigUi/**/*.js',
+      components: 'src/components/ConfigUi/**/index.js',
       description: 'Config Ui components'
     },
     {
       name: 'Scalable Vector Grapics',
       // content: 'src/colors.md',
-      components: 'src/components/SVGs/**/*.js',
+      components: 'src/components/SVGs/**/index.js',
       description: 'Svg Icons'
     }
   ],

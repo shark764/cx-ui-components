@@ -1,5 +1,5 @@
 ```js
-<div>
-  <DetailHeader text='Details' />
-</div>
+<DetailHeader
+  text='Details'
+/>
 ```

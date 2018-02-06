@@ -25,7 +25,7 @@ const StyledButton = styled.button`
 
   ${props => props.type === 'primary' && css`
     color: white;
-    background-color: #07487a;
+    background-color: ${props => props.theme.primaryColor};
 
     &:not([disabled]):hover {
       color: #CCCCCC;
@@ -33,7 +33,7 @@ const StyledButton = styled.button`
   `}
 
   ${props => props.type === 'secondary' && css`
-    color: #07487a;
+    color: ${props => props.theme.primaryColor};
     background-color: white;
 
     &:not([disabled]):hover {

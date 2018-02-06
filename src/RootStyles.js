@@ -6,12 +6,20 @@
  *
  * RootStyles
  *
- * This will wrap the entire app to inject global styles
+ * This will wrap the entire app and do the following:
+ *
+ * - Set the default theme
+ * - Inject global styles
+ * - Import sanitize.css
  *
  */
 
 import React from 'react';
-import { injectGlobal } from 'styled-components';
+import { injectGlobal, ThemeProvider } from 'styled-components';
+
+import { defaultTheme } from './constants';
+
+import 'sanitize.css/sanitize.css';
 
 injectGlobal`
   body {
@@ -19,13 +27,26 @@ injectGlobal`
   }
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Source Sans Pro', sans-serif;
+    margin: 0;
   }
 `
 
 class RootStyles extends React.Component {
   render() {
+    let theme = defaultTheme;
+
+    if (this.props.theme) {
+      Object.keys(this.props.theme).forEach(function(key) {
+        if (theme[key]) {
+          theme[key] = this.props.theme[key];
+        }
+      });
+    }
+
     return (
-      <div>{this.props.children}</div>
+      <ThemeProvider theme={theme}>
+        {this.props.children}
+      </ThemeProvider>
     );
   }
 }

@@ -1,3 +1,5 @@
 ```js
-<SearchBox placeholder='Search' />
+<SearchBox
+  placeholder='Search'
+/>
 ```

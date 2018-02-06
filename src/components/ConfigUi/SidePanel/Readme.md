@@ -1,3 +1,5 @@
 ```js
-<DetailsPanelAlert text='This is your final warning!' />
+<DetailsPanelAlert
+  text='This is your final warning!'
+/>
 ```
