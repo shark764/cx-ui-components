@@ -12,13 +12,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { FontAwesomeIcon } from '../../../';
+import FontAwesomeIcon from '../FontAwesomeIcon';
 
 const Wrapper = styled.div`
   display: inline-flex;
   max-width: 400px;
   width: 100%;
-`;
+`
 
 const Input = styled.input`
   height: 32px;
@@ -41,7 +41,7 @@ const Input = styled.input`
       inset 0 1px 1px rgba(0, 0, 0, 0.075),
       0 0 8px rgba(102, 175, 233, 0.6);
   }
-`;
+`
 
 const StyledIcon = styled(FontAwesomeIcon)`
   width: 46px;
@@ -59,7 +59,7 @@ function SearchBox(props) {
   return (
     <Wrapper className={props.className}>
       <Input id={props.id} placeholder={props.placeholder} onChange={props.onChange}/>
-      <StyledIcon name='search' size='1'/>
+      <StyledIcon name='search' size={1}/>
     </Wrapper>
   );
 }

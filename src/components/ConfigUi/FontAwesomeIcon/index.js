@@ -22,6 +22,7 @@ function FontAwesomeIcon(props) {
       }x ${props.className}`}
       alt={props.alt || props.name}
       title={props.title}
+      onClick={props.onClick}
     />
   );
 }
@@ -31,9 +32,10 @@ FontAwesomeIcon.propTypes = {
   /** Font Awesome Icon Name */
   name: PropTypes.string.isRequired,
   /** Value from 1 - 5 */
-  size: PropTypes.string,
+  size: PropTypes.number,
   alt: PropTypes.string,
   title: PropTypes.string,
+  onClick: PropTypes.func,
 };
 
 export default FontAwesomeIcon;

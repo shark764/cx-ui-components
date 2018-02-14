@@ -47,7 +47,7 @@ const StyledButton = styled.button`
     opacity: 0.8;
     cursor: default;
   `}
-`;
+`
 
 function Button(props) {
   return (
@@ -58,7 +58,7 @@ function Button(props) {
       disabled={props.disabled}
       onClick={props.onClick}
     >
-      {props.inner}
+      {props.children}
     </StyledButton>
   );
 }
@@ -68,7 +68,7 @@ Button.propTypes = {
   type: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
   /** Text or icon to go inside the button */
-  inner: PropTypes.any,
+  children: PropTypes.any,
   onClick: PropTypes.func,
 };
 

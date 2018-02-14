@@ -1,6 +1,6 @@
 {
   "name": "cx-ui-components",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Front end react components for any cx-related projects",
   "main": "lib/library.js",
   "directories": {
@@ -9,7 +9,8 @@
   "scripts": {
     "start": "styleguidist server",
     "build:styleguide": "styleguidist build",
-    "build:library": "webpack"
+    "build:library": "webpack",
+    "dev": "webpack -w"
   },
   "repository": {
     "type": "git",
@@ -32,6 +33,7 @@
     "radium": "^0.21.2",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
+    "react-table": "^6.7.6",
     "sanitize.css": "^5.0.0",
     "styled-components": "^3.0.2"
   },

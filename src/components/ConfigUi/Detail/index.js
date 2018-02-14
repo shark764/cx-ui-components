@@ -19,7 +19,7 @@ const Wrapper = styled.div`
   padding-right: 10px;
   padding-bottom: 10px;
   font-size: 14px;
-`;
+`
 
 const Label = styled.span`
   width: 150px;

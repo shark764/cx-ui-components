@@ -12,7 +12,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { FontAwesomeIcon } from '../../../';
+import FontAwesomeIcon from '../FontAwesomeIcon';
 
 const Wrapper = styled.div`
   display: inline-flex;
@@ -23,7 +23,7 @@ const Header = styled.h2`
   font-weight: 700;
   color: #474747;
   margin: 0;
-`;
+`
 
 const Link = styled.a`
   margin-left: 10px;
@@ -46,7 +46,7 @@ function PageHeader(props) {
       <Link href={props.helpLink} target='_blank'>
         <HelpIcon
           name='question-circle'
-          size='2'
+          size={2}
           alt='help'
           title='question-circle'
         />

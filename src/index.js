@@ -1,3 +1,7 @@
+/*
+ * Copyright © 2015-2017 Serenova, LLC. All rights reserved.
+ */
+
 // RootStyles
 export {default as RootStyles} from './RootStyles';
 
@@ -10,7 +14,9 @@ export {default as FontAwesomeIcon} from './components/ConfigUi/FontAwesomeIcon'
 export {default as ListsDetailsPanel} from './components/ConfigUi/ListsDetailsPanel';
 export {default as PageHeader} from './components/ConfigUi/PageHeader';
 export {default as SearchBox} from './components/ConfigUi/SearchBox';
-export {default as SidePanel} from './components/ConfigUi/SidePanel';
+export {default as SidePanelActions} from './components/ConfigUi/SidePanelActions';
+export {default as SidePanelHeader} from './components/ConfigUi/SidePanelHeader';
+export {default as SidePanelTable} from './components/ConfigUi/SidePanelTable';
 export {default as Toggle} from './components/ConfigUi/Toggle';
 
 // SVGs
@@ -18,3 +24,7 @@ export {default as HangUpIconSVG} from './components/SVGs/HangUpIconSVG';
 export {default as MutedIconSVG} from './components/SVGs/MutedIconSVG';
 export {default as OnPstnCallSVG} from './components/SVGs/OnPstnCallSVG';
 export {default as UnMutedIconSVG} from './components/SVGs/UnMutedIconSVG';
+
+// Constants
+export {defaultTheme} from './constants';
+export {colors} from './constants';
