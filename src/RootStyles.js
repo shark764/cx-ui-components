@@ -17,13 +17,14 @@
 import React from 'react';
 import { injectGlobal, ThemeProvider } from 'styled-components';
 
-import { defaultTheme } from './constants';
+import { defaultTheme } from './';
 
 import 'sanitize.css/sanitize.css';
 
 injectGlobal`
   body {
     font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
   }
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Source Sans Pro', sans-serif;

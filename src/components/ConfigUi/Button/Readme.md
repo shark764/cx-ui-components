@@ -2,28 +2,34 @@
 <div>
   <Button
     type='primary'
-    inner='Primary'
     onClick={() => alert('Primary Button clicked')}
-  />
+  >
+    Primary
+  </Button>
 
   <Button
     type='secondary'
-    inner='Secondary'
     onClick={() => alert('Secondary Button clicked')}
-  />
+  >
+    Secondary
+  </Button>
 
   <Button
     type='primary'
     inner='Disabled!'
     onClick={() => alert('Primary Button clicked')}
     disabled
-  />
+  >
+    Disabled!
+  </Button>
 
   <Button
     type='secondary'
     inner='Disabled!'
     onClick={() => alert('Secondary Button clicked')}
     disabled
-  />
+  >
+    Disabled!
+  </Button>
 </div>
 ```

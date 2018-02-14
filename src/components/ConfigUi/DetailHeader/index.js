@@ -28,7 +28,7 @@ const Header = styled.h4`
     margin-left: 10px;
     border-top: 1px solid #dadada;
 }
-`;
+`
 
 function DetailHeader(props) {
   return (

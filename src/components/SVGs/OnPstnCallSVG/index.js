@@ -1,5 +1,5 @@
 import React from 'react';
-import * as Colors from '../colors.js';
+import { colors } from '../../../';
 
 function OnPstnCallSVG(props) {
 
@@ -8,13 +8,13 @@ function OnPstnCallSVG(props) {
     <style>
     {`
     .OnPstnCallSVGbackground {
-        fill: ${Colors.regularRed};
-        stroke:${Colors.regularRed};
+        fill: ${colors.regularRed};
+        stroke:${colors.regularRed};
         stroke-miterlimit:10;
         stroke-width:'2px'
     }
     .OnPstnCallSVGforeground {
-        fill: ${Colors.offWhite};
+        fill: ${colors.offWhite};
     }
     .OnPstnCallSVG:hover > svg > .OnPstnCallSVGbackground {
         fill: #CB3750;
@@ -26,7 +26,7 @@ function OnPstnCallSVG(props) {
     style={Object.assign({
       display: 'inline-block',
       cursor: 'pointer',
-    },props.style)  
+    },props.style)
     }
     onClick={props.onClick}
     >
