@@ -1,70 +1,98 @@
 #!groovy​
-@Library('sprockets@1.0.0') _
+@Library('sprockets@2.1.0') _
 
-import node.pr
-import node.build
-import deploy.frontend
-import testing.acme
+import common
+import git
+import hipchat
+import node
+import frontend
 
 def service = 'cx-ui-components'
+def docker_tag = BUILD_TAG.toLowerCase()
+def c = new common()
+def h = new hipchat()
+def n = new node()
+def f = new frontend()
 
-node() {
-pwd = pwd()
-echo pwd
- }
+node(){
+  pwd = pwd()
+}
 
-if (pwd ==~ /.*master.*/ ) {
-  node() {
-    def b = new node.build()
-    try {
-      timeout(time: 1, unit: 'HOURS') {
-        ansiColor('xterm') {
-          stage ('SCM Checkout') {
-            checkout scm
-          }
-          stage ('Export Properties') {
-            b.export()
-            build_version = readFile('version')
-            b.setDisplayName("${build_version}")
-          }
-          stage ('Build') {
-            sh 'npm install'
-            sh 'npm run build:styleguide'
-          }
-          stage ('Deploy') {
-            node() {
-              def d = new deploy.frontend()
-              try {
-                d.pull("cx-ui-components", "${build_version}") // pull down version of site from s3
-                d.versionFile("${build_version}") // make version file
-                d.confFile("Style-Guide", "${build_version}") // make conf file
-                d.deploy("dev","Style-Guide") // push to s3
-              }
-              catch(err) {
-                // Hipchat Failure
-                d.hipchatFailure("${service}", "dev", "${build_version}", "${env.BUILD_USER}")
-                echo "Failed: ${err}"
-                error "Failed: ${err}"
-              }
-              finally {
-                d.cleanup() // Cleanup
-              }
-            }
-          
-          }
+pipeline {
+  agent any
+  stages {
+    stage ('Export Properties') {
+      steps {
+        script {
+          n.export()
+          build_version = readFile('version')
+          c.setDisplayName("${build_version}")
         }
       }
     }
-    catch (err) {
-      echo "Failed: ${err}"
-      error "Failed: ${err}"
+    stage ('Build') {
+      when { anyOf {branch 'master'; branch 'develop'; branch 'release'; branch 'hotfix'}}
+      steps {
+        sh "docker build -t ${docker_tag} -f Dockerfile-build ."
+        sh "docker run --rm --mount type=bind,src=$HOME/.ssh,dst=/home/node/.ssh,readonly --mount type=bind,src=${pwd}/build,dst=/home/node/mount ${docker_tag}"
+      }
     }
-    finally {
-      b.cleanup()
+    stage ('Push to Github') {
+      when { anyOf {branch 'master'; branch 'develop'; branch 'release'; branch 'hotfix'}}
+      steps {
+        git url: "git@github.com:SerenovaLLC/${service}"
+        sh 'git checkout -b build-${BUILD_TAG}'
+        sh 'git add -f build/* '
+        sh "git commit -m 'release ${build_version}'"
+        script {
+          if (build_version.contains("SNAPSHOT")) {
+            sh "if git tag --list | grep ${build_version}; then git tag -d ${build_version}; git push origin :refs/tags/${build_version}; fi"
+          } 
+        }
+        sh "git tag -a ${build_version} -m 'release ${build_version}, Jenkins tagged ${BUILD_TAG}'"
+        sh "git push origin ${build_version}"
+      }
+    }
+    stage ('Push to S3') {
+      when { anyOf {branch 'master'; branch 'develop'; branch 'release'; branch 'hotfix'}}
+      steps {
+        script {
+          n.push("${service}", "${build_version}")
+        }
+      }
+    }
+    stage ('Deploy') {
+      when { anyOf {branch 'master'; branch 'develop'; branch 'release'; branch 'hotfix'}}
+      steps {
+        script {
+          f.pull("${service}", "${build_version}") // pull down version of site from s3
+          f.versionFile("${build_version}") // make version file
+          f.confFile("dev", "${build_version}") // make conf file
+          f.deploy("dev","styleguide") // push to s3
+          f.invalidate("E3MJXQEHZTM4FB") // invalidate cloudfront
+          h.hipchatDeployServiceSuccess("${service}", "dev", "${build_version}", "${env.BUILD_USER}")
+        }
+      }
+    }
+    stage ('Notify Success') {
+      steps {
+        script {
+          h.hipchatPullRequestSuccess("${service}", "${build_version}")
+        }
+      }
     }
   }
-}
-else {
-  stage ('Error')
-  error 'No Stage'
+  post {
+    failure {
+      script {
+        h.hipchatPullRequestFailure("${service}", "${build_version}")
+      }
+    }
+    always {
+      script {
+        c.cleanup()
+      }
+      sh "docker rmi ${docker_tag}"
+    }
+  }
 }

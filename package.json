@@ -1,6 +1,6 @@
 {
   "name": "cx-ui-components",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Front end react components for any cx-related projects",
   "main": "lib/library.js",
   "directories": {
@@ -15,12 +15,6 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/liveops/cx-ui-components.git"
-  },
-  "babel": {
-    "presets": [
-      "env",
-      "react"
-    ]
   },
   "author": "serenova",
   "license": "ISC",
@@ -63,5 +57,8 @@
     "style-loader": "^0.19.1",
     "url-loader": "^0.6.2",
     "webpack": "^3.10.0"
+  },
+  "publishConfig": {
+    "registry": "http://nexus.cxengagelabs.net/content/repositories/npm-internal/"
   }
 }
