@@ -12,6 +12,9 @@
     "build:library": "webpack",
     "dev": "webpack -w"
   },
+  "files": [
+    "lib/*"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/liveops/cx-ui-components.git"
