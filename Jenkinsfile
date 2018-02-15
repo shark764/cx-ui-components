@@ -33,8 +33,9 @@ pipeline {
     stage ('Build') {
       when { anyOf {branch 'master'; branch 'develop'; branch 'release'; branch 'hotfix'}}
       steps {
+        sh "mkdir build"
         sh "docker build -t ${docker_tag} -f Dockerfile-build ."
-        sh "docker run --rm --mount type=bind,src=$HOME/.ssh,dst=/home/node/.ssh,readonly --mount type=bind,src=${pwd}/build,dst=/home/node/mount ${docker_tag}"
+        sh "docker run --rm --mount type=bind,src=${pwd}/build,dst=/home/node/mount ${docker_tag}"
       }
     }
     stage ('Push to Github') {
