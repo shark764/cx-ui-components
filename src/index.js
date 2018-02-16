@@ -26,8 +26,8 @@ export {default as MutedIconSVG} from './components/SVGs/MutedIconSVG';
 export {default as OnPstnCallSVG} from './components/SVGs/OnPstnCallSVG';
 export {default as UnMutedIconSVG} from './components/SVGs/UnMutedIconSVG';
 export {default as CaretIconSVG} from './components/SVGs/CaretIconSVG';
+export {default as VoiceIconSVG} from './components/SVGs/VoiceIconSVG';
 
 // Constants
 export {defaultTheme} from './constants';
 export {colors} from './constants';
-
