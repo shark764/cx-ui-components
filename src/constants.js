@@ -16,4 +16,6 @@ export const colors = {
   darkGreen: '#001b1e',
   hoverDarkGreen: 'rgba(0, 27, 30, 0.85)',
   black: '#000',
+  white: '#FFFFFF',
+  skylightBlue: '#23cdf4',
 };
