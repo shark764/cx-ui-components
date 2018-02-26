@@ -32,17 +32,21 @@ pipeline {
     }
     stage ('Build') {
       steps {
-        sh "mkdir build"
-        sh "docker build -t ${docker_tag} -f Dockerfile-build ."
-        sh "docker run --rm --mount type=bind,src=${pwd}/build,dst=/home/node/mount ${docker_tag}"
-        sh "echo Build Done"
-      }
-    }
-    stage ('Publish') {
-      when { anyOf {branch 'master'; branch 'develop'; branch 'release'; branch 'hotfix'}}
-      steps {
-        sh "docker run --rm --mount type=bind,src=${pwd}/publish,dst=/home/node/mount ${docker_tag}"
-        sh "echo Publish Done"
+        script {
+          if (env.BRANCH_NAME == 'master' || env.BRANCH_NAME == 'develop' || env.BRANCH_NAME == 'hotfix') {
+            sh "echo running Dockerfile-publish"
+            sh "mkdir build"
+            sh "docker build -t ${docker_tag} -f Dockerfile-publish ."
+            sh "docker run --rm --mount type=bind,src=${pwd}/build,dst=/home/node/mount ${docker_tag}"
+            sh "echo Build Done"
+          } else {
+            sh "echo running Dockerfile-build"
+            sh "mkdir build"
+            sh "docker build -t ${docker_tag} -f Dockerfile-build ."
+            sh "docker run --rm --mount type=bind,src=${pwd}/build,dst=/home/node/mount ${docker_tag}"
+            sh "echo Build Done"
+          }
+        }
       }
     }
     stage ('Push to Github') {
