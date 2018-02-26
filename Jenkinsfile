@@ -31,22 +31,11 @@ pipeline {
       }
     }
     stage ('Build') {
+      when { anyOf {branch 'master'; branch 'develop'; branch 'release'; branch 'hotfix'}}
       steps {
-        script {
-          if (env.BRANCH_NAME == 'master' || env.BRANCH_NAME == 'develop' || env.BRANCH_NAME == 'hotfix') {
-            sh "echo running Dockerfile-publish"
-            sh "mkdir build"
-            sh "docker build -t ${docker_tag} -f Dockerfile-publish ."
-            sh "docker run --rm --mount type=bind,src=${pwd}/build,dst=/home/node/mount ${docker_tag}"
-            sh "echo Build Done"
-          } else {
-            sh "echo running Dockerfile-build"
-            sh "mkdir build"
-            sh "docker build -t ${docker_tag} -f Dockerfile-build ."
-            sh "docker run --rm --mount type=bind,src=${pwd}/build,dst=/home/node/mount ${docker_tag}"
-            sh "echo Build Done"
-          }
-        }
+        sh "mkdir build"
+        sh "docker build -t ${docker_tag} -f Dockerfile-build ."
+        sh "docker run --rm --mount type=bind,src=${pwd}/build,dst=/home/node/mount ${docker_tag}"
       }
     }
     stage ('Push to Github') {
@@ -103,8 +92,10 @@ pipeline {
     always {
       script {
         c.cleanup()
+        if (env.BRANCH_NAME == 'master' || env.BRANCH_NAME == 'hotfix' || env.BRANCH_NAME == 'develop' || env.BRANCH_NAME == 'release') {
+          sh "docker rmi ${docker_tag}"
+        }
       }
-      sh "docker rmi ${docker_tag}"
     }
   }
 }
