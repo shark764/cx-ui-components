@@ -13,7 +13,7 @@ const items = [{
   "description":"Indicates agent's shift has ended"
 }];
 
-const fields = [{
+const columns = [{
   "type":"string",
   "name":"reasonName",
   "label":"Reason Name",
@@ -30,8 +30,12 @@ const fields = [{
   "required":true
 }];
 
-<SidePanelTable
+<EntityTable
+  pageTitle='Lists'
+  pageHelpLink='https://docs.cxengage.net/Help/Content/Configuring%20CxEngage/Lists/Lists.htm'
+  onSearchFilterChange={(e) => console.log(e.target.value)}
+  onCreateBtnClick={() => console.log('SDK new list goes hereeeee')}
   items={items}
-  fields={fields}
+  columns={columns}
 />
 ```

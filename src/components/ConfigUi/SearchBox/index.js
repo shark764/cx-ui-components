@@ -45,6 +45,7 @@ const Input = styled.input`
 
 const StyledIcon = styled(FontAwesomeIcon)`
   width: 46px;
+  height: 30px;
   color: white;
   background-color: ${props => props.theme.primaryColor};
   vertical-align: middle;

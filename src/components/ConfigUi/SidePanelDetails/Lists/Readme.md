@@ -30,8 +30,12 @@ const fields = [{
   "required":true
 }];
 
-<SidePanelTable
-  items={items}
-  fields={fields}
+
+<ListsDetailsPanel
+  name='Disposition Codes'
+  description='Disposition Codes List'
+  alertMessage='I made this special list just for you!'
+  tableItems={items}
+  tableFields={fields}
 />
 ```

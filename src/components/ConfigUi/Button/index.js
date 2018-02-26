@@ -11,7 +11,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
-import CaretIconSVG from '../../SVGs/CaretIconSVG';
 
 
 const StyledButton = styled.button`
@@ -59,17 +58,7 @@ function Button(props) {
       onClick={props.onClick}
       style={props.style}
     >
-      {props.inner.includes('|')? 
-      ([<span
-        key="ColumnsMenuTextSpan"
-      >{props.inner}</span>,
-        <CaretIconSVG
-        key="ColumnsMenuTextIcon"
-          direction={props.open? "up" : "down"} 
-          style={{width:'10px',marginLeft: '5px'}}
-        />]) :
-      props.inner  
-    }
+      {props.children}
     </StyledButton>
   );
 }
@@ -79,7 +68,7 @@ Button.propTypes = {
   type: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
   /** Text or icon to go inside the button */
-  inner: PropTypes.any,
+  children: PropTypes.any,
   onClick: PropTypes.func,
 };
 
