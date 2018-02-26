@@ -31,11 +31,18 @@ pipeline {
       }
     }
     stage ('Build') {
-      when { anyOf {branch 'master'; branch 'develop'; branch 'release'; branch 'hotfix'}}
       steps {
         sh "mkdir build"
         sh "docker build -t ${docker_tag} -f Dockerfile-build ."
         sh "docker run --rm --mount type=bind,src=${pwd}/build,dst=/home/node/mount ${docker_tag}"
+        sh "echo Build Done"
+      }
+    }
+    stage ('Publish') {
+      when { anyOf {branch 'master'; branch 'develop'; branch 'release'; branch 'hotfix'}}
+      steps {
+        sh "docker run --rm --mount type=bind,src=${pwd}/publish,dst=/home/node/mount ${docker_tag}"
+        sh "echo Publish Done"
       }
     }
     stage ('Push to Github') {
@@ -48,7 +55,7 @@ pipeline {
         script {
           if (build_version.contains("SNAPSHOT")) {
             sh "if git tag --list | grep ${build_version}; then git tag -d ${build_version}; git push origin :refs/tags/${build_version}; fi"
-          } 
+          }
         }
         sh "git tag -a ${build_version} -m 'release ${build_version}, Jenkins tagged ${BUILD_TAG}'"
         sh "git push origin ${build_version}"
