@@ -16,7 +16,6 @@
 
   <Button
     type='primary'
-    inner='Disabled!'
     onClick={() => alert('Primary Button clicked')}
     disabled
   >
@@ -25,7 +24,6 @@
 
   <Button
     type='secondary'
-    inner='Disabled!'
     onClick={() => alert('Secondary Button clicked')}
     disabled
   >

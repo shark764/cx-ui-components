@@ -21,7 +21,6 @@ const Wrapper = styled.div`
   grid-template-rows: 70px;
   grid-template-areas:
     "toggle header close";
-  margin: 10px 5px;
 `
 
 const StyledToggle = styled(Toggle)`
@@ -41,6 +40,7 @@ const Header = styled.h1`
 `
 
 const SubHeader = styled.h5`
+  font-family: Arial, Helvetica, sans-serif;
   grid-area: header;
   color: #999999;
   font-size: 10px;
@@ -52,6 +52,7 @@ const LeftArea = styled.div`
 `
 
 const CloseIcon = styled(FontAwesomeIcon)`
+  float: right;
   color: #999999;
 
   :hover {

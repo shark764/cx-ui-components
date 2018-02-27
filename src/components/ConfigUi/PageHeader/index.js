@@ -57,7 +57,7 @@ function PageHeader(props) {
 
 PageHeader.propTypes = {
   id: PropTypes.string,
-  text: PropTypes.string.isRequired,
+  text: PropTypes.string,
   helpLink: PropTypes.string,
 };
 

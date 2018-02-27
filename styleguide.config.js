@@ -8,10 +8,15 @@ module.exports = {
   components: 'src/components/**/index.js',
   sections: [
     {
-      name: 'Config Ui',
-      // content: 'src/colors.md',
-      components: 'src/components/ConfigUi/**/index.js',
-      description: 'Config Ui components'
+      name: 'Config UI',
+      sections: [{
+        name: 'Components',
+        components: 'src/components/ConfigUi/*/index.js',
+      }, {
+        name: 'Side Panel Details',
+        description: 'Side panel details layout will be different per entity',
+        components: 'src/components/ConfigUi/SidePanelDetails/**/index.js',
+      }],
     },
     {
       name: 'Scalable Vector Grapics',

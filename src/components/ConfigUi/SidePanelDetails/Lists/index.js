@@ -12,10 +12,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import Detail from '../Detail';
-import DetailHeader from '../DetailHeader';
-import DetailsPanelAlert from '../DetailsPanelAlert';
-import SidePanelTable from '../SidePanelTable';
+import Detail from '../../Detail';
+import DetailHeader from '../../DetailHeader';
+import DetailsPanelAlert from '../../DetailsPanelAlert';
+import SidePanelTable from '../../SidePanelTable';
 
 function ListsDetailsPanel(props) {
   return (
@@ -25,7 +25,7 @@ function ListsDetailsPanel(props) {
       <Detail label='Name' value={props.name} />
       <Detail label='Description' value={props.description} />
       <DetailHeader text='List Item(s)' />
-      <SidePanelTable data={props.tableData} columns={props.tableColumns} />
+      <SidePanelTable items={props.tableItems} fields={props.tableFields} />
     </div>
   );
 }
@@ -36,8 +36,8 @@ ListsDetailsPanel.propTypes = {
   alertMessage: PropTypes.string,
   name: PropTypes.string,
   description: PropTypes.string,
-  tableData: PropTypes.array,
-  tableColumns: PropTypes.array,
+  tableItems: PropTypes.array,
+  tableFields: PropTypes.array,
 }
 
 export default ListsDetailsPanel;

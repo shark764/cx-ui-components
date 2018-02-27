@@ -22,6 +22,7 @@ import { defaultTheme } from './';
 import 'sanitize.css/sanitize.css';
 
 injectGlobal`
+  @import url(//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600);
   body {
     font-family: Arial, Helvetica, sans-serif;
     margin: 0;

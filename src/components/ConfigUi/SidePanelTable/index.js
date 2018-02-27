@@ -13,12 +13,14 @@ import PropTypes from 'prop-types';
 import { injectGlobal } from 'styled-components';
 
 import ReactTable from 'react-table';
-import "react-table/react-table.css";
+import 'react-table/react-table.css';
+
+import { importantCss, convertFieldsToColumns } from '../../../utils';
 
 // React-Table does not integrate well with Styled components
 // We will be writing table style overrides here
 // We will use a new class name to make these styles component specific
-injectGlobal`
+injectGlobal`${importantCss(`
   .SidePanelTable .rt-thead .rt-th {
     color: #656565;
     padding: 10px;
@@ -42,13 +44,23 @@ injectGlobal`
     text-align: left;
     border: none;
   }
-`
+
+  .SidePanelTable .rt-thead {
+    box-shadow: none;
+    border-bottom: 1px solid #e6e6e6;
+  }
+
+  .SidePanelTable .-pagination {
+    box-shadow: none;
+    border-top: 1px solid #e6e6e6;
+  }
+`)}`
 
 function SidePanelTable(props) {
   return (
     <ReactTable
-      data={props.data}
-      columns={props.columns}
+      data={props.items}
+      columns={convertFieldsToColumns(props.fields)}
       defaultPageSize={5}
       className='SidePanelTable'
     />
@@ -57,8 +69,10 @@ function SidePanelTable(props) {
 
 SidePanelTable.propTypes = {
   id: PropTypes.string,
-  data: PropTypes.array,
-  columns: PropTypes.array,
+  /** Must be a javascipt arr for React-table */
+  items: PropTypes.array,
+  /** Must be a javascipt arr for React-table */
+  fields: PropTypes.array,
 };
 
 export default SidePanelTable;
