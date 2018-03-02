@@ -17,8 +17,9 @@ import CaretIconSVG from '../../SVGs/CaretIconSVG';
 
 const DropdownIcon = styled(CaretIconSVG)`
   width: 10px;
-  margin-left: 5px;
-`
+  margin-left: 15px;
+  float: right;
+`;
 
 function DropdownButton(props) {
   return (
@@ -28,18 +29,16 @@ function DropdownButton(props) {
       type={props.type}
       disabled={props.disabled}
       onClick={props.onClick}
-      style={props.style}
     >
-      <span>{props.children} |</span>
-      <DropdownIcon
-        direction={props.open ? 'up' : 'down'}
-      />
+      <span>{props.children}</span>
+      <DropdownIcon direction={props.open ? 'up' : 'down'} />
     </Button>
   );
 }
 
 DropdownButton.propTypes = {
   id: PropTypes.string,
+  className: PropTypes.string,
   type: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
   /** Text or icon to go inside the button */

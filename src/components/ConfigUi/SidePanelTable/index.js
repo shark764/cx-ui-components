@@ -54,7 +54,7 @@ injectGlobal`${importantCss(`
     box-shadow: none;
     border-top: 1px solid #e6e6e6;
   }
-`)}`
+`)}`;
 
 function SidePanelTable(props) {
   return (
@@ -62,7 +62,7 @@ function SidePanelTable(props) {
       data={props.items}
       columns={convertFieldsToColumns(props.fields)}
       defaultPageSize={5}
-      className='SidePanelTable'
+      className="SidePanelTable"
     />
   );
 }

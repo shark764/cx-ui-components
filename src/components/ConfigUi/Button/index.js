@@ -12,7 +12,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 
-
 const StyledButton = styled.button`
   font-size: 14px;
   padding: 7px 15px;
@@ -22,31 +21,56 @@ const StyledButton = styled.button`
   text-align: center;
   vertical-align: middle;
 
-  ${props => props.type === 'primary' && css`
-    color: white;
-    background-color: ${props => props.theme.primaryColor};
+  ${props =>
+    props.type === 'primary' &&
+    css`
+      color: white;
+      background-color: ${props => props.theme.primaryColor};
 
-    &:not([disabled]):hover {
-      color: #CCCCCC;
-    }
-  `}
+      &:not([disabled]):hover {
+        color: #cccccc;
+      }
+    `}
 
-  ${props => props.type === 'secondary' && css`
-    color: ${props => props.theme.primaryColor};
-    background-color: white;
+  ${props =>
+    props.type === 'secondary' &&
+    css`
+      color: ${props => props.theme.primaryColor};
+      background-color: white;
 
-    &:not([disabled]):hover {
-      box-shadow: inset 0px 1px 2px rgba(175, 175, 175, 0.4);
-    }
-  `}
+      &:not([disabled]):hover {
+        box-shadow: inset 0px 1px 2px rgba(175, 175, 175, 0.4);
+      }
+    `}
 
-  ${props => props.disabled && css`
-    color: #999999;
-    border-color: #d4d4d4;
-    opacity: 0.8;
-    cursor: default;
-  `}
-`
+  ${props =>
+    props.type === 'columnFilter' &&
+    css`
+      color: ${props => props.theme.primaryColor};
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      background: #fff;
+      width: 100%;
+      text-align: left;
+      padding: 5px 15px;
+      font-size: inherit;
+      border-radius: 3px;
+      font-weight: normal;
+      outline: none;
+
+      &:not([disabled]):hover {
+        box-shadow: inset 0px 1px 2px rgba(175, 175, 175, 0.4);
+      }
+    `}
+
+  ${props =>
+    props.disabled &&
+    css`
+      color: #999999;
+      border-color: #d4d4d4;
+      opacity: 0.8;
+      cursor: default;
+    `}
+`;
 
 function Button(props) {
   return (
@@ -65,6 +89,8 @@ function Button(props) {
 
 Button.propTypes = {
   id: PropTypes.string,
+  style: PropTypes.object,
+  className: PropTypes.string,
   type: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
   /** Text or icon to go inside the button */

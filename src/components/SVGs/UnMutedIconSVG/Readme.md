@@ -1,14 +1,12 @@
 UnMutedIconSVG example:
 
 ```js
+const StyleGuideSpacerDiv = require('../../../utils/StyleGuideSpacer.js');
 <div>
-<UnMutedIconSVG onClick={()=>console.log('Clicked')} style={{width:'40px', marginRight: '20px'}}/>
-<UnMutedIconSVG style={{width:'40px', marginRight: '20px'}}/>
-<UnMutedIconSVG style={{width:'40px', marginRight: '20px'}}/>
-
-<UnMutedIconSVG style={{width:'80px', marginRight: '20px'}}/>
-<UnMutedIconSVG style={{width:'80px', marginRight: '20px'}}/>
-<UnMutedIconSVG style={{width:'80px', marginRight: '20px'}}/>
-<UnMutedIconSVG noBackground style={{width:'30px', marginRight: '20px'}}/>
-</div>
+  <UnMutedIconSVG onClick={() => console.log('Clicked')} />
+  <StyleGuideSpacerDiv />
+  <UnMutedIconSVG onClick={() => {}} size={40} />
+  <StyleGuideSpacerDiv />
+  <UnMutedIconSVG onClick={() => {}} size={60} />
+</div>;
 ```

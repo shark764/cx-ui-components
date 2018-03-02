@@ -19,25 +19,25 @@ import SidePanelTable from '../../SidePanelTable';
 function ListsDetailsPanel(props) {
   return (
     <div id={props.id} className={props.className}>
-      <DetailHeader text='Details' />
+      <DetailHeader text="Details" />
       {props.alertMessage && <DetailsPanelAlert text={props.alertMessage} />}
       {props.children}
-      <Detail label='List Type' value={props.listType} />
-      <DetailHeader text='List Item(s)' />
+      <Detail label="List Type" value={props.listType} />
+      <DetailHeader text="List Item(s)" />
       <SidePanelTable items={props.tableItems} fields={props.tableFields} />
     </div>
   );
 }
 
 ListsDetailsPanel.propTypes = {
-  id: PropTypes.string,
   className: PropTypes.string,
+  id: PropTypes.string,
   /** Alert Message will only shown when this prop is used */
   alertMessage: PropTypes.string,
   children: PropTypes.node.isRequired,
   listType: PropTypes.string,
   tableItems: PropTypes.array.isRequired,
   tableFields: PropTypes.array.isRequired,
-}
+};
 
 export default ListsDetailsPanel;

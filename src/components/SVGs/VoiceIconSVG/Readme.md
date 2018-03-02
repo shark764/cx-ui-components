@@ -1,14 +1,12 @@
 VoiceIconSVG example:
 
 ```js
-const mainStyle = {
-  display: 'inline-block',
-  marginRight: '20px',
-};
-
+const StyleGuideSpacerDiv = require('../../../utils/StyleGuideSpacer.js');
 <div>
-  <VoiceIconSVG style={ mainStyle } />
-  <VoiceIconSVG color="white" style={ Object.assign({ background: 'black' }, mainStyle) } />
-  <VoiceIconSVG type="callback" style={ mainStyle } />
-</div>
+  <VoiceIconSVG type="default" color="white" />
+  <StyleGuideSpacerDiv />
+  <VoiceIconSVG type="callback" color="blue" />
+  <StyleGuideSpacerDiv />
+  <VoiceIconSVG type="default" color="blue" />
+</div>;
 ```

@@ -1,21 +1,15 @@
 ```js
 <div>
-  <Button
-    type='primary'
-    onClick={() => alert('Primary Button clicked')}
-  >
+  <Button type="primary" onClick={() => alert('Primary Button clicked')}>
     Primary
   </Button>
 
-  <Button
-    type='secondary'
-    onClick={() => alert('Secondary Button clicked')}
-  >
+  <Button type="secondary" onClick={() => alert('Secondary Button clicked')}>
     Secondary
   </Button>
 
   <Button
-    type='primary'
+    type="primary"
     onClick={() => alert('Primary Button clicked')}
     disabled
   >
@@ -23,7 +17,7 @@
   </Button>
 
   <Button
-    type='secondary'
+    type="secondary"
     onClick={() => alert('Secondary Button clicked')}
     disabled
   >

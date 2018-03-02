@@ -19,7 +19,7 @@ const Header = styled.h4`
   overflow: hidden;
 
   &:after {
-    content:"";
+    content: '';
     display: inline-block;
     height: 0.5em;
     vertical-align: bottom;
@@ -27,21 +27,19 @@ const Header = styled.h4`
     margin-right: -100%;
     margin-left: 10px;
     border-top: 1px solid #dadada;
-}
-`
+  }
+`;
 
 function DetailHeader(props) {
   return (
-    <Header
-      id={props.id}
-      className={props.className}
-    >
+    <Header id={props.id} className={props.className}>
       {props.text}
     </Header>
   );
 }
 
 DetailHeader.propTypes = {
+  className: PropTypes.string,
   id: PropTypes.string,
   text: PropTypes.string.isRequired,
 };

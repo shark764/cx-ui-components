@@ -43,14 +43,13 @@ const Input = styled.input`
     0 -1px 0 rgba(0, 0, 0, 0.05) inset;
 
   &::placeholder {
-    color: #CCCCCC
+    color: #cccccc;
   }
 
   &:focus {
     outline: 0;
     border-color: #3498db;
-    box-shadow:
-      inset 0 1px 1px rgba(0, 0, 0, 0.075),
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),
       0 0 8px rgba(102, 175, 233, 0.6);
   }
 `;
@@ -126,7 +125,7 @@ Field.propTypes = {
       label: PropTypes.string,
     })
   ),
-}
+};
 
 Field.defaultProps = {
   componentType: 'input',

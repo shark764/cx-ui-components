@@ -1,14 +1,16 @@
 HangUpIconSVG example:
 
 ```js
+const StyleGuideSpacerDiv = require('../../../utils/StyleGuideSpacer.js');
 <div>
-<HangUpIconSVG loading onClick={()=>console.log('Clicked')} style={{width:'40px', marginRight: '20px'}}/>
-<HangUpIconSVG loading style={{width:'40px', marginRight: '20px'}}/>
-<HangUpIconSVG loading style={{width:'40px', marginRight: '20px'}}/>
-
-<HangUpIconSVG loading style={{width:'80px', marginRight: '20px'}}/>
-<HangUpIconSVG loading style={{width:'80px', marginRight: '20px'}}/>
-<HangUpIconSVG loading style={{width:'80px', marginRight: '20px'}}/>
-<HangUpIconSVG loading noBackground style={{width:'30px', marginRight: '20px'}}/>
-</div>
+  <HangUpIconSVG loading onClick={() => console.log('Clicked')} />
+  <StyleGuideSpacerDiv />
+  <HangUpIconSVG onClick={() => console.log('Clicked')} loading size={40} />
+  <StyleGuideSpacerDiv />
+  <HangUpIconSVG onClick={() => console.log('Clicked')} />
+  <StyleGuideSpacerDiv />
+  <HangUpIconSVG onClick={() => console.log('Clicked')} size={40} />
+  <StyleGuideSpacerDiv />
+  <HangUpIconSVG onClick={() => console.log('Clicked')} size={60} />
+</div>;
 ```

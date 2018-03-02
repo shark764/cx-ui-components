@@ -52,75 +52,67 @@ injectGlobal`${importantCss(`
     text-align: left;
     border: none;
   }
-`)}`
+`)}`;
 
 const Wrapper = styled.div`
   height: 100vh;
   display: grid;
   grid-template-rows: 50px 50px 1fr;
   grid-template-areas:
-    " header  actions1 "
-    " search  actions2 "
-    " table     table  ";
+    ' header  actions1 '
+    ' search  actions2 '
+    ' table     table  ';
   padding: 20px;
-`
+`;
 
 const Header = styled(PageHeader)`
   grid-area: header;
-`
+`;
 
 const TableSearchBox = styled(SearchBox)`
   grid-area: search;
-`
+`;
 
 const ActionButtons1 = styled.div`
   grid-area: actions1;
   text-align: right;
-`
+`;
 
 const ActionButtons2 = styled.div`
   grid-area: actions2;
   text-align: right;
-`
+`;
 
 const Table = styled(ReactTable)`
   grid-area: table;
-`
+`;
 
 function EntityTable(props) {
   return (
     <Wrapper id={props.id} className={props.className}>
-      <Header
-        text={props.pageTitle}
-        helpLink={props.pageHelpLink}
-      />
+      <Header text={props.pageTitle} helpLink={props.pageHelpLink} />
       <TableSearchBox
-        placeholder='Search'
+        placeholder="Search"
         onChange={props.onSearchFilterChange}
       />
       <ActionButtons1>
-        <Button
-          type='primary'
-          onClick={props.onCreateBtnClick}
-        >
+        <Button type="primary" onClick={props.onCreateBtnClick}>
           Create
         </Button>
       </ActionButtons1>
-      <ActionButtons2>
-
-      </ActionButtons2>
+      <ActionButtons2 />
 
       <Table
         data={props.items}
         columns={props.columns}
         defaultPageSize={20}
-        className='EntityTable'
+        className="EntityTable"
         getTrProps={(state, rowInfo) => {
           return {
             onClick: () => {
               props.onRowClick(rowInfo.original.id);
-            }
-          }
+            },
+          };
         }}
       />
     </Wrapper>
@@ -128,6 +120,7 @@ function EntityTable(props) {
 }
 
 EntityTable.propTypes = {
+  className: PropTypes.string,
   id: PropTypes.string,
   pageTitle: PropTypes.string,
   pageHelpLink: PropTypes.string,

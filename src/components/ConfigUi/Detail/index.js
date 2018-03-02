@@ -19,31 +19,25 @@ const Wrapper = styled.div`
   padding-right: 10px;
   padding-bottom: 10px;
   font-size: 14px;
-`
+`;
 
 const Label = styled.span`
   width: 150px;
   vertical-align: middle;
   padding-right: 10px;
-`
+`;
 
 function Detail(props) {
   return (
-    <Wrapper
-      id={props.id}
-      className={props.className}
-    >
-      <Label>
-        {props.label}
-      </Label>
-      <span>
-        {props.value}
-      </span>
+    <Wrapper id={props.id} className={props.className}>
+      <Label>{props.label}</Label>
+      <span>{props.value}</span>
     </Wrapper>
   );
 }
 
 Detail.propTypes = {
+  className: PropTypes.string,
   id: PropTypes.string,
   label: PropTypes.string.isRequired,
   value: PropTypes.string,

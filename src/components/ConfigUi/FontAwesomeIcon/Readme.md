@@ -1,8 +1,3 @@
 ```js
-<FontAwesomeIcon
-  name='bus'
-  size={2}
-  alt='not a car'
-  title='bus'
-/>
+<FontAwesomeIcon name="bus" size={2} alt="not a car" title="bus" />
 ```

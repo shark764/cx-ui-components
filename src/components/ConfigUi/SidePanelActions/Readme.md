@@ -7,8 +7,5 @@ function handleCancel() {
   console.log('Handle Cancel');
 }
 
-<SidePanelActions
-  onSubmit={handleSubmit}
-  onCancel={handleCancel}
-/>
+<SidePanelActions onSubmit={handleSubmit} onCancel={handleCancel} />;
 ```

@@ -1,5 +1,3 @@
 ```js
-<DetailHeader
-  text='Details'
-/>
+<DetailHeader text="Details" />
 ```

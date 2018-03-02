@@ -20,7 +20,7 @@ const Alert = styled.p`
   border: 2px solid #3498db;
   border-radius: 5px;
   font-size: 14px;
-`
+`;
 
 function DetailsPanelAlert(props) {
   return (
@@ -31,6 +31,7 @@ function DetailsPanelAlert(props) {
 }
 
 DetailsPanelAlert.propTypes = {
+  className: PropTypes.string,
   id: PropTypes.string,
   text: PropTypes.string.isRequired,
 };

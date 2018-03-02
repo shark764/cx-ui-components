@@ -18,7 +18,7 @@ const Wrapper = styled.div`
   display: inline-flex;
   max-width: 400px;
   width: 100%;
-`
+`;
 
 const Input = styled.input`
   height: 32px;
@@ -26,22 +26,20 @@ const Input = styled.input`
   padding-left: 10px;
   font-size: 13px;
   border: 1px solid transparent;
-  box-shadow:
-    0 1px 2px rgba(0, 0, 0, 0.2) inset,
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2) inset,
     0 -1px 0 rgba(0, 0, 0, 0.05) inset;
 
   &::placeholder {
-    color: #CCCCCC
+    color: #cccccc;
   }
 
   &:focus {
     outline: 0;
     border-color: #3498db;
-    box-shadow:
-      inset 0 1px 1px rgba(0, 0, 0, 0.075),
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),
       0 0 8px rgba(102, 175, 233, 0.6);
   }
-`
+`;
 
 const StyledIcon = styled(FontAwesomeIcon)`
   width: 46px;
@@ -54,18 +52,23 @@ const StyledIcon = styled(FontAwesomeIcon)`
   margin: 1px 0;
   border-top-right-radius: 4px;
   border-bottom-right-radius: 4px;
-`
+`;
 
 function SearchBox(props) {
   return (
     <Wrapper className={props.className}>
-      <Input id={props.id} placeholder={props.placeholder} onChange={props.onChange}/>
-      <StyledIcon name='search' size={1}/>
+      <Input
+        id={props.id}
+        placeholder={props.placeholder}
+        onChange={props.onChange}
+      />
+      <StyledIcon name="search" size={1} />
     </Wrapper>
   );
 }
 
 SearchBox.propTypes = {
+  className: PropTypes.string,
   id: PropTypes.string,
   placeholder: PropTypes.string,
   onChange: PropTypes.func,

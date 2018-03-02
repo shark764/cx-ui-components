@@ -21,12 +21,13 @@ const Form = require('../../../utils/reduxForm');
         {
           label: 'Option one',
           value: '1',
-        }, {
+        },
+        {
           label: 'Option two',
           value: '2',
         },
       ]}
     />
   </Form>
-</Store>
+</Store>;
 ```
