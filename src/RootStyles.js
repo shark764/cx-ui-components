@@ -23,7 +23,7 @@ import 'sanitize.css/sanitize.css';
 
 injectGlobal`
   @import url(//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600);
-  body {
+  body, input, select, textarea {
     font-family: Arial, Helvetica, sans-serif;
     margin: 0;
   }

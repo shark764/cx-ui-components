@@ -5,7 +5,6 @@ module.exports = {
   styleguideComponents: {
     Wrapper: path.join(__dirname, 'src/RootStyles.js'),
   },
-  components: 'src/components/**/index.js',
   sections: [
     {
       name: 'Config UI',
@@ -13,12 +12,15 @@ module.exports = {
         name: 'Components',
         components: 'src/components/ConfigUi/*/index.js',
       }, {
+        name: 'Forms',
+        description: 'Forms will be different per entity',
+        components: 'src/components/ConfigUi/Form/**/index.js',
+      }, {
         name: 'Side Panel Details',
         description: 'Side panel details layout will be different per entity',
         components: 'src/components/ConfigUi/SidePanelDetails/**/index.js',
       }],
-    },
-    {
+    }, {
       name: 'Scalable Vector Grapics',
       // content: 'src/colors.md',
       components: 'src/components/SVGs/**/index.js',

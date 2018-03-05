@@ -1,5 +1,5 @@
 #!/bin/bash
-yarn
+npm install --production
 npm run build:styleguide
 npm run build:library
 npm publish
