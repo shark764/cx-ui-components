@@ -1,0 +1,32 @@
+```js
+const Store = require('../../../utils/store');
+const Form = require('../../../utils/reduxForm');
+
+<Store>
+  <Form>
+    <Field
+      name="text"
+      label="Text"
+    />
+    <Field
+      name="textarea"
+      label="Textarea"
+      component="textarea"
+    />
+    <Field
+      name="select"
+      label="Select"
+      component="select"
+      options={[
+        {
+          label: 'Option one',
+          value: '1',
+        }, {
+          label: 'Option two',
+          value: '2',
+        },
+      ]}
+    />
+  </Form>
+</Store>
+```

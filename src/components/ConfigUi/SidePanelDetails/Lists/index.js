@@ -10,7 +10,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 
 import Detail from '../../Detail';
 import DetailHeader from '../../DetailHeader';
@@ -22,8 +21,8 @@ function ListsDetailsPanel(props) {
     <div id={props.id} className={props.className}>
       <DetailHeader text='Details' />
       {props.alertMessage && <DetailsPanelAlert text={props.alertMessage} />}
-      <Detail label='Name' value={props.name} />
-      <Detail label='Description' value={props.description} />
+      {props.children}
+      <Detail label='List Type' value={props.listType} />
       <DetailHeader text='List Item(s)' />
       <SidePanelTable items={props.tableItems} fields={props.tableFields} />
     </div>
@@ -32,12 +31,13 @@ function ListsDetailsPanel(props) {
 
 ListsDetailsPanel.propTypes = {
   id: PropTypes.string,
+  className: PropTypes.string,
   /** Alert Message will only shown when this prop is used */
   alertMessage: PropTypes.string,
-  name: PropTypes.string,
-  description: PropTypes.string,
-  tableItems: PropTypes.array,
-  tableFields: PropTypes.array,
+  children: PropTypes.node.isRequired,
+  listType: PropTypes.string,
+  tableItems: PropTypes.array.isRequired,
+  tableFields: PropTypes.array.isRequired,
 }
 
 export default ListsDetailsPanel;

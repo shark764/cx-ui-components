@@ -24,6 +24,9 @@ export {default as Toggle} from './components/ConfigUi/Toggle';
 // SidePanelDetails
 export {default as ListsDetailsPanel} from './components/ConfigUi/SidePanelDetails/Lists';
 
+// Forms
+export {default as ListsForm} from './components/ConfigUi/Form/Lists';
+
 // SVGs
 export {default as HangUpIconSVG} from './components/SVGs/HangUpIconSVG';
 export {default as MutedIconSVG} from './components/SVGs/MutedIconSVG';

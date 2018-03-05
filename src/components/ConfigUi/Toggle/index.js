@@ -10,9 +10,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled, { css } from 'styled-components';
-
-import FontAwesomeIcon from '../FontAwesomeIcon';
+import styled from 'styled-components';
 
 const StyledLabel = styled.label`
   position: relative;
@@ -27,7 +25,7 @@ const Switch = styled.input`
 
 const Slider = styled.span`
   position: absolute;
-  cursor: pointer;
+  cursor: ${props => props.disabled ? 'not-allowed' : 'pointer'};
   top: 0;
   left: 0;
   right: 0;
@@ -71,7 +69,7 @@ function Toggle(props) {
       className={props.className}
     >
       <Switch type='checkbox' checked={props.value} onChange={props.onChange} disabled={props.disabled} />
-      <Slider class='slider round' />
+      <Slider class='slider round' disabled={props.disabled} />
     </StyledLabel>
   );
 }

@@ -32,10 +32,11 @@ const fields = [{
 
 
 <ListsDetailsPanel
-  name='Disposition Codes'
-  description='Disposition Codes List'
+  listType='Reason Codes Type'
   alertMessage='I made this special list just for you!'
   tableItems={items}
   tableFields={fields}
-/>
+>
+  ListsForm goes here
+</ListsDetailsPanel>
 ```

@@ -45,8 +45,8 @@ function SidePanelActions(props) {
 
 SidePanelActions.propTypes = {
   id: PropTypes.string,
-  onSubmit: PropTypes.func,
-  onCancel: PropTypes.func,
+  onSubmit: PropTypes.func.isRequired,
+  onCancel: PropTypes.func.isRequired,
 };
 
 export default SidePanelActions;

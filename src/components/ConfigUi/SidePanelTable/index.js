@@ -70,9 +70,9 @@ function SidePanelTable(props) {
 SidePanelTable.propTypes = {
   id: PropTypes.string,
   /** Must be a javascipt arr for React-table */
-  items: PropTypes.array,
+  items: PropTypes.array.isRequired,
   /** Must be a javascipt arr for React-table */
-  fields: PropTypes.array,
+  fields: PropTypes.array.isRequired,
 };
 
 export default SidePanelTable;

@@ -19,7 +19,7 @@ import Button from '../Button';
 import PageHeader from '../PageHeader';
 import SearchBox from '../SearchBox';
 
-import { importantCss, convertFieldsToColumns } from '../../../utils';
+import { importantCss } from '../../../utils';
 
 // React-Table does not integrate well with Styled components
 // We will be writing table style overrides here
