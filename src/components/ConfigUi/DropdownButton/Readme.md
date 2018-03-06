@@ -1,11 +1,12 @@
 ```js
 <div>
   <DropdownButton
-    type='secondary'
-    onClick={() => alert('Primary Button clicked')}
-    open={true}
+    type="columnFilter"
+    open={false}
+    onClick={() => console.log('Clicked')}
+    type="selector"
   >
-    Primary
+    All
   </DropdownButton>
 </div>
 ```

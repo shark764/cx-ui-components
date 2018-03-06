@@ -17,42 +17,42 @@ const StyledLabel = styled.label`
   display: inline-block;
   width: 60px;
   height: 34px;
-`
+`;
 
 const Switch = styled.input`
   display: none;
-`
+`;
 
 const Slider = styled.span`
   position: absolute;
-  cursor: ${props => props.disabled ? 'not-allowed' : 'pointer'};
+  cursor: ${props => (props.disabled ? 'not-allowed' : 'pointer')};
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   background-color: #ccc;
-  -webkit-transition: .4s;
-  transition: .4s;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
   border-radius: 34px;
 
   ${Switch}:checked + & {
-    background-color: #2196F3;
+    background-color: #2196f3;
   }
 
   ${Switch}:focus + & {
-    box-shadow: 0 0 1px #2196F3;
+    box-shadow: 0 0 1px #2196f3;
   }
 
   &:before {
     position: absolute;
-    content: "";
+    content: '';
     height: 26px;
     width: 26px;
     left: 4px;
     bottom: 4px;
     background-color: white;
-    -webkit-transition: .4s;
-    transition: .4s;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
     border-radius: 50%;
     ${Switch}:checked + & {
       -webkit-transform: translateX(26px);
@@ -60,21 +60,24 @@ const Slider = styled.span`
       transform: translateX(26px);
     }
   }
-`
+`;
 
 function Toggle(props) {
   return (
-    <StyledLabel
-      id={props.id}
-      className={props.className}
-    >
-      <Switch type='checkbox' checked={props.value} onChange={props.onChange} disabled={props.disabled} />
-      <Slider class='slider round' disabled={props.disabled} />
+    <StyledLabel id={props.id} className={props.className}>
+      <Switch
+        type="checkbox"
+        checked={props.value}
+        onChange={props.onChange}
+        disabled={props.disabled}
+      />
+      <Slider class="slider round" disabled={props.disabled} />
     </StyledLabel>
   );
 }
 
 Toggle.propTypes = {
+  className: PropTypes.string,
   id: PropTypes.string,
   value: PropTypes.bool,
   onChange: PropTypes.func,

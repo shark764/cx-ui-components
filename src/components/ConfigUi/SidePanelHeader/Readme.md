@@ -23,5 +23,5 @@ function handleMenuClose() {
   toggleStatus={state.enabled}
   onToggle={() => toggle('enabled')}
   onClose={handleMenuClose}
-/>
+/>;
 ```

@@ -14,9 +14,7 @@ import styled from 'styled-components';
 
 import Button from '../Button';
 
-const Wrapper = styled.div`
-
-`;
+const Wrapper = styled.div``;
 
 const SlimButton = styled(Button)`
   max-width: 200px;
@@ -25,7 +23,7 @@ const SlimButton = styled(Button)`
   padding: 3px 10px;
   margin: 10px;
   float: right;
-`
+`;
 
 function SidePanelActions(props) {
   return (
@@ -36,7 +34,7 @@ function SidePanelActions(props) {
       <SlimButton type='primary' disabled={props.isSaving} onClick={props.onSubmit}>
         {props.isSaving ? 'Saving' : 'Submit'}
       </SlimButton>
-      <SlimButton type='secondary' onClick={props.onCancel}>
+      <SlimButton type="secondary" onClick={props.onCancel}>
         Cancel
       </SlimButton>
     </Wrapper>
@@ -44,6 +42,7 @@ function SidePanelActions(props) {
 }
 
 SidePanelActions.propTypes = {
+  className: PropTypes.string,
   id: PropTypes.string,
   isSaving: PropTypes.bool,
   onSubmit: PropTypes.func.isRequired,

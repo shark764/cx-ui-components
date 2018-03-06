@@ -3,7 +3,8 @@ const webpack = require('webpack');
 const UglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
 const path = require('path');
 
-let plugins = [], outputFile;
+let plugins = [],
+  outputFile;
 
 if (env === 'production') {
   plugins.push(new UglifyJsPlugin({ minimize: true }));
@@ -20,7 +21,7 @@ const config = {
     filename: outputFile,
     library: 'library',
     libraryTarget: 'umd',
-    umdNamedDefine: true
+    umdNamedDefine: true,
   },
   module: {
     // rules: [
@@ -38,31 +39,36 @@ const config = {
     loaders: [
       {
         test: /\.js?$/,
-        loader: "babel-loader",
+        loader: 'babel-loader',
         exclude: /node_modules/,
-      }, {
+      },
+      {
         test: /\.css$/,
         loader: 'style-loader!css-loader!postcss-loader',
-      }, {
+      },
+      {
         test: /\.html$/,
         loader: 'html-loader',
-      }, {
+      },
+      {
         test: /\.json$/,
         loader: 'json-loader',
-      }, {
+      },
+      {
         test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        loader: "url-loader"
-      }, {
+        loader: 'url-loader',
+      },
+      {
         test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        loader: 'url-loader'
-      }
-    ]
+        loader: 'url-loader',
+      },
+    ],
   },
   resolve: {
     modules: [path.resolve('./node_modules'), path.resolve('./src')],
-    extensions: ['.json', '.js']
+    extensions: ['.json', '.js'],
   },
-  plugins: plugins
+  plugins: plugins,
 };
 
 module.exports = config;

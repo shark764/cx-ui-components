@@ -22,11 +22,9 @@
  */
 
 export default function convertFieldsToColumns(fields) {
-  return fields.map((field) => (
-    {
-      id: field.name,
-      Header: field.label,
-      accessor: field.name,
-    }
-  ));
+  return fields.map(field => ({
+    id: field.name,
+    Header: field.label,
+    accessor: field.name,
+  }));
 }

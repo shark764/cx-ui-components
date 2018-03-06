@@ -11,11 +11,7 @@ const rootReducer = combineReducers({
 const store = createStore(rootReducer);
 
 function Store(props) {
-  return (
-    <Provider store={store}>
-      {props.children}
-    </Provider>
-  );
+  return <Provider store={store}>{props.children}</Provider>;
 }
 
 export default Store;

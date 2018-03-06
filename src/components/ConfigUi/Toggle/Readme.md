@@ -10,7 +10,14 @@ function toggle(toggle) {
   setState(newState);
 }
 <div>
-  <Toggle value={state.toggleStatus1} onChange={() => toggle('toggleStatus1')} />
-  <Toggle value={state.toggleStatus2} onChange={() => toggle('toggleStatus2')} disabled />
-</div>
+  <Toggle
+    value={state.toggleStatus1}
+    onChange={() => toggle('toggleStatus1')}
+  />
+  <Toggle
+    value={state.toggleStatus2}
+    onChange={() => toggle('toggleStatus2')}
+    disabled
+  />
+</div>;
 ```

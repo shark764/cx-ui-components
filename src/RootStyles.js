@@ -31,7 +31,7 @@ injectGlobal`
     font-family: 'Source Sans Pro', sans-serif;
     margin: 0;
   }
-`
+`;
 
 class RootStyles extends React.Component {
   render() {
@@ -45,11 +45,7 @@ class RootStyles extends React.Component {
       });
     }
 
-    return (
-      <ThemeProvider theme={theme}>
-        {this.props.children}
-      </ThemeProvider>
-    );
+    return <ThemeProvider theme={theme}>{this.props.children}</ThemeProvider>;
   }
 }
 

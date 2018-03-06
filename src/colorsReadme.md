@@ -1,11 +1,8 @@
 offWhite: '#e4e4e4'
 
-
 lightRed: '#FE4565'
 
-
 regularRed: '#E43D5A'
-
 
 darkRed: '#CB3750'
 
@@ -14,7 +11,7 @@ Serenova black: rgb(3, 20, 23)
 Serenova bright blue: rgb(35, 205, 244)
 Serenova red: rgb(254, 69, 101)
 
-Grey over white: 
+Grey over white:
 
 Darker :#4B4B4B
 Lighter: rgb(151, 151, 151)
@@ -22,7 +19,6 @@ Lighter: rgb(151, 151, 151)
 Agent Menu:
 Menu bold grey text: rgb(75, 75, 75)
 Menu grey light color text : rgb(151, 151, 151)
-
 
 Icons:
 Dark green background: 031418
@@ -44,5 +40,5 @@ grey: #CCCCCC
 black: #000000
 bright blue: rgb(35, 205, 244)
 
-Foreground: 
+Foreground:
 Border:
