@@ -15,9 +15,9 @@ import Field from '../../Field';
 export default function ListsForm(props) {
   return (
     <form onSubmit={props.handleSubmit}>
-      <Field name="name" label="Name" componentType="input" inputType="text" />
+      <Field name="name" label="Name *" componentType="input" inputType="text" disabled={props.isSaving} />
       {!props.update &&
-        <Field name="listTypeId" label="List Type" componentType="select" options={props.listTypes} />}
+        <Field name="listTypeId" label="List Type *" componentType="select" options={props.listTypes} disabled={props.isSaving} />}
     </form>
   );
 }
@@ -31,6 +31,7 @@ ListsForm.propTypes = {
   ),
   onSubmit: PropTypes.func.isRequired,
   update: PropTypes.bool,
+  isSaving: PropTypes.bool,
 };
 
 ListsForm.defaultProps = {

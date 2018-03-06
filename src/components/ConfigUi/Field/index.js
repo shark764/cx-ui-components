@@ -11,7 +11,7 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Field as ReduxFormField } from 'redux-form/immutable';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 const FieldWrapper = styled.div`
   display: flex;
@@ -30,13 +30,14 @@ const InputWrapper = styled.div`
   flex-grow: 1;
 `;
 
-const InputCss = css`
+const Input = styled.input`
   width: 100%;
   height: 32px;
   padding-left: 10px;
   font-size: 13px;
   border: 1px solid;
   border-color: ${props => props.hasError ? 'red' : 'transparent'};
+  background-color: ${props => props.disabled ? '#efefef' : 'inherit'};
   box-shadow:
     0 1px 2px rgba(0, 0, 0, 0.2) inset,
     0 -1px 0 rgba(0, 0, 0, 0.05) inset;
@@ -54,19 +55,12 @@ const InputCss = css`
   }
 `;
 
-const Input = styled.input`
-  ${InputCss}
-`;
-
-const Textarea = styled.textarea`
-  ${InputCss}
+const Textarea = Input.withComponent('textarea').extend`
   height: 64px;
   padding-top: 10px;
 `;
 
-const Select = styled.select`
-  ${InputCss}
-`;
+const Select = Input.withComponent('select');
 
 const Error = styled.span`
   color: red;
@@ -82,16 +76,17 @@ const renderField = ({
   componentType,
   type,
   options,
+  disabled,
   meta: { touched, error, warning }
 }) => {
   let inputElement;
   if (componentType === 'input') {
-    inputElement = <Input {...input} type={type} hasError={!!error} />;
+    inputElement = <Input {...input} disabled={disabled} type={type} hasError={!!error} />;
   } else if (componentType === 'textarea') {
-    inputElement = <Textarea {...input} hasError={!!error} />;
+    inputElement = <Textarea {...input} disabled={disabled} hasError={!!error} />;
   } else if (componentType === 'select') {
     inputElement = (
-      <Select {...input} hasError={!!error}>
+      <Select {...input} disabled={disabled} hasError={!!error}>
         <Fragment>
           <option />
           {options.map(option =>
