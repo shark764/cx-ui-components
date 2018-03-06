@@ -11,11 +11,10 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Field as ReduxFormField } from 'redux-form/immutable';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 const FieldWrapper = styled.div`
   display: flex;
-  width: 100%;
   margin-bottom: 10px;
   margin-left: 10px;
   padding-right: 10px;
@@ -27,13 +26,17 @@ const Label = styled.label`
   width: 150px;
 `;
 
-const StyledField = styled(ReduxFormField)`
+const InputWrapper = styled.div`
   flex-grow: 1;
-  height: ${props => props.component === 'textarea' ? '64px' : '32px'};
-  padding-top: ${props => props.component === 'textarea' ? '10px' : '0px'};
+`;
+
+const InputCss = css`
+  width: 100%;
+  height: 32px;
   padding-left: 10px;
   font-size: 13px;
-  border: 1px solid transparent;
+  border: 1px solid;
+  border-color: ${props => props.hasError ? 'red' : 'transparent'};
   box-shadow:
     0 1px 2px rgba(0, 0, 0, 0.2) inset,
     0 -1px 0 rgba(0, 0, 0, 0.05) inset;
@@ -51,29 +54,77 @@ const StyledField = styled(ReduxFormField)`
   }
 `;
 
-export default function Field(props) {
+const Input = styled.input`
+  ${InputCss}
+`;
+
+const Textarea = styled.textarea`
+  ${InputCss}
+  height: 64px;
+  padding-top: 10px;
+`;
+
+const Select = styled.select`
+  ${InputCss}
+`;
+
+const Error = styled.span`
+  color: red;
+`;
+
+const Warning = styled.span`
+  color: orange;
+`;
+
+const renderField = ({
+  input,
+  label,
+  componentType,
+  type,
+  options,
+  meta: { touched, error, warning }
+}) => {
+  let inputElement;
+  if (componentType === 'input') {
+    inputElement = <Input {...input} type={type} hasError={!!error} />;
+  } else if (componentType === 'textarea') {
+    inputElement = <Textarea {...input} hasError={!!error} />;
+  } else if (componentType === 'select') {
+    inputElement = (
+      <Select {...input} hasError={!!error}>
+        <Fragment>
+          <option />
+          {options.map(option =>
+            <option key={option.value} value={option.value}>{option.label}</option>
+          )}
+        </Fragment>
+      </Select>
+    );
+  }
   return (
     <FieldWrapper>
-      <Label htmlFor={props.name}>{props.label}</Label>
-      {props.component === 'select' ?
-        <StyledField name={props.name} component={props.component} type={props.type}>
-          <Fragment>
-            <option />
-            {props.options.map(option =>
-              <option key={option.value} value={option.value}>{option.label}</option>
-            )}
-          </Fragment>
-        </StyledField> :
-        <StyledField name={props.name} component={props.component} type={props.type} />}
+      <Label htmlFor={input.name}>{label}</Label>
+      <InputWrapper>
+        {inputElement}
+        {touched &&
+          ((error && <Error>{error}</Error>) ||
+            (warning && <Warning>{warning}</Warning>))}
+      </InputWrapper>
     </FieldWrapper>
+  );
+}
+
+export default function Field(props) {
+  return (
+    <ReduxFormField {...props} component={renderField} />
   );
 }
 
 Field.propTypes = {
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
-  component: PropTypes.oneOf(['input', 'textarea', 'select']),
-  type: PropTypes.oneOf(['text']),
+  componentType: PropTypes.oneOf(['input', 'textarea', 'select']),
+  inputType: PropTypes.oneOf(['text']),
   options: PropTypes.arrayOf(
     PropTypes.shape({
       value: PropTypes.string.isRequired,
@@ -83,5 +134,5 @@ Field.propTypes = {
 }
 
 Field.defaultProps = {
-  component: 'input',
+  componentType: 'input',
 }

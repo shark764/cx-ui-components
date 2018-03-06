@@ -15,9 +15,9 @@ import Field from '../../Field';
 export default function ListsForm(props) {
   return (
     <form onSubmit={props.handleSubmit}>
-      <Field name="name" label="Name" component="input" type="text" />
+      <Field name="name" label="Name" componentType="input" inputType="text" />
       {!props.update &&
-        <Field name="listTypeId" label="List Type" component="select" options={props.listTypes} />}
+        <Field name="listTypeId" label="List Type" componentType="select" options={props.listTypes} />}
     </form>
   );
 }
