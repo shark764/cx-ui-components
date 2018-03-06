@@ -11,12 +11,12 @@ const Form = require('../../../utils/reduxForm');
     <Field
       name="textarea"
       label="Textarea"
-      component="textarea"
+      componentType="textarea"
     />
     <Field
       name="select"
       label="Select"
-      component="select"
+      componentType="select"
       options={[
         {
           label: 'Option one',

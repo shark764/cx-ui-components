@@ -33,8 +33,8 @@ function SidePanelActions(props) {
       id={props.id}
       className={props.className}
     >
-      <SlimButton type='primary' onClick={props.onSubmit}>
-        Submit
+      <SlimButton type='primary' disabled={props.isSaving} onClick={props.onSubmit}>
+        {props.isSaving ? 'Saving' : 'Submit'}
       </SlimButton>
       <SlimButton type='secondary' onClick={props.onCancel}>
         Cancel
@@ -45,6 +45,7 @@ function SidePanelActions(props) {
 
 SidePanelActions.propTypes = {
   id: PropTypes.string,
+  isSaving: PropTypes.bool,
   onSubmit: PropTypes.func.isRequired,
   onCancel: PropTypes.func.isRequired,
 };
