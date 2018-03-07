@@ -7,7 +7,7 @@ const SvgWrapper = styled.div`
   ${props => {
     if (props.size) {
       return `width: ${props.size}px;`;
-    } else if(props.type === "callback") {
+    } else if (props.type === 'callback') {
       return `width: 32px;`;
     } else {
       return `width: 16px;`;
