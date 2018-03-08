@@ -28,6 +28,11 @@ const Form = require('../../../utils/reduxForm');
         },
       ]}
     />
+    <Field
+      name="selectLoading"
+      label="Select loading options"
+      componentType="select"
+    />
   </Form>
 </Store>;
 ```

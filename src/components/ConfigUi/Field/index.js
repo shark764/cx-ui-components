@@ -80,18 +80,20 @@ const renderField = ({
 }) => {
   let inputElement;
   if (componentType === 'input') {
-    inputElement = <Input {...input} disabled={disabled} type={type} hasError={!!error} />;
+    inputElement = <Input {...input} disabled={disabled} type={type} hasError={touched && !!error} />;
   } else if (componentType === 'textarea') {
-    inputElement = <Textarea {...input} disabled={disabled} hasError={!!error} />;
+    inputElement = <Textarea {...input} disabled={disabled} hasError={touched && !!error} />;
   } else if (componentType === 'select') {
     inputElement = (
-      <Select {...input} disabled={disabled} hasError={!!error}>
-        <Fragment>
-          <option />
-          {options.map(option =>
-            <option key={option.value} value={option.value}>{option.label}</option>
-          )}
-        </Fragment>
+      <Select {...input} disabled={disabled} hasError={touched && !!error}>
+        {options ?
+          <Fragment>
+            <option />
+            {options.map(option =>
+              <option key={option.value} value={option.value}>{option.label}</option>
+            )}
+          </Fragment> :
+          <option>Loading...</option>}
       </Select>
     );
   }
