@@ -4,15 +4,8 @@ const Form = require('../../../utils/reduxForm');
 
 <Store>
   <Form>
-    <Field
-      name="text"
-      label="Text"
-    />
-    <Field
-      name="textarea"
-      label="Textarea"
-      componentType="textarea"
-    />
+    <Field name="text" label="Text" />
+    <Field name="textarea" label="Textarea" componentType="textarea" />
     <Field
       name="select"
       label="Select"

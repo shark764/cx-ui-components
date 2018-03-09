@@ -15,14 +15,14 @@ class CheckboxMenu extends React.Component {
       // 73 is i key
       if (e.which === 73) {
         this.props.toggleAllInverse &&
-        this.props.toggleAllInverse(this.props.menuType);
+          this.props.toggleAllInverse(this.props.menuType);
       }
       // 65 is a key
       if (e.which === 65) {
         this.props.allActive
-          ? this.props.toggleAllOn && 
+          ? this.props.toggleAllOn &&
             this.props.toggleAllOff(this.props.menuType)
-          : this.props.toggleAllOff && 
+          : this.props.toggleAllOff &&
             this.props.toggleAllOn(this.props.menuType);
       }
     }

@@ -17,10 +17,10 @@ import FontAwesomeIcon from '../FontAwesomeIcon';
 
 const Wrapper = styled.div`
   display: grid;
-  grid-template-columns: ${props => props.hasToggle ? '75px ' : ''}auto 40px;
-  grid-template-rows: ${props => props.hasCreatedUpdatedAt ? '70px': '40px'};
+  grid-template-columns: ${props => (props.hasToggle ? '75px ' : '')}auto 40px;
+  grid-template-rows: ${props => (props.hasCreatedUpdatedAt ? '70px' : '40px')};
   grid-template-areas:
-    "${props => props.hasToggle ? 'toggle ' : ''}header close";
+    "${props => (props.hasToggle ? 'toggle ' : '')}header close";
 `;
 
 const StyledToggle = styled(Toggle)`
@@ -68,8 +68,9 @@ function SidePanelHeader(props) {
       hasToggle={props.toggleStatus !== undefined}
       hasCreatedUpdatedAt={props.createdAt || props.updatedAt}
     >
-      {props.toggleStatus !== undefined &&
-        <StyledToggle value={props.toggleStatus} onChange={props.onToggle}/>}
+      {props.toggleStatus !== undefined && (
+        <StyledToggle value={props.toggleStatus} onChange={props.onToggle} />
+      )}
       <HeaderArea>
         <Header>{props.title}</Header>
         {props.createdAt && <SubHeader>{props.createdAt}</SubHeader>}
