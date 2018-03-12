@@ -27,11 +27,12 @@ const SlimButton = styled(Button)`
 
 function SidePanelActions(props) {
   return (
-    <Wrapper
-      id={props.id}
-      className={props.className}
-    >
-      <SlimButton type='primary' disabled={props.isSaving} onClick={props.onSubmit}>
+    <Wrapper id={props.id} className={props.className}>
+      <SlimButton
+        type="primary"
+        disabled={props.isSaving}
+        onClick={props.onSubmit}
+      >
         {props.isSaving ? 'Saving' : 'Submit'}
       </SlimButton>
       <SlimButton type="secondary" onClick={props.onCancel}>

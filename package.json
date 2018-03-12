@@ -1,6 +1,6 @@
 {
   "name": "cx-ui-components",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "description": "Front end react components for any cx-related projects",
   "main": "lib/library.js",
   "directories": {
@@ -12,13 +12,17 @@
     "build:library": "webpack",
     "dev": "webpack -w",
     "precommit": "lint-staged",
-    "prettier":
-      "prettier --single-quote --trailing-comma=es5 --write '{src,ConfigUi}/**/*.{js,json,css,md}'"
+    "prettier": "prettier --single-quote --trailing-comma=es5 --write 'src/**/*.{js,json,css,md}'"
   },
   "lint-staged": {
-    "*.{js,json,css,md}": ["prettier --write", "git add"]
+    "src/**/*.{js,json,css,md}": [
+      "prettier --write",
+      "git add"
+    ]
   },
-  "files": ["lib/*"],
+  "files": [
+    "lib/*"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/liveops/cx-ui-components.git"
@@ -48,8 +52,8 @@
     "redux-form": "^7.2.3",
     "redux-immutable": "^4.0.0",
     "sanitize.css": "^5.0.0",
-    "styled-components": "^3.0.2",
     "style-loader": "^0.19.1",
+    "styled-components": "^3.0.2",
     "url-loader": "^0.6.2",
     "webpack": "^3.10.0"
   },
@@ -64,10 +68,10 @@
     "eslint-plugin-react": "^7.6.0",
     "html-loader": "^0.5.5",
     "image-webpack-loader": "^4.0.0",
-    "json-loader": "^0.5.7"
+    "json-loader": "^0.5.7",
+    "prettier": "^1.11.1"
   },
   "publishConfig": {
-    "registry":
-      "http://nexus.cxengagelabs.net/content/repositories/npm-internal/"
+    "registry": "http://nexus.cxengagelabs.net/content/repositories/npm-internal/"
   }
 }

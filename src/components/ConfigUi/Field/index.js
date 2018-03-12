@@ -36,10 +36,9 @@ const Input = styled.input`
   padding-left: 10px;
   font-size: 13px;
   border: 1px solid;
-  border-color: ${props => props.hasError ? 'red' : 'transparent'};
-  background-color: ${props => props.disabled ? '#efefef' : 'inherit'};
-  box-shadow:
-    0 1px 2px rgba(0, 0, 0, 0.2) inset,
+  border-color: ${props => (props.hasError ? 'red' : 'transparent')};
+  background-color: ${props => (props.disabled ? '#efefef' : 'inherit')};
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2) inset,
     0 -1px 0 rgba(0, 0, 0, 0.05) inset;
 
   &::placeholder {
@@ -76,22 +75,37 @@ const renderField = ({
   type,
   options,
   disabled,
-  meta: { touched, error, warning }
+  meta: { touched, error, warning },
 }) => {
   let inputElement;
   if (componentType === 'input') {
-    inputElement = <Input {...input} disabled={disabled} type={type} hasError={!!error} />;
+    inputElement = (
+      <Input
+        {...input}
+        disabled={disabled}
+        type={type}
+        hasError={touched && !!error}
+      />
+    );
   } else if (componentType === 'textarea') {
-    inputElement = <Textarea {...input} disabled={disabled} hasError={!!error} />;
+    inputElement = (
+      <Textarea {...input} disabled={disabled} hasError={touched && !!error} />
+    );
   } else if (componentType === 'select') {
     inputElement = (
-      <Select {...input} disabled={disabled} hasError={!!error}>
-        <Fragment>
-          <option />
-          {options.map(option =>
-            <option key={option.value} value={option.value}>{option.label}</option>
-          )}
-        </Fragment>
+      <Select {...input} disabled={disabled} hasError={touched && !!error}>
+        {options ? (
+          <Fragment>
+            <option />
+            {options.map(option => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </Fragment>
+        ) : (
+          <option>Loading...</option>
+        )}
       </Select>
     );
   }
@@ -106,12 +120,10 @@ const renderField = ({
       </InputWrapper>
     </FieldWrapper>
   );
-}
+};
 
 export default function Field(props) {
-  return (
-    <ReduxFormField {...props} component={renderField} />
-  );
+  return <ReduxFormField {...props} component={renderField} />;
 }
 
 Field.propTypes = {
@@ -129,4 +141,4 @@ Field.propTypes = {
 
 Field.defaultProps = {
   componentType: 'input',
-}
+};

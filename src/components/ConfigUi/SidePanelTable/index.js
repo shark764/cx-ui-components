@@ -61,7 +61,7 @@ function SidePanelTable(props) {
     <ReactTable
       data={props.items}
       columns={convertFieldsToColumns(props.fields)}
-      defaultPageSize={5}
+      defaultPageSize={10}
       className="SidePanelTable"
     />
   );
