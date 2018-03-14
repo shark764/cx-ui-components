@@ -1,6 +1,6 @@
 {
   "name": "cx-ui-components",
-  "version": "0.12.0",
+  "version": "0.13.0",
   "description": "Front end react components for any cx-related projects",
   "main": "lib/library.js",
   "directories": {
@@ -54,6 +54,7 @@
     "sanitize.css": "^5.0.0",
     "style-loader": "^0.19.1",
     "styled-components": "^3.0.2",
+    "toastr": "^2.1.4",
     "url-loader": "^0.6.2",
     "webpack": "^3.10.0"
   },
