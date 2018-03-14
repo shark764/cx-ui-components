@@ -1,6 +1,6 @@
 {
   "name": "cx-ui-components",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "Front end react components for any cx-related projects",
   "main": "lib/library.js",
   "directories": {
@@ -41,6 +41,7 @@
     "file-loader": "^1.1.6",
     "font-awesome": "^4.7.0",
     "immutable": "^3.8.2",
+    "moment": "^2.21.0",
     "postcss-loader": "^2.0.10",
     "radium": "^0.21.2",
     "react": "^16.2.0",
