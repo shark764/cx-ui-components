@@ -16,7 +16,7 @@ const SubMenuDiv = styled.div`
   right: -2px;
   top: 37px;
   z-index: 3;
-  min-width: 260px;
+  width: 260px;
   box-shadow: 0px 0px 2px 0px rgba(42, 45, 41, 0.63);
 `;
 const SubMenuTopArrow = styled.div`
