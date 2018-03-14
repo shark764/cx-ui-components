@@ -1,6 +1,6 @@
 {
   "name": "cx-ui-components",
-  "version": "0.3.2",
+  "version": "0.5.0",
   "description": "Front end react components for any cx-related projects",
   "main": "lib/library.js",
   "directories": {
@@ -12,10 +12,10 @@
     "build:library": "webpack",
     "dev": "webpack -w",
     "precommit": "lint-staged",
-    "prettier": "prettier --single-quote --trailing-comma=es5 --write '{src,ConfigUi}/**/*.{js,json,css,md}'"
+    "prettier": "prettier --single-quote --trailing-comma=es5 --write 'src/**/*.{js,json,css,md}'"
   },
   "lint-staged": {
-    "*.{js,json,css,md}": [
+    "src/**/*.{js,json,css,md}": [
       "prettier --write",
       "git add"
     ]
@@ -69,7 +69,8 @@
     "eslint-plugin-react": "^7.6.0",
     "html-loader": "^0.5.5",
     "image-webpack-loader": "^4.0.0",
-    "json-loader": "^0.5.7"
+    "json-loader": "^0.5.7",
+    "prettier": "^1.11.1"
   },
   "publishConfig": {
     "registry": "http://nexus.cxengagelabs.net/content/repositories/npm-internal/"

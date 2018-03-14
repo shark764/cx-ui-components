@@ -96,7 +96,7 @@ function EntityTable(props) {
         onChange={props.onSearchFilterChange}
       />
       <ActionButtons1>
-        <Button type="primary" onClick={props.onCreateBtnClick}>
+        <Button type="primary" onClick={props.onCreateButtonClick}>
           Create
         </Button>
       </ActionButtons1>
@@ -125,7 +125,7 @@ EntityTable.propTypes = {
   pageTitle: PropTypes.string,
   pageHelpLink: PropTypes.string,
   onSearchFilterChange: PropTypes.func,
-  onCreateBtnClick: PropTypes.func,
+  onCreateButtonClick: PropTypes.func,
   /** Must be a javascipt arr for React-table */
   items: PropTypes.array,
   /** Must be a javascipt arr for React-table */
