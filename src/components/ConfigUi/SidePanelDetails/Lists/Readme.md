@@ -43,6 +43,7 @@ const fields = [
   alertMessage="I made this special list just for you!"
   tableItems={items}
   tableFields={fields}
+  openCreateListItemModal={() => alert('openCreateListItemModal')}
 >
   ListsForm goes here
 </ListsDetailsPanel>;

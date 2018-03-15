@@ -96,7 +96,7 @@ function EntityTable(props) {
         onChange={props.onSearchFilterChange}
       />
       <ActionButtons1>
-        <Button type="primary" onClick={props.onCreateButtonClick}>
+        <Button buttonType="primary" onClick={props.onCreateButtonClick}>
           Create
         </Button>
       </ActionButtons1>

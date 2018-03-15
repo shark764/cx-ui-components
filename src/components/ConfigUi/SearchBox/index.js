@@ -62,7 +62,7 @@ function SearchBox(props) {
         placeholder={props.placeholder}
         onChange={props.onChange}
       />
-      <StyledIcon name="search" size={1} />
+      <StyledIcon name="search" />
     </Wrapper>
   );
 }

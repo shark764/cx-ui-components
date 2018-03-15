@@ -14,7 +14,7 @@ import Field from '../../Field';
 
 export default function ListsForm(props) {
   return (
-    <form> 
+    <form onSubmit={props.handleSubmit}> 
       <Field
         name="name"
         label="Name *"
@@ -42,7 +42,7 @@ ListsForm.propTypes = {
       value: PropTypes.string.isRequired,
     })
   ),
-  onSubmit: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
   update: PropTypes.bool,
   isSaving: PropTypes.bool,
 };

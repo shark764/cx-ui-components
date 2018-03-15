@@ -130,10 +130,14 @@ Field.propTypes = {
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   componentType: PropTypes.oneOf(['input', 'textarea', 'select']),
-  inputType: PropTypes.oneOf(['text']),
+  inputType: PropTypes.oneOf(['text', 'number']),
   options: PropTypes.arrayOf(
     PropTypes.shape({
-      value: PropTypes.string.isRequired,
+      value: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number,
+        PropTypes.bool,
+      ]).isRequired,
       label: PropTypes.string,
     })
   ),
