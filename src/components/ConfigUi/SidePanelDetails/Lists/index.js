@@ -23,7 +23,7 @@ function ListsDetailsPanel(props) {
       {props.alertMessage && <DetailsPanelAlert text={props.alertMessage} />}
       {props.children}
       <Detail label="List Type" value={props.listType} />
-      <DetailHeader text="List Item(s)" />
+      <DetailHeader text="List Item(s)" onActionButtonClick={props.openCreateListItemModal} />
       <SidePanelTable items={props.tableItems} fields={props.tableFields} />
     </div>
   );
@@ -38,6 +38,7 @@ ListsDetailsPanel.propTypes = {
   listType: PropTypes.string,
   tableItems: PropTypes.array.isRequired,
   tableFields: PropTypes.array.isRequired,
+  openCreateListItemModal: PropTypes.func.isRequired,
 };
 
 export default ListsDetailsPanel;

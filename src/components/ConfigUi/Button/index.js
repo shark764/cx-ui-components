@@ -22,7 +22,7 @@ const StyledButton = styled.button`
   vertical-align: middle;
 
   ${props =>
-    props.type === 'primary' &&
+    props.buttonType === 'primary' &&
     css`
       color: white;
       background-color: ${props => props.theme.primaryColor};
@@ -33,7 +33,7 @@ const StyledButton = styled.button`
     `}
 
   ${props =>
-    props.type === 'secondary' &&
+    props.buttonType === 'secondary' &&
     css`
       color: ${props => props.theme.primaryColor};
       background-color: white;
@@ -44,7 +44,7 @@ const StyledButton = styled.button`
     `}
 
   ${props =>
-    props.type === 'columnFilter' &&
+    props.buttonType === 'columnFilter' &&
     css`
       color: ${props => props.theme.primaryColor};
       border: 1px solid rgba(0, 0, 0, 0.1);
@@ -77,10 +77,10 @@ function Button(props) {
     <StyledButton
       id={props.id}
       className={props.className}
+      buttonType={props.buttonType}
       type={props.type}
       disabled={props.disabled}
       onClick={props.onClick}
-      style={props.style}
     >
       {props.children}
     </StyledButton>
@@ -91,11 +91,16 @@ Button.propTypes = {
   id: PropTypes.string,
   style: PropTypes.object,
   className: PropTypes.string,
-  type: PropTypes.string.isRequired,
+  buttonType: PropTypes.string,
+  type: PropTypes.string,
   disabled: PropTypes.bool,
   /** Text or icon to go inside the button */
   children: PropTypes.any,
   onClick: PropTypes.func,
+};
+
+Button.defaultProps = {
+  buttonType: 'secondary',
 };
 
 export default Button;

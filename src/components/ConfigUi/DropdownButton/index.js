@@ -26,7 +26,7 @@ function DropdownButton(props) {
     <Button
       id={props.id}
       className={props.className}
-      type={props.type}
+      buttonType={props.type}
       disabled={props.disabled}
       onClick={props.onClick}
     >
@@ -39,7 +39,7 @@ function DropdownButton(props) {
 DropdownButton.propTypes = {
   id: PropTypes.string,
   className: PropTypes.string,
-  type: PropTypes.string.isRequired,
+  type: PropTypes.string,
   disabled: PropTypes.bool,
   /** Text or icon to go inside the button */
   children: PropTypes.any,

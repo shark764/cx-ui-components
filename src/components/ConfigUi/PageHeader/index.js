@@ -60,6 +60,7 @@ function PageHeader(props) {
               name="question-circle"
               alt="help"
               title="question-circle"
+              size={20}
             />
           </Link>
         )}

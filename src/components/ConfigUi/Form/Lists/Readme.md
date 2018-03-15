@@ -3,13 +3,11 @@ const Store = require('../../../../utils/store');
 const { reduxForm } = require('redux-form/immutable');
 const ListsFormContainer = reduxForm({
   form: 'lists',
-  onSubmit: values =>
-    window.alert(`You submitted:\n\n${JSON.stringify(values, null, 2)}`),
 })(ListsForm);
 
 <Store>
   <ListsFormContainer
-    onSubmit={values => alert(JSON.stringify(values, null, 2))}
+    onSubmit={values => alert(`You submitted:\n\n${JSON.stringify(values, null, 2)}`)}
     listTypes={[
       {
         label: 'Disposition Codes Type',

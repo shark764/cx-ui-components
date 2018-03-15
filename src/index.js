@@ -23,6 +23,9 @@ export { default as EntityTable } from './components/ConfigUi/EntityTable';
 export {
   default as FontAwesomeIcon,
 } from './components/ConfigUi/FontAwesomeIcon';
+export {
+  default as Modal,
+} from './components/ConfigUi/Modal';
 export { default as PageHeader } from './components/ConfigUi/PageHeader';
 export { default as SearchBox } from './components/ConfigUi/SearchBox';
 export {
@@ -43,6 +46,7 @@ export {
 
 // Forms
 export { default as ListsForm } from './components/ConfigUi/Form/Lists';
+export { default as ListItemsForm } from './components/ConfigUi/Form/ListItems';
 
 // SVGs
 export { default as HangUpIconSVG } from './components/SVGs/HangUpIconSVG';

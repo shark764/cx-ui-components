@@ -3,7 +3,9 @@ VoiceIconSVG example:
 ```js
 const StyleGuideSpacerDiv = require('../../../utils/StyleGuideSpacer.js');
 <div>
-  <VoiceIconSVG type="default" color="white" />
+  <div style={{ backgroundColor: 'black', width: 16 }}>
+    <VoiceIconSVG type="default" color="white" />
+  </div>
   <StyleGuideSpacerDiv />
   <VoiceIconSVG type="callback" color="blue" />
   <StyleGuideSpacerDiv />

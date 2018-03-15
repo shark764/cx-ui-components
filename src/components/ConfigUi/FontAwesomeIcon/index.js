@@ -15,7 +15,7 @@ import PropTypes from 'prop-types';
 import 'font-awesome/css/font-awesome.css';
 
 const Icon = styled.i`
-  ${props => `font-size: ${props.size}px !important;`};
+  ${props => props.size && `font-size: ${props.size}px !important;`};
 `;
 
 function FontAwesomeIcon(props) {
@@ -41,10 +41,6 @@ FontAwesomeIcon.propTypes = {
   alt: PropTypes.string,
   title: PropTypes.string,
   onClick: PropTypes.func,
-};
-
-FontAwesomeIcon.defaultProps = {
-  size: 20,
 };
 
 export default FontAwesomeIcon;
