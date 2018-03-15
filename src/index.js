@@ -55,6 +55,7 @@ export { default as OnPstnCallSVG } from './components/SVGs/OnPstnCallSVG';
 export { default as UnMutedIconSVG } from './components/SVGs/UnMutedIconSVG';
 export { default as CaretIconSVG } from './components/SVGs/CaretIconSVG';
 export { default as VoiceIconSVG } from './components/SVGs/VoiceIconSVG';
+export { default as LoadingSpinnerSVG } from './components/SVGs/LoadingSpinnerSVG';
 
 // Constants
 export { defaultTheme } from './constants';
