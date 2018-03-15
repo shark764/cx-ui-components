@@ -18,6 +18,7 @@ import 'react-table/react-table.css';
 import Button from '../Button';
 import PageHeader from '../PageHeader';
 import SearchBox from '../SearchBox';
+import LoadingSpinner from '../../SVGs/LoadingSpinnerSVG';
 
 import { importantCss } from '../../../utils';
 
@@ -104,6 +105,7 @@ function EntityTable(props) {
 
       <Table
         data={props.items}
+        noDataText={props.items? "No results found" : <LoadingSpinner size={60}/>}
         columns={props.columns}
         defaultPageSize={20}
         className="EntityTable"
