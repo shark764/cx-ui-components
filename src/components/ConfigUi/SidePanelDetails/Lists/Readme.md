@@ -36,6 +36,10 @@ const fields = [
     label: 'Description',
     required: true,
   },
+  {
+    name: 'subEntityActions',
+    label: 'Actions'
+  }
 ];
 
 <ListsDetailsPanel
@@ -44,6 +48,7 @@ const fields = [
   tableItems={items}
   tableFields={fields}
   openCreateListItemModal={() => alert('openCreateListItemModal')}
+  updateSubEntity={() => alert('updateSubEntity')}
 >
   ListsForm goes here
 </ListsDetailsPanel>;

@@ -68,8 +68,9 @@ const Warning = styled.span`
   color: orange;
 `;
 
-const renderField = ({
+const RenderField = ({
   input,
+  inputType,
   label,
   componentType,
   type,
@@ -92,6 +93,12 @@ const renderField = ({
       <Textarea {...input} disabled={disabled} hasError={touched && !!error} />
     );
   } else if (componentType === 'select') {
+    if (inputType === 'boolean' && !options) {
+      options = [
+        {label : 'True', value: true},
+        {label : 'False', value: false}
+      ];
+    }
     inputElement = (
       <Select {...input} disabled={disabled} hasError={touched && !!error}>
         {options ? (
@@ -122,15 +129,39 @@ const renderField = ({
   );
 };
 
+const parseNumber = (value) => {
+  if (value && value.trim() !== '' && !isNaN(value) && value[value.length - 1] !== '.') {
+    return parseFloat(value);
+  } else if (value === '') {
+    return undefined
+  } else {
+    return value;
+  }
+};
+
+const parseBoolean = (value) => {
+  if (value !== undefined && value !== '') {
+    return value === 'true';
+  } else {
+    return undefined;
+  }
+}
+
 export default function Field(props) {
-  return <ReduxFormField {...props} component={renderField} />;
+  if (props.inputType === 'number') {
+    return <ReduxFormField {...props} component={RenderField} parse={parseNumber} />;
+  } else if (props.inputType === 'boolean') {
+    return <ReduxFormField {...props} component={RenderField} parse={parseBoolean} />;
+  } else {
+    return <ReduxFormField {...props} component={RenderField} />;
+  }
 }
 
 Field.propTypes = {
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   componentType: PropTypes.oneOf(['input', 'textarea', 'select']),
-  inputType: PropTypes.oneOf(['text', 'number']),
+  inputType: PropTypes.oneOf(['text', 'number', 'boolean']),
   options: PropTypes.arrayOf(
     PropTypes.shape({
       value: PropTypes.oneOfType([
@@ -141,6 +172,27 @@ Field.propTypes = {
       label: PropTypes.string,
     })
   ),
+  disabled: PropTypes.bool,
+};
+
+RenderField.propTypes = {
+  input: PropTypes.object.isRequired,
+  label: PropTypes.string.isRequired,
+  componentType: PropTypes.oneOf(['input', 'textarea', 'select']),
+  inputType: PropTypes.oneOf(['text', 'number', 'boolean']),
+  type: PropTypes.string,
+  options: PropTypes.arrayOf(
+    PropTypes.shape({
+      value: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number,
+        PropTypes.bool,
+      ]).isRequired,
+      label: PropTypes.string,
+    })
+  ),
+  disabled: PropTypes.bool,
+  meta: PropTypes.object,
 };
 
 Field.defaultProps = {
