@@ -42,3 +42,6 @@ bright blue: rgb(35, 205, 244)
 
 Foreground:
 Border:
+
+Toggles:
+toggle on: #54B84F

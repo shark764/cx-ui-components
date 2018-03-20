@@ -28,6 +28,10 @@ import { importantCss } from '../../../utils';
 injectGlobal`${importantCss(`
   .ReactTable {
     overflow-y: auto;
+
+    .rt-resizer {
+      right: 0;
+    }
   }
 
   .EntityTable .rt-thead .rt-th {
@@ -41,6 +45,8 @@ injectGlobal`${importantCss(`
 
   .EntityTable .rt-tbody .rt-tr-group {
     border: none;
+    height: 45px;
+    max-height: 45px;
 
     &:hover {
       background-color: #e6f5ff;
@@ -108,7 +114,7 @@ function EntityTable(props) {
         noDataText={props.items? "No results found" : <LoadingSpinner size={60}/>}
         columns={props.columns}
         defaultPageSize={20}
-        className="EntityTable"
+        className="-striped EntityTable"
         getTrProps={(state, rowInfo) => {
           return {
             onClick: () => {

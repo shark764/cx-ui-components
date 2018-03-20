@@ -36,7 +36,7 @@ const Slider = styled.span`
   border-radius: 34px;
 
   ${Switch}:checked + & {
-    background-color: #2196f3;
+    background-color: #54B84F;
   }
 
   ${Switch}:focus + & {
