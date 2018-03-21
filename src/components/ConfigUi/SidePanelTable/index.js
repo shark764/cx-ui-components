@@ -62,7 +62,7 @@ function SidePanelTable(props) {
       data={props.items}
       columns={convertFieldsToColumns(props.fields, props.updateSubEntity)}
       defaultPageSize={10}
-      className="SidePanelTable"
+      className="-striped SidePanelTable"
     />
   );
 }

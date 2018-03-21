@@ -40,7 +40,11 @@ export default function ListItemsForm(props) {
             inputType={field.type === 'string' ? 'text' : field.type}
           />
       )}
-      <SidePanelActions onCancel={props.onCancel} isSaving={props.isSaving} />
+      <SidePanelActions
+        onCancel={props.onCancel}
+        isSaving={props.isSaving}
+        pristine={props.pristine}
+      />
     </form>
   );
 }
