@@ -38,6 +38,7 @@ export {
   default as SidePanelTable,
 } from './components/ConfigUi/SidePanelTable';
 export { default as Toggle } from './components/ConfigUi/Toggle';
+export { default as SliderExpander } from './components/ConfigUi/SliderExpander'
 
 // SidePanelDetails
 export {
