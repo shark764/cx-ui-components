@@ -1,6 +1,6 @@
 {
   "name": "cx-ui-components",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "description": "Front end react components for any cx-related projects",
   "main": "lib/library.js",
   "directories": {
