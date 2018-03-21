@@ -38,6 +38,7 @@ const HelpIcon = styled(FontAwesomeIcon)`
   color: ${props => props.theme.accentColor};
   height: 100%;
   vertical-align: middle;
+  margin-bottom: 2px;
   font-size: 20px;
 `;
 
