@@ -60,7 +60,7 @@ function SidePanelTable(props) {
   return (
     <ReactTable
       data={props.items}
-      columns={convertFieldsToColumns(props.fields)}
+      columns={convertFieldsToColumns(props.fields, props.updateSubEntity)}
       defaultPageSize={10}
       className="SidePanelTable"
     />
@@ -73,6 +73,7 @@ SidePanelTable.propTypes = {
   items: PropTypes.array.isRequired,
   /** Must be a javascipt arr for React-table */
   fields: PropTypes.array.isRequired,
+  updateSubEntity: PropTypes.func
 };
 
 export default SidePanelTable;

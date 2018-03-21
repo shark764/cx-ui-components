@@ -17,10 +17,10 @@ import FontAwesomeIcon from '../FontAwesomeIcon';
 
 const Wrapper = styled.div`
   display: grid;
-  grid-template-columns: ${props => (props.hasToggle ? '75px ' : '')}auto 40px;
+  grid-template-columns: ${props => (props.hasToggle ? '75px' : '')} auto ${props => (props.hasToggle ? '40px ' : '')};
   grid-template-rows: ${props => (props.hasCreatedUpdatedAt ? '70px' : '40px')};
   grid-template-areas:
-    "${props => (props.hasToggle ? 'toggle ' : '')}header close";
+    "${props => (props.hasToggle ? 'toggle' : '')} header ${props => (props.hasToggle ? 'close ' : '')}";
 `;
 
 const StyledToggle = styled(Toggle)`
@@ -30,6 +30,7 @@ const StyledToggle = styled(Toggle)`
 
 const HeaderArea = styled.div`
   grid-area: header;
+  overflow: hidden;
 `;
 
 const Header = styled.h1`
@@ -37,6 +38,9 @@ const Header = styled.h1`
   font-size: 28px;
   font-weight: 700;
   margin: 0 0 5px 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;
 
 const SubHeader = styled.h5`
@@ -54,6 +58,7 @@ const LeftArea = styled.div`
 const CloseIcon = styled(FontAwesomeIcon)`
   float: right;
   color: #999999;
+  cursor: pointer;
 
   :hover {
     color: #656565;
@@ -66,6 +71,7 @@ function SidePanelHeader(props) {
       id={props.id}
       className={props.className}
       hasToggle={props.toggleStatus !== undefined}
+      hasClose={props.onClose !== undefined}
       hasCreatedUpdatedAt={props.createdAt || props.updatedAt}
     >
       {props.toggleStatus !== undefined && (
@@ -76,15 +82,16 @@ function SidePanelHeader(props) {
         {props.createdAt && <SubHeader>{props.createdAt}</SubHeader>}
         {props.createdAt && <SubHeader>{props.updatedAt}</SubHeader>}
       </HeaderArea>
-      <LeftArea>
-        <CloseIcon
-          name={'times'}
-          size={2}
-          alt="close menu"
-          title="close"
-          onClick={props.onClose}
-        />
-      </LeftArea>
+      {props.onClose !== undefined &&
+        <LeftArea>
+          <CloseIcon
+            name={'times'}
+            size={20}
+            alt="close menu"
+            title="close"
+            onClick={props.onClose}
+          />
+        </LeftArea>}
     </Wrapper>
   );
 }

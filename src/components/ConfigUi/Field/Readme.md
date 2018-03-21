@@ -26,6 +26,12 @@ const Form = require('../../../utils/reduxForm');
       label="Select loading options"
       componentType="select"
     />
+    <Field
+      name="boolean"
+      label="Boolean"
+      componentType="select"
+      inputType="boolean"
+    />
   </Form>
-</Store>;
+</Store>
 ```

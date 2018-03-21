@@ -17,7 +17,9 @@ import SidePanelHeader from '../../SidePanelHeader';
 export default function ListItemsForm(props) {
   return (
     <form onSubmit={props.handleSubmit}>
-      <SidePanelHeader title={`Creating List Item for ${props.listName}`} />
+      {props.listName ?
+        <SidePanelHeader title={`Creating List Item for ${props.listName}`} /> :
+        <SidePanelHeader title={`Updating List Item: ${props.listItemName}`} />}
       <br/>
       {props.fieldItems.map(field =>
         field.type === 'boolean' ?
@@ -27,10 +29,7 @@ export default function ListItemsForm(props) {
             label={`${field.label}${field.required ? ' *' : ''}`}
             disabled={props.isSaving}
             componentType="select"
-            options={[
-              {label : 'True', value: true},
-              {label : 'False', value: false}
-            ]}
+            inputType="boolean"
           /> :
           <Field
             key={field.name}
@@ -38,7 +37,7 @@ export default function ListItemsForm(props) {
             label={`${field.label}${field.required ? ' *' : ''}`}
             disabled={props.isSaving}
             componentType="input"
-            inputType="text"
+            inputType={field.type === 'string' ? 'text' : field.type}
           />
       )}
       <SidePanelActions onCancel={props.onCancel} isSaving={props.isSaving} />
@@ -47,7 +46,8 @@ export default function ListItemsForm(props) {
 }
 
 ListItemsForm.propTypes = {
-  listName: PropTypes.string.isRequired,
+  listName: PropTypes.string,
+  listItemName: PropTypes.string,
   fieldItems: PropTypes.arrayOf(
     PropTypes.shape({
       type: PropTypes.oneOf(['string', 'number', 'boolean']).isRequired,

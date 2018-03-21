@@ -21,10 +21,19 @@
  *
  */
 
-export default function convertFieldsToColumns(fields) {
+import React from 'react';
+import Button from '../components/ConfigUi/Button';
+
+export default function convertFieldsToColumns(fields, updateSubEntity) {
   return fields.map(field => ({
     id: field.name,
     Header: field.label,
-    accessor: field.name,
+    accessor: d => {
+      if (field.name === 'subEntityActions') {
+        return <Button onClick={() => updateSubEntity(d.key)}>Update</Button>;
+      } else {
+        return d[field.name] !== undefined ? `${d[field.name]}` : ''; // Literal for booleans
+      }
+    }
   }));
 }
