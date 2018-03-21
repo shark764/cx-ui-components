@@ -28,6 +28,7 @@ export default function convertFieldsToColumns(fields, updateSubEntity) {
   return fields.map(field => ({
     id: field.name,
     Header: field.label,
+    filterable: field.name !== 'subEntityActions',
     accessor: d => {
       if (field.name === 'subEntityActions') {
         return <Button onClick={() => updateSubEntity(d.key)}>Update</Button>;

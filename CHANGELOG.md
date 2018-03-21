@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.10.0]
+* CXV1-13113 - Main Table column filters
+* CXV1-13114 - Side Panel Table column filters
+
 ## [0.9.2]
 * CXV1-13106 - Manage disabled state of submit button
 * <no-ticket> - Added striped class to sub-entity table

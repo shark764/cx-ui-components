@@ -12,7 +12,7 @@ const Slider = styled.div.attrs({
   display: inline-block;
   margin-right: -7px;
   width: 15px;
-  z-index: 11;
+  z-index: 2;
   height: 100%;
 `;
 const SliderIcon = styled.div`
