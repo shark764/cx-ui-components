@@ -41,6 +41,11 @@ injectGlobal`${importantCss(`
     font-weight: 600;
     text-align: left;
     border: none;
+
+    :not(.rt-resizable-header) {
+      padding-left: 5px;
+      margin-bottom 5px;
+    }
   }
 
   .EntityTable .rt-tbody .rt-tr-group {
@@ -115,6 +120,12 @@ function EntityTable(props) {
         columns={props.columns}
         defaultPageSize={20}
         className="-striped EntityTable"
+        filterable
+        defaultFilterMethod={(filter, row) =>
+          String(row[filter.id])
+            .toLowerCase()
+            .indexOf(filter.value.toLowerCase()) > -1
+        }
         getTrProps={(state, rowInfo) => {
           return {
             onClick: () => {

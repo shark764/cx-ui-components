@@ -28,6 +28,11 @@ injectGlobal`${importantCss(`
     font-weight: 600;
     text-align: left;
     border: none;
+
+    :not(.rt-resizable-header) {
+      padding-left: 5px;
+      margin-bottom 5px;
+    }
   }
 
   .SidePanelTable .rt-tbody .rt-tr-group {
@@ -63,6 +68,11 @@ function SidePanelTable(props) {
       columns={convertFieldsToColumns(props.fields, props.updateSubEntity)}
       defaultPageSize={10}
       className="-striped SidePanelTable"
+      defaultFilterMethod={(filter, row) =>
+        String(row[filter.id])
+          .toLowerCase()
+          .indexOf(filter.value.toLowerCase()) > -1
+      }
     />
   );
 }
