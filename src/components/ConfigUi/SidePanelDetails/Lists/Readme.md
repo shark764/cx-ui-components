@@ -49,6 +49,7 @@ const fields = [
   tableFields={fields}
   openCreateListItemModal={() => alert('openCreateListItemModal')}
   updateSubEntity={() => alert('updateSubEntity')}
+  deleteSubEntity={() => alert('updateSubEntity')}
 >
   ListsForm goes here
 </ListsDetailsPanel>;
