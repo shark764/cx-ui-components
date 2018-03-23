@@ -21,15 +21,28 @@ function ListsDetailsPanel(props) {
     <div id={props.id} className={props.className}>
       <DetailHeader text="Details" />
       {props.alertMessage && <DetailsPanelAlert text={props.alertMessage} />}
-      {props.children}
-      <Detail label="List Type" value={props.listType} />
-      <DetailHeader text="List Item(s)" onActionButtonClick={props.openCreateListItemModal} />
-      <SidePanelTable items={props.tableItems} fields={props.tableFields} updateSubEntity={props.updateSubEntity} deleteSubEntity={props.deleteSubEntity} />
+      {props.userHasUpdatePermission && props.children}
+      <Detail 
+        label="List Type" value={props.listType} 
+      />
+      <DetailHeader 
+        userHasUpdatePermission={props.userHasUpdatePermission}  
+        text="List Item(s)" 
+        onActionButtonClick={props.openCreateListItemModal} 
+      />
+      <SidePanelTable
+        userHasUpdatePermission={props.userHasUpdatePermission}
+        items={props.tableItems} 
+        fields={props.tableFields} 
+        updateSubEntity={props.updateSubEntity}
+        deleteSubEntity={props.deleteSubEntity}
+      />
     </div>
   );
 }
 
 ListsDetailsPanel.propTypes = {
+  userHasUpdatePermission: PropTypes.bool,
   className: PropTypes.string,
   id: PropTypes.string,
   /** Alert Message will only shown when this prop is used */

@@ -52,6 +52,7 @@ function DetailHeader(props) {
       </Header>
       <LineSpacer />
       {props.onActionButtonClick &&
+        props.userHasUpdatePermission &&
         <ActionButton onClick={props.onActionButtonClick}>
           <FontAwesomeIcon name="plus" />
         </ActionButton>}
@@ -61,6 +62,7 @@ function DetailHeader(props) {
 
 DetailHeader.propTypes = {
   className: PropTypes.string,
+  userHasUpdatePermission: PropTypes.bool,
   id: PropTypes.string,
   text: PropTypes.string.isRequired,
   onActionButtonClick: PropTypes.func,

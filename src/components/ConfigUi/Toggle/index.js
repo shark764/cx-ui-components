@@ -30,6 +30,8 @@ const Slider = styled.span`
   left: 0;
   right: 0;
   bottom: 0;
+  height: 28px;
+  width: 53px;
   background-color: #ccc;
   -webkit-transition: 0.4s;
   transition: 0.4s;
@@ -46,8 +48,8 @@ const Slider = styled.span`
   &:before {
     position: absolute;
     content: '';
-    height: 26px;
-    width: 26px;
+    height: 20px;
+    width: 20px;
     left: 4px;
     bottom: 4px;
     background-color: white;
