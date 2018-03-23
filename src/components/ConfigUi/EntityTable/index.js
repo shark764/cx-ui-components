@@ -66,14 +66,11 @@ injectGlobal`${importantCss(`
   }
 `)}`;
 
-const Wrapper = styled.div`
-  height: 100vh;
+const GridContainer = styled.div`
   display: grid;
-  grid-template-rows: 50px 50px 1fr;
   grid-template-areas:
-    ' header  actions1 '
-    ' search  actions2 '
-    ' table     table  ';
+    'header header'
+    'table  table';
   padding: 20px;
 `;
 
@@ -81,60 +78,48 @@ const Header = styled(PageHeader)`
   grid-area: header;
 `;
 
-const TableSearchBox = styled(SearchBox)`
-  grid-area: search;
-`;
 
-const ActionButtons1 = styled.div`
-  grid-area: actions1;
-  text-align: right;
-`;
-
-const ActionButtons2 = styled.div`
-  grid-area: actions2;
-  text-align: right;
-`;
 
 const Table = styled(ReactTable)`
   grid-area: table;
+  height: ${window.innerHeight - 100}px
 `;
 
 function EntityTable(props) {
   return (
-    <Wrapper id={props.id} className={props.className}>
-      <Header text={props.pageTitle} helpLink={props.pageHelpLink} />
-      <TableSearchBox
-        placeholder="Search"
-        onChange={props.onSearchFilterChange}
-      />
-      <ActionButtons1>
-        <Button buttonType="primary" onClick={props.onCreateButtonClick}>
-          Create
-        </Button>
-      </ActionButtons1>
-      <ActionButtons2 />
 
-      <Table
-        data={props.items}
-        noDataText={props.items? "No results found" : <LoadingSpinner size={60}/>}
-        columns={props.columns}
-        defaultPageSize={20}
-        className="-striped EntityTable"
-        filterable
-        defaultFilterMethod={(filter, row) =>
-          String(row[filter.id])
-            .toLowerCase()
-            .indexOf(filter.value.toLowerCase()) > -1
-        }
-        getTrProps={(state, rowInfo) => {
-          return {
-            onClick: () => {
-              props.onRowClick(rowInfo.original.id);
-            },
-          };
-        }}
-      />
-    </Wrapper>
+      <GridContainer id={props.id} className={props.className}>
+        <Header text={props.pageTitle} helpLink={props.pageHelpLink}>
+          {props.userHasCreatePermission &&
+          <Button 
+            buttonType="primary" 
+            onClick={props.onCreateButtonClick}
+          >
+            Create
+          </Button>}
+        </Header>
+
+        <Table
+          data={props.items}
+          noDataText={props.items? "No results found" : <LoadingSpinner size={60}/>}
+          columns={props.columns}
+          defaultPageSize={20}
+          className="-striped EntityTable"
+          filterable
+          defaultFilterMethod={(filter, row) =>
+            String(row[filter.id])
+              .toLowerCase()
+              .indexOf(filter.value.toLowerCase()) > -1
+          }
+          getTrProps={(state, rowInfo) => {
+            return {
+              onClick: () => {
+                props.onRowClick(rowInfo.original.id);
+              },
+            };
+          }}
+        />
+      </GridContainer>
   );
 }
 

@@ -16,21 +16,16 @@ import Toggle from '../Toggle';
 import FontAwesomeIcon from '../FontAwesomeIcon';
 
 const Wrapper = styled.div`
-  display: grid;
-  grid-template-columns: ${props => (props.hasToggle ? '75px' : '')} auto ${props => (props.hasToggle ? '40px ' : '')};
-  grid-template-rows: ${props => (props.hasCreatedUpdatedAt ? '70px' : '40px')};
-  grid-template-areas:
-    "${props => (props.hasToggle ? 'toggle' : '')} header ${props => (props.hasToggle ? 'close ' : '')}";
+  display: flex;
 `;
 
 const StyledToggle = styled(Toggle)`
-  grid-area: toggle;
-  margin-top: 15px;
+  margin: 9px 9px 0px 0px;
 `;
 
 const HeaderArea = styled.div`
-  grid-area: header;
-  overflow: hidden;
+  margin-bottom: 5px;
+  height: 100px;
 `;
 
 const Header = styled.h1`
@@ -45,21 +40,19 @@ const Header = styled.h1`
 
 const SubHeader = styled.h5`
   font-family: Arial, Helvetica, sans-serif;
-  grid-area: header;
   color: #999999;
   font-size: 10px;
   padding-bottom: 4px;
 `;
 
-const LeftArea = styled.div`
-  grid-area: close;
-`;
+
 
 const CloseIcon = styled(FontAwesomeIcon)`
-  float: right;
+  margin-top: 5px;
   color: #999999;
   cursor: pointer;
-
+  position: absolute;
+  right: 10px;
   :hover {
     color: #656565;
   }
@@ -70,11 +63,13 @@ function SidePanelHeader(props) {
     <Wrapper
       id={props.id}
       className={props.className}
-      hasToggle={props.toggleStatus !== undefined}
+      hasToggle={props.userHasUpdatePermission}
       hasClose={props.onClose !== undefined}
       hasCreatedUpdatedAt={props.createdAt || props.updatedAt}
     >
-      {props.toggleStatus !== undefined && (
+      {props.toggleStatus !== undefined &&
+      props.userHasUpdatePermission &&
+      (
         <StyledToggle value={props.toggleStatus} onChange={props.onToggle} />
       )}
       <HeaderArea>
@@ -83,20 +78,20 @@ function SidePanelHeader(props) {
         {props.createdAt && <SubHeader>{props.updatedAt}</SubHeader>}
       </HeaderArea>
       {props.onClose !== undefined &&
-        <LeftArea>
           <CloseIcon
             name={'times'}
-            size={20}
+            size={25}
             alt="close menu"
             title="close"
             onClick={props.onClose}
           />
-        </LeftArea>}
+      }
     </Wrapper>
   );
 }
 
 SidePanelHeader.propTypes = {
+  userHasUpdatePermission: PropTypes.bool,
   className: PropTypes.string,
   id: PropTypes.string,
   title: PropTypes.string,

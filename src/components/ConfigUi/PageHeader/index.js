@@ -16,10 +16,10 @@ import FontAwesomeIcon from '../FontAwesomeIcon';
 
 const Wrapper = styled.div`
   width: 100%;
-  padding: 20px;
   display: inline-flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 20px;
 `;
 
 const Header = styled.h2`

@@ -14,7 +14,9 @@ import styled from 'styled-components';
 
 import Button from '../Button';
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+padding-right: 50px;
+`;
 
 const SlimButton = styled(Button)`
   max-width: 200px;
@@ -27,7 +29,7 @@ const SlimButton = styled(Button)`
 
 function SidePanelActions(props) {
   return (
-    <Wrapper id={props.id} className={props.className}>
+      <Wrapper id={props.id} className={props.className}>
       <SlimButton
         type="submit"
         buttonType="primary"
