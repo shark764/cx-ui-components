@@ -80,6 +80,7 @@ function Button(props) {
       buttonType={props.buttonType}
       type={props.type}
       disabled={props.disabled}
+      title={props.title}
       onClick={props.onClick}
     >
       {props.children}
@@ -94,6 +95,7 @@ Button.propTypes = {
   buttonType: PropTypes.string,
   type: PropTypes.string,
   disabled: PropTypes.bool,
+  title: PropTypes.string,
   /** Text or icon to go inside the button */
   children: PropTypes.any,
   onClick: PropTypes.func,

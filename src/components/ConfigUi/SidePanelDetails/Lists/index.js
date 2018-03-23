@@ -24,7 +24,7 @@ function ListsDetailsPanel(props) {
       {props.children}
       <Detail label="List Type" value={props.listType} />
       <DetailHeader text="List Item(s)" onActionButtonClick={props.openCreateListItemModal} />
-      <SidePanelTable items={props.tableItems} fields={props.tableFields} updateSubEntity={props.updateSubEntity} />
+      <SidePanelTable items={props.tableItems} fields={props.tableFields} updateSubEntity={props.updateSubEntity} deleteSubEntity={props.deleteSubEntity} />
     </div>
   );
 }
@@ -40,6 +40,7 @@ ListsDetailsPanel.propTypes = {
   tableFields: PropTypes.array.isRequired,
   openCreateListItemModal: PropTypes.func.isRequired,
   updateSubEntity: PropTypes.func.isRequired,
+  deleteSubEntity: PropTypes.func.isRequired,
 };
 
 export default ListsDetailsPanel;
