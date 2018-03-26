@@ -15,6 +15,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { injectGlobal, ThemeProvider } from 'styled-components';
 
 import { defaultTheme } from './';
@@ -34,19 +35,31 @@ injectGlobal`
 `;
 
 class RootStyles extends React.Component {
+
+  componentWillMount() {
+    if (this.props.fetchStyles) {
+      this.props.fetchStyles();
+    }
+  }
+
   render() {
     let theme = defaultTheme;
 
-    if (this.props.theme) {
-      Object.keys(this.props.theme).forEach(function(key) {
+    if (this.props.theme.size > 0) {
+      this.props.theme.keySeq().forEach((key) => {
         if (theme[key]) {
-          theme[key] = this.props.theme[key];
+          theme[key] = this.props.theme.get(key);
         }
       });
     }
 
-    return <ThemeProvider theme={theme}>{this.props.children}</ThemeProvider>;
+    return <ThemeProvider key={JSON.stringify(theme)} theme={theme}>{this.props.children}</ThemeProvider>;
   }
 }
+
+RootStyles.propTypes = {
+  theme: PropTypes.object,
+  fetchStyles: PropTypes.func,
+};
 
 export default RootStyles;

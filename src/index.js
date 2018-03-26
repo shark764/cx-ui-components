@@ -37,6 +37,7 @@ export {
 export {
   default as SidePanelTable,
 } from './components/ConfigUi/SidePanelTable';
+export { default as Toast } from './components/ConfigUi/Toast';
 export { default as Toggle } from './components/ConfigUi/Toggle';
 export { default as SliderExpander } from './components/ConfigUi/SliderExpander'
 
