@@ -24,6 +24,7 @@ const FieldWrapper = styled.div`
 const Label = styled.label`
   display: inline-block;
   width: 150px;
+  margin-top: 5px;
 `;
 
 const InputWrapper = styled.div`

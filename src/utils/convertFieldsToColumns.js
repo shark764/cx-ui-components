@@ -22,19 +22,12 @@
  */
 
 import React from 'react';
-import SidePanelTableActions from '../components/ConfigUi/SidePanelTableActions';
 
-export default function convertFieldsToColumns(fields, updateSubEntity, deleteSubEntity, userHasUpdatePermission) {
+export default function convertFieldsToColumns(fields) {
   return fields.map(field => ({
     id: field.name,
     Header: field.label,
     filterable: field.name !== 'subEntityActions',
-    accessor: d => {
-      if (field.name === 'subEntityActions') {
-        return userHasUpdatePermission && <SidePanelTableActions row={d} updateSubEntity={updateSubEntity} deleteSubEntity={deleteSubEntity} />;
-      } else {
-        return d[field.name] !== undefined ? `${d[field.name]}` : ''; // Literal for booleans
-      }
-    }
+    accessor: d => d[field.name] !== undefined ? `${d[field.name]}` : '' // Literal for booleans
   }));
 }

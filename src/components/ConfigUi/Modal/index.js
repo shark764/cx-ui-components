@@ -12,13 +12,13 @@ const GrayClickMask = styled(ClickMask)`
 const ModalWrapper = styled.div`
   position: fixed;
   top: 10%;
-  left: 10%;
-  width: 80%;
+  left: 25%;
+  width: 50%;
   max-height: 80%;
   background-color: white;
   border: 1px solid #cccccc;
   border-radius: 4px;
-  padding: 20px;
+  padding: 40px;
   z-index: 3;
   overflow: auto;
 `;
