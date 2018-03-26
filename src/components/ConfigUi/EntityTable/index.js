@@ -50,8 +50,8 @@ injectGlobal`${importantCss(`
 
   .EntityTable .rt-tbody .rt-tr-group {
     border: none;
-    height: 45px;
-    max-height: 45px;
+    height: 40px;
+    max-height: 40px;
 
     &:hover {
       background-color: #e6f5ff;
@@ -63,6 +63,7 @@ injectGlobal`${importantCss(`
     font-size: 14px;
     text-align: left;
     border: none;
+    color: #483737;
   }
 `)}`;
 
@@ -82,7 +83,7 @@ const Header = styled(PageHeader)`
 
 const Table = styled(ReactTable)`
   grid-area: table;
-  height: ${window.innerHeight - 100}px
+  height: 88vh;
 `;
 
 function EntityTable(props) {

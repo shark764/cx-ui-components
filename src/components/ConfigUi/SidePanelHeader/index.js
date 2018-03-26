@@ -36,6 +36,7 @@ const Header = styled.h1`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  max-width: 400px;
 `;
 
 const SubHeader = styled.h5`

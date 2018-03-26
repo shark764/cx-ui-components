@@ -15,6 +15,7 @@ import { injectGlobal } from 'styled-components';
 import ReactTable from 'react-table';
 import 'react-table/react-table.css';
 
+import SidePanelTableActions from '../SidePanelTableActions';
 import { importantCss, convertFieldsToColumns } from '../../../utils';
 
 // React-Table does not integrate well with Styled components
@@ -65,7 +66,18 @@ function SidePanelTable(props) {
   return (
     <ReactTable
       data={props.items}
-      columns={convertFieldsToColumns(props.fields, props.updateSubEntity, props.deleteSubEntity, props.userHasUpdatePermission)}
+      columns={[
+          ...convertFieldsToColumns(props.fields),
+          {
+            id: 'actions',
+            Header: 'Actions',
+            filterable: false,
+            sortable: false,
+            accessor: d => <SidePanelTableActions row={d} updateSubEntity={props.updateSubEntity} deleteSubEntity={props.deleteSubEntity} />,
+            width: 90,
+            show: props.userHasUpdatePermission && !props.listIsInherited
+          }
+      ]}
       defaultPageSize={10}
       className="-striped SidePanelTable"
       defaultFilterMethod={(filter, row) =>
@@ -79,6 +91,7 @@ function SidePanelTable(props) {
 
 SidePanelTable.propTypes = {
   userHasUpdatePermission: PropTypes.bool,
+  listIsInherited: PropTypes.bool,
   id: PropTypes.string,
   /** Must be a javascipt arr for React-table */
   items: PropTypes.array.isRequired,

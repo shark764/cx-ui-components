@@ -8,19 +8,47 @@
  *
  */
 
-import React from 'react';
+import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
 import Field from '../../Field';
+import styled from 'styled-components';
 import SidePanelActions from '../../SidePanelActions';
-import SidePanelHeader from '../../SidePanelHeader';
+
+const Header = styled.h3`
+  font-size: 28px;
+  margin-bottom: 30px;
+  color: #474747;
+  font-weight: 700;
+  display: inline-block;
+`;
+const Item = styled.h3`
+  color: #474747;
+  font-size: 28px;
+  max-width: 60%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: inline-block;
+  font-weight: initial;
+  margin-left: 30px;
+  margin-bottom: -7px;
+  padding-right: 10px;
+`;
+
+const Wrapper = styled.div`
+  max-height: 50vh;
+  overflow: auto;
+  margin-bottom: 10px;
+`;
 
 export default function ListItemsForm(props) {
   return (
     <form onSubmit={props.handleSubmit}>
-      {props.listName ?
-        <SidePanelHeader title={`Creating List Item for ${props.listName}`} /> :
-        <SidePanelHeader title={`Updating List Item: ${props.listItemName}`} />}
-      <br/>
+      {props.listName?
+        <Fragment><Header>Creating list item for : </Header><Item>{props.listName}</Item></Fragment> :
+        <Fragment><Header>Updating list item : </Header><Item>{props.listItemName}</Item></Fragment>
+      }
+      <Wrapper>
       {props.fieldItems.map(field =>
         field.type === 'boolean' ?
           <Field
@@ -40,6 +68,7 @@ export default function ListItemsForm(props) {
             inputType={field.type === 'string' ? 'text' : field.type}
           />
       )}
+      </Wrapper>
       <SidePanelActions
         onCancel={props.onCancel}
         isSaving={props.isSaving}
