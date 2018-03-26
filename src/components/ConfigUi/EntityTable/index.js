@@ -46,6 +46,14 @@ injectGlobal`${importantCss(`
       padding-left: 5px;
       margin-bottom 5px;
     }
+
+    .rt-resizable-header {
+      min-width: 60px;
+    }
+  }
+
+  .EntityTable abbr {
+    text-decoration: none;
   }
 
   .EntityTable .rt-tbody .rt-tr-group {
@@ -92,8 +100,8 @@ function EntityTable(props) {
       <GridContainer id={props.id} className={props.className}>
         <Header text={props.pageTitle} helpLink={props.pageHelpLink}>
           {props.userHasCreatePermission &&
-          <Button 
-            buttonType="primary" 
+          <Button
+            buttonType="primary"
             onClick={props.onCreateButtonClick}
           >
             Create

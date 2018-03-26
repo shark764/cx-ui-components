@@ -14,13 +14,13 @@ import Field from '../../Field';
 
 export default function ListsForm(props) {
   return (
-    <form onSubmit={props.handleSubmit}> 
+    <form onSubmit={props.handleSubmit}>
       <Field
         name="name"
         label="Name *"
         componentType="input"
         inputType="text"
-        disabled={props.isSaving}
+        disabled={props.isSaving || props.inherited}
       />
       {!props.update && (
         <Field
@@ -45,6 +45,7 @@ ListsForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   update: PropTypes.bool,
   isSaving: PropTypes.bool,
+  inherited: PropTypes.bool,
 };
 
 ListsForm.defaultProps = {

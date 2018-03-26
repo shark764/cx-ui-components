@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.15.0]
+* CXV1-13099 - More Inherited entity behaviour and more minor css things
+
 ## [0.14.0]
 * CXV1-13099 - Inherited entity behaviour and minor css things
 

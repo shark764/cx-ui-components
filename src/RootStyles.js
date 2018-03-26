@@ -45,7 +45,7 @@ class RootStyles extends React.Component {
   render() {
     let theme = defaultTheme;
 
-    if (this.props.theme.size > 0) {
+    if (this.props.theme && this.props.theme.size > 0) {
       this.props.theme.keySeq().forEach((key) => {
         if (theme[key]) {
           theme[key] = this.props.theme.get(key);
