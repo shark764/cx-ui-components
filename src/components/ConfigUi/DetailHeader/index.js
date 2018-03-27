@@ -53,9 +53,10 @@ function DetailHeader(props) {
       <LineSpacer />
       {props.onActionButtonClick &&
         props.userHasUpdatePermission &&
-        <ActionButton onClick={props.onActionButtonClick}>
-          <FontAwesomeIcon name="plus" />
-        </ActionButton>}
+         !props.inherited &&
+         <ActionButton onClick={props.onActionButtonClick}>
+           <FontAwesomeIcon name="plus" />
+         </ActionButton>}
     </Wrapper>
   );
 }
@@ -66,6 +67,7 @@ DetailHeader.propTypes = {
   id: PropTypes.string,
   text: PropTypes.string.isRequired,
   onActionButtonClick: PropTypes.func,
+  inherited: PropTypes.bool,
 };
 
 export default DetailHeader;

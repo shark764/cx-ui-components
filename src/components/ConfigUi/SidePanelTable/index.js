@@ -38,10 +38,16 @@ injectGlobal`${importantCss(`
 
   .SidePanelTable .rt-tbody .rt-tr-group {
     border: none;
+    height: 55px;
+    max-height: 55px;
 
     &:hover {
       background-color: #e6f5ff;
     }
+  }
+
+  .SidePanelTable abbr {
+    text-decoration: none;
   }
 
   .SidePanelTable .rt-tbody .rt-td {

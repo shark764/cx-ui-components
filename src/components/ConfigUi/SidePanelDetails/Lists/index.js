@@ -22,18 +22,19 @@ function ListsDetailsPanel(props) {
       <DetailHeader text="Details" />
       {props.alertMessage && <DetailsPanelAlert text={props.alertMessage} />}
       {props.userHasUpdatePermission && props.children}
-      <Detail 
-        label="List Type" value={props.listType} 
+      <Detail
+        label="List Type" value={props.listType}
       />
-      <DetailHeader 
-        userHasUpdatePermission={props.userHasUpdatePermission}  
-        text="List Item(s)" 
-        onActionButtonClick={props.openCreateListItemModal} 
+      <DetailHeader
+        userHasUpdatePermission={props.userHasUpdatePermission}
+        text="List Item(s)"
+        onActionButtonClick={props.openCreateListItemModal}
+        inherited={props.inherited}
       />
       <SidePanelTable
         userHasUpdatePermission={props.userHasUpdatePermission}
-        items={props.tableItems} 
-        fields={props.tableFields} 
+        items={props.tableItems}
+        fields={props.tableFields}
         updateSubEntity={props.updateSubEntity}
         deleteSubEntity={props.deleteSubEntity}
         listIsInherited={props.listIsInherited}
@@ -56,6 +57,7 @@ ListsDetailsPanel.propTypes = {
   openCreateListItemModal: PropTypes.func.isRequired,
   updateSubEntity: PropTypes.func.isRequired,
   deleteSubEntity: PropTypes.func.isRequired,
+  inherited: PropTypes.bool,
 };
 
 export default ListsDetailsPanel;

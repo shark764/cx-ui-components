@@ -39,6 +39,7 @@ const Input = styled.input`
   border: 1px solid;
   border-color: ${props => (props.hasError ? 'red' : 'transparent')};
   background-color: ${props => (props.disabled ? '#efefef' : 'inherit')};
+  cursor: ${props => (props.disabled ? 'not-allowed' : 'pointer')};
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2) inset,
     0 -1px 0 rgba(0, 0, 0, 0.05) inset;
 

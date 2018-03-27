@@ -71,10 +71,10 @@ function SidePanelHeader(props) {
       {props.toggleStatus !== undefined &&
       props.userHasUpdatePermission &&
       (
-        <StyledToggle value={props.toggleStatus} onChange={props.onToggle} />
+        <StyledToggle value={props.toggleStatus} onChange={props.onToggle} inherited={props.inherited}/>
       )}
       <HeaderArea>
-        <Header>{props.title}</Header>
+        <Header title={props.title}>{props.title}</Header>
         {props.createdAt && <SubHeader>{props.createdAt}</SubHeader>}
         {props.createdAt && <SubHeader>{props.updatedAt}</SubHeader>}
       </HeaderArea>
@@ -101,6 +101,7 @@ SidePanelHeader.propTypes = {
   toggleStatus: PropTypes.bool,
   onToggle: PropTypes.func,
   onClose: PropTypes.func,
+  inherited: PropTypes.bool,
 };
 
 export default SidePanelHeader;

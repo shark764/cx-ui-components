@@ -11,6 +11,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { colors } from '../../../constants';
 
 const StyledLabel = styled.label`
   position: relative;
@@ -25,7 +26,7 @@ const Switch = styled.input`
 
 const Slider = styled.span`
   position: absolute;
-  cursor: ${props => (props.disabled ? 'not-allowed' : 'pointer')};
+  cursor: ${props => (props.disabled ||  props.inherited) ? 'not-allowed' : 'pointer'};
   top: 0;
   left: 0;
   right: 0;
@@ -38,7 +39,7 @@ const Slider = styled.span`
   border-radius: 34px;
 
   ${Switch}:checked + & {
-    background-color: #54B84F;
+    background-color: ${props => (props.disabled || props.inherited) ? colors.toggleCheckedDisabled : colors.toggleChecked};
   }
 
   ${Switch}:focus + & {
@@ -72,8 +73,9 @@ function Toggle(props) {
         checked={props.value}
         onChange={props.onChange}
         disabled={props.disabled}
+        inherited={props.inherited}
       />
-      <Slider class="slider round" disabled={props.disabled} />
+      <Slider class="slider round" disabled={props.disabled || props.inherited} />
     </StyledLabel>
   );
 }
@@ -84,6 +86,7 @@ Toggle.propTypes = {
   value: PropTypes.bool,
   onChange: PropTypes.func,
   disabled: PropTypes.bool,
+  inherited: PropTypes.bool,
 };
 
 export default Toggle;

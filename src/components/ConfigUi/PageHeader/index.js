@@ -16,6 +16,7 @@ import FontAwesomeIcon from '../FontAwesomeIcon';
 
 const Wrapper = styled.div`
   width: 100%;
+  padding: 20px 20px 20px 0px;
   display: inline-flex;
   justify-content: space-between;
   align-items: center;

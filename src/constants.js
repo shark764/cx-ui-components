@@ -18,4 +18,6 @@ export const colors = {
   black: '#000',
   white: '#FFFFFF',
   skylightBlue: '#23cdf4',
+  toggleChecked: '#54B84F',
+  toggleCheckedDisabled: '#b7e3b3',
 };
