@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.16.0]
+* CXV1-13325 - Added global confirmation modal
+
 ## [0.15.7]
 * CXV1-13321 - Fixed table filters / cell values
 
