@@ -37,7 +37,7 @@ function ListsDetailsPanel(props) {
         fields={props.tableFields}
         updateSubEntity={props.updateSubEntity}
         deleteSubEntity={props.deleteSubEntity}
-        listIsInherited={props.listIsInherited}
+        inherited={props.inherited}
       />
     </div>
   );
@@ -45,7 +45,6 @@ function ListsDetailsPanel(props) {
 
 ListsDetailsPanel.propTypes = {
   userHasUpdatePermission: PropTypes.bool,
-  listIsInherited: PropTypes.bool,
   className: PropTypes.string,
   id: PropTypes.string,
   /** Alert Message will only shown when this prop is used */

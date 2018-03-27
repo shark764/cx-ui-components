@@ -81,7 +81,7 @@ function SidePanelTable(props) {
             sortable: false,
             accessor: d => <SidePanelTableActions row={d} updateSubEntity={props.updateSubEntity} deleteSubEntity={props.deleteSubEntity} />,
             width: 90,
-            show: props.userHasUpdatePermission && !props.listIsInherited
+            show: props.userHasUpdatePermission && !props.inherited
           }
       ]}
       defaultPageSize={10}
@@ -97,7 +97,7 @@ function SidePanelTable(props) {
 
 SidePanelTable.propTypes = {
   userHasUpdatePermission: PropTypes.bool,
-  listIsInherited: PropTypes.bool,
+  inherited: PropTypes.bool,
   id: PropTypes.string,
   /** Must be a javascipt arr for React-table */
   items: PropTypes.array.isRequired,
