@@ -16,7 +16,7 @@ import FontAwesomeIcon from '../FontAwesomeIcon';
 
 const Wrapper = styled.div`
   width: 100%;
-  padding: 20px 20px 20px 0px;
+  padding: 5px 0;
   display: inline-flex;
   justify-content: space-between;
   align-items: center;
@@ -38,8 +38,6 @@ const Link = styled.a`
 const HelpIcon = styled(FontAwesomeIcon)`
   color: ${props => props.theme.accentColor};
   height: 100%;
-  vertical-align: middle;
-  margin-bottom: 2px;
   font-size: 20px;
 `;
 

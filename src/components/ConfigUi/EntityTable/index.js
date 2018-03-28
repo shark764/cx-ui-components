@@ -41,6 +41,7 @@ injectGlobal`${importantCss(`
     font-weight: 600;
     text-align: left;
     border: none;
+    min-width: 100px;
 
     :not(.rt-resizable-header) {
       padding-left: 5px;
@@ -72,6 +73,7 @@ injectGlobal`${importantCss(`
     text-align: left;
     border: none;
     color: #483737;
+    min-width: 100px;
   }
 `)}`;
 

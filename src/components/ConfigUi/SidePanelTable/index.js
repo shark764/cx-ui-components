@@ -29,6 +29,7 @@ injectGlobal`${importantCss(`
     font-weight: 600;
     text-align: left;
     border: none;
+    min-width: 100px;
 
     :not(.rt-resizable-header) {
       padding-left: 5px;
@@ -55,6 +56,7 @@ injectGlobal`${importantCss(`
     font-size: 14px;
     text-align: left;
     border: none;
+    min-width: 100px;
   }
 
   .SidePanelTable .rt-thead {
