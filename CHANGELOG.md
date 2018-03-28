@@ -2,6 +2,15 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.15.3]
+* CXV1-13400 - Inherited Toggles still firing click event
+* CXV1-13399 - Toggles erroring when clicked
+* CXV1-13377 - Long modal headers break structure
+* CXV1-13364 - Table row number changes cause side panel header to change size
+* CXV1-13325 - Column header minimum sizes
+* CXV1-13321 - Main table cell tooltips
+* CXV1-13400 - Help Icon not inline with table title
+
 ## [0.15.2]
 * <no-ticket> - Form valiadtion fixes
 

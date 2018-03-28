@@ -24,7 +24,7 @@ const Header = styled.h3`
 const Item = styled.h3`
   color: #474747;
   font-size: 28px;
-  max-width: 60%;
+  max-width: 55%;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
