@@ -72,7 +72,7 @@ const Warning = styled.span`
 
 const RenderField = ({
   input,
-  inputType,
+  dataType,
   label,
   componentType,
   type,
@@ -95,7 +95,7 @@ const RenderField = ({
       <Textarea {...input} disabled={disabled} hasError={touched && !!error} />
     );
   } else if (componentType === 'select') {
-    if (inputType === 'boolean' && !options) {
+    if (dataType === 'boolean' && !options) {
       options = [
         {label : 'True', value: true},
         {label : 'False', value: false}
@@ -132,17 +132,17 @@ const RenderField = ({
 };
 
 const parseNumber = (value) => {
-  if (value && value.trim() !== '' && !isNaN(value) && value[value.length - 1] !== '.') {
-    return parseFloat(value);
-  } else if (value === '') {
-    return undefined
-  } else {
+  if (value === '') {
     return value;
+  } else {
+    return parseFloat(value);
   }
 };
 
 const parseBoolean = (value) => {
-  if (value !== undefined && value !== '') {
+  if (value !== undefined && value === '') {
+    return value;
+  } else if(value !== undefined && value !== '') {
     return value === 'true';
   } else {
     return undefined;
@@ -150,12 +150,14 @@ const parseBoolean = (value) => {
 }
 
 export default function Field(props) {
-  if (props.inputType === 'number') {
-    return <ReduxFormField {...props} component={RenderField} parse={parseNumber} />;
-  } else if (props.inputType === 'boolean') {
+  if (props.dataType === 'number') {
+    return <ReduxFormField {...props} component={RenderField} type="number" parse={parseNumber} />;
+  } else if (props.dataType === 'boolean') {
     return <ReduxFormField {...props} component={RenderField} parse={parseBoolean} />;
   } else {
-    return <ReduxFormField {...props} component={RenderField} />;
+    return <ReduxFormField {...props} component={RenderField} parse={(value) => value.replace(/^\s+/g, '')} />;
+    // The above regex prevents user from putting whitespace at the beginning of the input
+    // It also prevents the user from only putting whitespace in the input
   }
 }
 
@@ -163,7 +165,7 @@ Field.propTypes = {
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   componentType: PropTypes.oneOf(['input', 'textarea', 'select']),
-  inputType: PropTypes.oneOf(['text', 'number', 'boolean']),
+  dataType: PropTypes.oneOf(['string', 'number', 'boolean']),
   options: PropTypes.arrayOf(
     PropTypes.shape({
       value: PropTypes.oneOfType([
@@ -181,7 +183,7 @@ RenderField.propTypes = {
   input: PropTypes.object.isRequired,
   label: PropTypes.string.isRequired,
   componentType: PropTypes.oneOf(['input', 'textarea', 'select']),
-  inputType: PropTypes.oneOf(['text', 'number', 'boolean']),
+  dataType: PropTypes.oneOf(['string', 'number', 'boolean']),
   type: PropTypes.string,
   options: PropTypes.arrayOf(
     PropTypes.shape({

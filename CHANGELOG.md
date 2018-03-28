@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.15.2]
+* <no-ticket> - Form valiadtion fixes
+
 ## [0.15.1]
 * <no-ticket> - Fixed duplicated inheritance prop
 

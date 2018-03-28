@@ -28,6 +28,6 @@ export default function convertFieldsToColumns(fields) {
     id: field.name,
     Header: field.label,
     filterable: field.name !== 'subEntityActions',
-    accessor: d => d[field.name] !== undefined ? <abbr title={d[field.name]}>{d[field.name]}</abbr> : '' // Literal for booleans
+    accessor: d => d[field.name] !== undefined && <abbr title={`${d[field.name]}`}>{`${d[field.name]}`}</abbr>
   }));
 }

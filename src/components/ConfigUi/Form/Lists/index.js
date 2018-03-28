@@ -15,22 +15,19 @@ import Field from '../../Field';
 export default function ListsForm(props) {
   return (
     <form onSubmit={props.handleSubmit}>
-      <Field
-        name="name"
-        label="Name *"
-        componentType="input"
-        inputType="text"
-        disabled={props.isSaving || props.inherited}
-      />
-      {!props.update && (
-        <Field
-          name="listTypeId"
-          label="List Type *"
-          componentType="select"
+      <div>
+      {props.fieldItems.map(field =>
+         <Field
+          key={field.name}
+          name={field.name}
+          label={`${field.label}${field.required ? ' *' : ''}`}
+          disabled={props.isSaving || props.inherited}
+          componentType={field.type}
+          dataType={field.dataType}
           options={props.listTypes}
-          disabled={props.isSaving}
         />
       )}
+      </div>
     </form>
   );
 }
@@ -44,6 +41,7 @@ ListsForm.propTypes = {
   ),
   handleSubmit: PropTypes.func.isRequired,
   update: PropTypes.bool,
+  fieldItems: PropTypes.any,
   isSaving: PropTypes.bool,
   inherited: PropTypes.bool,
 };
