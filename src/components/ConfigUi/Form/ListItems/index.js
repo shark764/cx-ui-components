@@ -57,7 +57,7 @@ export default function ListItemsForm(props) {
             label={`${field.label}${field.required ? ' *' : ''}`}
             disabled={props.isSaving}
             componentType="select"
-            inputType="boolean"
+            dataType="boolean"
           /> :
           <Field
             key={field.name}
@@ -65,7 +65,7 @@ export default function ListItemsForm(props) {
             label={`${field.label}${field.required ? ' *' : ''}`}
             disabled={props.isSaving}
             componentType="input"
-            inputType={field.type === 'string' ? 'text' : field.type}
+            dataType={field.type}
           />
       )}
       </Wrapper>
