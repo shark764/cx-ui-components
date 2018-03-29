@@ -93,7 +93,7 @@ const Header = styled(PageHeader)`
 
 const Table = styled(ReactTable)`
   grid-area: table;
-  height: 88vh;
+  height: 80vh;
 `;
 
 function EntityTable(props) {

@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.15.4]
+* CXV1-13408 - Main Page Previous and Next buttons do not show when browser is made smaller.
+
 ## [0.15.3]
 * CXV1-13400 - Inherited Toggles still firing click event
 * CXV1-13399 - Toggles erroring when clicked
