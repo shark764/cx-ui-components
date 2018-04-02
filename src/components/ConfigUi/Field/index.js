@@ -141,7 +141,7 @@ const parseNumber = (value) => {
 
 const parseBoolean = (value) => {
   if (value !== undefined && value === '') {
-    return value;
+    return null;
   } else if(value !== undefined && value !== '') {
     return value === 'true';
   } else {
