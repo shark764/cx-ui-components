@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.15.7]
+* CXV1-13321 - Fixed table filters / cell values
+
 ## [0.15.6]
 * CXV1-13448 - Generic Lists - Not Required number field requires a number to submit.
 * CXV1-13424 - Generic Lists - Two Scroll bars Showing in Bottom of Side Panel
