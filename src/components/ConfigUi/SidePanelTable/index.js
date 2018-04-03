@@ -59,6 +59,10 @@ injectGlobal`${importantCss(`
     min-width: 100px;
   }
 
+  .SidePanelTable .rt-tbody {
+    overflow: initial;
+  }
+
   .SidePanelTable .rt-thead {
     box-shadow: none;
     border-bottom: 1px solid #e6e6e6;
