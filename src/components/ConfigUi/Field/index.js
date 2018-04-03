@@ -133,7 +133,7 @@ const RenderField = ({
 
 const parseNumber = (value) => {
   if (value === '') {
-    return value;
+    return null;
   } else {
     return parseFloat(value);
   }

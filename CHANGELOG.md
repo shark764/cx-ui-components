@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.15.6]
+* CXV1-13448 - Generic Lists - Not Required number field requires a number to submit.
+* CXV1-13424 - Generic Lists - Two Scroll bars Showing in Bottom of Side Panel
+
 ## [0.15.5]
 * CXV1-13339 - Generic Lists - Booleans can't go back to no value
 
