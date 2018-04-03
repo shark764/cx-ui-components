@@ -28,6 +28,7 @@ export default function convertFieldsToColumns(fields) {
     id: field.name,
     Header: <abbr title={field.label}>{field.label}</abbr>,
     filterable: field.name !== 'subEntityActions',
-    accessor: d => d[field.name] !== undefined && <abbr title={`${d[field.name]}`}>{`${d[field.name]}`}</abbr>
+    accessor: d => d[field.name],
+    Cell: ({value}) => (value !== undefined && <abbr title={`${value}`}>{`${value}`}</abbr>)
   }));
 }
