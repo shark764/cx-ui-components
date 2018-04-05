@@ -49,6 +49,8 @@ export {
 // Forms
 export { default as ListsForm } from './components/ConfigUi/Form/Lists';
 export { default as ListItemsForm } from './components/ConfigUi/Form/ListItems';
+export { default as Confirmation } from './components/ConfigUi/Confirmation';
+
 
 // SVGs
 export { default as HangUpIconSVG } from './components/SVGs/HangUpIconSVG';
