@@ -69,7 +69,7 @@ function Confirmation(props) {
           buttonType="primary"
         >
           {props.confirmBtnText}
-        </ConfirmCancelBtns>        
+        </ConfirmCancelBtns>
       </BtnsContainer>
     </ConfirmationModal>
   );
@@ -85,7 +85,7 @@ Confirmation.propTypes = {
 };
 
 Confirmation.defaultProps = {
-  confirmBtnText: 'OK',
+  confirmBtnText: 'Confirm',
   cancelBtnText: 'Cancel'
 }
 
