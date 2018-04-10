@@ -92,7 +92,10 @@ Button.propTypes = {
   id: PropTypes.string,
   style: PropTypes.object,
   className: PropTypes.string,
-  buttonType: PropTypes.string,
+  /**
+   * Possible options are primary, secondary, columnFilter.
+   */
+  buttonType: PropTypes.oneOf(['primary', 'secondary', 'columnFilter']),
   type: PropTypes.string,
   disabled: PropTypes.bool,
   title: PropTypes.string,

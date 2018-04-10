@@ -16,7 +16,7 @@ const SubMenuDiv = styled.div`
   right: -2px;
   top: 37px;
   z-index: 3;
-  width: 260px;
+  min-width: 260px;
   box-shadow: 0px 0px 2px 0px rgba(42, 45, 41, 0.63);
 `;
 const SubMenuTopArrow = styled.div`
@@ -51,9 +51,7 @@ class CustomDropdownMenu extends React.Component {
         </DropdownButton>
         {this.props.currentVisibleSubMenu === this.props.menuType && (
           <Fragment>
-            <ClickMask
-              onClick={() => this.props.setSubMenuVisibility('none')}
-            />
+            <ClickMask onClick={() => this.props.setSubMenuVisibility('none')} />
             <SubMenuTopArrow />
             <SubMenuDiv>{this.props.children}</SubMenuDiv>
           </Fragment>

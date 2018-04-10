@@ -1,0 +1,11 @@
+resources
+.eslintrc
+.babelrc
+*.tgz
+Dockerfile-build
+Dockerfile-publish
+Jenkinsfile
+postcss.config.js
+styleguide.config.js
+webpack.config.js
+temp.js

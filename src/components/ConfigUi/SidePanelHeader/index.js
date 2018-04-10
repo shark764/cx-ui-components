@@ -13,7 +13,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import Toggle from '../Toggle';
-import FontAwesomeIcon from '../FontAwesomeIcon';
+import CloseIconSVG from '../../SVGs/CloseIconSVG';
 
 const Wrapper = styled.div`
   display: flex;
@@ -46,9 +46,7 @@ const SubHeader = styled.h5`
   padding-bottom: 4px;
 `;
 
-
-
-const CloseIcon = styled(FontAwesomeIcon)`
+const CloseIconOuterBox = styled.div`
   margin-top: 5px;
   color: #999999;
   cursor: pointer;
@@ -69,24 +67,19 @@ function SidePanelHeader(props) {
       hasCreatedUpdatedAt={props.createdAt || props.updatedAt}
     >
       {props.toggleStatus !== undefined &&
-      props.userHasUpdatePermission &&
-      (
-        <StyledToggle value={props.toggleStatus} onChange={props.onToggle} inherited={props.inherited}/>
-      )}
+        props.userHasUpdatePermission && (
+          <StyledToggle value={props.toggleStatus} onChange={props.onToggle} inherited={props.inherited} />
+        )}
       <HeaderArea>
         <Header title={props.title}>{props.title}</Header>
         {props.createdAt && <SubHeader>{props.createdAt}</SubHeader>}
         {props.createdAt && <SubHeader>{props.updatedAt}</SubHeader>}
       </HeaderArea>
-      {props.onClose !== undefined &&
-          <CloseIcon
-            name={'times'}
-            size={25}
-            alt="close menu"
-            title="close"
-            onClick={props.onClose}
-          />
-      }
+      {props.onClose !== undefined && (
+        <CloseIconOuterBox>
+          <CloseIconSVG size={17} alt="close menu" title="close" closeIconType="secondary" onClick={props.onClose} />
+        </CloseIconOuterBox>
+      )}
     </Wrapper>
   );
 }

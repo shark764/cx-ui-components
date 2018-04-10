@@ -12,7 +12,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import FontAwesomeIcon from '../FontAwesomeIcon';
+import SearchIconSVG from '../../SVGs/SearchIconSVG';
 
 const Wrapper = styled.div`
   display: inline-flex;
@@ -26,8 +26,7 @@ const Input = styled.input`
   padding-left: 10px;
   font-size: 13px;
   border: 1px solid transparent;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2) inset,
-    0 -1px 0 rgba(0, 0, 0, 0.05) inset;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2) inset, 0 -1px 0 rgba(0, 0, 0, 0.05) inset;
 
   &::placeholder {
     color: #cccccc;
@@ -36,13 +35,12 @@ const Input = styled.input`
   &:focus {
     outline: 0;
     border-color: #3498db;
-    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),
-      0 0 8px rgba(102, 175, 233, 0.6);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
   }
 `;
 
-const StyledIcon = styled(FontAwesomeIcon)`
-  width: 46px;
+const SearchIconOuterBox = styled.div`
+  width: 40px;
   height: 30px;
   color: white;
   background-color: ${props => props.theme.primaryColor};
@@ -57,12 +55,10 @@ const StyledIcon = styled(FontAwesomeIcon)`
 function SearchBox(props) {
   return (
     <Wrapper className={props.className}>
-      <Input
-        id={props.id}
-        placeholder={props.placeholder}
-        onChange={props.onChange}
-      />
-      <StyledIcon name="search" />
+      <Input id={props.id} placeholder={props.placeholder} onChange={props.onChange} />
+      <SearchIconOuterBox>
+        <SearchIconSVG searchIconType="searchBox" />
+      </SearchIconOuterBox>
     </Wrapper>
   );
 }

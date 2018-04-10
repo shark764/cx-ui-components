@@ -12,7 +12,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import FontAwesomeIcon from '../FontAwesomeIcon';
+import QuestionIconSVG from '../../SVGs/QuestionIconSVG';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -35,10 +35,9 @@ const Link = styled.a`
   margin-left: 10px;
 `;
 
-const HelpIcon = styled(FontAwesomeIcon)`
-  color: ${props => props.theme.accentColor};
-  height: 100%;
-  font-size: 20px;
+const HelpIconOuterWrapper = styled.div`
+  vertical-align: text-bottom;
+  display: inline-block;
 `;
 
 const PageHeaderRightSide = styled.div`
@@ -56,12 +55,9 @@ function PageHeader(props) {
         <Header>{props.text}</Header>
         {props.helpLink && (
           <Link href={props.helpLink} target="_blank">
-            <HelpIcon
-              name="question-circle"
-              alt="help"
-              title="question-circle"
-              size={20}
-            />
+            <HelpIconOuterWrapper>
+              <QuestionIconSVG alt="help" title="question-circle" size={20} />
+            </HelpIconOuterWrapper>
           </Link>
         )}
       </PageHeaderLeftSide>
