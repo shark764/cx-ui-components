@@ -1,18 +1,12 @@
 {
   "name": "cx-ui-components",
-  "version": "0.16.0",
+  "version": "0.17.0",
   "description": "Front end react components for any cx-related projects",
-  "main": "lib/library.js",
-  "directories": {
-    "lib": "lib"
-  },
+  "main": "./src/index.js",
   "scripts": {
     "start": "styleguidist server",
     "build:styleguide": "styleguidist build",
-    "build:library": "webpack",
-    "dev": "webpack -w",
-    "precommit": "lint-staged",
-    "prettier": "prettier --single-quote --trailing-comma=es5 --write 'src/**/*.{js,json,css,md}'"
+    "precommit": "lint-staged"
   },
   "lint-staged": {
     "src/**/*.{js,json,css,md}": [
@@ -20,9 +14,11 @@
       "git add"
     ]
   },
-  "files": [
-    "lib/*"
-  ],
+  "prettier": {
+    "printWidth": 120,
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/liveops/cx-ui-components.git"
@@ -30,7 +26,24 @@
   "author": "SerenovaLLC",
   "license": "UNLICENSED",
   "dependencies": {
+    "sanitize.css": "^5.0.0",
+    "toastr": "^2.1.4",
+    "moment": "^2.22.0"
+  },
+  "peerDependencies": {
+    "styled-components": "^3.1.4",
+    "immutable": "^3.8.2",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-redux": "^5.0.7",
+    "react-table": "^6.7.6",
+    "redux": "^3.7.2",
+    "redux-form": "^7.2.3",
+    "redux-immutable": "^4.0.0"
+  },
+  "devDependencies": {
     "babel-core": "^6.26.0",
+    "babel-eslint": "^7.2.3",
     "babel-loader": "^7.1.2",
     "babel-plugin-add-module-exports": "^0.2.1",
     "babel-preset-env": "^1.6.1",
@@ -38,10 +51,21 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "css-loader": "^0.28.9",
+    "eslint": "^4.16.0",
+    "eslint-config-react-app": "^2.1.0",
+    "eslint-loader": "^1.9.0",
+    "eslint-plugin-flowtype": "^2.42.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-jsx-a11y": "^5.1.1",
+    "eslint-plugin-react": "^7.6.0",
     "file-loader": "^1.1.6",
-    "font-awesome": "^4.7.0",
+    "html-loader": "^0.5.5",
+    "image-webpack-loader": "^4.0.0",
     "immutable": "^3.8.2",
+    "json-loader": "^0.5.7",
+    "lint-staged": "^7.0.4",
     "postcss-loader": "^2.0.10",
+    "prettier": "^1.11.1",
     "radium": "^0.21.2",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
@@ -51,26 +75,11 @@
     "redux": "^3.7.2",
     "redux-form": "^7.2.3",
     "redux-immutable": "^4.0.0",
-    "sanitize.css": "^5.0.0",
     "style-loader": "^0.19.1",
-    "styled-components": "^3.0.2",
-    "toastr": "^2.1.4",
+    "styled-components": "^3.1.4",
     "url-loader": "^0.6.2",
-    "webpack": "^3.10.0"
-  },
-  "devDependencies": {
-    "babel-eslint": "^7.2.3",
-    "eslint": "^4.16.0",
-    "eslint-config-react-app": "^2.1.0",
-    "eslint-loader": "^1.9.0",
-    "eslint-plugin-flowtype": "^2.42.0",
-    "eslint-plugin-import": "^2.8.0",
-    "eslint-plugin-jsx-a11y": "^5.1.1",
-    "eslint-plugin-react": "^7.6.0",
-    "html-loader": "^0.5.5",
-    "image-webpack-loader": "^4.0.0",
-    "json-loader": "^0.5.7",
-    "prettier": "^1.11.1"
+    "webpack": "^3.10.0",
+    "webpack-bundle-analyzer": "^2.11.1"
   },
   "publishConfig": {
     "registry": "http://nexus.cxengagelabs.net/content/repositories/npm-internal/"

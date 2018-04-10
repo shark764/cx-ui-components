@@ -38,5 +38,10 @@ const fields = [
   },
 ];
 
-<SidePanelTable items={items} fields={fields} />;
+<SidePanelTable
+  items={items}
+  fields={fields}
+  updateSubEntity={() => alert('update item')}
+  deleteSubEntity={() => alert('update item')}
+/>;
 ```

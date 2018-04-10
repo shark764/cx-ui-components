@@ -17,7 +17,6 @@ import 'react-table/react-table.css';
 
 import Button from '../Button';
 import PageHeader from '../PageHeader';
-import SearchBox from '../SearchBox';
 import LoadingSpinner from '../../SVGs/LoadingSpinnerSVG';
 
 import { importantCss } from '../../../utils';
@@ -32,6 +31,10 @@ injectGlobal`${importantCss(`
     .rt-resizer {
       right: 0;
     }
+  }
+
+  .ReactTable .rt-thead .rt-th {
+    overflow: visible;
   }
 
   .EntityTable .rt-thead .rt-th {
@@ -89,8 +92,6 @@ const Header = styled(PageHeader)`
   grid-area: header;
 `;
 
-
-
 const Table = styled(ReactTable)`
   grid-area: table;
   height: 80vh;
@@ -98,39 +99,36 @@ const Table = styled(ReactTable)`
 
 function EntityTable(props) {
   return (
-
-      <GridContainer id={props.id} className={props.className}>
-        <Header text={props.pageTitle} helpLink={props.pageHelpLink}>
-          {props.userHasCreatePermission &&
-          <Button
-            buttonType="primary"
-            onClick={props.onCreateButtonClick}
-          >
+    <GridContainer id={props.id} className={props.className}>
+      <Header text={props.pageTitle} helpLink={props.pageHelpLink}>
+        {props.userHasCreatePermission && (
+          <Button buttonType="primary" onClick={props.onCreateButtonClick}>
             Create
-          </Button>}
-        </Header>
+          </Button>
+        )}
+      </Header>
 
-        <Table
-          data={props.items}
-          noDataText={props.items? "No results found" : <LoadingSpinner size={60}/>}
-          columns={props.columns}
-          defaultPageSize={20}
-          className="-striped EntityTable"
-          filterable
-          defaultFilterMethod={(filter, row) =>
-            String(row[filter.id])
-              .toLowerCase()
-              .indexOf(filter.value.toLowerCase()) > -1
-          }
-          getTrProps={(state, rowInfo) => {
-            return {
-              onClick: () => {
-                props.onRowClick(rowInfo.original.id);
-              },
-            };
-          }}
-        />
-      </GridContainer>
+      <Table
+        data={props.items}
+        noDataText={props.items ? 'No results found' : <LoadingSpinner size={60} />}
+        columns={props.columns}
+        defaultPageSize={20}
+        className="-striped EntityTable"
+        filterable
+        defaultFilterMethod={(filter, row) =>
+          String(row[filter.id])
+            .toLowerCase()
+            .indexOf(filter.value.toLowerCase()) > -1
+        }
+        getTrProps={(state, rowInfo) => {
+          return {
+            onClick: () => {
+              props.onRowClick(rowInfo.original.id);
+            },
+          };
+        }}
+      />
+    </GridContainer>
   );
 }
 

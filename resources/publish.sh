@@ -1,7 +1,6 @@
 #!/bin/bash
-npm install --production
+npm install
 npm run build:styleguide
-npm run build:library
 npm publish
 #mv app/assets/favicons/favicon.ico build/favicon.ico
 

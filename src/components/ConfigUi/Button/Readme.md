@@ -1,27 +1,32 @@
 ```js
+const StyleGuideSpacerDiv = require('../../../utils/StyleGuideSpacer.js');
 <div>
   <Button buttonType="primary" onClick={() => alert('Primary Button clicked')}>
     Primary
   </Button>
 
+  <StyleGuideSpacerDiv />
+
   <Button buttonType="secondary" onClick={() => alert('Secondary Button clicked')}>
     Secondary
   </Button>
 
-  <Button
-    buttonType="primary"
-    onClick={() => alert('Primary Button clicked')}
-    disabled
-  >
+  <StyleGuideSpacerDiv />
+
+  <Button buttonType="primary" onClick={() => alert('Primary Button clicked')} disabled>
     Disabled!
   </Button>
 
-  <Button
-    buttonType="secondary"
-    onClick={() => alert('Secondary Button clicked')}
-    disabled
-  >
+  <StyleGuideSpacerDiv />
+
+  <Button buttonType="secondary" onClick={() => alert('Secondary Button clicked')} disabled>
     Disabled!
   </Button>
-</div>
+
+  <StyleGuideSpacerDiv />
+
+  <Button buttonType="columnFilter" onClick={() => alert('Column Filter clicked')}>
+    Column filter button
+  </Button>
+</div>;
 ```

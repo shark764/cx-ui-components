@@ -11,7 +11,7 @@ const SubMenuDiv = styled.div`
   right: -2px;
   top: 37px;
   z-index: 3;
-  width: 260px;
+  min-width: 260px;
   box-shadow: 0px 0px 2px 0px rgba(42, 45, 41, 0.63);
 `;
 const SubMenuTopArrow = styled.div`
@@ -60,9 +60,7 @@ class SubMenu extends React.Component {
           <ClickMask onClick={() => this.props.setSubMenuVisibility('none')} />
         )}
 
-        {this.props.currentVisibleSubMenu === this.props.menuType && (
-          <SubMenuTopArrow key="SubMenuTopArrow" />
-        )}
+        {this.props.currentVisibleSubMenu === this.props.menuType && <SubMenuTopArrow key="SubMenuTopArrow" />}
         <SubMenuDiv key="SubMenu">
           <ItemList>
             {this.props.selectionType === 'checkbox' && (
@@ -85,11 +83,7 @@ class SubMenu extends React.Component {
             {this.props.items.map((item, i) => [
               <ListItem key={item.name}>
                 <input
-                  type={
-                    this.props.selectionType === 'checkbox'
-                      ? 'checkbox'
-                      : 'radio'
-                  }
+                  type={this.props.selectionType === 'checkbox' ? 'checkbox' : 'radio'}
                   onChange={() => {
                     if (this.props.selectionType === 'checkbox') {
                       this.props.toggleItem(item.name, this.props.menuType);
@@ -103,9 +97,7 @@ class SubMenu extends React.Component {
                 />
                 <span>{item.name}</span>
               </ListItem>,
-              item.name === 'All' && (
-                <Seperator key={`${item.name}-seperator`} />
-              ),
+              item.name === 'All' && <Seperator key={`${item.name}-seperator`} />,
             ])}
           </ItemList>
         </SubMenuDiv>

@@ -11,7 +11,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import FontAwesomeIcon from '../FontAwesomeIcon';
+import PlusIconSVG from '../../SVGs/PlusIconSVG';
 
 const Wrapper = styled.div`
   display: flex;
@@ -30,8 +30,8 @@ const LineSpacer = styled.div`
 `;
 
 const ActionButton = styled.button`
-  background-color: #F9F9F9;
-  border: 1px solid #CCCCCC;
+  background-color: #f9f9f9;
+  border: 1px solid #cccccc;
   border-radius: 4px;
   color: #07487a;
   cursor: pointer;
@@ -47,16 +47,15 @@ const ActionButton = styled.button`
 function DetailHeader(props) {
   return (
     <Wrapper id={props.id} className={props.className}>
-      <Header>
-        {props.text}
-      </Header>
+      <Header>{props.text}</Header>
       <LineSpacer />
       {props.onActionButtonClick &&
         props.userHasUpdatePermission &&
-         !props.inherited &&
-         <ActionButton onClick={props.onActionButtonClick}>
-           <FontAwesomeIcon name="plus" />
-         </ActionButton>}
+        !props.inherited && (
+          <ActionButton onClick={props.onActionButtonClick}>
+            <PlusIconSVG size={12} />
+          </ActionButton>
+        )}
     </Wrapper>
   );
 }
