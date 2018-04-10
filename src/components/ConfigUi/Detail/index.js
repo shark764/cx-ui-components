@@ -17,7 +17,7 @@ const Wrapper = styled.div`
   width: 100%;
   margin-left: 10px;
   padding-right: 10px;
-  padding-bottom: 10px;
+  padding-bottom: 20px;
   font-size: 14px;
 `;
 
@@ -25,13 +25,18 @@ const Label = styled.span`
   width: 150px;
   vertical-align: middle;
   padding-right: 10px;
+  flex-shrink: 0;
+`;
+
+const Value = styled.span`
+  white-space: pre-line;
 `;
 
 function Detail(props) {
   return (
     <Wrapper id={props.id} className={props.className}>
       <Label>{props.label}</Label>
-      <span>{props.value}</span>
+      <Value>{props.value}</Value>
     </Wrapper>
   );
 }

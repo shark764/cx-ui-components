@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.18.0]
+* CXV1-13300 - Email Templates Components
+
 ## [0.17.1]
 * CXV1-13325 - Restyled confirm popup to match existing config-ui confirmation popups
 

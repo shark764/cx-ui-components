@@ -75,22 +75,24 @@ injectGlobal`${importantCss(`
 `)}`;
 
 function SidePanelTable(props) {
+  const columns = [...convertFieldsToColumns(props.fields)];
+  if (props.updateSubEntity && props.deleteSubEntity) {
+    columns.push({
+      id: 'actions',
+      Header: 'Actions',
+      filterable: false,
+      sortable: false,
+      accessor: d => <SidePanelTableActions row={d} updateSubEntity={props.updateSubEntity} deleteSubEntity={props.deleteSubEntity} />,
+      width: 90,
+      show: props.userHasUpdatePermission && !props.inherited
+    });
+  }
   return (
     <ReactTable
       data={props.items}
-      columns={[
-          ...convertFieldsToColumns(props.fields),
-          {
-            id: 'actions',
-            Header: 'Actions',
-            filterable: false,
-            sortable: false,
-            accessor: d => <SidePanelTableActions row={d} updateSubEntity={props.updateSubEntity} deleteSubEntity={props.deleteSubEntity} />,
-            width: 90,
-            show: props.userHasUpdatePermission && !props.inherited
-          }
-      ]}
-      defaultPageSize={10}
+      columns={columns}
+      defaultPageSize={props.pagination ? 10 : props.items.length}
+      showPagination={props.pagination}
       className="-striped SidePanelTable"
       defaultFilterMethod={(filter, row) =>
         String(row[filter.id])
@@ -109,8 +111,13 @@ SidePanelTable.propTypes = {
   items: PropTypes.array.isRequired,
   /** Must be a javascipt arr for React-table */
   fields: PropTypes.array.isRequired,
+  pagination: PropTypes.bool,
   updateSubEntity: PropTypes.func,
   deleteSubEntity: PropTypes.func,
 };
+
+SidePanelTable.defaultProps = {
+  pagination: true,
+}
 
 export default SidePanelTable;

@@ -56,7 +56,7 @@ function PageHeader(props) {
         {props.helpLink && (
           <Link href={props.helpLink} target="_blank">
             <HelpIconOuterWrapper>
-              <QuestionIconSVG alt="help" title="question-circle" size={20} />
+              <QuestionIconSVG alt="help" title="Help" size={20} />
             </HelpIconOuterWrapper>
           </Link>
         )}
@@ -72,7 +72,7 @@ PageHeader.propTypes = {
   className: PropTypes.string,
   id: PropTypes.string,
   text: PropTypes.string.isRequired,
-  helpLink: PropTypes.string.isRequired,
+  helpLink: PropTypes.string,
 };
 
 export default PageHeader;

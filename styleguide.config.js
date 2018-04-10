@@ -14,6 +14,10 @@ module.exports = {
           components: 'src/components/ConfigUi/*/index.js',
         },
         {
+          name: 'Fields',
+          components: 'src/components/ConfigUi/Field/**/index.js',
+        },
+        {
           name: 'Forms',
           description: 'Forms will be different per entity',
           components: 'src/components/ConfigUi/Form/**/index.js',
