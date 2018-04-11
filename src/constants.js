@@ -9,6 +9,7 @@ export const defaultTheme = {
 };
 
 export const colors = {
+  lightGray: '#ebebeb',
   offWhite: '#e4e4e4',
   lightRed: '#FE4565',
   regularRed: '#E43D5A',

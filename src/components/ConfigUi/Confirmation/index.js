@@ -11,6 +11,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 
+import { colors } from '../../../constants';
 import Button from "../Button";
 import Modal from "../Modal";
 
@@ -19,46 +20,31 @@ const ConfirmationModal = styled(Modal)`
   max-width: 400px;
   text-align: center;
   justify-content: center;
+  background-color: ${colors.lightGray};
+  padding: 20px 0 10px;
 `;
 
-const Subtext = styled.div`
-  display: block;
-  margin-bottom: 10px;
-  font-style: italic;
+const MainText = styled.div`
+  background: ${colors.white};
+  padding: 10px 30px;
+  font-size: 14px;
 `;
 
 const BtnsContainer = styled.div`
   display: flex;
   justify-content: space-evenly;
+  padding-top: 10px;
 `
-
-const Divider = styled.div`
-  width: 100%;
-`
-
 const ConfirmCancelBtns = styled(Button)`
-  width: 90px;
-`;
-
-const BlueLine = styled.div`
-  height: 1px;
-  width: 50px;
-  margin-bottom: 18px;
-  background: #23cef5;
+  width: 45%;
+  border-radius: 4px;
+  cursor: pointer;
   display: inline-block;
+  font-size: 14px;
+  padding: 3px 10px;
   position: relative;
-  top: 13px;
-`;
-
-const BlueQuestionMark = styled.div`
-  border-radius: 50%;
-  background-color: #23cef5;
-  color: white;
-  font-weight: bold;
-  padding: 2px 3px 0px 4px;
-  width: 20px;
-  display: inline-block;
-  margin: 10px;
+  text-align: center;
+  vertical-align: middle;
 `;
 
 function Confirmation(props) {
@@ -66,15 +52,9 @@ function Confirmation(props) {
     <ConfirmationModal
       onMaskClick={props.onMaskClick}
     >
-      <div>
-        <span>{props.mainText}</span>
-        <Divider>
-          <BlueLine />
-          <BlueQuestionMark>?</BlueQuestionMark>
-          <BlueLine />
-        </Divider>
-        <Subtext>{props.confirmSubtext}</Subtext>
-      </div>
+      <MainText>
+        <div>{props.mainText}</div>
+      </MainText>
 
       <BtnsContainer>
         <ConfirmCancelBtns
@@ -101,13 +81,12 @@ Confirmation.propTypes = {
   cancelBtnText: PropTypes.string,
   cancelBtnCallback: PropTypes.func,
   mainText: PropTypes.string,
-  confirmSubtext: PropTypes.string,
   onMaskClick: PropTypes.func
 };
 
 Confirmation.defaultProps = {
   confirmBtnText: 'OK',
-  cancelBtnText: 'cancel'
+  cancelBtnText: 'Cancel'
 }
 
 export default Confirmation;
