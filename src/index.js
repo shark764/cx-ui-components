@@ -7,6 +7,7 @@ export { default as RootStyles } from './RootStyles';
 
 // ConfigUi
 export { default as Button } from './components/ConfigUi/Button';
+export { default as Confirmation } from './components/ConfigUi/Confirmation';
 export { default as Detail } from './components/ConfigUi/Detail';
 export { default as DetailHeader } from './components/ConfigUi/DetailHeader';
 export { default as DetailsPanelAlert } from './components/ConfigUi/DetailsPanelAlert';
@@ -26,11 +27,12 @@ export { default as SliderExpander } from './components/ConfigUi/SliderExpander'
 
 // SidePanelDetails
 export { default as ListsDetailsPanel } from './components/ConfigUi/SidePanelDetails/Lists';
+export { default as EmailTemplatesDetailsPanel } from './components/ConfigUi/SidePanelDetails/EmailTemplates';
 
 // Forms
 export { default as ListsForm } from './components/ConfigUi/Form/Lists';
 export { default as ListItemsForm } from './components/ConfigUi/Form/ListItems';
-export { default as Confirmation } from './components/ConfigUi/Confirmation';
+export { default as EmailTemplatesForm } from './components/ConfigUi/Form/EmailTemplates';
 
 // Reporting
 export { default as InteractionDetails } from './components/ConfigUi/InteractionDetails';
@@ -44,7 +46,7 @@ export { default as UnMutedIconSVG } from './components/SVGs/UnMutedIconSVG';
 export { default as CaretIconSVG } from './components/SVGs/CaretIconSVG';
 export { default as VoiceIconSVG } from './components/SVGs/VoiceIconSVG';
 export { default as LoadingSpinnerSVG } from './components/SVGs/LoadingSpinnerSVG';
-export { default as SeaerchIconSVG } from './components/SVGs/SearchIconSVG';
+export { default as SearchIconSVG } from './components/SVGs/SearchIconSVG';
 export { default as CloseIconSVG } from './components/SVGs/CloseIconSVG';
 export { default as EditIconSVG } from './components/SVGs/EditIconSVG';
 export { default as QuestionIconSVG } from './components/SVGs/EditIconSVG';

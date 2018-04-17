@@ -10,7 +10,8 @@
 
 import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
-import Field from '../../Field';
+import InputField from '../../Field/InputField';
+import SelectField from '../../Field/SelectField';
 import styled from 'styled-components';
 import SidePanelActions from '../../SidePanelActions';
 
@@ -51,15 +52,14 @@ export default function ListItemsForm(props) {
       <Wrapper>
       {props.fieldItems.map(field =>
         field.type === 'boolean' ?
-          <Field
+          <SelectField
             key={field.name}
             name={field.name}
             label={`${field.label}${field.required ? ' *' : ''}`}
             disabled={props.isSaving}
-            componentType="select"
-            dataType="boolean"
+            options="boolean"
           /> :
-          <Field
+          <InputField
             key={field.name}
             name={field.name}
             label={`${field.label}${field.required ? ' *' : ''}`}
@@ -92,4 +92,5 @@ ListItemsForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   onCancel: PropTypes.func.isRequired,
   isSaving: PropTypes.bool,
+  pristine: PropTypes.bool,
 };
