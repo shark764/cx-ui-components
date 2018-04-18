@@ -14,6 +14,8 @@ import PropTypes from 'prop-types';
 import Detail from '../../Detail';
 import DetailHeader from '../../DetailHeader';
 import DetailsPanelAlert from '../../DetailsPanelAlert';
+import FileUpload from '../../FileUpload';
+import FileDownload from '../../FileDownload';
 import SidePanelTable from '../../SidePanelTable';
 
 function ListsDetailsPanel(props) {
@@ -25,6 +27,15 @@ function ListsDetailsPanel(props) {
       <Detail
         label="List Type" value={props.listType}
       />
+      {!props.inherited && (
+        <React.Fragment>
+          <DetailHeader
+            text="Bulk CSV"
+          />
+          <FileDownload onClick={props.downloadCsv} disabled={props.isSaving} />
+          <FileUpload onFileSelect={props.uploadCsv} acceptedFileType='.csv' disabled={props.isSaving} />
+        </React.Fragment>
+      )}
       <DetailHeader
         userHasUpdatePermission={props.userHasUpdatePermission}
         text="List Item(s)"
