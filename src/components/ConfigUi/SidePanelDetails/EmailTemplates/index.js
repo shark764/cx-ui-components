@@ -25,25 +25,42 @@ export default function EmailTemplatesDetailsPanel(props) {
   return (
     <Wrapper id={props.id} className={props.className}>
       <DetailHeader text="Details" />
-      {props.userHasUpdatePermission && props.children}
-      {props.email === 'custom' ?
+      {props.userHasUpdatePermission ?
         <Fragment>
-          <DetailHeader text="Available Variables" />
-          <SidePanelTable
-            items={props.variables}
-            fields={[
-              { name: 'name', label: 'Name' },
-              { name: 'description', label: 'Description' }
-            ]}
-            pagination={false}
-          />
+          {props.children}
+          {props.emailFormValue === 'custom' ?
+            <Fragment>
+              <DetailHeader text="Available Variables" />
+              <SidePanelTable
+                items={props.variables}
+                fields={[
+                  { name: 'name', label: 'Name' },
+                  { name: 'description', label: 'Description' }
+                ]}
+                pagination={false}
+              />
+            </Fragment> :
+            <Fragment>
+              <Detail
+                label="Subject" value={props.inheritedSubject}
+              />
+              <Detail
+                label="Body" value={props.inheritedBody}
+              />
+            </Fragment>}
         </Fragment> :
         <Fragment>
           <Detail
-            label="Subject" value={props.inheritedSubject}
+            label="Email" value={props.templateEmail}
           />
           <Detail
-            label="Body" value={props.inheritedBody}
+            label="Shared" value={props.templateShared}
+          />
+          <Detail
+            label="Subject" value={props.templateSubject}
+          />
+          <Detail
+            label="Body" value={props.templateBody}
           />
         </Fragment>}
     </Wrapper>
@@ -53,10 +70,14 @@ export default function EmailTemplatesDetailsPanel(props) {
 EmailTemplatesDetailsPanel.propTypes = {
   id: PropTypes.string,
   className: PropTypes.string,
-  userHasUpdatePermission: PropTypes.bool, // TODO CXV1-13303
+  userHasUpdatePermission: PropTypes.bool,
   children: PropTypes.node.isRequired,
-  email: PropTypes.string,
+  emailFormValue: PropTypes.string,
   variables: PropTypes.array.isRequired,
   inheritedSubject: PropTypes.string,
   inheritedBody: PropTypes.string,
+  templateEmail: PropTypes.string,
+  templateShared: PropTypes.string,
+  templateSubject: PropTypes.string,
+  templateBody: PropTypes.string,
 };

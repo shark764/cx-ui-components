@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.19.1]
+* CXV1-13303 - Fix display for Email side panel when user does not have update permission
+
 ## [0.19.0]
 * CXV1-12310 bulk lists components created and added to detail
 
