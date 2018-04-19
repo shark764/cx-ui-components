@@ -5,7 +5,7 @@
     setSubMenuVisibility={() => {}}
     currentVisibleSubMenu="something else"
     menuType="Columns"
-    type="columnFilter"
+    buttonType="columnFilter"
   >
     Child Element Currently Required, It contains the info for the Sub Menu
   </CustomDropdownMenu>

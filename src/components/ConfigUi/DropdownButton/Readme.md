@@ -1,11 +1,6 @@
 ```js
 <div>
-  <DropdownButton
-    type="columnFilter"
-    open={false}
-    onClick={() => console.log('Clicked')}
-    type="selector"
-  >
+  <DropdownButton buttonType="columnFilter" open={false} onClick={() => console.log('Clicked')}>
     All
   </DropdownButton>
 </div>
