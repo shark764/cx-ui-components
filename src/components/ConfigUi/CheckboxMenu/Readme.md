@@ -21,7 +21,7 @@
     style={{}}
     menuType="Columns"
     children={[]}
-    type="selector"
+    buttonType="selector"
     selectionType="checkbox"
     setSubMenuVisibility={() => {}}
     currentVisibleSubMenu="something else"

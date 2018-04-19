@@ -159,7 +159,7 @@ InteractionDetails.propTypes = {
       PropTypes.shape({
         agentId: PropTypes.string.isRequired,
         agentName: PropTypes.string.isRequired,
-        bargedIn: PropTypes.bool.isRequired,
+        bargedIn: PropTypes.bool,
         endTimestamp: PropTypes.string,
         startTimestamp: PropTypes.string.isRequired,
       })

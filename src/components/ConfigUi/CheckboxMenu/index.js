@@ -14,34 +14,29 @@ class CheckboxMenu extends React.Component {
     if (e.altKey) {
       // 73 is i key
       if (e.which === 73) {
-        this.props.toggleAllInverse &&
-          this.props.toggleAllInverse(this.props.menuType);
+        this.props.toggleAllInverse && this.props.toggleAllInverse(this.props.menuType);
       }
       // 65 is a key
       if (e.which === 65) {
         this.props.allActive
-          ? this.props.toggleAllOn &&
-            this.props.toggleAllOff(this.props.menuType)
-          : this.props.toggleAllOff &&
-            this.props.toggleAllOn(this.props.menuType);
+          ? this.props.toggleAllOn && this.props.toggleAllOff(this.props.menuType)
+          : this.props.toggleAllOff && this.props.toggleAllOn(this.props.menuType);
       }
     }
   };
 
   componentWillMount() {
-    this.props.menuType === 'columns' &&
-      document.addEventListener('keydown', this.hotKeys);
+    this.props.menuType === 'columns' && document.addEventListener('keydown', this.hotKeys);
   }
   componentWillUnmount() {
-    this.props.menuType === 'columns' &&
-      document.removeEventListener('keydown', this.hotKeys);
+    this.props.menuType === 'columns' && document.removeEventListener('keydown', this.hotKeys);
   }
   render() {
     return (
       <StackingContextReset className={this.props.className}>
         <DropdownButton
           className={this.props.className}
-          type={this.props.type}
+          buttonType={this.props.buttonType}
           open={this.props.currentVisibleSubMenu === this.props.menuType}
           onClick={() => {
             this.props.setSubMenuVisibility(this.props.menuType);
@@ -74,7 +69,7 @@ class CheckboxMenu extends React.Component {
 CheckboxMenu.propTypes = {
   children: PropTypes.any,
   className: PropTypes.string,
-  type: PropTypes.string.isRequired,
+  buttonType: PropTypes.string,
   selectionType: PropTypes.string.isRequired,
   style: PropTypes.object,
   items: PropTypes.array.isRequired,

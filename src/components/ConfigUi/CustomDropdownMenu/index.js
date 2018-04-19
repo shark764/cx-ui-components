@@ -40,7 +40,7 @@ class CustomDropdownMenu extends React.Component {
     return (
       <StackingContextReset>
         <DropdownButton
-          type={this.props.type}
+          buttonType={this.props.buttonType}
           open={this.props.currentVisibleSubMenu === this.props.menuType}
           onClick={() => {
             this.props.setSubMenuVisibility(this.props.menuType);
@@ -65,7 +65,7 @@ CustomDropdownMenu.propTypes = {
   className: PropTypes.string,
   children: PropTypes.any,
   disabled: PropTypes.bool,
-  type: PropTypes.string.isRequired,
+  buttonType: PropTypes.string.isRequired,
   currentFilter: PropTypes.string.isRequired,
   setSubMenuVisibility: PropTypes.func.isRequired,
   currentVisibleSubMenu: PropTypes.string.isRequired,
