@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.19.3]
+* <No Jira> - Minor prop fixes for silent monitoring
+
 ## [0.19.2]
 * <No Jira> - CSS and minor fixes to interaction monitoring after all the recent changes.
 
