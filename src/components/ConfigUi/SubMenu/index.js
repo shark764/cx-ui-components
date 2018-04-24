@@ -57,7 +57,7 @@ class SubMenu extends React.Component {
     return (
       <Fragment>
         {this.props.currentVisibleSubMenu === this.props.menuType && (
-          <ClickMask onClick={() => this.props.setSubMenuVisibility('none')} />
+          <ClickMask onClick={() => this.props.setSubMenuVisibility('none', this.props.tableType)} />
         )}
 
         {this.props.currentVisibleSubMenu === this.props.menuType && <SubMenuTopArrow key="SubMenuTopArrow" />}
@@ -71,8 +71,8 @@ class SubMenu extends React.Component {
                     checked={this.props.allActive}
                     onChange={() => {
                       this.props.allActive
-                        ? this.props.toggleAllOff(this.props.menuType)
-                        : this.props.toggleAllOn(this.props.menuType);
+                        ? this.props.toggleAllOff(this.props.menuType, this.props.tableType)
+                        : this.props.toggleAllOn(this.props.menuType, this.props.tableType);
                     }}
                   />
                   <AllSelector>All</AllSelector>
@@ -86,9 +86,9 @@ class SubMenu extends React.Component {
                   type={this.props.selectionType === 'checkbox' ? 'checkbox' : 'radio'}
                   onChange={() => {
                     if (this.props.selectionType === 'checkbox') {
-                      this.props.toggleItem(item.name, this.props.menuType);
+                      this.props.toggleItem(item.name, this.props.menuType, this.props.tableType);
                     } else {
-                      this.props.oneOnRestOff(item.name, this.props.menuType);
+                      this.props.oneOnRestOff(item.name, this.props.menuType, this.props.tableType);
                       this.props.updateFilter(item.name);
                     }
                   }}
@@ -119,6 +119,7 @@ SubMenu.propTypes = {
   setSubMenuVisibility: PropTypes.func.isRequired,
   currentVisibleSubMenu: PropTypes.string.isRequired,
   menuType: PropTypes.string.isRequired,
+  tableType: PropTypes.string.isRequired,
   allActive: PropTypes.bool.isRequired,
   toggleItem: PropTypes.func.isRequired,
   toggleAllOn: PropTypes.func.isRequired,

@@ -14,22 +14,22 @@ class CheckboxMenu extends React.Component {
     if (e.altKey) {
       // 73 is i key
       if (e.which === 73) {
-        this.props.toggleAllInverse && this.props.toggleAllInverse(this.props.menuType);
+        this.props.toggleAllInverse && this.props.toggleAllInverse(this.props.menuType, this.props.tableType);
       }
       // 65 is a key
       if (e.which === 65) {
         this.props.allActive
-          ? this.props.toggleAllOn && this.props.toggleAllOff(this.props.menuType)
-          : this.props.toggleAllOff && this.props.toggleAllOn(this.props.menuType);
+          ? this.props.toggleAllOn && this.props.toggleAllOff(this.props.menuType, this.props.tableType)
+          : this.props.toggleAllOff && this.props.toggleAllOn(this.props.menuType, this.props.tableType);
       }
     }
   };
 
   componentWillMount() {
-    this.props.menuType === 'columns' && document.addEventListener('keydown', this.hotKeys);
+    this.props.menuType === 'Columns' && document.addEventListener('keydown', this.hotKeys);
   }
   componentWillUnmount() {
-    this.props.menuType === 'columns' && document.removeEventListener('keydown', this.hotKeys);
+    this.props.menuType === 'Columns' && document.removeEventListener('keydown', this.hotKeys);
   }
   render() {
     return (
@@ -39,7 +39,7 @@ class CheckboxMenu extends React.Component {
           buttonType={this.props.buttonType}
           open={this.props.currentVisibleSubMenu === this.props.menuType}
           onClick={() => {
-            this.props.setSubMenuVisibility(this.props.menuType);
+            this.props.setSubMenuVisibility(this.props.menuType, this.props.tableType);
           }}
         >
           {this.props.children}
@@ -51,6 +51,7 @@ class CheckboxMenu extends React.Component {
             currentVisibleSubMenu={this.props.currentVisibleSubMenu}
             setSubMenuVisibility={this.props.setSubMenuVisibility}
             menuType={this.props.menuType}
+            tableType={this.props.tableType}
             allActive={this.props.allActive}
             toggleItem={this.props.toggleItem}
             toggleAllOn={this.props.toggleAllOn}
@@ -76,8 +77,9 @@ CheckboxMenu.propTypes = {
   setSubMenuVisibility: PropTypes.func.isRequired,
   oneOnRestOff: PropTypes.func,
   currentVisibleSubMenu: PropTypes.string.isRequired,
-  buttonText: PropTypes.string.isRequired,
+  buttonText: PropTypes.string,
   menuType: PropTypes.string.isRequired,
+  tableType: PropTypes.string.isRequired,
   allActive: PropTypes.bool.isRequired,
   toggleItem: PropTypes.func.isRequired,
   toggleAllOn: PropTypes.func,

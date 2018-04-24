@@ -43,7 +43,7 @@ class CustomDropdownMenu extends React.Component {
           buttonType={this.props.buttonType}
           open={this.props.currentVisibleSubMenu === this.props.menuType}
           onClick={() => {
-            this.props.setSubMenuVisibility(this.props.menuType);
+            this.props.setVisibleMenu(this.props.menuType, this.props.tableType);
           }}
           className={this.props.className}
         >
@@ -51,7 +51,7 @@ class CustomDropdownMenu extends React.Component {
         </DropdownButton>
         {this.props.currentVisibleSubMenu === this.props.menuType && (
           <Fragment>
-            <ClickMask onClick={() => this.props.setSubMenuVisibility('none')} />
+            <ClickMask onClick={() => this.props.setVisibleMenu('none', this.props.tableType)} />
             <SubMenuTopArrow />
             <SubMenuDiv>{this.props.children}</SubMenuDiv>
           </Fragment>
@@ -67,9 +67,10 @@ CustomDropdownMenu.propTypes = {
   disabled: PropTypes.bool,
   buttonType: PropTypes.string.isRequired,
   currentFilter: PropTypes.string.isRequired,
-  setSubMenuVisibility: PropTypes.func.isRequired,
-  currentVisibleSubMenu: PropTypes.string.isRequired,
+  setVisibleMenu: PropTypes.func.isRequired,
+  currentVisibleSubMenu: PropTypes.string,
   menuType: PropTypes.string.isRequired,
+  tableType: PropTypes.string,
 };
 
 export default CustomDropdownMenu;
