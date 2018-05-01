@@ -14,7 +14,7 @@ import 'toastr/build/toastr.css';
 // Default toast values
 toastr.options = {
   "closeButton": true,
-  "debug": true,
+  "debug": false,
   "newestOnTop": false,
   "progressBar": false,
   "positionClass": "toast-top-right",
