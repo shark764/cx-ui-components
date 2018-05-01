@@ -12,6 +12,7 @@
  * - Inject global styles
  * - Import sanitize.css
  *
+ * Note: If the theme changes, all of the children are completely re-mounted (not just re-rendered)
  */
 
 import React from 'react';
@@ -35,13 +36,6 @@ injectGlobal`
 `;
 
 class RootStyles extends React.Component {
-
-  componentWillMount() {
-    if (this.props.fetchStyles) {
-      this.props.fetchStyles();
-    }
-  }
-
   render() {
     let theme = defaultTheme;
 
@@ -59,7 +53,7 @@ class RootStyles extends React.Component {
 
 RootStyles.propTypes = {
   theme: PropTypes.object,
-  fetchStyles: PropTypes.func,
+  children: PropTypes.any,
 };
 
 export default RootStyles;
