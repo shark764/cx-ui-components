@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.19.5]
+* CXV1-13685 - Display as much of side panel details header as possible
+
 ## [0.19.4]
 * CXV1-13761 - Remove getBranding from RootStyles. Allow loading SVG to be styled.
 
