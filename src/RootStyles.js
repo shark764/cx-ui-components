@@ -37,17 +37,17 @@ injectGlobal`
 
 class RootStyles extends React.Component {
   render() {
-    let theme = defaultTheme;
+    let customTheme = defaultTheme;
 
-    if (this.props.theme && this.props.theme.size > 0) {
-      this.props.theme.keySeq().forEach((key) => {
-        if (theme[key]) {
-          theme[key] = this.props.theme.get(key);
+    if (this.props.theme && Object.keys(this.props.theme).length > 0) {
+      Object.keys(this.props.theme).forEach((key) => {
+        if (customTheme[key]) {
+          customTheme[key] = this.props.theme[key];
         }
       });
     }
 
-    return <ThemeProvider key={JSON.stringify(theme)} theme={theme}>{this.props.children}</ThemeProvider>;
+    return <ThemeProvider key={JSON.stringify(customTheme)} theme={customTheme}>{this.props.children}</ThemeProvider>;
   }
 }
 
