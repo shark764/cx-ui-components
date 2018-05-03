@@ -21,11 +21,13 @@ const Wrapper = styled.div`
 
 const StyledToggle = styled(Toggle)`
   margin: 9px 9px 0px 0px;
+  flex-shrink: 0;
 `;
 
 const HeaderArea = styled.div`
-  margin-bottom: 5px;
-  height: 100px;
+  flex-grow: 1;
+  min-width: 0;
+  margin: 0 14px 5px 0;
 `;
 
 const Header = styled.h1`
@@ -36,7 +38,6 @@ const Header = styled.h1`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  max-width: 400px;
 `;
 
 const SubHeader = styled.h5`
@@ -50,8 +51,6 @@ const CloseIconOuterBox = styled.div`
   margin-top: 5px;
   color: #999999;
   cursor: pointer;
-  position: absolute;
-  right: 10px;
   :hover {
     color: #656565;
   }
