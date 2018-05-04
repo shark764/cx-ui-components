@@ -8,6 +8,7 @@
       emailFormValue="default"
       inheritedSubject="This is the inherited subject"
       inheritedBody="This is the inherited body.\n\nThis is the inherited body.\n\nThis is the inherited body.\n\nThis is the inherited body."
+      variables={[]}
     >
       <span>EmailTemplatesForm goes here<br/><br/></span>
     </EmailTemplatesDetailsPanel>
@@ -47,6 +48,7 @@
       templateShared="No"
       templateSubject="This is the template subject"
       templateBody="This is the template body.\n\nThis is the template body.\n\nThis is the template body.\n\nThis is the template body."
+      variables={[]}
     >
       Children are not displayed
     </EmailTemplatesDetailsPanel>

@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.19.6]
+* CXV1-13849 - Changed the template text editor (used for email templates) regex to use triple curly brackets instead of double brackets and an ampersand
+
 ## [0.19.5]
 * CXV1-13685 - Display as much of side panel details header as possible
 
