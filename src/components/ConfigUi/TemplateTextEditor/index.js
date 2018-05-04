@@ -26,7 +26,7 @@ export default class TemplateTextEditor extends React.Component {
 
   templateStrategy = (contentBlock, callback, contentState) => {
     if (this.props.templates.length) {
-      const templateRegex = new RegExp(`{{&(${this.props.templates.join('|')})+}}`, 'g');
+      const templateRegex = new RegExp(`{{{(${this.props.templates.join('|')})+}}}`, 'g');
       const text = contentBlock.getText();
       let matchArr, start;
       while ((matchArr = templateRegex.exec(text)) !== null) {
