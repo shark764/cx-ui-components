@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.19.7]
+* CXV1-13425 - Added Entity Table hover via branding
+* <no-ticket> - Fix for branding
+
 ## [0.19.6]
 * CXV1-13849 - Changed the template text editor (used for email templates) regex to use triple curly brackets instead of double brackets and an ampersand
 
