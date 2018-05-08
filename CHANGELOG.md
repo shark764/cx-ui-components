@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.19.8]
+* CXV1-13345 - Apply hover accent color to table pagination buttons
+
 ## [0.19.7]
 * CXV1-13425 - Added Entity Table hover via branding
 * <no-ticket> - Fix for branding

@@ -97,11 +97,22 @@ const Table = styled(ReactTable)`
   height: 80vh;
 
   ${props => injectGlobal`
-  .EntityTable .rt-tbody .rt-tr-group {
-    :hover {
-      background-color: ${props.theme.accentHoverColor} !important;
+    .EntityTable .rt-tbody .rt-tr-group {
+      :hover {
+        background-color: ${props.theme.accentHoverColor} !important;
+      }
     }
-  }`}
+
+    .EntityTable,
+    .SidePanelTable {
+      .pagination-bottom button {
+        background-color: ${props.theme.accentHoverColor} !important;
+        :hover {
+          color: #483737 !important
+        }
+      }
+    }
+  `}
 `;
 
 function EntityTable(props) {
