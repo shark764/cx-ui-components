@@ -73,6 +73,7 @@ export default function ListItemsForm(props) {
         onCancel={props.onCancel}
         isSaving={props.isSaving}
         pristine={props.pristine}
+        invalid={props.invalid}
       />
     </form>
   );
@@ -93,4 +94,5 @@ ListItemsForm.propTypes = {
   onCancel: PropTypes.func.isRequired,
   isSaving: PropTypes.bool,
   pristine: PropTypes.bool,
+  invalid: PropTypes.bool,
 };

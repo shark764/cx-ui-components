@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.19.9]
+* CXV1-13328 - Fixed issue with Submit button not being grayed out when required fields have no value
+
 ## [0.19.8]
 * CXV1-13345 - Apply hover accent color to table pagination buttons
 
