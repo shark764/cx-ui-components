@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.19.10]
+* <no-ticket> - Fixed issue with same agent monitoring call twice caused react duplicate key error
+
 ## [0.19.9]
 * CXV1-13328 - Fixed issue with Submit button not being grayed out when required fields have no value
 
