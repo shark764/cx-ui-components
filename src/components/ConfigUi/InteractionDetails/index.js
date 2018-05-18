@@ -110,7 +110,7 @@ export default function InteractionDetails(props) {
             <InteractionDetailsHeader>Interaction Monitors</InteractionDetailsHeader>
             <UnOrderedList>
               {props.data.monitoring.map(({ agentId, endTimestamp, agentName, bargedIn, startTimestamp }) => (
-                <Fragment key={agentId}>
+                <Fragment key={agentId + endTimestamp}>
                   {endTimestamp === null ? <GreenStatus /> : <GreyStatus />}
 
                   <Monitor>
