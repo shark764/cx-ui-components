@@ -12,6 +12,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import InputField from '../../Field/InputField';
 import SelectField from '../../Field/SelectField';
+import ToggleField from '../../Field/ToggleField';
 
 export default function ListsForm(props) {
   return (
@@ -22,6 +23,11 @@ export default function ListsForm(props) {
           label="Name *"
           componentType="input"
           inputType="text"
+          disabled={props.isSaving || props.inherited}
+        />
+        <ToggleField
+          name="shared"
+          label="Shared *"
           disabled={props.isSaving || props.inherited}
         />
         {!props.update && (
