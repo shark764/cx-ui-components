@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.20.0]
+* CXV1-13838 - Added shared toggle to list form
+
 ## [0.19.10]
 * <no-ticket> - Fixed issue with same agent monitoring call twice caused react duplicate key error
 
