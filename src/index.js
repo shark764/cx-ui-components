@@ -28,11 +28,13 @@ export { default as SliderExpander } from './components/ConfigUi/SliderExpander'
 // SidePanelDetails
 export { default as ListsDetailsPanel } from './components/ConfigUi/SidePanelDetails/Lists';
 export { default as EmailTemplatesDetailsPanel } from './components/ConfigUi/SidePanelDetails/EmailTemplates';
+export { default as OutboundIdentifiersDetailsPanel } from './components/ConfigUi/SidePanelDetails/OutboundIdentifiers';
 
 // Forms
 export { default as ListsForm } from './components/ConfigUi/Form/Lists';
 export { default as ListItemsForm } from './components/ConfigUi/Form/ListItems';
 export { default as EmailTemplatesForm } from './components/ConfigUi/Form/EmailTemplates';
+export { default as OutboundIdentifiersForm } from './components/ConfigUi/Form/OutboundIdentifiers';
 
 // Reporting
 export { default as InteractionDetails } from './components/ConfigUi/InteractionDetails';
