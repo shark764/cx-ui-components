@@ -17,28 +17,26 @@ import ToggleField from '../../Field/ToggleField';
 export default function ListsForm(props) {
   return (
     <form onSubmit={props.handleSubmit}>
-      <div>
-        <InputField
-          name="name"
-          label="Name *"
-          componentType="input"
-          inputType="text"
-          disabled={props.isSaving || props.inherited}
+      <InputField
+        name="name"
+        label="Name *"
+        componentType="input"
+        inputType="text"
+        disabled={props.isSaving || props.inherited}
+      />
+      <ToggleField
+        name="shared"
+        label="Shared *"
+        disabled={props.isSaving || props.inherited}
+      />
+      {!props.update && (
+        <SelectField
+          name="listTypeId"
+          label="List Type *"
+          options={props.listTypes}
+          disabled={props.isSaving}
         />
-        <ToggleField
-          name="shared"
-          label="Shared *"
-          disabled={props.isSaving || props.inherited}
-        />
-        {!props.update && (
-          <SelectField
-            name="listTypeId"
-            label="List Type *"
-            options={props.listTypes}
-            disabled={props.isSaving}
-          />
-        )}
-      </div>
+      )}
     </form>
   );
 }
@@ -57,6 +55,5 @@ ListsForm.propTypes = {
 };
 
 ListsForm.defaultProps = {
-  listTypes: [],
   update: false,
 };

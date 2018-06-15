@@ -14,12 +14,17 @@ const Form = require('../../../../utils/reduxForm');
     />
     <SelectField
       name="requiredSelect"
-      label="Required Select*"
+      label="Required Select *"
       options={[
         { label: 'Option 1', value: '1' },
         { label: 'Option 2', value: '2' },
       ]}
       required
+    />
+    <SelectField
+      name="loadingSelect"
+      label="Loading Select"
+      options={undefined}
     />
     <SelectField
       name="booleanSelect"

@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.21.1]
+* <no-ticket> - Fix "Loading..." option for list types in create list form
+
 ## [0.21.0]
 * CXV1-12475 - Added outbound identifiers form and outbound identifiers side panel details
 
