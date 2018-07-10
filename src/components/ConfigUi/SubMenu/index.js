@@ -33,13 +33,15 @@ const SubMenuTopArrow = styled.div`
 const ItemList = styled.ul`
   list-style-type: none;
   padding-left: 0px;
+  max-height: 65vh;
+  max-width: 65vw;
+  overflow: auto;
 `;
 const ListItem = styled.li`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 80%;
-  margin: 4px auto;
+  margin: 4px 25px;
   color: #474747;
   cursor: pointer;
 `;
@@ -50,6 +52,11 @@ const Seperator = styled.div`
   margin: 10px auto;
   width: 80%;
   border-bottom: 1px solid lightgrey;
+`;
+const ItemText = styled.span`
+  margin-left: 20px;
+  text-overflow: ellipsis;
+  overflow: hidden;
 `;
 
 class SubMenu extends React.Component {
@@ -95,7 +102,7 @@ class SubMenu extends React.Component {
                   value={item.name}
                   checked={item.active}
                 />
-                <span>{item.name}</span>
+                <ItemText>{item.name}</ItemText>
               </ListItem>,
               item.name === 'All' && <Seperator key={`${item.name}-seperator`} />,
             ])}
