@@ -56,10 +56,6 @@ injectGlobal`${importantCss(`
     }
   }
 
-  .EntityTable abbr {
-    text-decoration: none;
-  }
-
   .EntityTable .rt-tbody .rt-tr-group {
     border: none;
     height: 40px;

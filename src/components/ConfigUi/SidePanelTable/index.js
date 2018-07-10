@@ -47,10 +47,6 @@ injectGlobal`${importantCss(`
     }
   }
 
-  .SidePanelTable abbr {
-    text-decoration: none;
-  }
-
   .SidePanelTable .rt-tbody .rt-td {
     padding: 10px;
     font-size: 14px;

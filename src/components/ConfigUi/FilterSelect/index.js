@@ -20,7 +20,7 @@ const StyledSelector = styled.select`
 
 function FilterSelect(props) {
   return (
-    <StyledSelector onChange={props.onChange} className={props.className}>
+    <StyledSelector onChange={props.onChange} className={props.className} defaultValue={props.defaultValue}>
       {props.options.map(value => (
         <option key={value} value={value}>
           {value}
@@ -34,6 +34,7 @@ FilterSelect.propTypes = {
   className: PropTypes.string,
   options: PropTypes.arrayOf(PropTypes.string).isRequired,
   onChange: PropTypes.func.isRequired,
+  defaultValue: PropTypes.string
 };
 
 export default FilterSelect;

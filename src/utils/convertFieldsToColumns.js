@@ -26,9 +26,9 @@ import React from 'react';
 export default function convertFieldsToColumns(fields) {
   return fields.map(field => ({
     id: field.name,
-    Header: <abbr title={field.label}>{field.label}</abbr>,
+    Header: <span title={field.label}>{field.label}</span>,
     filterable: field.name !== 'subEntityActions',
     accessor: d => d[field.name],
-    Cell: ({value}) => (value !== undefined && <abbr title={`${value}`}>{`${value}`}</abbr>)
+    Cell: ({value}) => (value !== undefined && <span title={`${value}`}>{`${value}`}</span>)
   }));
 }
