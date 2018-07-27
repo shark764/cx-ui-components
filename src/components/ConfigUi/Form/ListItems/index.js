@@ -46,8 +46,8 @@ export default function ListItemsForm(props) {
   return (
     <form onSubmit={props.handleSubmit}>
       {props.listName?
-        <Fragment><Header>Creating list item for : </Header><Item>{props.listName}</Item></Fragment> :
-        <Fragment><Header>Updating list item : </Header><Item>{props.listItemName}</Item></Fragment>
+        <Fragment><Header>Creating list item for : </Header><Item title={props.listName}>{props.listName}</Item></Fragment> :
+        <Fragment><Header>Updating list item : </Header><Item title={props.listItemName}>{props.listItemName}</Item></Fragment>
       }
       <Wrapper>
       {props.fieldItems.map(field =>
