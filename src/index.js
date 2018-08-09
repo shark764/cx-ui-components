@@ -1,5 +1,5 @@
 /*
- * Copyright © 2015-2017 Serenova, LLC. All rights reserved.
+ * Copyright © 2015-2018 Serenova, LLC. All rights reserved.
  */
 
 // RootStyles
@@ -25,16 +25,15 @@ export { default as Toast } from './components/ConfigUi/Toast';
 export { default as Toggle } from './components/ConfigUi/Toggle';
 export { default as SliderExpander } from './components/ConfigUi/SliderExpander';
 
-// SidePanelDetails
-export { default as ListsDetailsPanel } from './components/ConfigUi/SidePanelDetails/Lists';
-export { default as EmailTemplatesDetailsPanel } from './components/ConfigUi/SidePanelDetails/EmailTemplates';
-export { default as OutboundIdentifiersDetailsPanel } from './components/ConfigUi/SidePanelDetails/OutboundIdentifiers';
+// Fields
+export { default as InputField } from './components/ConfigUi/Field/InputField';
+export { default as SelectField } from './components/ConfigUi/Field/SelectField';
+export { default as ToggleField } from './components/ConfigUi/Field/ToggleField';
+export { default as TemplateTextEditorField } from './components/ConfigUi/Field/TemplateTextEditorField';
 
-// Forms
-export { default as ListsForm } from './components/ConfigUi/Form/Lists';
-export { default as ListItemsForm } from './components/ConfigUi/Form/ListItems';
-export { default as EmailTemplatesForm } from './components/ConfigUi/Form/EmailTemplates';
-export { default as OutboundIdentifiersForm } from './components/ConfigUi/Form/OutboundIdentifiers';
+// File
+export { default as FileUpload } from './components/ConfigUi/FileUpload';
+export { default as FileDownload } from './components/ConfigUi/FileDownload';
 
 // Reporting
 export { default as InteractionDetails } from './components/ConfigUi/InteractionDetails';
