@@ -39,7 +39,7 @@ function DropdownButton(props) {
 DropdownButton.propTypes = {
   id: PropTypes.string,
   className: PropTypes.string,
-  buttonType: PropTypes.oneOf(['primary', 'secondary', 'columnFilter']),
+  buttonType: PropTypes.oneOf(['primary', 'secondary', 'columnFilter', 'selector']),
   disabled: PropTypes.bool,
   /** Text or icon to go inside the button */
   children: PropTypes.any,

@@ -18,10 +18,17 @@ import 'react-table/react-table.css';
 import SidePanelTableActions from '../SidePanelTableActions';
 import { importantCss, convertFieldsToColumns } from '../../../utils';
 
+import DynamicTableWrapper from '../DynamicTableWrapper';
+
 // React-Table does not integrate well with Styled components
 // We will be writing table style overrides here
 // We will use a new class name to make these styles component specific
 injectGlobal`${importantCss(`
+
+  .SidePanelTable .rt-table {
+    overflow: hidden;
+  }
+
   .SidePanelTable .rt-thead .rt-th {
     color: #656565;
     padding: 10px;
@@ -39,8 +46,8 @@ injectGlobal`${importantCss(`
 
   .SidePanelTable .rt-tbody .rt-tr-group {
     border: none;
-    height: 55px;
-    max-height: 55px;
+    height: 40px;
+    max-height: 40px;
 
     &:hover {
       background-color: #e6f5ff;
@@ -70,33 +77,37 @@ injectGlobal`${importantCss(`
   }
 `)}`;
 
+export default DynamicTableWrapper(SidePanelTable);
+
 function SidePanelTable(props) {
-  const columns = [...convertFieldsToColumns(props.fields)];
-  if (props.updateSubEntity && props.deleteSubEntity) {
-    columns.push({
-      id: 'actions',
-      Header: 'Actions',
-      filterable: false,
-      sortable: false,
-      accessor: d => <SidePanelTableActions row={d} updateSubEntity={props.updateSubEntity} deleteSubEntity={props.deleteSubEntity} />,
-      width: 90,
-      show: props.userHasUpdatePermission && !props.inherited
-    });
-  }
-  return (
-    <ReactTable
-      data={props.items}
-      columns={columns}
-      defaultPageSize={props.pagination ? 10 : props.items.length}
-      showPagination={props.pagination}
-      className="-striped SidePanelTable"
-      defaultFilterMethod={(filter, row) =>
-        String(row[filter.id])
-          .toLowerCase()
-          .indexOf(filter.value.toLowerCase()) > -1
-      }
-    />
-  );
+    const columns = [...convertFieldsToColumns(props.fields)];
+    if (props.updateSubEntity || props.deleteSubEntity || props.addSubEntity) {
+      columns.push({
+        id: 'actions',
+        Header: 'Actions',
+        filterable: false,
+        sortable: false,
+        accessor: d => <SidePanelTableActions row={d} updateSubEntity={props.updateSubEntity} deleteSubEntity={props.deleteSubEntity} addSubEntity={props.addSubEntity} toggleSubEntityActive={props.toggleSubEntityActive}/>,
+        width: 90,
+        show: props.userHasUpdatePermission && !props.inherited
+      });
+    }
+    return (
+        <ReactTable
+          data={props.items}
+          columns={columns}
+          defaultPageSize={5}
+          pageSize={props.pageSize}
+          onPageSizeChange={pageSize => props.setPageSize(pageSize, props.items.length)}
+          showPagination={props.pagination}
+          className="-striped SidePanelTable"
+          defaultFilterMethod={(filter, row) =>
+            String(row[filter.id])
+              .toLowerCase()
+              .indexOf(filter.value.toLowerCase()) > -1
+          }
+        />
+    );
 }
 
 SidePanelTable.propTypes = {
@@ -110,10 +121,12 @@ SidePanelTable.propTypes = {
   pagination: PropTypes.bool,
   updateSubEntity: PropTypes.func,
   deleteSubEntity: PropTypes.func,
+  addSubEntity: PropTypes.func,
+  toggleSubEntityActive: PropTypes.func,
+  pageSize: PropTypes.number,
+  setPageSize: PropTypes.func,
 };
 
 SidePanelTable.defaultProps = {
   pagination: true,
 }
-
-export default SidePanelTable;

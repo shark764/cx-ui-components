@@ -103,9 +103,14 @@ const Table = styled(ReactTable)`
     .SidePanelTable {
       .pagination-bottom button {
         background-color: ${props.theme.accentHoverColor} !important;
+        max-height: 30px;
+        margin-top: 3px;
         :hover {
           color: #483737 !important
         }
+      }
+      .pagination-bottom .-center {
+        flex-wrap: nowrap;
       }
     }
   `}
@@ -158,6 +163,7 @@ EntityTable.propTypes = {
   /** Must be a javascipt arr for React-table */
   columns: PropTypes.array,
   onRowClick: PropTypes.func,
+  userHasCreatePermission: PropTypes.bool,
 };
 
 export default EntityTable;

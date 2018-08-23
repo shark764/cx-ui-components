@@ -17,7 +17,8 @@ const StyledPath = styled.path`
     (props.closeIconType === undefined || props.closeIconType === 'primary') &&
     css`
       fill: ${props => props.theme.primaryColor};
-    `} ${props =>
+    `} 
+  ${props =>
     props.closeIconType === 'secondary' &&
     css`
       fill: rgb(153, 153, 153);

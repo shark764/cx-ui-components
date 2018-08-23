@@ -2,7 +2,7 @@
 <div>
   <CustomDropdownMenu
     currentFilter="All"
-    setSubMenuVisibility={() => {}}
+    setVisibleMenu={() => 'mockFunction'}
     currentVisibleSubMenu="something else"
     menuType="Columns"
     buttonType="columnFilter"

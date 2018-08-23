@@ -38,7 +38,7 @@ const ActionButton = styled.button`
   font-size: 14px;
   margin-top: -2px;
   padding: 3px 10px;
-
+  min-height: 26px;
   :hover {
     box-shadow: inset 0px 1px 2px rgba(175, 175, 175, 0.4);
   }

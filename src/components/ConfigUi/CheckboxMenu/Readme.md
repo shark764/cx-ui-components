@@ -20,6 +20,7 @@
     buttonText="All"
     style={{}}
     menuType="Columns"
+    tableType={"Generic Table"}
     children={[]}
     buttonType="selector"
     selectionType="checkbox"

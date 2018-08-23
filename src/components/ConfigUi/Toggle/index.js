@@ -16,8 +16,8 @@ import { colors } from '../../../constants';
 const StyledLabel = styled.label`
   position: relative;
   display: inline-block;
-  width: 60px;
-  height: 34px;
+  width: 40px;
+  height: 14px;
 `;
 
 const Switch = styled.input`
@@ -31,8 +31,8 @@ const Slider = styled.span`
   left: 0;
   right: 0;
   bottom: 0;
-  height: 28px;
-  width: 53px;
+  height: 20px;
+  width: 40px;
   background-color: #ccc;
   -webkit-transition: 0.4s;
   transition: 0.4s;
@@ -49,18 +49,18 @@ const Slider = styled.span`
   &:before {
     position: absolute;
     content: '';
-    height: 20px;
-    width: 20px;
-    left: 4px;
-    bottom: 4px;
+    height: 16px;
+    width: 16px;
+    left: 2px;
+    bottom: 2px;
     background-color: white;
     -webkit-transition: 0.4s;
     transition: 0.4s;
     border-radius: 50%;
     ${Switch}:checked + & {
-      -webkit-transform: translateX(26px);
-      -ms-transform: translateX(26px);
-      transform: translateX(26px);
+      -webkit-transform: translateX(20px);
+      -ms-transform: translateX(20px);
+      transform: translateX(20px);
     }
   }
 `;
