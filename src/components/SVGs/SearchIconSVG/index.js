@@ -16,10 +16,16 @@ const StyledPath = styled.path`
     props.searchIconType === 'primary' &&
     css`
       fill: ${props => props.theme.primaryColor};
-    `} ${props =>
+    `} 
+  ${props =>
     props.searchIconType === 'searchBox' &&
     css`
       fill: white;
+    `};
+  ${props =>
+    props.searchIconType === 'inlineSearchBox' &&
+    css`
+      fill: #999999;
     `};
 `;
 
@@ -43,7 +49,7 @@ function SearchIconSVG(props) {
 SearchIconSVG.propTypes = {
   size: PropTypes.number,
   className: PropTypes.string,
-  searchIconType: PropTypes.oneOf(['primary', 'searchBox']),
+  searchIconType: PropTypes.oneOf(['primary', 'searchBox', 'inlineSearchBox']),
   onClick: PropTypes.func,
 };
 

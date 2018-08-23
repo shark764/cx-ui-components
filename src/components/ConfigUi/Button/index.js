@@ -95,7 +95,7 @@ Button.propTypes = {
   /**
    * Possible options are primary, secondary, columnFilter.
    */
-  buttonType: PropTypes.oneOf(['primary', 'secondary', 'columnFilter']),
+  buttonType: PropTypes.oneOf(['primary', 'secondary', 'columnFilter','selector']),
   type: PropTypes.string,
   disabled: PropTypes.bool,
   title: PropTypes.string,
