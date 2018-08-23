@@ -22,7 +22,6 @@ const ModalWrapper = styled.div`
   left: 0;
   right: 0;
   ${props =>
-    !console.warn(props.selectedSubEntityId) &&
     props.selectedSubEntityId === 'addMembersToList' &&
     css`
     height: 80%;
@@ -32,7 +31,6 @@ const ModalWrapper = styled.div`
     flex-direction: column;
     `}
   ${props =>
-    !console.warn(props.selectedSubEntityId) &&
     props.selectedSubEntityId !== 'addMembersToList' &&
     css`
     max-width: 800px;
@@ -44,9 +42,9 @@ const ModalWrapper = styled.div`
 export default function Modal(props) {
   return (
     <Fragment>
-      <GrayClickMask
+      <GrayClickMask 
         onClick={props.onMaskClick}
-      />
+        />
       <ModalWrapper className={props.className} selectedSubEntityId={props.selectedSubEntityId}>
         {props.children}
       </ModalWrapper>
