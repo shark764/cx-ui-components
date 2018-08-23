@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.22.0]
+* CXV1-15035 - Create RadioButton Component.
+
 ## [0.21.8]
 * CXV1-14775 - add components to dependencies list 
 
