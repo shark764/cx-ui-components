@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.21.6]
+* remove un-needed console logs
+
 ## [0.21.5]
 * CXV1-14932 - component tweaks and improvments for Outbound Identification Lists
 
