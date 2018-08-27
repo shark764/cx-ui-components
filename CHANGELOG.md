@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.21.7]
+* CXV1-14775 - move components to peer and dev dependecies list 
+
 ## [0.21.6]
 * remove un-needed console logs
 
