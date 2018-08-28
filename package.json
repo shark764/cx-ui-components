@@ -1,6 +1,6 @@
 {
   "name": "cx-ui-components",
-  "version": "0.21.7",
+  "version": "0.21.8",
   "description": "Front end react components for any cx-related projects",
   "main": "./src/index.js",
   "scripts": {
@@ -26,6 +26,9 @@
   "author": "SerenovaLLC",
   "license": "UNLICENSED",
   "dependencies": {
+    "react-table": "^6.7.6",
+    "redux-form": "^7.2.3",
+    "toastr": "^2.1.4"
   },
   "peerDependencies": {
     "draft-js": "^0.10.5",
@@ -34,13 +37,10 @@
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.7",
-    "react-table": "^6.7.6",
     "redux": "^3.7.2",
-    "redux-form": "^7.2.3",
     "redux-immutable": "^4.0.0",
     "sanitize.css": "^5.0.0",
-    "styled-components": "^3.1.4",
-    "toastr": "^2.1.4"
+    "styled-components": "^3.1.4"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
@@ -74,14 +74,11 @@
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.7",
     "react-styleguidist": "^6.2.0",
-    "react-table": "^6.7.6",
     "redux": "^3.7.2",
-    "redux-form": "^7.2.3",
     "redux-immutable": "^4.0.0",
     "sanitize.css": "^5.0.0",
     "style-loader": "^0.19.1",
     "styled-components": "^3.1.4",
-    "toastr": "^2.1.4",
     "url-loader": "^0.6.2",
     "webpack": "^3.10.0",
     "webpack-bundle-analyzer": "^2.11.1"
