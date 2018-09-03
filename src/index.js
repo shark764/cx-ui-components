@@ -30,6 +30,7 @@ export { default as InputField } from './components/ConfigUi/Field/InputField';
 export { default as SelectField } from './components/ConfigUi/Field/SelectField';
 export { default as ToggleField } from './components/ConfigUi/Field/ToggleField';
 export { default as TemplateTextEditorField } from './components/ConfigUi/Field/TemplateTextEditorField';
+export { default as RadioGroupField } from './components/ConfigUi/Field/RadioGroupField';
 
 // File
 export { default as FileUpload } from './components/ConfigUi/FileUpload';
