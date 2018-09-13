@@ -31,10 +31,16 @@ function SidePanelActions(props) {
         buttonType="primary"
         disabled={props.isSaving || props.pristine || props.invalid}
         onClick={props.onSubmit}
+        id="sdpanel-submit"
       >
         {props.isSaving ? 'Saving' : 'Submit'}
       </SlimButton>
-      <SlimButton type="button" buttonType="secondary" onClick={props.onCancel}>
+      <SlimButton
+        type="button"
+        buttonType="secondary"
+        onClick={props.onCancel}
+        id="sdpanel-cancel"
+      >
         Cancel
       </SlimButton>
     </div>
