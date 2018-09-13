@@ -8,13 +8,15 @@ import { CustomInput } from '../StyledInputs';
 const TemplateTextEditorInput = ({
   input,
   label,
+  id,
+  className,
   disabled,
   meta: { touched, error, warning },
   templates,
 }) =>
   <FieldWrapper inputName={input.name} label={label} touched={touched} error={error} warning={warning}>
     <CustomInput disabled={disabled} hasError={touched && !!error}>
-      <TemplateTextEditor {...input} disabled={disabled} templates={templates} />
+      <TemplateTextEditor {...input} id={id} className={className} disabled={disabled} templates={templates} />
     </CustomInput>
   </FieldWrapper>
 
@@ -25,6 +27,8 @@ export default function TemplateTextEditorField(props) {
 TemplateTextEditorField.propTypes = {
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
+  id: PropTypes.string,
+  className: PropTypes.string,
   disabled: PropTypes.bool,
   templates: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
@@ -36,6 +40,8 @@ TemplateTextEditorField.defaultProps = {
 TemplateTextEditorInput.propTypes = {
   input: PropTypes.object.isRequired,
   label: PropTypes.string.isRequired,
+  id: PropTypes.string,
+  className: PropTypes.string,
   disabled: PropTypes.bool,
   meta: PropTypes.object,
   templates: PropTypes.arrayOf(PropTypes.string).isRequired,

@@ -38,9 +38,9 @@ const DownloadButton = styled(Button)`
 
 function FileDownload(props) {
   return (
-    <Wrapper id={props.id} className={props.className}>
+    <Wrapper className={props.className}>
       <Label>Download</Label>
-      <DownloadButton onClick={props.onClick} disabled={props.disabled} >Start Download</DownloadButton>
+      <DownloadButton id={props.id} className={props.className} onClick={props.onClick} disabled={props.disabled} >Start Download</DownloadButton>
     </Wrapper>
   );
 }
