@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.22.1]
+* CXV1-15041 - adjusting dynamic table size to better fit parent element
+
 ## [0.22.0]
 * CXV1-15035 - Create RadioButton Component.
 

@@ -22,7 +22,7 @@ const ModalWrapper = styled.div`
   left: 0;
   right: 0;
   ${props =>
-    props.selectedSubEntityId === 'addMembersToList' &&
+    props.selectedSubEntityId === 'addItemToList' &&
     css`
     height: 80%;
     margin: 0 auto;
@@ -31,7 +31,7 @@ const ModalWrapper = styled.div`
     flex-direction: column;
     `}
   ${props =>
-    props.selectedSubEntityId !== 'addMembersToList' &&
+    props.selectedSubEntityId !== 'addItemToList' &&
     css`
     max-width: 800px;
     max-height: 80%;
