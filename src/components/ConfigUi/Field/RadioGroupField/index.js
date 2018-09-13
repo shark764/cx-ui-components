@@ -45,6 +45,8 @@ const RadioGroup = ({
                 <input
                   type='radio'
                   {...input}
+                  id={option.id}
+                  className={option.className}
                   key={option.value}
                   value={option.value}
                   checked={option.value === input.value}
@@ -83,6 +85,8 @@ RadioGroupField.propTypes = {
       ]).isRequired,
       label: PropTypes.string.isRequired,
       helpText: PropTypes.string,
+      id: PropTypes.string,
+      className: PropTypes.string,
       disabled: PropTypes.bool,
     })
   ).isRequired,
@@ -108,6 +112,8 @@ RadioGroup.propTypes = {
       ]).isRequired,
       label: PropTypes.string.isRequired,
       helpText: PropTypes.string,
+      id: PropTypes.string,
+      className: PropTypes.string,
       disabled: PropTypes.bool,
     })
   ).isRequired,

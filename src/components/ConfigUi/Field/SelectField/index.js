@@ -9,6 +9,8 @@ const Select = Input.withComponent('select');
 const SelectInput = ({
   input,
   label,
+  id,
+  className,
   disabled,
   meta: { touched, error, warning },
   options,
@@ -22,7 +24,7 @@ const SelectInput = ({
   }
   return (
     <FieldWrapper inputName={input.name} label={label} touched={touched} error={error} warning={warning}>
-      <Select {...input} disabled={disabled} hasError={touched && !!error}>
+      <Select {...input} id={id} className={className} disabled={disabled} hasError={touched && !!error}>
         {options ? (
           <Fragment>
             {!required && <option />}
@@ -61,6 +63,8 @@ export default function SelectField(props) {
 SelectField.propTypes = {
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
+  id: PropTypes.string,
+  className: PropTypes.string,
   disabled: PropTypes.bool,
   /** Pass in an array of objects with value and label to use as options or pass in "boolean" to use true and false values */
   options: PropTypes.oneOfType([
@@ -88,6 +92,8 @@ SelectField.defaultProps = {
 SelectInput.propTypes = {
   input: PropTypes.object.isRequired,
   label: PropTypes.string.isRequired,
+  id: PropTypes.string,
+  className: PropTypes.string,
   disabled: PropTypes.bool,
   meta: PropTypes.object,
   options: PropTypes.oneOfType([

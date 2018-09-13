@@ -22,6 +22,8 @@ const Textarea = Input.withComponent('textarea').extend`
 const RenderField = ({
   input,
   label,
+  id,
+  className,
   componentType,
   type,
   disabled,
@@ -32,6 +34,8 @@ const RenderField = ({
     inputElement = (
       <Input
         {...input}
+        id={id}
+        className={className}
         disabled={disabled}
         type={type}
         hasError={touched && !!error}
@@ -39,7 +43,7 @@ const RenderField = ({
     );
   } else if (componentType === 'textarea') {
     inputElement = (
-      <Textarea {...input} disabled={disabled} hasError={touched && !!error} />
+      <Textarea {...input} id={id} className={className} disabled={disabled} hasError={touched && !!error} />
     );
   }
   return (
@@ -70,6 +74,8 @@ export default function InputField(props) {
 InputField.propTypes = {
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
+  id: PropTypes.string,
+  className: PropTypes.string,
   disabled: PropTypes.bool,
   componentType: PropTypes.oneOf(['input', 'textarea']),
   dataType: PropTypes.oneOf(['string', 'number']),
@@ -83,6 +89,8 @@ InputField.defaultProps = {
 RenderField.propTypes = {
   input: PropTypes.object.isRequired,
   label: PropTypes.string.isRequired,
+  id: PropTypes.string,
+  className: PropTypes.string,
   disabled: PropTypes.bool,
   meta: PropTypes.object,
   type: PropTypes.string,

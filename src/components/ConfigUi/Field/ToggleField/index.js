@@ -7,11 +7,13 @@ import FieldWrapper from '../FieldWrapper';
 const ToggleInput = ({
   input,
   label,
+  id,
+  className,
   disabled,
   meta: { touched, error, warning },
 }) =>
   <FieldWrapper inputName={input.name} label={label} touched={touched} error={error} warning={warning}>
-    <Toggle {...input} disabled={disabled} />
+    <Toggle {...input} id={id} className={className} disabled={disabled} />
   </FieldWrapper>
 
 const parseToggle = value => value === true
@@ -23,6 +25,8 @@ export default function ToggleField(props) {
 ToggleField.propTypes = {
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
+  id: PropTypes.string,
+  className: PropTypes.string,
   disabled: PropTypes.bool,
 };
 
@@ -33,6 +37,8 @@ ToggleField.defaultProps = {
 ToggleInput.propTypes = {
   input: PropTypes.object.isRequired,
   label: PropTypes.string.isRequired,
+  id: PropTypes.string,
+  className: PropTypes.string,
   disabled: PropTypes.bool,
   meta: PropTypes.object,
 };

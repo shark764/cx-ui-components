@@ -31,10 +31,11 @@ const Label = styled.span`
 
 function FileUpload(props) {
   return (
-    <Wrapper id={props.id} className={props.className}>
+    <Wrapper className={props.className}>
       <Label>Upload</Label>
       <input
-        id='FileUpload'
+        id={props.id ? props.id : 'FileUpload'}
+        className={props.className}
         type='file'
         accept={props.acceptedFileType}
         onChange={props.onFileSelect}
