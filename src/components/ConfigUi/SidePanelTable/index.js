@@ -97,6 +97,7 @@ function SidePanelTable(props) {
           data={props.items}
           columns={columns}
           defaultPageSize={5}
+          pageSizeOptions={props.pageSizeOptions}
           pageSize={props.pageSize}
           onPageSizeChange={pageSize => props.setPageSize(pageSize, props.items.length)}
           showPagination={props.pagination}
@@ -113,6 +114,7 @@ function SidePanelTable(props) {
 SidePanelTable.propTypes = {
   userHasUpdatePermission: PropTypes.bool,
   inherited: PropTypes.bool,
+  pageSizeOptions: PropTypes.array,
   id: PropTypes.string,
   /** Must be a javascipt arr for React-table */
   items: PropTypes.array.isRequired,
