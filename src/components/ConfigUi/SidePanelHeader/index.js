@@ -67,7 +67,7 @@ function SidePanelHeader(props) {
     >
       {props.toggleStatus !== undefined &&
         props.userHasUpdatePermission && (
-          <StyledToggle value={props.toggleStatus} onChange={props.onToggle} inherited={props.inherited} />
+          <StyledToggle id="sdpanel-toggle-status" value={props.toggleStatus} onChange={props.onToggle} inherited={props.inherited} />
         )}
       <HeaderArea>
         <Header title={props.title}>{props.title}</Header>
@@ -76,7 +76,7 @@ function SidePanelHeader(props) {
       </HeaderArea>
       {props.onClose !== undefined && (
         <CloseIconOuterBox>
-          <CloseIconSVG size={17} alt="close menu" title="close" closeIconType="secondary" onClick={props.onClose} />
+          <CloseIconSVG  id="sdpanel-close-panel" size={17} alt="close menu" title="close" closeIconType="secondary" onClick={props.onClose} />
         </CloseIconOuterBox>
       )}
     </Wrapper>

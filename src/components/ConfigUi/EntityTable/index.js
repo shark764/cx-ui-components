@@ -121,7 +121,7 @@ function EntityTable(props) {
     <GridContainer id={props.id} className={props.className}>
       <Header text={props.pageTitle} helpLink={props.pageHelpLink}>
         {props.userHasCreatePermission && (
-          <Button buttonType="primary" onClick={props.onCreateButtonClick}>
+          <Button buttonType="primary" id="sdpanel-create" onClick={props.onCreateButtonClick}>
             Create
           </Button>
         )}

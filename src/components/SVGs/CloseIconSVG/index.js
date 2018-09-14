@@ -28,7 +28,7 @@ const StyledPath = styled.path`
 function CloseIconSVG(props) {
   return (
     <Fragment>
-      <SvgWrapper size={props.size} className="CloseIconSVG" onClick={props.onClick}>
+      <SvgWrapper id={props.id} size={props.size} className="CloseIconSVG" onClick={props.onClick}>
         <svg viewBox="0 0 384 512">
           <StyledPath
             className="icon"
