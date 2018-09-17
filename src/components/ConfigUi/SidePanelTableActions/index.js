@@ -16,11 +16,12 @@ const ActionButton = styled(Button)`
   margin-right: 10px;
 `;
 
-export default function SidePanelTableActions({ row, updateSubEntity, deleteSubEntity,addSubEntity, toggleSubEntityActive}) {
+export default function SidePanelTableActions({row, updateSubEntity, deleteSubEntity, addSubEntity, toggleSubEntityActive}) {
   return (
     <Fragment>
       { updateSubEntity &&
         <ActionButton
+          className="dtpanel-action-update-item"
           title={!row.deleting ? `Update ${row.key || row.name}` : undefined}
           onClick={() => updateSubEntity(row.key || row.id)}
           disabled={row.deleting}
@@ -30,6 +31,7 @@ export default function SidePanelTableActions({ row, updateSubEntity, deleteSubE
       }
       { deleteSubEntity &&
         <ActionButton
+          className="dtpanel-action-remove-item"
           title={!row.deleting ? `Delete ${row.key || row.name}` : `row.deleting ${row.key || row.name}`}
           onClick={() => deleteSubEntity(row.key || row.id)}
           disabled={row.deleting}
@@ -39,6 +41,7 @@ export default function SidePanelTableActions({ row, updateSubEntity, deleteSubE
       }
       { addSubEntity &&
         <ActionButton
+          className="dtpanel-action-add-item"
           title={!row.adding ? `Add ${row.key || row.name}` : `row.adding ${row.key || row.name}`}
           onClick={() => addSubEntity(row.key || row.id)}
           disabled={row.adding}
@@ -47,7 +50,8 @@ export default function SidePanelTableActions({ row, updateSubEntity, deleteSubE
         </ActionButton>
       }
       { toggleSubEntityActive &&
-          <Toggle 
+          <Toggle
+            className="dtpanel-action-toggle-active-item"
             value={row.active}
             onChange={() => toggleSubEntityActive(row)} 
           />
