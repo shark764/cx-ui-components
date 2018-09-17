@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.22.4]
+* <no-jira> - Adding id/className attribute to list-item attribute.
+
 ## [0.22.3]
 * <no-jira> - Adding id attribute to Create/Close/Submit/Cancel Buttons.
 
