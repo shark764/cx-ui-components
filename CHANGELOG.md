@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.23.1]
+* <no-jira> - Adding id/className attribute to filters on EntityTable and SidePanelTable.
+
 ## [0.23.0]
 * CXV1-14893/CXV1-14891 - Added freeform list component / form builder component
 * CXV1-14890 - Added color picker component
