@@ -29,6 +29,14 @@ export default function convertFieldsToColumns(fields) {
     Header: <span title={field.label}>{field.label}</span>,
     filterable: field.name !== 'subEntityActions',
     accessor: d => d[field.name],
-    Cell: ({value}) => (value !== undefined && <span title={`${value}`}>{`${value}`}</span>)
+    Cell: ({value}) => (value !== undefined && <span title={`${value}`}>{`${value}`}</span>),
+    Filter: ({ filter, onChange }) => (
+      <input
+        className={"subentity-filter-column-" + field.name}
+        onChange={event => onChange(event.target.value)}
+        style={{ width: '100%' }}
+        value={filter ? filter.value : ''}
+      />
+    )
   }));
 }
