@@ -31,6 +31,8 @@ export { default as SelectField } from './components/ConfigUi/Field/SelectField'
 export { default as ToggleField } from './components/ConfigUi/Field/ToggleField';
 export { default as TemplateTextEditorField } from './components/ConfigUi/Field/TemplateTextEditorField';
 export { default as RadioGroupField } from './components/ConfigUi/Field/RadioGroupField';
+export { default as ColorField } from './components/ConfigUi/Field/ColorField';
+export { default as ListField } from './components/ConfigUi/Field/ListField';
 
 // File
 export { default as FileUpload } from './components/ConfigUi/FileUpload';

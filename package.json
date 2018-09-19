@@ -1,6 +1,6 @@
 {
   "name": "cx-ui-components",
-  "version": "0.22.4",
+  "version": "0.23.0",
   "description": "Front end react components for any cx-related projects",
   "main": "./src/index.js",
   "scripts": {
@@ -71,6 +71,8 @@
     "prettier": "^1.11.1",
     "radium": "^0.21.2",
     "react": "^16.2.0",
+    "react-beautiful-dnd": "^9.0.2",
+    "react-color": "^2.14.1",
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.7",
     "react-styleguidist": "^6.2.0",
