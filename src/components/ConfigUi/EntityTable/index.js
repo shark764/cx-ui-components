@@ -21,6 +21,8 @@ import LoadingSpinner from '../../SVGs/LoadingSpinnerSVG';
 
 import { importantCss } from '../../../utils';
 
+import Checkbox from '../Checkbox';
+
 // React-Table does not integrate well with Styled components
 // We will be writing table style overrides here
 // We will use a new class name to make these styles component specific
@@ -44,7 +46,6 @@ injectGlobal`${importantCss(`
     font-weight: 600;
     text-align: left;
     border: none;
-    min-width: 100px;
 
     :not(.rt-resizable-header) {
       padding-left: 5px;
@@ -72,7 +73,6 @@ injectGlobal`${importantCss(`
     text-align: left;
     border: none;
     color: #483737;
-    min-width: 100px;
   }
 `)}`;
 
@@ -116,7 +116,42 @@ const Table = styled(ReactTable)`
   `}
 `;
 
+const CheckboxWrapper = styled.div`
+width: 100%;
+height: 100%
+`;
+
+const Checkbox1 = styled(Checkbox)`
+width: 15px;
+height: 15px;
+margin: 5px;
+`;
+
+const Checkbox2 = styled.input`
+width: 15px;
+height: 15px;
+margin-top: 2px;
+`;
+
 function EntityTable(props) {
+  const bulkColumn = {
+    id: 'bulkId',
+    accessor: 'bulkChangeItem',
+    filterMethod: ({value, id}, rows) => {
+      if (value === 'on') {
+        return rows[id] === true;
+      } else if (value === 'off') {
+        return rows[id] === undefined;
+      } else {
+        return true;
+      }
+    },
+    Filter: ({ onChange }) => (<Checkbox1 className="bulk-action-filter-toggle" onChange={ onChange } indeterminate="true" />),
+    sortable : false,
+    resizable: false,
+    width: 40,
+    Cell: ({ row }) => (<CheckboxWrapper className="bulk-action-selector-toggle" onClick={ e => props.onBulkClick(props.entityMetadata.entityName, row._original.id) && e.stopPropagation()}><Checkbox2 type="checkbox" checked={row._original.bulkChangeItem || false} readOnly title="Add or remove this from the bulk actions form"/></CheckboxWrapper>)
+  };
   return (
     <GridContainer id={props.id} className={props.className}>
       <Header text={props.pageTitle} helpLink={props.pageHelpLink}>
@@ -130,7 +165,9 @@ function EntityTable(props) {
       <Table
         data={props.items}
         noDataText={props.items ? 'No results found' : <LoadingSpinner size={60} />}
-        columns={props.columns}
+        columns={ props.entityMetadata &&
+          props.entityMetadata.entityName && 
+          props.entityMetadata.bulkEditsAvailable()? [bulkColumn, ...props.columns] : [...props.columns]}
         defaultPageSize={20}
         className="-striped EntityTable"
         filterable
@@ -145,7 +182,9 @@ function EntityTable(props) {
               props.onRowClick(rowInfo.original.id);
             },
           };
-        }}
+        }
+        
+      }
       />
     </GridContainer>
   );
@@ -155,6 +194,8 @@ EntityTable.propTypes = {
   className: PropTypes.string,
   id: PropTypes.string,
   pageTitle: PropTypes.string,
+  onBulkClick: PropTypes.func,
+  entityMetadata: PropTypes.object,
   pageHelpLink: PropTypes.string,
   onSearchFilterChange: PropTypes.func,
   onCreateButtonClick: PropTypes.func,

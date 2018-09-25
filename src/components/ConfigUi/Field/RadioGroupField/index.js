@@ -28,6 +28,16 @@ const HelpText = styled.div`
   margin-left: 17px;
 `;
 
+const parseBooleans = value => {
+  if(value === 'true') {
+    return true;
+  } else if(value === 'false') {
+    return false;
+  } else {
+    return value;
+  }
+}
+
 const RadioGroup = ({
     input,
     label,
@@ -49,7 +59,6 @@ const RadioGroup = ({
                   className={option.className}
                   key={option.value}
                   value={option.value}
-                  checked={option.value === input.value}
                   disabled={option.disabled}
                 />
               </InputWrapper>
@@ -69,7 +78,7 @@ const RadioGroup = ({
 };
 
 export default function RadioGroupField(props) {
-  return <ReduxFormField {...props} component={RadioGroup} />;
+  return <ReduxFormField {...props} component={RadioGroup} parse={parseBooleans} />;
 }
 
 RadioGroupField.propTypes = {
