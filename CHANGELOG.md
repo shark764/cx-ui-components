@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.24.0]
+* CXV1-14879 - Support for bulk actions on main entity table
+
 ## [0.23.1]
 * <no-jira> - Adding id/className attribute to filters on EntityTable and SidePanelTable.
 
