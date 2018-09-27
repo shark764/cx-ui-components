@@ -24,4 +24,14 @@ function handleMenuClose() {
   onToggle={() => toggle('enabled')}
   onClose={handleMenuClose}
 />;
+
+<SidePanelHeader
+  title={state.title}
+  createdAt={state.createdAt}
+  updatedAt={state.updatedAt}
+  toggleStatus={state.enabled}
+  onToggle={() => toggle('enabled')}
+  copy={() => ''}
+  onClose={handleMenuClose}
+/>;
 ```

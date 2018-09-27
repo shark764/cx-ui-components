@@ -2,7 +2,7 @@
  * Copyright © 2015-2017 Serenova, LLC. All rights reserved.
  */
 
-import React, { Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Button from '../Button';
@@ -15,10 +15,17 @@ const ActionButton = styled(Button)`
   padding: 2px 8px 5px 8px;
   margin-right: 10px;
 `;
+const ActionsWrapper = styled.div`
+display: flex;
+justify-content: flex-end;
+`;
+const PositionedToggle = styled(Toggle)`
+margin-top: 2px;
+`;
 
 export default function SidePanelTableActions({row, updateSubEntity, deleteSubEntity, addSubEntity, toggleSubEntityActive}) {
   return (
-    <Fragment>
+    <ActionsWrapper>
       { updateSubEntity &&
         <ActionButton
           className="dtpanel-action-update-item"
@@ -50,13 +57,13 @@ export default function SidePanelTableActions({row, updateSubEntity, deleteSubEn
         </ActionButton>
       }
       { toggleSubEntityActive &&
-          <Toggle
+          <PositionedToggle
             className="dtpanel-action-toggle-active-item"
             value={row.active}
             onChange={() => toggleSubEntityActive(row)} 
           />
       }
-    </Fragment>
+    </ActionsWrapper>
   );
 }
 
