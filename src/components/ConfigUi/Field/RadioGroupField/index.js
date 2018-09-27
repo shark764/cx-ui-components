@@ -59,6 +59,7 @@ const RadioGroup = ({
                   className={option.className}
                   key={option.value}
                   value={option.value}
+                  checked={option.value === input.value}
                   disabled={option.disabled}
                 />
               </InputWrapper>
