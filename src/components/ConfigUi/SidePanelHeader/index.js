@@ -14,6 +14,7 @@ import styled from 'styled-components';
 
 import Toggle from '../Toggle';
 import CloseIconSVG from '../../SVGs/CloseIconSVG';
+import CopyIconSVG from '../../SVGs/CopyIconSVG';
 
 const Wrapper = styled.div`
   display: flex;
@@ -55,6 +56,15 @@ const CloseIconOuterBox = styled.div`
     color: #656565;
   }
 `;
+const CopyIconOuterBox = styled.div`
+  margin-top: 7px;
+  margin-right: 25px;
+  color: #999999;
+  cursor: pointer;
+  :hover {
+    color: #656565;
+  }
+`;
 
 function SidePanelHeader(props) {
   return (
@@ -74,9 +84,14 @@ function SidePanelHeader(props) {
         {props.createdAt && <SubHeader>{props.createdAt}</SubHeader>}
         {props.createdAt && <SubHeader>{props.updatedAt}</SubHeader>}
       </HeaderArea>
+      {props.copy !== undefined && (
+        <CopyIconOuterBox>
+          <CopyIconSVG  id="sdpanel-copy-entity" size={17} alt="close menu" title="Copy entity" copyIconType="secondary" onClick={props.copy} />
+        </CopyIconOuterBox>
+      )}
       {props.onClose !== undefined && (
         <CloseIconOuterBox>
-          <CloseIconSVG  id="sdpanel-close-panel" size={17} alt="close menu" title="close" closeIconType="secondary" onClick={props.onClose} />
+          <CloseIconSVG  id="sdpanel-close-panel" size={17} alt="close menu" title="Close side panel" closeIconType="secondary" onClick={props.onClose} />
         </CloseIconOuterBox>
       )}
     </Wrapper>
@@ -93,6 +108,7 @@ SidePanelHeader.propTypes = {
   toggleStatus: PropTypes.bool,
   onToggle: PropTypes.func,
   onClose: PropTypes.func,
+  copy: PropTypes.func,
   inherited: PropTypes.bool,
 };
 

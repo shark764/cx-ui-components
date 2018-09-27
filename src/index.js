@@ -52,6 +52,7 @@ export { default as VoiceIconSVG } from './components/SVGs/VoiceIconSVG';
 export { default as LoadingSpinnerSVG } from './components/SVGs/LoadingSpinnerSVG';
 export { default as SearchIconSVG } from './components/SVGs/SearchIconSVG';
 export { default as CloseIconSVG } from './components/SVGs/CloseIconSVG';
+export { default as CopyIconSVG } from './components/SVGs/CopyIconSVG';
 export { default as EditIconSVG } from './components/SVGs/EditIconSVG';
 export { default as QuestionIconSVG } from './components/SVGs/EditIconSVG';
 export { default as PlusIconSVG } from './components/SVGs/PlusIconSVG';
