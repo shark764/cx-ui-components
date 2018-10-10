@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.26.0]
+* <no-jira> - Added actions button to select all visible rows for bulk actions
+
 ## [0.25.1]
 * <no-jira> - RadioButton not getting checked on parameter given.
 
