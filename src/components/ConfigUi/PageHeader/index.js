@@ -41,7 +41,7 @@ const HelpIconOuterWrapper = styled.div`
 `;
 
 const PageHeaderRightSide = styled.div`
-  display: inline-block;
+  display: flex;
 `;
 
 const PageHeaderLeftSide = styled.div`

@@ -10,13 +10,13 @@ const StackingContextReset = styled.div`
 `;
 
 const SubMenuDiv = styled.div`
+  ${props => props.menuType === 'actionsMenu'? 'padding: 10px;' : 'padding: 2px;'}
+  ${props => props.menuType === 'actionsMenu'? 'min-width: 195px;' : 'min-width: 260px;'}
   position: absolute;
   background: white;
-  padding: 2px;
   right: -2px;
   top: 37px;
   z-index: 3;
-  min-width: 260px;
   box-shadow: 0px 0px 2px 0px rgba(42, 45, 41, 0.63);
 `;
 const SubMenuTopArrow = styled.div`
@@ -53,7 +53,7 @@ class CustomDropdownMenu extends React.Component {
           <Fragment>
             <ClickMask onClick={() => this.props.setVisibleMenu('none', this.props.tableType)} />
             <SubMenuTopArrow />
-            <SubMenuDiv>{this.props.children}</SubMenuDiv>
+            <SubMenuDiv menuType={this.props.menuType}>{this.props.children}</SubMenuDiv>
           </Fragment>
         )}
       </StackingContextReset>
