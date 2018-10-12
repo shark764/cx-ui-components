@@ -17,6 +17,11 @@ const Label = styled.label`
   margin-top: 5px;
 `;
 
+const HelpText = styled.div`
+  font-size: x-small;
+  color: #606060;
+`;
+
 const InputWrapper = styled.div`
   flex-grow: 1;
 `;
@@ -29,10 +34,17 @@ const Warning = styled.span`
   color: orange;
 `;
 
-export default function FieldWrapper({ inputName, label, children, touched, error, warning}) {
+export default function FieldWrapper({ inputName, label, labelHelpText, children, touched, error, warning}) {
   return (
     <FieldWrapperDiv>
-      <Label htmlFor={inputName}>{label}</Label>
+      <Label htmlFor={inputName}>
+        {label}
+        {labelHelpText && (
+          <HelpText>
+            {labelHelpText}
+          </HelpText>
+        )}
+      </Label>
       <InputWrapper>
         {children}
         {touched &&
@@ -46,6 +58,7 @@ export default function FieldWrapper({ inputName, label, children, touched, erro
 FieldWrapper.propTypes = {
   inputName: PropTypes.string,
   label: PropTypes.string.isRequired,
+  labelHelpText: PropTypes.string,
   children: PropTypes.any,
   touched: PropTypes.bool,
   error: PropTypes.string,

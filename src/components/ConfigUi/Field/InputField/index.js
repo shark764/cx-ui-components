@@ -22,6 +22,7 @@ const Textarea = Input.withComponent('textarea').extend`
 const RenderField = ({
   input,
   label,
+  labelHelpText,
   id,
   className,
   componentType,
@@ -47,7 +48,7 @@ const RenderField = ({
     );
   }
   return (
-    <FieldWrapper inputName={input.name} label={label} touched={touched} error={error} warning={warning}>
+    <FieldWrapper inputName={input.name} label={label} labelHelpText={labelHelpText} touched={touched} error={error} warning={warning}>
       {inputElement}
     </FieldWrapper>
   );
@@ -74,6 +75,7 @@ export default function InputField(props) {
 InputField.propTypes = {
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
+  labelHelpText: PropTypes.string,
   id: PropTypes.string,
   className: PropTypes.string,
   disabled: PropTypes.bool,
@@ -89,6 +91,7 @@ InputField.defaultProps = {
 RenderField.propTypes = {
   input: PropTypes.object.isRequired,
   label: PropTypes.string.isRequired,
+  labelHelpText: PropTypes.string,
   id: PropTypes.string,
   className: PropTypes.string,
   disabled: PropTypes.bool,
