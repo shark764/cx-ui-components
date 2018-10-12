@@ -26,6 +26,7 @@ const InputWrapper = styled.div`
 const HelpText = styled.div`
   font-size: x-small;
   margin-left: 17px;
+  color: #606060;
 `;
 
 const parseBooleans = value => {
