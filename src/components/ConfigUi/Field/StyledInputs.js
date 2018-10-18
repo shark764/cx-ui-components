@@ -13,7 +13,7 @@ export const Input = styled.input`
     0 -1px 0 rgba(0, 0, 0, 0.05) inset;
 
   &::placeholder {
-    color: #cccccc;
+    color: #404040;
   }
 
   &:focus {

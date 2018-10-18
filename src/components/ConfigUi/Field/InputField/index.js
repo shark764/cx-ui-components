@@ -23,6 +23,7 @@ const RenderField = ({
   input,
   label,
   labelHelpText,
+  placeholder,
   id,
   className,
   componentType,
@@ -37,6 +38,7 @@ const RenderField = ({
         {...input}
         id={id}
         className={className}
+        placeholder={placeholder}
         disabled={disabled}
         type={type}
         hasError={touched && !!error}
@@ -78,6 +80,7 @@ InputField.propTypes = {
   labelHelpText: PropTypes.string,
   id: PropTypes.string,
   className: PropTypes.string,
+  placeholder: PropTypes.string,
   disabled: PropTypes.bool,
   componentType: PropTypes.oneOf(['input', 'textarea']),
   dataType: PropTypes.oneOf(['string', 'number']),
@@ -94,6 +97,7 @@ RenderField.propTypes = {
   labelHelpText: PropTypes.string,
   id: PropTypes.string,
   className: PropTypes.string,
+  placeholder: PropTypes.string,
   disabled: PropTypes.bool,
   meta: PropTypes.object,
   type: PropTypes.string,

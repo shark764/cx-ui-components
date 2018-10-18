@@ -21,7 +21,7 @@ const Form = require('../../../../utils/reduxForm');
         { label: 'Option 2', value: '2' },
       ]}
       required
-  />
+    />
     <RadioGroupField
       name="disabledOptionRadioGroup"
       label="Disabled Option RadioGroup"
