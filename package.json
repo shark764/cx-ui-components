@@ -1,11 +1,12 @@
 {
   "name": "cx-ui-components",
-  "version": "0.26.1",
+  "version": "0.27.0",
   "description": "Front end react components for any cx-related projects",
   "main": "./src/index.js",
   "scripts": {
     "start": "styleguidist server",
     "build:styleguide": "styleguidist build",
+    "storybook": "start-storybook -p 9001 -c .storybook",
     "precommit": "lint-staged"
   },
   "lint-staged": {
@@ -43,6 +44,7 @@
     "styled-components": "^3.1.4"
   },
   "devDependencies": {
+    "@storybook/react": "^3.4.11",
     "babel-core": "^6.26.0",
     "babel-eslint": "^7.2.3",
     "babel-loader": "^7.1.2",
