@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.28.1] - 2018-10-24
+### Changed
+- CXV1-15842 - Changed behavior of sidepanel header toggle when user has just readonly permission.
+- Disabling all radiobuttons when the entire field is disabled.
+
 ## [0.28.0] - 2018-10-19
 ### Added
 - CXV1-15489 - Creating AutoComplete Component

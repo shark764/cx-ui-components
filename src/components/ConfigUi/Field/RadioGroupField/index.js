@@ -61,7 +61,7 @@ const RadioGroup = ({
                   key={option.value}
                   value={option.value}
                   checked={option.value === input.value}
-                  disabled={option.disabled}
+                  disabled={option.disabled || disabled}
                 />
               </InputWrapper>
               <Fragment>
