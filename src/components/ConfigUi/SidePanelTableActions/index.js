@@ -23,7 +23,7 @@ const PositionedToggle = styled(Toggle)`
 margin-top: 2px;
 `;
 
-export default function SidePanelTableActions({row, updateSubEntity, deleteSubEntity, addSubEntity, toggleSubEntityActive}) {
+export default function SidePanelTableActions({row, entityName, updateSubEntity, deleteSubEntity, addSubEntity, toggleSubEntityActive}) {
   return (
     <ActionsWrapper>
       { updateSubEntity &&
@@ -40,7 +40,7 @@ export default function SidePanelTableActions({row, updateSubEntity, deleteSubEn
         <ActionButton
           className="dtpanel-action-remove-item"
           title={!row.deleting ? `Delete ${row.key || row.name}` : `row.deleting ${row.key || row.name}`}
-          onClick={() => deleteSubEntity(row.key || row.id)}
+          onClick={() => deleteSubEntity(row.key || row.id, entityName, 'dissociate')}
           disabled={row.deleting}
         >
           <CloseIconSVG size={10} closeIconType={row.deleting ? 'secondary' : 'primary'} />
@@ -50,7 +50,7 @@ export default function SidePanelTableActions({row, updateSubEntity, deleteSubEn
         <ActionButton
           className="dtpanel-action-add-item"
           title={!row.adding ? `Add ${row.key || row.name}` : `row.adding ${row.key || row.name}`}
-          onClick={() => addSubEntity(row.key || row.id)}
+          onClick={() => addSubEntity(row.key || row.id, entityName, 'associate')}
           disabled={row.adding}
         >
           <PlusIconSVG size={10} closeIconType={row.adding ? 'secondary' : 'primary'} />
@@ -72,6 +72,7 @@ SidePanelTableActions.propTypes = {
     key: PropTypes.string,
     deleting: PropTypes.bool,
   }).isRequired,
+  entityName: PropTypes.string,
   updateSubEntity: PropTypes.func,
   deleteSubEntity: PropTypes.func,
   addSubEntity: PropTypes.func,
