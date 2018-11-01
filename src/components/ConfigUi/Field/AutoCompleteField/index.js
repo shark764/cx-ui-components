@@ -8,7 +8,7 @@
  *
  */
 
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Field as ReduxFormField } from 'redux-form/immutable';
 import FieldWrapper from '../FieldWrapper';
@@ -41,22 +41,22 @@ const SuggestionItem = styled.li`
   &:hover {
     color: #fff;
     background-color: #0097cf;
-    font-weight: bold;
   }
-  
+
   &.suggestion {
   }
-  
+
   &.suggestion-active {
-    color: #444;
-    background-color: #eee;
+    color: #fff;
+    background-color: #0097cf;
   }
 `;
 
 class AutoCompleteInput extends Component {
-
   constructor(props) {
     super(props);
+
+    const { input: { value } } = props;
 
     this.state = {
       // The active selection's index
@@ -66,7 +66,7 @@ class AutoCompleteInput extends Component {
       // Whether or not the suggestion list is shown
       showSuggestions: false,
       // What the user has entered
-      value: ""
+      value
     };
   }
 
@@ -76,8 +76,7 @@ class AutoCompleteInput extends Component {
 
     // Filter our suggestions that don't contain the user's input
     const filteredSuggestions = suggestions.filter(
-      suggestion =>
-        suggestion.toLowerCase().indexOf(value.toLowerCase()) > -1
+      suggestion => suggestion.toLowerCase().indexOf(value.toLowerCase()) > -1
     );
 
     // Update the user input and filtered suggestions, reset the active
@@ -91,7 +90,9 @@ class AutoCompleteInput extends Component {
   };
 
   // Event fired when the user clicks on a suggestion
-  onClick = ({ currentTarget: { innerText } }) => {
+  // onmousedown is executed before onblur, so value is not changed
+  onMouseDown = e => {
+    const { currentTarget: { innerText } } = e;
     // Update the user input and reset the rest of the state
     this.setState({
       activeSuggestion: 0,
@@ -113,13 +114,19 @@ class AutoCompleteInput extends Component {
         showSuggestions: false,
         value: filteredSuggestions[activeSuggestion]
       });
-    }
-    // User pressed the up arrow, decrement the index
-    else if (keyCode === 38 && activeSuggestion !== 0) {
+    } else if (keyCode === 38) {
+      // User pressed the up arrow, decrement the index
+      if (activeSuggestion === 0) {
+        return;
+      }
+
       this.setState({ activeSuggestion: activeSuggestion - 1 });
-    }
-    // User pressed the down arrow, increment the index
-    else if (keyCode === 40 && (activeSuggestion - 1 === filteredSuggestions.length)) {
+    } else if (keyCode === 40) {
+      // User pressed the down arrow, increment the index
+      if (activeSuggestion - 1 === filteredSuggestions.length) {
+        return;
+      }
+
       this.setState({ activeSuggestion: activeSuggestion + 1 });
     }
   };
@@ -127,14 +134,9 @@ class AutoCompleteInput extends Component {
   render() {
     const {
       onChange,
-      onClick,
+      onMouseDown,
       onKeyDown,
-      state: {
-        activeSuggestion,
-        filteredSuggestions,
-        showSuggestions,
-        value
-      },
+      state: { activeSuggestion, filteredSuggestions, showSuggestions, value },
       props: {
         input,
         id,
@@ -148,7 +150,15 @@ class AutoCompleteInput extends Component {
     } = this;
 
     const fieldProps = { label, labelHelpText, touched, error, warning };
-    const inputProps = { id, className, placeholder, disabled, value, onChange, onKeyDown };
+    const inputProps = {
+      id,
+      className,
+      placeholder,
+      disabled,
+      value,
+      onChange,
+      onKeyDown
+    };
 
     return (
       <FieldWrapper inputName={input.name} {...fieldProps}>
@@ -159,14 +169,19 @@ class AutoCompleteInput extends Component {
           autoComplete="off"
           hasError={touched && !!error}
         />
-        {showSuggestions && value && (
-          filteredSuggestions.length ? (
+        {showSuggestions &&
+          value &&
+          (filteredSuggestions.length ? (
             <SuggestionsDropdown>
               {filteredSuggestions.map((suggestion, index) => (
                 <SuggestionItem
-                  className={index === activeSuggestion ? "suggestion-active" : "suggestion"}
+                  className={
+                    index === activeSuggestion
+                      ? 'suggestion-active'
+                      : 'suggestion'
+                  }
                   key={suggestion}
-                  onClick={onClick}
+                  onMouseDown={onMouseDown}
                 >
                   {suggestion}
                 </SuggestionItem>
@@ -176,8 +191,7 @@ class AutoCompleteInput extends Component {
             <NoSuggestion>
               <em>No suggestions were found</em>
             </NoSuggestion>
-          )
-        )}
+          ))}
       </FieldWrapper>
     );
   }
@@ -197,7 +211,7 @@ AutoCompleteInput.propTypes = {
   disabled: PropTypes.bool,
   suggestions: PropTypes.instanceOf(Array),
   meta: PropTypes.object,
-  touched:  PropTypes.bool,
+  touched: PropTypes.bool,
   error: PropTypes.string,
   warning: PropTypes.string
 };
