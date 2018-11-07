@@ -53,11 +53,8 @@ const SuggestionItem = styled.li`
 `;
 
 class AutoCompleteInput extends Component {
-  constructor(props) {
-    super(props);
-
-    const { input: { value } } = props;
-
+  constructor({ input: { value } }) {
+    super();
     this.state = {
       // The active selection's index
       activeSuggestion: 0,
@@ -76,7 +73,7 @@ class AutoCompleteInput extends Component {
 
     // Filter our suggestions that don't contain the user's input
     const filteredSuggestions = suggestions.filter(
-      suggestion => suggestion.toLowerCase().indexOf(value.toLowerCase()) > -1
+      suggestion => suggestion.toLowerCase().indexOf(value.toLowerCase().trim()) > -1
     );
 
     // Update the user input and filtered suggestions, reset the active
@@ -85,14 +82,13 @@ class AutoCompleteInput extends Component {
       activeSuggestion: 0,
       filteredSuggestions,
       showSuggestions: true,
-      value
+      value: value.length > 0? value.trim() : ' ',  
     });
   };
 
   // Event fired when the user clicks on a suggestion
   // onmousedown is executed before onblur, so value is not changed
-  onMouseDown = e => {
-    const { currentTarget: { innerText } } = e;
+  onMouseDown = ({ currentTarget: { innerText } }) =>
     // Update the user input and reset the rest of the state
     this.setState({
       activeSuggestion: 0,
@@ -100,7 +96,22 @@ class AutoCompleteInput extends Component {
       showSuggestions: false,
       value: innerText
     });
-  };
+
+  onBlur = () =>
+    this.setState({
+      activeSuggestion: 0,
+      filteredSuggestions: [],
+      showSuggestions: false,
+    });
+
+  onFocus = () => {
+    const { suggestions } = this.props;
+    this.setState({
+      activeSuggestion: 0,
+      filteredSuggestions: [...suggestions],
+      showSuggestions: true,
+    });
+  }
 
   // Event fired when the user presses a key down
   onKeyDown = ({ keyCode }) => {
@@ -135,6 +146,8 @@ class AutoCompleteInput extends Component {
     const {
       onChange,
       onMouseDown,
+      onBlur,
+      onFocus,
       onKeyDown,
       state: { activeSuggestion, filteredSuggestions, showSuggestions, value },
       props: {
@@ -157,7 +170,9 @@ class AutoCompleteInput extends Component {
       disabled,
       value,
       onChange,
-      onKeyDown
+      onKeyDown,
+      onBlur,
+      onFocus,
     };
 
     return (
@@ -207,6 +222,8 @@ AutoCompleteInput.propTypes = {
   labelHelpText: PropTypes.string,
   placeholder: PropTypes.string,
   id: PropTypes.string,
+  onBlur: PropTypes.func,
+  onFocus: PropTypes.func,
   className: PropTypes.string,
   disabled: PropTypes.bool,
   suggestions: PropTypes.instanceOf(Array),
@@ -220,7 +237,6 @@ AutoCompleteField.propTypes = {
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   labelHelpText: PropTypes.string,
-  placeholder: PropTypes.string,
   id: PropTypes.string,
   className: PropTypes.string,
   disabled: PropTypes.bool,

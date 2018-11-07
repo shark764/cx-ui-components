@@ -29,28 +29,23 @@ const RenderField = ({
   componentType,
   type,
   disabled,
+  onBlur,
+  onFocus,
   meta: { touched, error, warning },
 }) => {
+
   let inputElement;
+  const inputProps = {...input, id, className, placeholder, disabled, type, onBlur, onFocus};
+  const textareaProps = {...input,id, className, disabled};
+  const fieldWrapperProps = {input: input.name, label, labelHelpText,touched,error,warning}
+
   if (componentType === 'input') {
-    inputElement = (
-      <Input
-        {...input}
-        id={id}
-        className={className}
-        placeholder={placeholder}
-        disabled={disabled}
-        type={type}
-        hasError={touched && !!error}
-      />
-    );
+    inputElement = (<Input {...inputProps} hasError={touched && !!error} />);
   } else if (componentType === 'textarea') {
-    inputElement = (
-      <Textarea {...input} id={id} className={className} disabled={disabled} hasError={touched && !!error} />
-    );
+    inputElement = (<Textarea {...textareaProps} hasError={touched && !!error} />);
   }
   return (
-    <FieldWrapper inputName={input.name} label={label} labelHelpText={labelHelpText} touched={touched} error={error} warning={warning}>
+    <FieldWrapper {...fieldWrapperProps} inputName={input.name}>
       {inputElement}
     </FieldWrapper>
   );
@@ -96,6 +91,8 @@ RenderField.propTypes = {
   label: PropTypes.string.isRequired,
   labelHelpText: PropTypes.string,
   id: PropTypes.string,
+  onBlur: PropTypes.func,
+  onFocus: PropTypes.func,
   className: PropTypes.string,
   placeholder: PropTypes.string,
   disabled: PropTypes.bool,
