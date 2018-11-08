@@ -118,13 +118,22 @@ class AutoCompleteInput extends Component {
   };
 
   // Event fired when the field receives the focus
-  onFocus = () => {
+  onFocus = ({ currentTarget: { value } }) => {
     const { suggestions } = this.props;
-    // Show default suggestions and filter only if User
-    // types something in the AutoComplete
+    // Show suggestions according to what is
+    // currently in the input
+    // Show all suggestions by default if input
+    // is empty
+    const filteredSuggestions =
+      value.trim().length > 0
+        ? suggestions.filter(
+            suggestion =>
+              suggestion.toLowerCase().indexOf(value.toLowerCase().trim()) > -1
+          )
+        : [...suggestions];
     this.setState({
       activeSuggestion: 0,
-      filteredSuggestions: [...suggestions],
+      filteredSuggestions,
       showSuggestions: true
     });
   };
