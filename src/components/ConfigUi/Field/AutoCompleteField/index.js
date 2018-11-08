@@ -31,11 +31,11 @@ const SuggestionsDropdown = styled.ul`
   padding-left: 0;
   position: absolute;
   width: 351px;
-  z-index: 1;
+  z-index: 2;
 `;
 const SuggestionItem = styled.li`
   padding: 0.5rem;
-  z-index: 1;
+  z-index: 2;
   cursor: pointer;
 
   &:hover {
@@ -67,13 +67,22 @@ class AutoCompleteInput extends Component {
     };
   }
 
+  componentWillMount() {
+    document.addEventListener('mousedown', this.onClick, false);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('mousedown', this.onClick, false);
+  }
+
   // Event fired when the input value is changed
   onChange = ({ currentTarget: { value } }) => {
     const { suggestions } = this.props;
 
     // Filter our suggestions that don't contain the user's input
     const filteredSuggestions = suggestions.filter(
-      suggestion => suggestion.toLowerCase().indexOf(value.toLowerCase().trim()) > -1
+      suggestion =>
+        suggestion.toLowerCase().indexOf(value.toLowerCase().trim()) > -1
     );
 
     // Update the user input and filtered suggestions, reset the active
@@ -82,13 +91,13 @@ class AutoCompleteInput extends Component {
       activeSuggestion: 0,
       filteredSuggestions,
       showSuggestions: true,
-      value: value.length > 0? value.trim() : ' ',  
+      value: value.length > 0 ? value.trim() : ' '
     });
   };
 
   // Event fired when the user clicks on a suggestion
   // onmousedown is executed before onblur, so value is not changed
-  onMouseDown = ({ currentTarget: { innerText } }) =>
+  onMouseDown = ({ currentTarget: { innerText } }) => {
     // Update the user input and reset the rest of the state
     this.setState({
       activeSuggestion: 0,
@@ -96,22 +105,29 @@ class AutoCompleteInput extends Component {
       showSuggestions: false,
       value: innerText
     });
+  };
 
-  onBlur = () =>
-    this.setState({
-      activeSuggestion: 0,
-      filteredSuggestions: [],
-      showSuggestions: false,
-    });
+  // Event fired when user clicks anywhere in DOM
+  onClick = ({ target }) => {
+    if (this.wrapper.contains(target)) {
+      // User click inside component, do nothing
+      return;
+    }
+    // If user clicks outside of the component, hide Dropdown
+    this.setState({ showSuggestions: false });
+  };
 
+  // Event fired when the field receives the focus
   onFocus = () => {
     const { suggestions } = this.props;
+    // Show default suggestions and filter only if User
+    // types something in the AutoComplete
     this.setState({
       activeSuggestion: 0,
       filteredSuggestions: [...suggestions],
-      showSuggestions: true,
+      showSuggestions: true
     });
-  }
+  };
 
   // Event fired when the user presses a key down
   onKeyDown = ({ keyCode }) => {
@@ -146,7 +162,6 @@ class AutoCompleteInput extends Component {
     const {
       onChange,
       onMouseDown,
-      onBlur,
       onFocus,
       onKeyDown,
       state: { activeSuggestion, filteredSuggestions, showSuggestions, value },
@@ -171,42 +186,47 @@ class AutoCompleteInput extends Component {
       value,
       onChange,
       onKeyDown,
-      onBlur,
-      onFocus,
+      onFocus
     };
 
     return (
       <FieldWrapper inputName={input.name} {...fieldProps}>
-        <Input
-          type="text"
-          {...input}
-          {...inputProps}
-          autoComplete="off"
-          hasError={touched && !!error}
-        />
-        {showSuggestions &&
-          value &&
-          (filteredSuggestions.length ? (
-            <SuggestionsDropdown>
-              {filteredSuggestions.map((suggestion, index) => (
-                <SuggestionItem
-                  className={
-                    index === activeSuggestion
-                      ? 'suggestion-active'
-                      : 'suggestion'
-                  }
-                  key={suggestion}
-                  onMouseDown={onMouseDown}
-                >
-                  {suggestion}
-                </SuggestionItem>
-              ))}
-            </SuggestionsDropdown>
-          ) : (
-            <NoSuggestion>
-              <em>No suggestions were found</em>
-            </NoSuggestion>
-          ))}
+        <div
+          ref={element => {
+            this.wrapper = element;
+          }}
+        >
+          <Input
+            type="text"
+            {...input}
+            {...inputProps}
+            autoComplete="off"
+            hasError={touched && !!error}
+          />
+          {showSuggestions &&
+            value &&
+            (filteredSuggestions.length ? (
+              <SuggestionsDropdown>
+                {filteredSuggestions.map((suggestion, index) => (
+                  <SuggestionItem
+                    className={
+                      index === activeSuggestion
+                        ? 'suggestion-active'
+                        : 'suggestion'
+                    }
+                    key={suggestion}
+                    onMouseDown={onMouseDown}
+                  >
+                    {suggestion}
+                  </SuggestionItem>
+                ))}
+              </SuggestionsDropdown>
+            ) : (
+              <NoSuggestion>
+                <em>No suggestions were found</em>
+              </NoSuggestion>
+            ))}
+        </div>
       </FieldWrapper>
     );
   }
@@ -222,7 +242,6 @@ AutoCompleteInput.propTypes = {
   labelHelpText: PropTypes.string,
   placeholder: PropTypes.string,
   id: PropTypes.string,
-  onBlur: PropTypes.func,
   onFocus: PropTypes.func,
   className: PropTypes.string,
   disabled: PropTypes.bool,
@@ -237,6 +256,7 @@ AutoCompleteField.propTypes = {
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   labelHelpText: PropTypes.string,
+  placeholder: PropTypes.string,
   id: PropTypes.string,
   className: PropTypes.string,
   disabled: PropTypes.bool,
