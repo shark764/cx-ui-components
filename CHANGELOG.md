@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.29.5] - 2018-11-08
+### Fixed
+- CXV1-15973 - AutoComplete was not allowing type blank spaces among the text.
+- CXV1-16019 - Fill color for SVG in action buttons was loosing color on hover.
+- InputText were not showing errors label.
+
 ## [0.29.4] - 2018-11-08
 ### Fixed
 - CXV1-16004 - Suggestions were not showing filtered onfocus

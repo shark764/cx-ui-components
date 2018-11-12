@@ -6,7 +6,7 @@ const SvgWrapper = styled.div`
   display: inline-block;
   cursor: pointer;
   &:hover > svg > .icon {
-    fill: rgb(101, 101, 101);
+    fill: darken(${props => props.theme.primaryColor}, 30%);
   }
   ${props => props.size && `width: ${props.size}px;`};
 `;
@@ -27,7 +27,11 @@ const StyledPath = styled.path`
 function PlusIconSVG(props) {
   return (
     <Fragment>
-      <SvgWrapper size={props.size} className="PlusIconSVG" onClick={props.onClick}>
+      <SvgWrapper
+        size={props.size}
+        className="PlusIconSVG"
+        onClick={props.onClick}
+      >
         <svg viewBox="0 0 448 512">
           <StyledPath
             className="icon"
@@ -42,11 +46,11 @@ function PlusIconSVG(props) {
 PlusIconSVG.propTypes = {
   size: PropTypes.number,
   plusIconType: PropTypes.oneOf(['primary', 'secondary']),
-  onClick: PropTypes.func,
+  onClick: PropTypes.func
 };
 
 PlusIconSVG.defaultProps = {
-  size: 25,
+  size: 25
 };
 
 export default PlusIconSVG;

@@ -40,7 +40,6 @@ const RenderField = ({
     placeholder,
     disabled,
     type,
-    onBlur,
     onFocus
   };
   const textareaProps = { id, className, disabled };
@@ -55,7 +54,17 @@ const RenderField = ({
 
   if (componentType === 'input') {
     inputElement = (
-      <Input {...input} {...inputProps} hasError={touched && !!error} />
+      <Input
+        {...input}
+        {...inputProps}
+        hasError={touched && !!error}
+        onBlur={e => {
+          input.onBlur(e);
+          if (onBlur !== undefined) {
+            setTimeout(() => onBlur(e));
+          }
+        }}
+      />
     );
   } else if (componentType === 'textarea') {
     inputElement = (

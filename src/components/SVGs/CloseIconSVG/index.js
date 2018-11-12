@@ -6,7 +6,7 @@ const SvgWrapper = styled.div`
   display: inline-block;
   cursor: pointer;
   &:hover > svg > .icon {
-    fill: rgb(101, 101, 101);
+    fill: darken(${props => props.theme.primaryColor}, 30%);
   }
   ${props => props.size && `width: ${props.size}px;`};
 `;
@@ -17,8 +17,7 @@ const StyledPath = styled.path`
     (props.closeIconType === undefined || props.closeIconType === 'primary') &&
     css`
       fill: ${props => props.theme.primaryColor};
-    `} 
-  ${props =>
+    `} ${props =>
     props.closeIconType === 'secondary' &&
     css`
       fill: rgb(153, 153, 153);
@@ -28,7 +27,12 @@ const StyledPath = styled.path`
 function CloseIconSVG(props) {
   return (
     <Fragment>
-      <SvgWrapper id={props.id} size={props.size} className="CloseIconSVG" onClick={props.onClick}>
+      <SvgWrapper
+        id={props.id}
+        size={props.size}
+        className="CloseIconSVG"
+        onClick={props.onClick}
+      >
         <svg viewBox="0 0 384 512">
           <StyledPath
             className="icon"
@@ -43,11 +47,11 @@ function CloseIconSVG(props) {
 CloseIconSVG.propTypes = {
   closeIconType: PropTypes.oneOf(['primary', 'secondary']),
   size: PropTypes.number,
-  onClick: PropTypes.func,
+  onClick: PropTypes.func
 };
 
 CloseIconSVG.defaultProps = {
-  size: 25,
+  size: 25
 };
 
 export default CloseIconSVG;

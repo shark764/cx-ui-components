@@ -95,17 +95,22 @@ Button.propTypes = {
   /**
    * Possible options are primary, secondary, columnFilter.
    */
-  buttonType: PropTypes.oneOf(['primary', 'secondary', 'columnFilter','selector']),
+  buttonType: PropTypes.oneOf([
+    'primary',
+    'secondary',
+    'columnFilter',
+    'selector'
+  ]),
   type: PropTypes.string,
   disabled: PropTypes.bool,
   title: PropTypes.string,
   /** Text or icon to go inside the button */
   children: PropTypes.any,
-  onClick: PropTypes.func,
+  onClick: PropTypes.func
 };
 
 Button.defaultProps = {
-  buttonType: 'secondary',
+  buttonType: 'secondary'
 };
 
 export default Button;

@@ -91,7 +91,7 @@ class AutoCompleteInput extends Component {
       activeSuggestion: 0,
       filteredSuggestions,
       showSuggestions: true,
-      value: value.length > 0 ? value.trim() : ' '
+      value: value.length > 0 ? value : ' '
     });
   };
 
