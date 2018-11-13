@@ -29,7 +29,6 @@ const RenderField = ({
   componentType,
   type,
   disabled,
-  onBlur,
   onFocus,
   meta: { touched, error, warning }
 }) => {
@@ -54,17 +53,7 @@ const RenderField = ({
 
   if (componentType === 'input') {
     inputElement = (
-      <Input
-        {...input}
-        {...inputProps}
-        hasError={touched && !!error}
-        onBlur={e => {
-          input.onBlur(e);
-          if (onBlur !== undefined) {
-            setTimeout(() => onBlur(e));
-          }
-        }}
-      />
+      <Input {...input} {...inputProps} hasError={touched && !!error} />
     );
   } else if (componentType === 'textarea') {
     inputElement = (
@@ -133,7 +122,6 @@ RenderField.propTypes = {
   label: PropTypes.string.isRequired,
   labelHelpText: PropTypes.string,
   id: PropTypes.string,
-  onBlur: PropTypes.func,
   onFocus: PropTypes.func,
   className: PropTypes.string,
   placeholder: PropTypes.string,
