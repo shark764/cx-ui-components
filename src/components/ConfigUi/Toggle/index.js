@@ -26,7 +26,8 @@ const Switch = styled.input`
 
 const Slider = styled.span`
   position: absolute;
-  cursor: ${props => (props.disabled ||  props.inherited) ? 'not-allowed' : 'pointer'};
+  cursor: ${props =>
+    props.disabled || props.inherited ? 'not-allowed' : 'pointer'};
   top: 0;
   left: 0;
   right: 0;
@@ -39,7 +40,10 @@ const Slider = styled.span`
   border-radius: 34px;
 
   ${Switch}:checked + & {
-    background-color: ${props => (props.disabled || props.inherited) ? colors.toggleCheckedDisabled : colors.toggleChecked};
+    background-color: ${props =>
+      props.disabled || props.inherited
+        ? colors.toggleCheckedDisabled
+        : colors.toggleChecked};
   }
 
   ${Switch}:focus + & {
@@ -67,15 +71,18 @@ const Slider = styled.span`
 
 function Toggle(props) {
   return (
-    <StyledLabel id={props.id} className={props.className}>
+    <StyledLabel id={props.id} className={props.className} title={props.title}>
       <Switch
         type="checkbox"
         checked={props.value}
-        onChange={(props.disabled || props.inherited) ? () => {} : props.onChange}
+        onChange={props.disabled || props.inherited ? () => {} : props.onChange}
         disabled={props.disabled}
         inherited={props.inherited}
       />
-      <Slider class="slider round" disabled={props.disabled || props.inherited} />
+      <Slider
+        class="slider round"
+        disabled={props.disabled || props.inherited}
+      />
     </StyledLabel>
   );
 }
@@ -87,6 +94,7 @@ Toggle.propTypes = {
   onChange: PropTypes.func,
   disabled: PropTypes.bool,
   inherited: PropTypes.bool,
+  title: PropTypes.string
 };
 
 export default Toggle;

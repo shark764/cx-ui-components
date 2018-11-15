@@ -10,16 +10,32 @@ const ToggleInput = ({
   id,
   className,
   disabled,
-  meta: { touched, error, warning },
-}) =>
-  <FieldWrapper inputName={input.name} label={label} touched={touched} error={error} warning={warning}>
-    <Toggle {...input} id={id} className={className} disabled={disabled} />
+  title,
+  meta: { touched, error, warning }
+}) => (
+  <FieldWrapper
+    inputName={input.name}
+    label={label}
+    touched={touched}
+    error={error}
+    warning={warning}
+  >
+    <Toggle
+      {...input}
+      id={id}
+      className={className}
+      disabled={disabled}
+      title={title}
+    />
   </FieldWrapper>
+);
 
-const parseToggle = value => value === true
+const parseToggle = value => value === true;
 
 export default function ToggleField(props) {
-  return <ReduxFormField {...props} component={ToggleInput} parse={parseToggle} />;
+  return (
+    <ReduxFormField {...props} component={ToggleInput} parse={parseToggle} />
+  );
 }
 
 ToggleField.propTypes = {
@@ -28,11 +44,12 @@ ToggleField.propTypes = {
   id: PropTypes.string,
   className: PropTypes.string,
   disabled: PropTypes.bool,
+  title: PropTypes.string
 };
 
 ToggleField.defaultProps = {
-  disabled: false,
-}
+  disabled: false
+};
 
 ToggleInput.propTypes = {
   input: PropTypes.object.isRequired,
@@ -40,5 +57,6 @@ ToggleInput.propTypes = {
   id: PropTypes.string,
   className: PropTypes.string,
   disabled: PropTypes.bool,
-  meta: PropTypes.object,
+  title: PropTypes.string,
+  meta: PropTypes.object
 };
