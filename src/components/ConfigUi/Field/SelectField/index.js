@@ -74,7 +74,7 @@ SelectField.propTypes = {
           PropTypes.string,
           PropTypes.number,
           PropTypes.bool,
-        ]).isRequired,
+        ]),
         label: PropTypes.string,
       })
     ),
@@ -103,7 +103,7 @@ SelectInput.propTypes = {
           PropTypes.string,
           PropTypes.number,
           PropTypes.bool,
-        ]).isRequired,
+        ]),
         label: PropTypes.string,
       })
     ),
