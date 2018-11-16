@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.29.9] - 2018-11-16
+### Fixed
+- Modal background was allowing resize columns header behind it.
+
 ## [0.29.8] - 2018-11-15
 ### Fixed
 - Select field can now accept null as a value option (required by users from for noPassword and defaultIdentityProvider)
