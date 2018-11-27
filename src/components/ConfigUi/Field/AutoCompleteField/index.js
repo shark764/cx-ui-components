@@ -14,6 +14,7 @@ import { Field as ReduxFormField } from 'redux-form/immutable';
 import FieldWrapper from '../FieldWrapper';
 import { Input } from '../StyledInputs';
 import styled from 'styled-components';
+import ReactDOM from 'react-dom';
 
 const NoSuggestion = styled.div`
   border: 1px solid #ddd;
@@ -31,11 +32,11 @@ const SuggestionsDropdown = styled.ul`
   padding-left: 0;
   position: absolute;
   width: 351px;
-  z-index: 2;
+  z-index: 11;
 `;
 const SuggestionItem = styled.li`
   padding: 0.5rem;
-  z-index: 2;
+  z-index: 11;
   cursor: pointer;
 
   &:hover {
@@ -73,6 +74,22 @@ class AutoCompleteInput extends Component {
 
   componentWillUnmount() {
     document.removeEventListener('mousedown', this.onClick, false);
+  }
+
+  componentDidUpdate() {
+    const { activeSuggestion, filteredSuggestions } = this.state;
+    if (this.scrollContainer !== null) {
+      // Access to DOM element, so we can move scroll since
+      // React refs access just to Component
+      const scrollContainerNode = ReactDOM.findDOMNode(this.scrollContainer);
+      if (scrollContainerNode !== null) {
+        // Move scroll according to suggestion's height
+        scrollContainerNode.scrollTop =
+          scrollContainerNode.clientHeight /
+          filteredSuggestions.length *
+          (activeSuggestion - 1);
+      }
+    }
   }
 
   // Event fired when the input value is changed
@@ -215,7 +232,11 @@ class AutoCompleteInput extends Component {
           {showSuggestions &&
             value &&
             (filteredSuggestions.length ? (
-              <SuggestionsDropdown>
+              <SuggestionsDropdown
+                ref={element => {
+                  this.scrollContainer = element;
+                }}
+              >
                 {filteredSuggestions.map((suggestion, index) => (
                   <SuggestionItem
                     className={

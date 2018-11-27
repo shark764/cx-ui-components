@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.29.10] - 2018-11-27
+### Fixed
+- CXV1-16224 - Suggestions dropdown was not scrolling on arrows keydown press.
+- Suggestions dropdown was allowing resize columns header behind it.
+
 ## [0.29.9] - 2018-11-16
 ### Fixed
 - Modal background was allowing resize columns header behind it.
