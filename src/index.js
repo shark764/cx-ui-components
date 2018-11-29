@@ -42,7 +42,10 @@ export { default as FileDownload } from './components/ConfigUi/FileDownload';
 
 // Reporting
 export { default as InteractionDetails } from './components/ConfigUi/InteractionDetails';
-export { default as FilterSelect } from './components/ConfigUi/FilterSelect';
+
+// Fields
+export { default as FilterInput } from './components/ConfigUi/Filter/FilterInput';
+export { default as FilterSelect } from './components/ConfigUi/Filter/FilterSelect';
 
 // SVGs
 export { default as HangUpIconSVG } from './components/SVGs/HangUpIconSVG';
@@ -72,3 +75,6 @@ export {
   currentTime,
   startOfDay,
 } from './utils/time';
+
+// Filter Methods for ReactTable
+export { filterSelectMethod, filterDefaultMethod } from './utils/filterMethod';

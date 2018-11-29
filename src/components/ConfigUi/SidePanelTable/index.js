@@ -17,6 +17,8 @@ import 'react-table/react-table.css';
 
 import SidePanelTableActions from '../SidePanelTableActions';
 import { importantCss, convertFieldsToColumns } from '../../../utils';
+import { filterDefaultMethod } from '../../../utils/filterMethod';
+import LoadingSpinner from '../../SVGs/LoadingSpinnerSVG';
 
 import DynamicTableWrapper from '../DynamicTableWrapper';
 
@@ -80,40 +82,51 @@ injectGlobal`${importantCss(`
 export default DynamicTableWrapper(SidePanelTable);
 
 function SidePanelTable(props) {
-    const columns = [...convertFieldsToColumns(props.fields)];
-    if (props.updateSubEntity || props.deleteSubEntity || props.addSubEntity) {
-      columns.push({
-        id: 'actions',
-        Header: 'Actions',
-        filterable: false,
-        sortable: false,
-        accessor: d => <SidePanelTableActions row={d} entityName={props.contains} updateSubEntity={props.updateSubEntity} deleteSubEntity={props.deleteSubEntity} addSubEntity={props.addSubEntity} toggleSubEntityActive={props.toggleSubEntityActive}/>,
-        width: 90,
-        show: props.userHasUpdatePermission && !props.inherited
-      });
-    }
-    return (
-        <ReactTable
-          data={props.items}
-          columns={columns}
-          defaultPageSize={5}
-          pageSizeOptions={props.pageSizeOptions}
-          pageSize={props.pageSize}
-          onPageSizeChange={pageSize => props.setPageSize(pageSize, props.items.length)}
-          showPagination={props.pagination}
-          className="-striped SidePanelTable"
-          defaultFilterMethod={(filter, row) =>
-            String(row[filter.id])
-              .toLowerCase()
-              .indexOf(filter.value.toLowerCase()) > -1
-          }
+  const columns = [...convertFieldsToColumns(props.fields, props.tableType)];
+  if (props.updateSubEntity || props.deleteSubEntity || props.addSubEntity) {
+    columns.push({
+      id: 'actions',
+      Header: 'Actions',
+      filterable: false,
+      sortable: false,
+      accessor: d => (
+        <SidePanelTableActions
+          row={d}
+          entityName={props.contains}
+          updateSubEntity={props.updateSubEntity}
+          deleteSubEntity={props.deleteSubEntity}
+          addSubEntity={props.addSubEntity}
+          toggleSubEntityActive={props.toggleSubEntityActive}
         />
-    );
+      ),
+      width: 90,
+      show: props.userHasUpdatePermission && !props.inherited
+    });
+  }
+  return (
+    <ReactTable
+      data={props.items}
+      noDataText={
+        props.items ? 'No results found' : <LoadingSpinner size={60} />
+      }
+      columns={columns}
+      defaultPageSize={5}
+      pageSizeOptions={props.pageSizeOptions}
+      pageSize={props.pageSize}
+      onPageSizeChange={pageSize =>
+        props.setPageSize(pageSize, props.items.length)
+      }
+      showPagination={props.pagination}
+      className="-striped SidePanelTable"
+      defaultFilterMethod={(filter, row) => filterDefaultMethod(filter, row)}
+    />
+  );
 }
 
 SidePanelTable.propTypes = {
   userHasUpdatePermission: PropTypes.bool,
   inherited: PropTypes.bool,
+  tableType: PropTypes.string,
   contains: PropTypes.string,
   pageSizeOptions: PropTypes.array,
   id: PropTypes.string,
@@ -127,9 +140,9 @@ SidePanelTable.propTypes = {
   addSubEntity: PropTypes.func,
   toggleSubEntityActive: PropTypes.func,
   pageSize: PropTypes.number,
-  setPageSize: PropTypes.func,
+  setPageSize: PropTypes.func
 };
 
 SidePanelTable.defaultProps = {
-  pagination: true,
-}
+  pagination: true
+};

@@ -1,5 +1,5 @@
 /*
- * Copyright © 2015-2017 Serenova, LLC. All rights reserved.
+ * Copyright © 2015-2018 Serenova, LLC. All rights reserved.
  */
 
 /**
@@ -20,6 +20,7 @@ import PageHeader from '../PageHeader';
 import LoadingSpinner from '../../SVGs/LoadingSpinnerSVG';
 
 import { importantCss } from '../../../utils';
+import { filterDefaultMethod } from '../../../utils/filterMethod';
 
 import Checkbox from '../Checkbox';
 import CustomDropdownMenu from '../CustomDropdownMenu';
@@ -114,86 +115,92 @@ const Table = styled(ReactTable)`
         flex-wrap: nowrap;
       }
     }
-  `}
+  `};
 `;
 
 const CheckboxWrapper = styled.div`
-width: 100%;
-height: 100%
+  width: 100%;
+  height: 100%;
 `;
 
 const Checkbox1 = styled(Checkbox)`
-width: 15px;
-height: 15px;
-margin: 5px;
+  width: 15px;
+  height: 15px;
+  margin: 5px;
 `;
 
 const Checkbox2 = styled.input`
-width: 15px;
-height: 15px;
-margin-top: 2px;
+  width: 15px;
+  height: 15px;
+  margin-top: 2px;
 `;
 
 const WrappedButton = styled(Button)`
-margin-right: 10px;
+  margin-right: 10px;
 `;
 
 const ActionsMenu = styled(CustomDropdownMenu)`
-font-size: 14px;
-padding: 7px 15px;
-border: 1px solid #CCCCCC;
-border-radius: 4px;
-cursor: pointer;
-text-align: center;
-vertical-align: middle;
-color: #07487a;
-background-color: white;
+  font-size: 14px;
+  padding: 7px 15px;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: center;
+  vertical-align: middle;
+  color: #07487a;
+  background-color: white;
 `;
 
 const ActionButton = styled(Button)`
-margin: 5px auto;
+  margin: 5px auto;
 `;
 
 class EntityTable extends Component {
-
   getData = visibleOrAll => {
     const pageIndex = this.selectTable.getResolvedState().page;
     const pageSize = this.selectTable.getResolvedState().pageSize;
-    const startIndex = pageIndex > 0? pageSize * pageIndex : pageIndex;
+    const startIndex = pageIndex > 0 ? pageSize * pageIndex : pageIndex;
     const endIndex = startIndex + pageSize;
-    if(visibleOrAll === 'visible') {
-      return this.selectTable.getResolvedState().sortedData.filter((x, index) =>
-        index >= startIndex && index < endIndex
-      )
+    if (visibleOrAll === 'visible') {
+      return this.selectTable
+        .getResolvedState()
+        .sortedData.filter(
+          (x, index) => index >= startIndex && index < endIndex
+        );
     } else {
       return this.selectTable.props.data;
     }
-  }
+  };
 
   selectToggle = (data, bool, visibleOrAll) => {
     this.props.setVisibleMenu('none', this.props.entityMetadata.entityName);
-    data.forEach(x => this.props.onBulkClick(this.props.entityMetadata.entityName, visibleOrAll === 'visible'? x._original.id : x.id, bool))
-  }
+    data.forEach(x =>
+      this.props.onBulkClick(
+        this.props.entityMetadata.entityName,
+        visibleOrAll === 'visible' ? x._original.id : x.id,
+        bool
+      )
+    );
+  };
 
   selectAllVisible = () => {
     this.selectToggle(this.getData('visible'), true, 'visible');
-  }
+  };
   unselectAllVisible = () => {
     this.selectToggle(this.getData('visible'), false, 'visible');
-  }
+  };
   selectAll = () => {
     this.selectToggle(this.getData('all'), true, 'all');
-  }
+  };
   unselectAll = () => {
     this.selectToggle(this.getData('all'), false, 'all');
-  }
-
+  };
 
   render() {
     const bulkColumn = {
       id: 'bulkId',
       accessor: 'bulkChangeItem',
-      filterMethod: ({value, id}, rows) => {
+      filterMethod: ({ value, id }, rows) => {
         if (value === 'on') {
           return rows[id] === true;
         } else if (value === 'off') {
@@ -202,74 +209,122 @@ class EntityTable extends Component {
           return true;
         }
       },
-      Filter: ({ onChange }) => (<Checkbox1 className="bulk-action-filter-toggle" onChange={ onChange } indeterminate="true" />),
-      sortable : false,
+      Filter: ({ onChange }) => (
+        <Checkbox1
+          className="bulk-action-filter-toggle"
+          onChange={onChange}
+          indeterminate="true"
+        />
+      ),
+      sortable: false,
       resizable: false,
       width: 40,
-      Cell: ({ row }) => (<CheckboxWrapper className="bulk-action-selector-toggle" onClick={ e => this.props.onBulkClick(this.props.entityMetadata.entityName, row._original.id) && e.stopPropagation()}><Checkbox2 type="checkbox" checked={row._original.bulkChangeItem || false} readOnly title="Add or remove this from the bulk actions form"/></CheckboxWrapper>)
+      Cell: ({ row }) => (
+        <CheckboxWrapper
+          className="bulk-action-selector-toggle"
+          onClick={e =>
+            this.props.onBulkClick(
+              this.props.entityMetadata.entityName,
+              row._original.id
+            ) && e.stopPropagation()
+          }
+        >
+          <Checkbox2
+            type="checkbox"
+            checked={row._original.bulkChangeItem || false}
+            readOnly
+            title="Add or remove this from the bulk actions form"
+          />
+        </CheckboxWrapper>
+      )
     };
     return (
       <GridContainer id={this.props.id} className={this.props.className}>
         <Header text={this.props.pageTitle} helpLink={this.props.pageHelpLink}>
           {this.props.userHasCreatePermission && (
-            <WrappedButton buttonType="primary" id="sdpanel-create" onClick={this.props.onCreateButtonClick}>
+            <WrappedButton
+              buttonType="primary"
+              id="sdpanel-create"
+              onClick={this.props.onCreateButtonClick}
+            >
               Create
             </WrappedButton>
           )}
           {this.props.userHasUpdatePermission &&
-          this.props.entityMetadata.bulkEditsAvailable() &&
-          location.hash.includes('alpha') &&
-          (
-            < ActionsMenu
-            currentFilter="Actions"
-            setVisibleMenu={this.props.setVisibleMenu}
-            currentVisibleSubMenu={this.props.currentVisibleSubMenu}
-            menuType="actionsMenu"
-            buttonType="columnFilter"
-            tableType={ this.props.entityMetadata && this.props.entityMetadata.entityName}
-            id="actions-button"
-          >
-            <ActionButton buttonType="columnFilter" id="table-items-actions-select-all-visible" onClick={this.selectAllVisible}>
-              Select All Visible
-            </ActionButton>
-            <ActionButton buttonType="columnFilter" id="table-items-actions-unselect-all-visible" onClick={this.unselectAllVisible}>
-              Unselect All Visible
-            </ActionButton>
-            <ActionButton buttonType="columnFilter" id="table-items-actions-select-all" onClick={this.selectAll}>
-              Select All
-            </ActionButton>
-            <ActionButton buttonType="columnFilter" id="table-items-actions-unselect-all" onClick={this.unselectAll}>
-              Unselect All
-            </ActionButton>
-          </ActionsMenu>
-          )}
+            this.props.entityMetadata.bulkEditsAvailable() &&
+            location.hash.includes('alpha') && (
+              <ActionsMenu
+                currentFilter="Actions"
+                setVisibleMenu={this.props.setVisibleMenu}
+                currentVisibleSubMenu={this.props.currentVisibleSubMenu}
+                menuType="actionsMenu"
+                buttonType="columnFilter"
+                tableType={
+                  this.props.entityMetadata &&
+                  this.props.entityMetadata.entityName
+                }
+                id="actions-button"
+              >
+                <ActionButton
+                  buttonType="columnFilter"
+                  id="table-items-actions-select-all-visible"
+                  onClick={this.selectAllVisible}
+                >
+                  Select All Visible
+                </ActionButton>
+                <ActionButton
+                  buttonType="columnFilter"
+                  id="table-items-actions-unselect-all-visible"
+                  onClick={this.unselectAllVisible}
+                >
+                  Unselect All Visible
+                </ActionButton>
+                <ActionButton
+                  buttonType="columnFilter"
+                  id="table-items-actions-select-all"
+                  onClick={this.selectAll}
+                >
+                  Select All
+                </ActionButton>
+                <ActionButton
+                  buttonType="columnFilter"
+                  id="table-items-actions-unselect-all"
+                  onClick={this.unselectAll}
+                >
+                  Unselect All
+                </ActionButton>
+              </ActionsMenu>
+            )}
           {this.props.children}
         </Header>
-  
+
         <Table
-          innerRef={r => this.selectTable = r}
+          innerRef={r => (this.selectTable = r)}
           data={this.props.items}
-          noDataText={this.props.items ? 'No results found' : <LoadingSpinner size={60} />}
-          columns={ this.props.entityMetadata &&
-            this.props.entityMetadata.entityName && 
-            (this.props.entityMetadata.bulkEditsAvailable() && this.props.userHasUpdatePermission)? [bulkColumn, ...this.props.columns] : [...this.props.columns]}
+          noDataText={
+            this.props.items ? 'No results found' : <LoadingSpinner size={60} />
+          }
+          columns={
+            this.props.entityMetadata &&
+            this.props.entityMetadata.entityName &&
+            (this.props.entityMetadata.bulkEditsAvailable() &&
+              this.props.userHasUpdatePermission)
+              ? [bulkColumn, ...this.props.columns]
+              : [...this.props.columns]
+          }
           defaultPageSize={20}
           className="-striped EntityTable"
           filterable
           defaultFilterMethod={(filter, row) =>
-            String(row[filter.id])
-              .toLowerCase()
-              .indexOf(filter.value.toLowerCase()) > -1
+            filterDefaultMethod(filter, row)
           }
           getTrProps={(state, rowInfo) => {
             return {
               onClick: () => {
                 this.props.onRowClick(rowInfo.original.id);
-              },
+              }
             };
-          }
-          
-        }
+          }}
         />
       </GridContainer>
     );
@@ -294,7 +349,7 @@ EntityTable.propTypes = {
   columns: PropTypes.array,
   onRowClick: PropTypes.func,
   userHasCreatePermission: PropTypes.bool,
-  userHasUpdatePermission: PropTypes.bool,
+  userHasUpdatePermission: PropTypes.bool
 };
 
 export default EntityTable;
