@@ -34,17 +34,17 @@ const Warning = styled.span`
   color: orange;
 `;
 
-export default function FieldWrapper({ inputName, label, labelHelpText, children, touched, error, warning}) {
+export default function FieldWrapper({ inputName, label, labelHelpText, children, touched, error, warning, hideLabel}) {
   return (
     <FieldWrapperDiv>
-      <Label htmlFor={inputName}>
+     {!hideLabel && <Label htmlFor={inputName}>
         {label}
         {labelHelpText && (
           <HelpText>
             {labelHelpText}
           </HelpText>
         )}
-      </Label>
+      </Label>}
       <InputWrapper>
         {children}
         {touched &&
@@ -61,6 +61,7 @@ FieldWrapper.propTypes = {
   labelHelpText: PropTypes.string,
   children: PropTypes.any,
   touched: PropTypes.bool,
+  hideLabel: PropTypes.bool,
   error: PropTypes.string,
   warning: PropTypes.string,
 };

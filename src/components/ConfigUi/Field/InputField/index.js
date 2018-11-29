@@ -30,6 +30,7 @@ const RenderField = ({
   type,
   disabled,
   onFocus,
+  hideLabel,
   meta: { touched, error, warning }
 }) => {
   let inputElement;
@@ -48,7 +49,8 @@ const RenderField = ({
     labelHelpText,
     touched,
     error,
-    warning
+    warning,
+    hideLabel
   };
 
   if (componentType === 'input') {
@@ -61,7 +63,7 @@ const RenderField = ({
     );
   }
   return (
-    <FieldWrapper {...fieldWrapperProps} inputName={input.name}>
+    <FieldWrapper {...fieldWrapperProps} inputName={input.name} >
       {inputElement}
     </FieldWrapper>
   );
@@ -123,6 +125,7 @@ RenderField.propTypes = {
   labelHelpText: PropTypes.string,
   id: PropTypes.string,
   onFocus: PropTypes.func,
+  hideLabel: PropTypes.bool,
   className: PropTypes.string,
   placeholder: PropTypes.string,
   disabled: PropTypes.bool,
