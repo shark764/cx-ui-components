@@ -33,7 +33,7 @@ export default function SidePanelTableActions({
 }) {
   return (
     <ActionsWrapper>
-      {updateSubEntity && (
+      {!row.isDefault && !row.inherited && updateSubEntity && (
         <ActionButton
           className="dtpanel-action-update-item"
           title={!row.deleting ? `Update ${row.key || row.name}` : undefined}
@@ -46,7 +46,7 @@ export default function SidePanelTableActions({
           />
         </ActionButton>
       )}
-      {deleteSubEntity && (
+      {!row.isDefault && !row.inherited && deleteSubEntity && (
         <ActionButton
           className="dtpanel-action-remove-item"
           title={
@@ -65,7 +65,7 @@ export default function SidePanelTableActions({
           />
         </ActionButton>
       )}
-      {addSubEntity && (
+      {!row.isDefault && !row.inherited && addSubEntity && (
         <ActionButton
           className="dtpanel-action-add-item"
           title={
@@ -84,7 +84,7 @@ export default function SidePanelTableActions({
           />
         </ActionButton>
       )}
-      {toggleSubEntityActive && (
+      {!row.isDefault && !row.inherited && toggleSubEntityActive && (
         <PositionedToggle
           className="dtpanel-action-toggle-active-item"
           value={row.active}

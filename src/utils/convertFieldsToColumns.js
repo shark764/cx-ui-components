@@ -35,8 +35,7 @@ export default function convertFieldsToColumns(fields, tableType) {
     Header: <span title={field.label}>{field.label}</span>,
     filterable: field.name !== 'subEntityActions',
     accessor: d => d[field.name],
-    Cell: ({ value }) =>
-      value !== undefined && <span title={`${value}`}>{`${value}`}</span>,
+    Cell: ({ value }) => value && <span title={`${value}`}>{`${value}`}</span>,
     filterMethod: (filter, row) => {
       if (field.type === 'select') {
         return filterSelectMethod(filter, row);
