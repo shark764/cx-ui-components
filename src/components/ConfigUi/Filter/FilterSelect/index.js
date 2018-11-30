@@ -14,28 +14,28 @@ import styled from 'styled-components';
 
 const StyledSelector = styled.select`
   padding: ${props => {
-    if (props.tableType === 'modal') {
+    if (props.tableType === 'modal' || props.tableType === 'sidePanel') {
       return `0;`;
     } else {
       return `5px !important;`;
     }
   }}
   line-height: ${props => {
-    if (props.tableType === 'modal') {
+    if (props.tableType === 'modal' || props.tableType === 'sidePanel') {
       return `normal;`;
     } else {
       return `1;`;
     }
   }}
   border: ${props => {
-    if (props.tableType === 'modal') {
+    if (props.tableType === 'modal' || props.tableType === 'sidePanel') {
       return `inherit;`;
     } else {
       return `none !important;`;
     }
   }}
   width: ${props => {
-    if (props.tableType === 'modal') {
+    if (props.tableType === 'modal' || props.tableType === 'sidePanel') {
       return `100%;`;
     } else {
       return `auto;`;

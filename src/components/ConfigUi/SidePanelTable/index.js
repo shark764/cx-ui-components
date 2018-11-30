@@ -1,5 +1,5 @@
 /*
- * Copyright © 2015-2017 Serenova, LLC. All rights reserved.
+ * Copyright © 2015-2018 Serenova, LLC. All rights reserved.
  */
 
 /**
@@ -119,6 +119,8 @@ function SidePanelTable(props) {
       showPagination={props.pagination}
       className="-striped SidePanelTable"
       defaultFilterMethod={(filter, row) => filterDefaultMethod(filter, row)}
+      filtered={props.filtered}
+      onFilteredChange={filtered => props.onFilteredChange(filtered)}
     />
   );
 }
@@ -140,7 +142,8 @@ SidePanelTable.propTypes = {
   addSubEntity: PropTypes.func,
   toggleSubEntityActive: PropTypes.func,
   pageSize: PropTypes.number,
-  setPageSize: PropTypes.func
+  setPageSize: PropTypes.func,
+  filtered: PropTypes.array
 };
 
 SidePanelTable.defaultProps = {
