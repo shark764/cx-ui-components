@@ -318,6 +318,7 @@ class EntityTable extends Component {
           defaultFilterMethod={(filter, row) =>
             filterDefaultMethod(filter, row)
           }
+          defaultFiltered={this.props.filtered}
           getTrProps={(state, rowInfo) => {
             return {
               onClick: () => {
@@ -332,6 +333,7 @@ class EntityTable extends Component {
 }
 
 EntityTable.propTypes = {
+  filtered: PropTypes.array,
   className: PropTypes.string,
   children: PropTypes.element,
   currentVisibleSubMenu: PropTypes.string,

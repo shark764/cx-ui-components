@@ -11,6 +11,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { camelCaseToRegularForm } from 'serenova-js-utils/strings';
 
 const StyledSelector = styled.select`
   padding: ${props => {
@@ -54,11 +55,11 @@ function FilterSelect(props) {
     >
       {props.options.map(value => (
         <option
-          key={value}
+          key={camelCaseToRegularForm(value)}
           value={value}
           className={'subentity-filter-column-option-' + value}
         >
-          {value}
+          {camelCaseToRegularForm(value)}
         </option>
       ))}
     </StyledSelector>
@@ -70,7 +71,8 @@ FilterSelect.propTypes = {
   options: PropTypes.arrayOf(PropTypes.string).isRequired,
   onChange: PropTypes.func.isRequired,
   defaultValue: PropTypes.string,
-  value: PropTypes.string
+  value: PropTypes.string,
+  tableType: PropTypes.string,
 };
 
 export default FilterSelect;
