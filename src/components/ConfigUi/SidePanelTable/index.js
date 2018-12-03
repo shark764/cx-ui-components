@@ -107,7 +107,7 @@ function SidePanelTable(props) {
     <ReactTable
       data={props.items}
       noDataText={
-        props.items ? 'No results found' : <LoadingSpinner size={60} />
+        props.items.noData ? <LoadingSpinner size={60} /> : 'No results found'
       }
       columns={columns}
       defaultPageSize={5}

@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.31.4] - 2018-12-01
+### Fixed
+- Entity Table and side panel table show loading when fetching data and 'No results found' when there is no data
+
 ## [0.31.3] - 2018-12-01
 ### Added
 - Option to add default filter entity table
