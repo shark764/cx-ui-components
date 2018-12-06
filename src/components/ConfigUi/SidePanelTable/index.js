@@ -28,7 +28,7 @@ import DynamicTableWrapper from '../DynamicTableWrapper';
 injectGlobal`${importantCss(`
 
   .SidePanelTable .rt-table {
-    overflow: hidden;
+    overflow: auto;
   }
 
   .SidePanelTable .rt-thead .rt-th {

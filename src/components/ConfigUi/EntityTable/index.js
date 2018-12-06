@@ -104,13 +104,13 @@ const Table = styled(ReactTable)`
     .EntityTable .rt-tbody .row-selected-active .rt-td,
     &.row-selected-active {
       color: #000;
-      background-color: #8fd1e8;
+      background-color: #cce5ff;
     }
     
     .EntityTable .rt-tbody .row-selected-active .rt-td,
     &.row-selected-active.-odd {
       color: #000 !important;
-      background-color: #8fd1e8 !important;
+      background-color: #cce5ff !important;
     }
 
     .EntityTable,
@@ -321,7 +321,11 @@ class EntityTable extends Component {
           innerRef={r => (this.selectTable = r)}
           data={this.props.items}
           noDataText={
-            this.props.fetching? <LoadingSpinner size={60} /> : 'No results found'
+            this.props.fetching ? (
+              <LoadingSpinner size={60} />
+            ) : (
+              'No results found'
+            )
           }
           columns={
             this.props.entityMetadata &&
