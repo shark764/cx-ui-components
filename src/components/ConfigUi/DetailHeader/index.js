@@ -51,7 +51,8 @@ function DetailHeader(props) {
       <LineSpacer />
       {props.onActionButtonClick &&
         props.userHasUpdatePermission &&
-        !props.inherited && (
+        !props.inherited &&
+        props.open && (
           <ActionButton onClick={props.onActionButtonClick} id="sdpanel-add-item">
             <PlusIconSVG size={12} />
           </ActionButton>
@@ -63,6 +64,7 @@ function DetailHeader(props) {
 DetailHeader.propTypes = {
   className: PropTypes.string,
   userHasUpdatePermission: PropTypes.bool,
+  open: PropTypes.bool,
   id: PropTypes.string,
   text: PropTypes.string.isRequired,
   onActionButtonClick: PropTypes.func,

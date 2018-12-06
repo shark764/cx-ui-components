@@ -107,7 +107,7 @@ function SidePanelTable(props) {
     <ReactTable
       data={props.items}
       noDataText={
-        props.items.noData ? <LoadingSpinner size={60} /> : 'No results found'
+        props.fetching ? <LoadingSpinner size={60} /> : 'No results found'
       }
       columns={columns}
       defaultPageSize={5}
@@ -128,6 +128,8 @@ function SidePanelTable(props) {
 SidePanelTable.propTypes = {
   userHasUpdatePermission: PropTypes.bool,
   inherited: PropTypes.bool,
+  onFilteredChange: PropTypes.func,
+  fetching: PropTypes.bool,
   tableType: PropTypes.string,
   contains: PropTypes.string,
   pageSizeOptions: PropTypes.array,

@@ -302,7 +302,7 @@ class EntityTable extends Component {
           innerRef={r => (this.selectTable = r)}
           data={this.props.items}
           noDataText={
-            this.props.items? <LoadingSpinner size={60} /> : 'No results found'
+            this.props.fetching? <LoadingSpinner size={60} /> : 'No results found'
           }
           columns={
             this.props.entityMetadata &&
@@ -336,6 +336,7 @@ EntityTable.propTypes = {
   filtered: PropTypes.array,
   className: PropTypes.string,
   children: PropTypes.element,
+  fetching: PropTypes.bool,
   currentVisibleSubMenu: PropTypes.string,
   id: PropTypes.string,
   pageTitle: PropTypes.string,
