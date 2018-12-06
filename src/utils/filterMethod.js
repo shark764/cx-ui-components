@@ -7,10 +7,12 @@ import { camelCaseToRegularForm } from 'serenova-js-utils/strings';
 export function filterSelectMethod(filter, row) {
   // Show all items on 'All'
   // Check match otherwise
+  // We remove white spaces since camelCaseToRegularForm adds
+  // empty space at beginning when string has capital letter
   return filter.value === 'all'
     ? true
-    : camelCaseToRegularForm(row[filter.id]) ===
-        camelCaseToRegularForm(filter.value);
+    : camelCaseToRegularForm(row[filter.id]).trim() ===
+        camelCaseToRegularForm(filter.value).trim();
 }
 
 export function filterDefaultMethod(filter, row) {

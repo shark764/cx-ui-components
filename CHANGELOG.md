@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.32.1] - 2018-12-06
+### Fixed
+- Filters where not being applied properly and 'All' was the only way to show items.
+
 ## [0.32.0] - 2018-12-06
 ### Added
 - CXV1-15959 - Added editable content in table cell.
