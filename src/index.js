@@ -76,5 +76,6 @@ export {
   startOfDay,
 } from './utils/time';
 
-// Filter Methods for ReactTable
+// Filter Methods and Accessor for ReactTable
 export { filterSelectMethod, filterDefaultMethod } from './utils/filterMethod';
+export { columnAccessor } from './utils/accessor';

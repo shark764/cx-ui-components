@@ -2,8 +2,15 @@
  * Copyright © 2015-2018 Serenova, LLC. All rights reserved.
  */
 
+import { camelCaseToRegularForm } from 'serenova-js-utils/strings';
+
 export function filterSelectMethod(filter, row) {
-  return filter.value === 'all' ? true : row[filter.id] === filter.value;
+  // Show all items on 'All'
+  // Check match otherwise
+  return filter.value === 'all'
+    ? true
+    : camelCaseToRegularForm(row[filter.id]) ===
+        camelCaseToRegularForm(filter.value);
 }
 
 export function filterDefaultMethod(filter, row) {

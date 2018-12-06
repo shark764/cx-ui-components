@@ -101,6 +101,18 @@ const Table = styled(ReactTable)`
       }
     }
 
+    .EntityTable .rt-tbody .row-selected-active .rt-td,
+    &.row-selected-active {
+      color: #000;
+      background-color: #8fd1e8;
+    }
+    
+    .EntityTable .rt-tbody .row-selected-active .rt-td,
+    &.row-selected-active.-odd {
+      color: #000 !important;
+      background-color: #8fd1e8 !important;
+    }
+
     .EntityTable,
     .SidePanelTable {
       .pagination-bottom button {
@@ -156,6 +168,13 @@ const ActionButton = styled(Button)`
 `;
 
 class EntityTable extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      selected: null
+    };
+  }
+
   getData = visibleOrAll => {
     const pageIndex = this.selectTable.getResolvedState().page;
     const pageSize = this.selectTable.getResolvedState().pageSize;
@@ -320,11 +339,23 @@ class EntityTable extends Component {
           }
           defaultFiltered={this.props.filtered}
           getTrProps={(state, rowInfo) => {
-            return {
-              onClick: () => {
-                this.props.onRowClick(rowInfo.original.id);
-              }
-            };
+            if (rowInfo && rowInfo.row) {
+              return {
+                onClick: () => {
+                  this.props.onRowClick(rowInfo.original.id);
+                  this.setState({
+                    selected: rowInfo.index
+                  });
+                },
+                className: `row-selected-${
+                  rowInfo.index === this.state.selected
+                    ? 'active'
+                    : 'not-active'
+                }`
+              };
+            } else {
+              return {};
+            }
           }}
         />
       </GridContainer>

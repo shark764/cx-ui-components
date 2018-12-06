@@ -22,20 +22,31 @@
  */
 
 import React from 'react';
-import styled from 'styled-components';
 
 import FilterSelect from '../components/ConfigUi/Filter/FilterSelect';
 import FilterInput from '../components/ConfigUi/Filter/FilterInput';
+import RenderEditable from '../components/ConfigUi/Editable/RenderEditable';
 
 import { filterSelectMethod, filterDefaultMethod } from './filterMethod';
+import { columnAccessor } from './accessor';
 
 export default function convertFieldsToColumns(fields, tableType) {
   return fields.map(field => ({
     id: field.name,
     Header: <span title={field.label}>{field.label}</span>,
-    filterable: field.name !== 'subEntityActions',
-    accessor: d => d[field.name],
-    Cell: ({ value }) => value && <span title={`${value}`}>{`${value}`}</span>,
+    filterable: field.filterable !== false && field.name !== 'subEntityActions',
+    accessor: d => columnAccessor(field, d),
+    Cell: ({ value }) => {
+      return field.editable ? (
+        <RenderEditable
+          html={value}
+          onBlur={field.actions && field.actions.onBlur}
+          onChange={field.actions && field.actions.onChange}
+        />
+      ) : (
+        value && <span title={`${value}`}>{`${value}`}</span>
+      );
+    },
     filterMethod: (filter, row) => {
       if (field.type === 'select') {
         return filterSelectMethod(filter, row);

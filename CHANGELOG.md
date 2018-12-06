@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.32.0] - 2018-12-06
+### Added
+- CXV1-15959 - Added editable content in table cell.
+- CXV1-16353 - Status column to Groups / Skills / Users Pages.
+
 ## [0.31.5] - 2018-12-06
 ### Fixed
 - Loading spinner no longer shows on table when filter data returns empty array
