@@ -157,12 +157,12 @@ class ExtensionListInput extends Component {
 
     onDragEnd = result => {
       const {destination, source} = result;
-      const lastItemIndex = this.props.input.value.length - 1;
-      if(source.index !== lastItemIndex && destination.index === lastItemIndex) {
+      const lastItemIndex = this.props.input.value.size - 1;
+      if(!destination) {
         this.setState({dragging: false});
         return;
       }
-      if(!destination) {
+      if(destination.index === lastItemIndex) {
         this.setState({dragging: false});
         return;
       }
@@ -227,7 +227,7 @@ class ExtensionListInput extends Component {
                             onClick={e => li.get("type") !== 'webrtc' && (this.isLastItem(index) ? this.addFormItem(e) : this.removeListItem(index))}
                             style={this.isLastItem(index)? {transform: 'rotate(45deg)'} : {}}
                           >
-                            <CloseIconSVG closeIconType="secondary" size={12} disabled={li.get('type') === 'webrtc'}/>
+                            <CloseIconSVG closeIconType={this.isLastItem(index)? "primary" : "secondary"} size={12} disabled={li.get('type') === 'webrtc'}/>
                           </RemoveButton>
 
                           {li.get('type') === 'webrtc' &&
@@ -257,15 +257,16 @@ class ExtensionListInput extends Component {
                               value={this.props.input.value.getIn([index, 'value'])}
                               onChange={e => this.saveRefrence(e,'value',index)}
                               placeholder="Extension"
-                              hasError={ this.props.meta.error && typeof this.props.meta.error[index] === 'string'}
+                              hasError={ this.props.meta.error && typeof this.props.meta.error[index] === 'string' && this.props.meta.error[index] !== 'Label is required'}
                           />}
 
                           <InputWrapper
                             className="list-item-text"
                             value={this.props.input.value.getIn([index,'description'])}
                             onChange={e => this.saveRefrence(e,'description',index)}
-                            placeholder="Description"
+                            placeholder="Label"
                             disabled={li.get('type') === 'webrtc'}
+                            hasError={ this.props.meta.error && typeof this.props.meta.error[index] === 'string' && this.props.meta.error[index] === 'Label is required'}
                           />
 
                           {this.props.meta.error &&
