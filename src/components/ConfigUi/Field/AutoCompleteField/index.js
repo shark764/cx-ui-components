@@ -151,7 +151,8 @@ class AutoCompleteInput extends Component {
     this.setState({
       activeSuggestion: 0,
       filteredSuggestions,
-      showSuggestions: true
+      showSuggestions: true,
+      value: value.length > 0 ? value : ' '
     });
   };
 
