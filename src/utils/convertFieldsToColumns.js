@@ -25,8 +25,6 @@ import React from 'react';
 
 import FilterSelect from '../components/ConfigUi/Filter/FilterSelect';
 import FilterInput from '../components/ConfigUi/Filter/FilterInput';
-import RenderEditable from '../components/ConfigUi/Editable/RenderEditable';
-
 import { filterSelectMethod, filterDefaultMethod } from './filterMethod';
 import { columnAccessor } from './accessor';
 
@@ -36,12 +34,16 @@ export default function convertFieldsToColumns(fields, tableType) {
     Header: <span title={field.label}>{field.label}</span>,
     filterable: field.filterable !== false && field.name !== 'subEntityActions',
     accessor: d => columnAccessor(field, d),
-    Cell: ({ value }) => {
+    Cell: ( {original: {id, skillId}, value} ) => {
       return field.editable ? (
-        <RenderEditable
-          html={value}
-          onBlur={field.actions && field.actions.onBlur}
-          onChange={field.actions && field.actions.onChange}
+        <input
+          style={{maxWidth: '90px', paddingLeft: '8px'}}
+          type="number"
+          min="1"
+          max="100"
+          value={value}
+          onChange={field.actions && (({target: {value}}) =>
+            field.actions.onChange(id || skillId, value))}
         />
       ) : (
         value && <span title={`${value}`}>{`${value}`}</span>
