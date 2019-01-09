@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.32.6] - 2019-01-09
+### Changed
+- Changed the look and feel of the users extensions component.
+### Fixed
+- Can now click the action button in detail header and it will not submit when in a form
+
 ## [0.32.5] - 2018-12-19
 ### Fixed
 - CXV1-16416 - Suggestions were not being displayed on creating after first focus on AutoComplete.

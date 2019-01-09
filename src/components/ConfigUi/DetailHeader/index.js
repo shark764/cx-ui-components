@@ -53,7 +53,11 @@ function DetailHeader(props) {
         props.userHasUpdatePermission &&
         !props.inherited &&
         props.open && (
-          <ActionButton onClick={props.onActionButtonClick} id="sdpanel-add-item">
+          <ActionButton 
+            type="button" 
+            onClick={props.onActionButtonClick} 
+            id="sdpanel-add-item"
+          >
             <PlusIconSVG size={12} />
           </ActionButton>
         )}

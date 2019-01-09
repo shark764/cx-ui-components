@@ -1,5 +1,4 @@
 import React, {Component, Fragment} from 'react';
-import { fromJS } from 'immutable';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { generateUUID } from 'serenova-js-utils/uuid';
@@ -104,12 +103,6 @@ font-style: italic;
 color: #808080a8;;
 `;
 
-const Seperator = styled.span`
-display: inline-block;
-width: 100%;
-border-top: 2px dashed #80808054;
-`;
-
 const ErrorInExtension = styled.span`
 color: red;
 font-style: italic;
@@ -120,65 +113,25 @@ width: 100%;
 
 class ExtensionListInput extends Component {
 
-    constructor(props) {
-      super(props);
-      this.state = {
-        dragging: false,
-      };
-    }
-
-    emptyListItem = () => ({
-      type:'pstn',
-      value:'',
-      provider:'',
-      region:'',
-      description:'',
-      id: generateUUID()
-    });
-
-    isLastItem = index => index === this.props.input.value.size - 1;
-
     saveRefrence = ({target: {value}}, type, index) => {
       this.props.input.onChange(this.props.input.value.setIn([index, type], value));
-    }
-
-    addFormItem = e => {
-      e.preventDefault();
-      this.props.input.onChange(this.props.input.value.push(fromJS(this.emptyListItem())))
     }
 
     removeListItem = index => {
       this.props.input.onChange(this.props.input.value.delete(index));
     }
 
-    onDragStart = () => {
-      this.setState({dragging: true})
-    }
-
     onDragEnd = result => {
       const {destination, source} = result;
-      const lastItemIndex = this.props.input.value.size - 1;
       if(!destination) {
-        this.setState({dragging: false});
-        return;
-      }
-      if(destination.index === lastItemIndex) {
-        this.setState({dragging: false});
         return;
       }
       if(destination.droppableId === source.droppableId && destination.index === source.index) {
-        this.setState({dragging: false});
         return;
       }
       const orderSwapped = this.props.input.value.delete(source.index).insert(destination.index, this.props.input.value.get(source.index));
 
-      if(this.isLastItem(source.index)) {
-        this.setState({dragging: false})
-        this.props.input.onChange(orderSwapped.push(fromJS(this.emptyListItem())));
-      } else {
-        this.setState({dragging: false})
-        this.props.input.onChange(orderSwapped);
-      }
+      this.props.input.onChange(orderSwapped);
     }
 
     render() {
@@ -202,7 +155,6 @@ class ExtensionListInput extends Component {
                   (<Draggable draggableId={li.get('id') || generateUUID()} index={index} key={li.get('id') || generateUUID()}>
                     {(provided) => (
                       <Fragment>
-                        {this.isLastItem(index) && !this.state.dragging && <Seperator />}
                         <ListItem innerRef={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
 
                           <Grip className="list-item-grip-icon">:::</Grip>
@@ -224,10 +176,9 @@ class ExtensionListInput extends Component {
 
                           <RemoveButton
                             className="list-item-remove-button"
-                            onClick={e => li.get("type") !== 'webrtc' && (this.isLastItem(index) ? this.addFormItem(e) : this.removeListItem(index))}
-                            style={this.isLastItem(index)? {transform: 'rotate(45deg)'} : {}}
+                            onClick={e => li.get("type") !== 'webrtc' && this.removeListItem(index)}
                           >
-                            <CloseIconSVG closeIconType={this.isLastItem(index)? "primary" : "secondary"} size={12} disabled={li.get('type') === 'webrtc'}/>
+                            <CloseIconSVG closeIconType="secondary" size={12} disabled={li.get('type') === 'webrtc'}/>
                           </RemoveButton>
 
                           {li.get('type') === 'webrtc' &&
@@ -278,7 +229,7 @@ class ExtensionListInput extends Component {
                     )}
                     </Draggable>
                   )
-                )}
+                  )}
                 {provided.placeholder}
                 </div>)}
               </Droppable>
