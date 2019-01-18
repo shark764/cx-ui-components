@@ -34,8 +34,8 @@ export default function convertFieldsToColumns(fields, tableType) {
     Header: <span title={field.label}>{field.label}</span>,
     filterable: field.filterable !== false && field.name !== 'subEntityActions',
     accessor: d => columnAccessor(field, d),
-    Cell: ({ original: { id, skillId, hasProficiency }, value }) => {
-      return field.editable && hasProficiency ? (
+    Cell: ({ original: { id, skillId }, value }) => {
+      return field.editable && value ? (
         <input
           style={{ maxWidth: '90px', paddingLeft: '8px' }}
           type="number"

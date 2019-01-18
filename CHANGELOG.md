@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.32.8] - 2019-01-18
+### Fixed
+- CXV1-16776 - Editable column now renders if column is editable and has a proper value.
+
 ## [0.32.7] - 2019-01-17
 ### Fixed
 - CXV1-16776 - Proficiency column now shows editable input only if skill needs a value.
