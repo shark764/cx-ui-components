@@ -4,9 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.32.11] - 2019-01-21
+### Fixed
+- CXV1-16398 - Added loading state for pending sidepanel actions
+
 ## [0.32.10] - 2019-01-21
 ### Fixed
-- CXV1-16776 - Editable input is not disappearing if value is removed for proficiency column. 
+- CXV1-16776 - Editable input is not disappearing if value is removed for proficiency column.
 
 ## [0.32.9] - 2019-01-18
 ### Fixed
@@ -187,10 +191,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * CXV1-15035 - Create RadioButton Component.
 
 ## [0.21.8]
-* CXV1-14775 - add components to dependencies list 
+* CXV1-14775 - add components to dependencies list
 
 ## [0.21.7]
-* CXV1-14775 - move components to peer and dev dependecies list 
+* CXV1-14775 - move components to peer and dev dependecies list
 
 ## [0.21.6]
 * remove un-needed console logs

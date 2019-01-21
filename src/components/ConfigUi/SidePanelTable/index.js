@@ -97,6 +97,7 @@ function SidePanelTable(props) {
           deleteSubEntity={props.deleteSubEntity}
           addSubEntity={props.addSubEntity}
           toggleSubEntityActive={props.toggleSubEntityActive}
+          itemApiPending={props.itemApiPending}
         />
       ),
       width: 90,
@@ -145,7 +146,8 @@ SidePanelTable.propTypes = {
   toggleSubEntityActive: PropTypes.func,
   pageSize: PropTypes.number,
   setPageSize: PropTypes.func,
-  filtered: PropTypes.array
+  filtered: PropTypes.array,
+  itemApiPending: PropTypes.string,
 };
 
 SidePanelTable.defaultProps = {

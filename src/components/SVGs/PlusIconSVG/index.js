@@ -9,19 +9,14 @@ const SvgWrapper = styled.div`
     fill: darken(${props => props.theme.primaryColor}, 30%);
   }
   ${props => props.size && `width: ${props.size}px;`};
+  ${props => props.disabled && css`cursor: not-allowed ;`}
 `;
 const StyledPath = styled.path`
   fill: ${props => props.theme.primaryColor};
-
-  ${props =>
-    (props.plusIconType === undefined || props.plusIconType === 'primary') &&
-    css`
-      fill: ${props => props.theme.primaryColor};
-    `} ${props =>
-    props.editIconType === 'secondary' &&
-    css`
-      fill: rgb(153, 153, 153);
-    `};
+  ${props => (props.plusIconType === undefined || props.plusIconType === 'primary') &&
+    css`fill: ${props => props.theme.primaryColor};`}
+  ${props => props.plusIconType === 'secondary' &&
+    css`fill: rgb(153, 153, 153);`};
 `;
 
 function PlusIconSVG(props) {
@@ -31,6 +26,7 @@ function PlusIconSVG(props) {
         size={props.size}
         className="PlusIconSVG"
         onClick={props.onClick}
+        disabled={props.disabled}
       >
         <svg viewBox="0 0 448 512">
           <StyledPath
@@ -46,7 +42,8 @@ function PlusIconSVG(props) {
 PlusIconSVG.propTypes = {
   size: PropTypes.number,
   plusIconType: PropTypes.oneOf(['primary', 'secondary']),
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
+  disabled: PropTypes.bool,
 };
 
 PlusIconSVG.defaultProps = {

@@ -9,6 +9,7 @@ import Button from '../Button';
 import EditIconSVG from '../../SVGs/EditIconSVG';
 import CloseIconSVG from '../../SVGs/CloseIconSVG';
 import PlusIconSVG from '../../SVGs/PlusIconSVG';
+import LoadingSpinner from '../../SVGs/LoadingSpinnerSVG';
 import Toggle from '../Toggle';
 
 const ActionButton = styled(Button)`
@@ -22,6 +23,10 @@ const ActionsWrapper = styled.div`
 const PositionedToggle = styled(Toggle)`
   margin-top: 2px;
 `;
+const RightAlign = styled.div`
+text-align: right;
+margin-right: 10px;
+`;
 
 export default function SidePanelTableActions({
   row,
@@ -29,9 +34,11 @@ export default function SidePanelTableActions({
   updateSubEntity,
   deleteSubEntity,
   addSubEntity,
-  toggleSubEntityActive
+  toggleSubEntityActive,
+  itemApiPending
 }) {
-  return (
+  return (itemApiPending && (row.id === itemApiPending || row.key === itemApiPending)) ?
+    <RightAlign><LoadingSpinner size={28} /></RightAlign> : (
     <ActionsWrapper>
       {!row.isDefault && !row.inherited && updateSubEntity && (
         <ActionButton
@@ -57,11 +64,12 @@ export default function SidePanelTableActions({
           onClick={() =>
             deleteSubEntity(row.key || row.id, entityName, 'dissociate')
           }
-          disabled={row.deleting}
+          disabled={(row.deleting || itemApiPending)}
         >
           <CloseIconSVG
             size={10}
-            closeIconType={row.deleting ? 'secondary' : 'primary'}
+            closeIconType={(row.deleting || itemApiPending) ? 'secondary' : 'primary'}
+            disabled={(row.deleting || itemApiPending)}
           />
         </ActionButton>
       )}
@@ -76,11 +84,12 @@ export default function SidePanelTableActions({
           onClick={() =>
             addSubEntity(row.key || row.id, entityName, 'associate')
           }
-          disabled={row.adding}
+          disabled={(row.adding || itemApiPending)}
         >
           <PlusIconSVG
             size={10}
-            closeIconType={row.adding ? 'secondary' : 'primary'}
+            disabled={(row.adding || itemApiPending)}
+            plusIconType={(row.adding || itemApiPending) ? 'secondary' : 'primary'}
           />
         </ActionButton>
       )}
@@ -104,5 +113,6 @@ SidePanelTableActions.propTypes = {
   updateSubEntity: PropTypes.func,
   deleteSubEntity: PropTypes.func,
   addSubEntity: PropTypes.func,
-  toggleSubEntityActive: PropTypes.func
+  toggleSubEntityActive: PropTypes.func,
+  itemApiPending: PropTypes.string,
 };
