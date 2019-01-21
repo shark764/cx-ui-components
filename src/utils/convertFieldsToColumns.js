@@ -34,8 +34,10 @@ export default function convertFieldsToColumns(fields, tableType) {
     Header: <span title={field.label}>{field.label}</span>,
     filterable: field.filterable !== false && field.name !== 'subEntityActions',
     accessor: d => columnAccessor(field, d),
-    Cell: ({ original: { id, skillId }, value }) => {
-      return field.editable && value ? (
+    Cell: ({ original: { id, skillId, hasProficiency }, value }) => {
+      // We do the double check of editable column, because there could
+      // be specific columns that we want to block from editing.
+      return field.isColumnEditable && hasProficiency ? (
         <input
           style={{ maxWidth: '90px', paddingLeft: '8px' }}
           type="number"
