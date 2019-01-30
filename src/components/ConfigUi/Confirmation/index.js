@@ -7,13 +7,13 @@
  * Confirmation
  *
  */
-import React from "react";
-import PropTypes from "prop-types";
-import styled from "styled-components";
+import React from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
 import { colors } from '../../../constants';
-import Button from "../Button";
-import Modal from "../Modal";
+import Button from '../Button';
+import Modal from '../Modal';
 
 const ConfirmationModal = styled(Modal)`
   min-width: 300px;
@@ -28,13 +28,21 @@ const MainText = styled.div`
   background: ${colors.white};
   padding: 10px 30px;
   font-size: 14px;
+  white-space: normal;
+`;
+const SecondaryText = styled.div`
+  background: ${colors.white};
+  padding: 0px 30px 10px 30px;
+  font-size: 14px;
+  white-space: normal;
+  color: #666666;
 `;
 
 const BtnsContainer = styled.div`
   display: flex;
   justify-content: space-evenly;
   padding-top: 10px;
-`
+`;
 const ConfirmCancelBtns = styled(Button)`
   width: 45%;
   border-radius: 4px;
@@ -49,18 +57,14 @@ const ConfirmCancelBtns = styled(Button)`
 
 function Confirmation(props) {
   return (
-    <ConfirmationModal
-      onMaskClick={props.onMaskClick}
-    >
-      <MainText>
-        <div>{props.mainText}</div>
-      </MainText>
+    <ConfirmationModal onMaskClick={props.onMaskClick}>
+      <MainText>{props.mainText}</MainText>
+      {props.secondaryText && (
+        <SecondaryText>{props.secondaryText}</SecondaryText>
+      )}
 
       <BtnsContainer>
-        <ConfirmCancelBtns
-          id="cancel"
-          onClick={props.cancelBtnCallback}
-        >
+        <ConfirmCancelBtns id="cancel" onClick={props.cancelBtnCallback}>
           {props.cancelBtnText}
         </ConfirmCancelBtns>
         <ConfirmCancelBtns
@@ -81,12 +85,13 @@ Confirmation.propTypes = {
   cancelBtnText: PropTypes.string,
   cancelBtnCallback: PropTypes.func,
   mainText: PropTypes.string,
+  secondaryText: PropTypes.string,
   onMaskClick: PropTypes.func
 };
 
 Confirmation.defaultProps = {
   confirmBtnText: 'Confirm',
   cancelBtnText: 'Cancel'
-}
+};
 
 export default Confirmation;

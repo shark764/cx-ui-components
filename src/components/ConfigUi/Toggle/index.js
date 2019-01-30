@@ -75,7 +75,7 @@ function Toggle(props) {
       <Switch
         type="checkbox"
         checked={props.value}
-        onChange={props.disabled || props.inherited ? () => {} : props.onChange}
+        onChange={!props.disabled && !props.inherited && props.onChange}
         disabled={props.disabled}
         inherited={props.inherited}
       />

@@ -8,6 +8,7 @@ export { default as RootStyles } from './RootStyles';
 // ConfigUi
 export { default as Button } from './components/ConfigUi/Button';
 export { default as Confirmation } from './components/ConfigUi/Confirmation';
+export { default as ConfirmationWrapper } from './components/ConfigUi/Confirmation/ConfirmationWrapper';
 export { default as Detail } from './components/ConfigUi/Detail';
 export { default as DetailHeader } from './components/ConfigUi/DetailHeader';
 export { default as DetailsPanelAlert } from './components/ConfigUi/DetailsPanelAlert';
