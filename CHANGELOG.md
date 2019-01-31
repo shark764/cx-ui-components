@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.32.14] - 2019-01-31
+### Fixed
+- Toggle is setting undefined in onChange handler when field is disabled.
+
 ## [0.32.13] - 2019-01-29
 ### Changed
 - CXV1-16878 - Added prop to receive 'disabled' parameter for toggle in SidePanelHeader.

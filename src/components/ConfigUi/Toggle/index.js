@@ -1,5 +1,5 @@
 /*
- * Copyright © 2015-2017 Serenova, LLC. All rights reserved.
+ * Copyright © 2015-2018 Serenova, LLC. All rights reserved.
  */
 
 /**
@@ -75,7 +75,9 @@ function Toggle(props) {
       <Switch
         type="checkbox"
         checked={props.value}
-        onChange={!props.disabled && !props.inherited && props.onChange}
+        onChange={
+          !props.disabled && !props.inherited ? props.onChange : undefined
+        }
         disabled={props.disabled}
         inherited={props.inherited}
       />

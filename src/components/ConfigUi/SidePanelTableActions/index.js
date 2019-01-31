@@ -73,14 +73,14 @@ export default function SidePanelTableActions({
             onClick={() =>
               deleteSubEntity(row.key || row.id, entityName, 'dissociate')
             }
-            disabled={row.deleting || itemApiPending}
+            disabled={row.deleting || itemApiPending !== undefined}
           >
             <CloseIconSVG
               size={10}
               closeIconType={
                 row.deleting || itemApiPending ? 'secondary' : 'primary'
               }
-              disabled={row.deleting || itemApiPending}
+              disabled={row.deleting || itemApiPending !== undefined}
             />
           </ActionButton>
         )}
@@ -97,11 +97,11 @@ export default function SidePanelTableActions({
             onClick={() =>
               addSubEntity(row.key || row.id, entityName, 'associate')
             }
-            disabled={row.adding || itemApiPending}
+            disabled={row.adding || itemApiPending !== undefined}
           >
             <PlusIconSVG
               size={10}
-              disabled={row.adding || itemApiPending}
+              disabled={row.adding || itemApiPending !== undefined}
               plusIconType={
                 row.adding || itemApiPending ? 'secondary' : 'primary'
               }
