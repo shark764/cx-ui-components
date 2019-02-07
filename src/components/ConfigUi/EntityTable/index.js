@@ -342,6 +342,7 @@ class EntityTable extends Component {
             filterDefaultMethod(filter, row)
           }
           defaultFiltered={this.props.filtered}
+          defaultSorted={this.props.sorted}
           getTrProps={(state, rowInfo) => {
             if (rowInfo && rowInfo.row) {
               return {
@@ -369,6 +370,7 @@ class EntityTable extends Component {
 
 EntityTable.propTypes = {
   filtered: PropTypes.array,
+  sorted: PropTypes.array,
   className: PropTypes.string,
   children: PropTypes.element,
   fetching: PropTypes.bool,
