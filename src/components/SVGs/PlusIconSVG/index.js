@@ -9,7 +9,7 @@ const SvgWrapper = styled.div`
     fill: darken(${props => props.theme.primaryColor}, 30%);
   }
   ${props => props.size && `width: ${props.size}px;`};
-  ${props => props.disabled && css`cursor: not-allowed ;`}
+  ${props => props.disabled && css`cursor: not-allowed;`}
 `;
 const StyledPath = styled.path`
   fill: ${props => props.theme.primaryColor};

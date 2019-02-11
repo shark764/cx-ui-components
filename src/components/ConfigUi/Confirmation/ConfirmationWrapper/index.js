@@ -40,7 +40,7 @@ export default class ConfirmationWrapper extends Component {
 
 ConfirmationWrapper.propTypes = {
   children: PropTypes.any,
-  confirmBtnCallback: PropTypes.func.isRequired,
+  confirmBtnCallback: PropTypes.func,
   mainText: PropTypes.string.isRequired,
   secondaryText: PropTypes.string
 };

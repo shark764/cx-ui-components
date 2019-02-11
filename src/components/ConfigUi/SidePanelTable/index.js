@@ -83,7 +83,14 @@ export default DynamicTableWrapper(SidePanelTable);
 
 function SidePanelTable(props) {
   const columns = [...convertFieldsToColumns(props.fields, props.tableType)];
-  if (props.updateSubEntity || props.deleteSubEntity || props.addSubEntity) {
+  const actions = [
+    props.viewSubEntity,
+    props.updateSubEntity,
+    props.deleteSubEntity,
+    props.addSubEntity,
+    props.copySubEntity
+  ].filter(a => a !== undefined);
+  if (actions.length) {
     columns.push({
       id: 'actions',
       Header: 'Actions',
@@ -93,14 +100,16 @@ function SidePanelTable(props) {
         <SidePanelTableActions
           row={d}
           entityName={props.contains}
+          viewSubEntity={props.viewSubEntity}
           updateSubEntity={props.updateSubEntity}
           deleteSubEntity={props.deleteSubEntity}
           addSubEntity={props.addSubEntity}
+          copySubEntity={props.copySubEntity}
           toggleSubEntityActive={props.toggleSubEntityActive}
           itemApiPending={props.itemApiPending}
         />
       ),
-      width: 90,
+      width: actions.length > 2 ? 125 : 90,
       show: props.userHasUpdatePermission && !props.inherited
     });
   }
@@ -140,14 +149,16 @@ SidePanelTable.propTypes = {
   /** Must be a javascipt arr for React-table */
   fields: PropTypes.array.isRequired,
   pagination: PropTypes.bool,
+  viewSubEntity: PropTypes.func,
   updateSubEntity: PropTypes.func,
   deleteSubEntity: PropTypes.func,
   addSubEntity: PropTypes.func,
+  copySubEntity: PropTypes.func,
   toggleSubEntityActive: PropTypes.func,
   pageSize: PropTypes.number,
   setPageSize: PropTypes.func,
   filtered: PropTypes.array,
-  itemApiPending: PropTypes.string,
+  itemApiPending: PropTypes.string
 };
 
 SidePanelTable.defaultProps = {

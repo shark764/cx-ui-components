@@ -6,23 +6,17 @@ const SvgWrapper = styled.div`
   display: inline-block;
   cursor: pointer;
   &:hover > svg > .icon {
-    fill: rgb(101, 101, 101);
+    fill: darken(${props => props.theme.primaryColor}, 30%);
   }
+  ${props => props.disabled && css`cursor: not-allowed;`}
   ${props => props.size && `width: ${props.size}px;`};
 `;
 const StyledPath = styled.path`
   fill: ${props => props.theme.primaryColor};
-
-  ${props =>
-    (props.copyIconType === undefined || props.copyIconType === 'primary') &&
-    css`
-      fill: ${props => props.theme.primaryColor};
-    `} 
-  ${props =>
-    props.copyIconType === 'secondary' &&
-    css`
-      fill: rgb(153, 153, 153);
-    `};
+  ${props => (props.copyIconType === undefined || props.copyIconType === 'primary') &&
+    css`fill: ${props => props.theme.primaryColor};`} 
+  ${props => props.copyIconType === 'secondary' &&
+    css`fill: rgb(153, 153, 153);`};
 `;
 
 export default function CopyIconSVG(props) {

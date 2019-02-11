@@ -8,8 +8,7 @@ const SvgWrapper = styled.div`
   &:hover > svg > .icon {
     fill: darken(${props => props.theme.primaryColor}, 30%);
   }
-  ${props => props.disabled &&
-    css`cursor: not-allowed ;`}
+  ${props => props.disabled && css`cursor: not-allowed;`}
   ${props => props.size && `width: ${props.size}px;`}
 `;
 const StyledPath = styled.path`

@@ -6,9 +6,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Button from '../Button';
+import ViewIconSVG from '../../SVGs/ViewIconSVG';
 import EditIconSVG from '../../SVGs/EditIconSVG';
 import CloseIconSVG from '../../SVGs/CloseIconSVG';
 import PlusIconSVG from '../../SVGs/PlusIconSVG';
+import CopyIconSVG from '../../SVGs/CopyIconSVG';
 import LoadingSpinner from '../../SVGs/LoadingSpinnerSVG';
 import Toggle from '../Toggle';
 import ConfirmationWrapper from '../Confirmation/ConfirmationWrapper';
@@ -32,9 +34,11 @@ const RightAlign = styled.div`
 export default function SidePanelTableActions({
   row,
   entityName,
+  viewSubEntity,
   updateSubEntity,
   deleteSubEntity,
   addSubEntity,
+  copySubEntity,
   toggleSubEntityActive,
   itemApiPending
 }) {
@@ -47,6 +51,28 @@ export default function SidePanelTableActions({
     <ActionsWrapper>
       {!row.isDefault &&
         !row.inherited &&
+        viewSubEntity && (
+          <ActionButton
+            className="dtpanel-action-view-item"
+            title={
+              !row.viewing
+                ? `View ${row.key || row.name}`
+                : `row.viewing ${row.key || row.name}`
+            }
+            onClick={() => viewSubEntity(row.key || row.id, row, entityName)}
+            disabled={row.viewing || itemApiPending !== undefined}
+          >
+            <ViewIconSVG
+              size={10}
+              disabled={row.viewing || itemApiPending !== undefined}
+              viewIconType={
+                row.viewing || itemApiPending ? 'secondary' : 'primary'
+              }
+            />
+          </ActionButton>
+        )}
+      {!row.isDefault &&
+        !row.inherited &&
         updateSubEntity && (
           <ActionButton
             className="dtpanel-action-update-item"
@@ -57,6 +83,30 @@ export default function SidePanelTableActions({
             <EditIconSVG
               size={15}
               editIconType={row.deleting ? 'secondary' : 'primary'}
+            />
+          </ActionButton>
+        )}
+      {!row.isDefault &&
+        !row.inherited &&
+        copySubEntity && (
+          <ActionButton
+            className="dtpanel-action-copy-item"
+            title={
+              !row.copying
+                ? `Copy ${row.key || row.name}`
+                : `row.copying ${row.key || row.name}`
+            }
+            onClick={() =>
+              copySubEntity(row.key || row.id || row.version, row, entityName)
+            }
+            disabled={row.copying || itemApiPending !== undefined}
+          >
+            <CopyIconSVG
+              size={10}
+              disabled={row.copying || itemApiPending !== undefined}
+              copyIconType={
+                row.copying || itemApiPending ? 'secondary' : 'primary'
+              }
             />
           </ActionButton>
         )}
@@ -139,7 +189,9 @@ SidePanelTableActions.propTypes = {
     deleting: PropTypes.bool
   }).isRequired,
   entityName: PropTypes.string,
+  viewSubEntity: PropTypes.func,
   updateSubEntity: PropTypes.func,
+  copySubEntity: PropTypes.func,
   deleteSubEntity: PropTypes.func,
   addSubEntity: PropTypes.func,
   toggleSubEntityActive: PropTypes.func,

@@ -57,6 +57,7 @@ export { default as CaretIconSVG } from './components/SVGs/CaretIconSVG';
 export { default as VoiceIconSVG } from './components/SVGs/VoiceIconSVG';
 export { default as LoadingSpinnerSVG } from './components/SVGs/LoadingSpinnerSVG';
 export { default as SearchIconSVG } from './components/SVGs/SearchIconSVG';
+export { default as ViewIconSVG } from './components/SVGs/ViewIconSVG';
 export { default as CloseIconSVG } from './components/SVGs/CloseIconSVG';
 export { default as CopyIconSVG } from './components/SVGs/CopyIconSVG';
 export { default as EditIconSVG } from './components/SVGs/EditIconSVG';
