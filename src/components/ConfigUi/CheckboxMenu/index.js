@@ -9,7 +9,7 @@ const StackingContextReset = styled.div`
   position: relative;
 `;
 
-class CheckboxMenu extends React.Component {
+export default class CheckboxMenu extends React.Component {
   hotKeys = e => {
     if (e.altKey) {
       // 73 is i key
@@ -87,5 +87,3 @@ CheckboxMenu.propTypes = {
   toggleAllInverse: PropTypes.func,
   updateFilter: PropTypes.func,
 };
-
-export default CheckboxMenu;

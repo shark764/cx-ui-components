@@ -14,6 +14,7 @@ export { default as DetailHeader } from './components/ConfigUi/DetailHeader';
 export { default as DetailsPanelAlert } from './components/ConfigUi/DetailsPanelAlert';
 export { default as DropdownButton } from './components/ConfigUi/DropdownButton';
 export { default as CheckboxMenu } from './components/ConfigUi/CheckboxMenu';
+export { default as Checkbox } from './components/ConfigUi/Checkbox';
 export { default as CustomDropdownMenu } from './components/ConfigUi/CustomDropdownMenu';
 export { default as EntityTable } from './components/ConfigUi/EntityTable';
 export { default as Modal } from './components/ConfigUi/Modal';

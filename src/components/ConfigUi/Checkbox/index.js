@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-class Checkbox extends Component {
+export default class Checkbox extends Component {
   constructor() {
     super();
     this.state = {
@@ -44,5 +44,3 @@ Checkbox.propTypes = {
   onChange: PropTypes.func,
   indeterminate: PropTypes.string,
 };
-
-export default Checkbox;
