@@ -109,7 +109,7 @@ function SidePanelTable(props) {
           itemApiPending={props.itemApiPending}
         />
       ),
-      width: actions.length > 2 ? 125 : 90,
+      width: actions.length > 2 ? 130 : 90,
       show: props.userHasUpdatePermission && !props.inherited
     });
   }

@@ -77,7 +77,7 @@ export default function SidePanelTableActions({
           <ActionButton
             className="dtpanel-action-update-item"
             title={!row.deleting ? `Update ${row.key || row.name}` : undefined}
-            onClick={() => updateSubEntity(row.key || row.id)}
+            onClick={() => updateSubEntity(row.key || row.id, row, entityName)}
             disabled={row.deleting}
           >
             <EditIconSVG
