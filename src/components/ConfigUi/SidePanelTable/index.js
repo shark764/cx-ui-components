@@ -103,6 +103,7 @@ function SidePanelTable(props) {
           viewSubEntity={props.viewSubEntity}
           updateSubEntity={props.updateSubEntity}
           deleteSubEntity={props.deleteSubEntity}
+          confirmDeleteSubEntity={props.confirmDeleteSubEntity}
           addSubEntity={props.addSubEntity}
           copySubEntity={props.copySubEntity}
           toggleSubEntityActive={props.toggleSubEntityActive}
@@ -116,16 +117,12 @@ function SidePanelTable(props) {
   return (
     <ReactTable
       data={props.items}
-      noDataText={
-        props.fetching ? <LoadingSpinner size={60} /> : 'No results found'
-      }
+      noDataText={props.fetching ? <LoadingSpinner size={60} /> : 'No results found'}
       columns={columns}
       defaultPageSize={5}
       pageSizeOptions={props.pageSizeOptions}
       pageSize={props.pageSize}
-      onPageSizeChange={pageSize =>
-        props.setPageSize(pageSize, props.items.length)
-      }
+      onPageSizeChange={pageSize => props.setPageSize(pageSize, props.items.length)}
       showPagination={props.pagination}
       className="-striped SidePanelTable"
       defaultFilterMethod={(filter, row) => filterDefaultMethod(filter, row)}
@@ -152,6 +149,7 @@ SidePanelTable.propTypes = {
   viewSubEntity: PropTypes.func,
   updateSubEntity: PropTypes.func,
   deleteSubEntity: PropTypes.func,
+  confirmDeleteSubEntity: PropTypes.bool,
   addSubEntity: PropTypes.func,
   copySubEntity: PropTypes.func,
   toggleSubEntityActive: PropTypes.func,
@@ -162,5 +160,6 @@ SidePanelTable.propTypes = {
 };
 
 SidePanelTable.defaultProps = {
-  pagination: true
+  pagination: true,
+  confirmDeleteSubEntity: false
 };

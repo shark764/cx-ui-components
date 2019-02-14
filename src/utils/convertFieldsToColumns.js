@@ -27,6 +27,13 @@ import FilterSelect from '../components/ConfigUi/Filter/FilterSelect';
 import FilterInput from '../components/ConfigUi/Filter/FilterInput';
 import { filterSelectMethod, filterDefaultMethod } from './filterMethod';
 import { columnAccessor } from './accessor';
+import { formatCell } from './formatCell';
+import styled from 'styled-components';
+
+const Input = styled.input`
+  max-width: 90px;
+  padding-left: 8px;
+`;
 
 export default function convertFieldsToColumns(fields, tableType) {
   return fields.map(field => ({
@@ -34,26 +41,20 @@ export default function convertFieldsToColumns(fields, tableType) {
     Header: <span title={field.label}>{field.label}</span>,
     filterable: field.filterable !== false && field.name !== 'subEntityActions',
     accessor: d => columnAccessor(field, d),
-    Cell: ({ original: { id, skillId, hasProficiency }, value }) => {
+    Cell: ({ original: { id, skillId, hasProficiency }, value }) =>
       // We do the double check of editable column, because there could
       // be specific columns that we want to block from editing.
-      return field.isColumnEditable && hasProficiency ? (
-        <input
-          style={{ maxWidth: '90px', paddingLeft: '8px' }}
+      field.isColumnEditable && hasProficiency ? (
+        <Input
           type="number"
           min="1"
           max="100"
           value={value}
-          onChange={
-            field.actions &&
-            (({ target: { value } }) =>
-              field.actions.onChange(id || skillId, value))
-          }
+          onChange={field.actions && (({ target: { value } }) => field.actions.onChange(id || skillId, value))}
         />
       ) : (
-        value && <span title={`${value}`}>{`${value}`}</span>
-      );
-    },
+        formatCell(value, field.format)
+      ),
     filterMethod: (filter, row) => {
       if (field.type === 'select') {
         return filterSelectMethod(filter, row);

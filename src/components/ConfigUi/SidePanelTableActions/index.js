@@ -37,13 +37,13 @@ export default function SidePanelTableActions({
   viewSubEntity,
   updateSubEntity,
   deleteSubEntity,
+  confirmDeleteSubEntity,
   addSubEntity,
   copySubEntity,
   toggleSubEntityActive,
   itemApiPending
 }) {
-  return itemApiPending &&
-    (row.id === itemApiPending || row.key === itemApiPending) ? (
+  return itemApiPending && (row.id === itemApiPending || row.key === itemApiPending) ? (
     <RightAlign>
       <LoadingSpinner size={28} />
     </RightAlign>
@@ -54,20 +54,14 @@ export default function SidePanelTableActions({
         viewSubEntity && (
           <ActionButton
             className="dtpanel-action-view-item"
-            title={
-              !row.viewing
-                ? `View ${row.key || row.name}`
-                : `row.viewing ${row.key || row.name}`
-            }
+            title={!row.viewing ? `View ${row.key || row.name}` : `row.viewing ${row.key || row.name}`}
             onClick={() => viewSubEntity(row.key || row.id, row, entityName)}
             disabled={row.viewing || itemApiPending !== undefined}
           >
             <ViewIconSVG
               size={10}
               disabled={row.viewing || itemApiPending !== undefined}
-              viewIconType={
-                row.viewing || itemApiPending ? 'secondary' : 'primary'
-              }
+              viewIconType={row.viewing || itemApiPending ? 'secondary' : 'primary'}
             />
           </ActionButton>
         )}
@@ -80,10 +74,7 @@ export default function SidePanelTableActions({
             onClick={() => updateSubEntity(row.key || row.id, row, entityName)}
             disabled={row.deleting}
           >
-            <EditIconSVG
-              size={15}
-              editIconType={row.deleting ? 'secondary' : 'primary'}
-            />
+            <EditIconSVG size={15} editIconType={row.deleting ? 'secondary' : 'primary'} />
           </ActionButton>
         )}
       {!row.isDefault &&
@@ -91,70 +82,56 @@ export default function SidePanelTableActions({
         copySubEntity && (
           <ActionButton
             className="dtpanel-action-copy-item"
-            title={
-              !row.copying
-                ? `Copy ${row.key || row.name}`
-                : `row.copying ${row.key || row.name}`
-            }
-            onClick={() =>
-              copySubEntity(row.key || row.id || row.version, row, entityName)
-            }
+            title={!row.copying ? `Copy ${row.key || row.name}` : `row.copying ${row.key || row.name}`}
+            onClick={() => copySubEntity(row.key || row.id || row.version, row, entityName)}
             disabled={row.copying || itemApiPending !== undefined}
           >
             <CopyIconSVG
               size={10}
               disabled={row.copying || itemApiPending !== undefined}
-              copyIconType={
-                row.copying || itemApiPending ? 'secondary' : 'primary'
-              }
+              copyIconType={row.copying || itemApiPending ? 'secondary' : 'primary'}
             />
           </ActionButton>
         )}
       {!row.isDefault &&
         !row.inherited &&
         deleteSubEntity && (
-          <ActionButton
-            className="dtpanel-action-remove-item"
-            title={
-              !row.deleting
-                ? `Delete ${row.key || row.name}`
-                : `row.deleting ${row.key || row.name}`
+          <ConfirmationWrapper
+            confirmBtnCallback={() =>
+              confirmDeleteSubEntity ? deleteSubEntity(row.key || row.id, entityName, 'dissociate') : undefined
             }
-            onClick={() =>
-              deleteSubEntity(row.key || row.id, entityName, 'dissociate')
-            }
-            disabled={row.deleting || itemApiPending !== undefined}
+            mainText={`Deleting this item cannot be undone.`}
+            secondaryText={'Are you sure you want to continue?'}
           >
-            <CloseIconSVG
-              size={10}
-              closeIconType={
-                row.deleting || itemApiPending ? 'secondary' : 'primary'
+            <ActionButton
+              className="dtpanel-action-remove-item"
+              title={!row.deleting ? `Delete ${row.key || row.name}` : `row.deleting ${row.key || row.name}`}
+              onClick={() =>
+                !confirmDeleteSubEntity ? deleteSubEntity(row.key || row.id, entityName, 'dissociate') : undefined
               }
               disabled={row.deleting || itemApiPending !== undefined}
-            />
-          </ActionButton>
+            >
+              <CloseIconSVG
+                size={10}
+                closeIconType={row.deleting || itemApiPending ? 'secondary' : 'primary'}
+                disabled={row.deleting || itemApiPending !== undefined}
+              />
+            </ActionButton>
+          </ConfirmationWrapper>
         )}
       {!row.isDefault &&
         !row.inherited &&
         addSubEntity && (
           <ActionButton
             className="dtpanel-action-add-item"
-            title={
-              !row.adding
-                ? `Add ${row.key || row.name}`
-                : `row.adding ${row.key || row.name}`
-            }
-            onClick={() =>
-              addSubEntity(row.key || row.id, entityName, 'associate')
-            }
+            title={!row.adding ? `Add ${row.key || row.name}` : `row.adding ${row.key || row.name}`}
+            onClick={() => addSubEntity(row.key || row.id, entityName, 'associate')}
             disabled={row.adding || itemApiPending !== undefined}
           >
             <PlusIconSVG
               size={10}
               disabled={row.adding || itemApiPending !== undefined}
-              plusIconType={
-                row.adding || itemApiPending ? 'secondary' : 'primary'
-              }
+              plusIconType={row.adding || itemApiPending ? 'secondary' : 'primary'}
             />
           </ActionButton>
         )}
@@ -165,18 +142,12 @@ export default function SidePanelTableActions({
             confirmBtnCallback={() => toggleSubEntityActive(row)}
             mainText={
               row.active || row.status === 'accepted'
-                ? `This will disable this ${entityName ||
-                    'item'} for all associated lists.`
-                : `This will enable this ${entityName ||
-                    'item'} for all associated lists.`
+                ? `This will disable this ${entityName || 'item'} for all associated lists.`
+                : `This will enable this ${entityName || 'item'} for all associated lists.`
             }
             secondaryText={'Do you want to continue?'}
           >
-            <PositionedToggle
-              className="dtpanel-action-toggle-active-item"
-              value={row.active}
-              onChange={() => {}}
-            />
+            <PositionedToggle className="dtpanel-action-toggle-active-item" value={row.active} onChange={() => {}} />
           </ConfirmationWrapper>
         )}
     </ActionsWrapper>
@@ -193,6 +164,7 @@ SidePanelTableActions.propTypes = {
   updateSubEntity: PropTypes.func,
   copySubEntity: PropTypes.func,
   deleteSubEntity: PropTypes.func,
+  confirmDeleteSubEntity: PropTypes.bool,
   addSubEntity: PropTypes.func,
   toggleSubEntityActive: PropTypes.func,
   itemApiPending: PropTypes.string
