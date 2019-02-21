@@ -3,17 +3,5 @@
  */
 
 import React from 'react';
-import { fullDateString, timeStampToSeconds } from './time';
 
-export function formatCell(value, format) {
-  if (format === undefined) {
-    return value && <span title={`${value}`}>{`${value}`}</span>;
-  }
-  if (format === 'date') {
-    return (
-      value && (
-        <span title={fullDateString(timeStampToSeconds(value))}>{fullDateString(timeStampToSeconds(value))}</span>
-      )
-    );
-  }
-}
+export const formatCell = (value, format) => value && <span title={`${value}`}>{`${value}`}</span>;

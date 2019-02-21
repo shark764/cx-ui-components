@@ -11,8 +11,7 @@ export function filterSelectMethod(filter, row) {
   // empty space at beginning when string has capital letter
   return filter.value === 'all'
     ? true
-    : camelCaseToRegularForm(row[filter.id]).trim() ===
-        camelCaseToRegularForm(filter.value).trim();
+    : camelCaseToRegularForm(row[filter.id]).trim() === camelCaseToRegularForm(filter.value).trim();
 }
 
 export function filterDefaultMethod(filter, row) {
