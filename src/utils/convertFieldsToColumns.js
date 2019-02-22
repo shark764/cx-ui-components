@@ -25,7 +25,7 @@ import React from 'react';
 
 import FilterSelect from '../components/ConfigUi/Filter/FilterSelect';
 import FilterInput from '../components/ConfigUi/Filter/FilterInput';
-import { filterSelectMethod, filterDefaultMethod } from './filterMethod';
+import { filterSelectMethod, filterDefaultMethod, filterFormattedValueMethod } from './filterMethod';
 import { columnAccessor } from './accessor';
 import { formatCell } from './formatCell';
 import styled from 'styled-components';
@@ -58,6 +58,8 @@ export default function convertFieldsToColumns(fields, tableType) {
     filterMethod: (filter, row) => {
       if (field.type === 'select') {
         return filterSelectMethod(filter, row);
+      } else if (field.format !== undefined) {
+        return filterFormattedValueMethod(filter, row, field.format);
       } else {
         return filterDefaultMethod(filter, row);
       }

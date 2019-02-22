@@ -104,13 +104,13 @@ const Table = styled(ReactTable)`
     .EntityTable .rt-tbody .row-selected-active .rt-td,
     &.row-selected-active {
       color: #000;
-      background-color: #cce5ff;
+      background-color: #d7e9f5;
     }
     
     .EntityTable .rt-tbody .row-selected-active .rt-td,
     &.row-selected-active.-odd {
       color: #000 !important;
-      background-color: #cce5ff !important;
+      background-color: #d7e9f5 !important;
     }
 
     .EntityTable,
@@ -183,9 +183,7 @@ class EntityTable extends Component {
     if (visibleOrAll === 'visible') {
       return this.selectTable
         .getResolvedState()
-        .sortedData.filter(
-          (x, index) => index >= startIndex && index < endIndex
-        );
+        .sortedData.filter((x, index) => index >= startIndex && index < endIndex);
     } else {
       return this.selectTable.props.data;
     }
@@ -229,11 +227,7 @@ class EntityTable extends Component {
         }
       },
       Filter: ({ onChange }) => (
-        <Checkbox1
-          className="bulk-action-filter-toggle"
-          onChange={onChange}
-          indeterminate="true"
-        />
+        <Checkbox1 className="bulk-action-filter-toggle" onChange={onChange} indeterminate="true" />
       ),
       sortable: false,
       resizable: false,
@@ -242,10 +236,7 @@ class EntityTable extends Component {
         <CheckboxWrapper
           className="bulk-action-selector-toggle"
           onClick={e =>
-            this.props.onBulkClick(
-              this.props.entityMetadata.entityName,
-              row._original.id
-            ) && e.stopPropagation()
+            this.props.onBulkClick(this.props.entityMetadata.entityName, row._original.id) && e.stopPropagation()
           }
         >
           <Checkbox2
@@ -261,11 +252,7 @@ class EntityTable extends Component {
       <GridContainer id={this.props.id} className={this.props.className}>
         <Header text={this.props.pageTitle} helpLink={this.props.pageHelpLink}>
           {this.props.userHasCreatePermission && (
-            <WrappedButton
-              buttonType="primary"
-              id="sdpanel-create"
-              onClick={this.props.onCreateButtonClick}
-            >
+            <WrappedButton buttonType="primary" id="sdpanel-create" onClick={this.props.onCreateButtonClick}>
               Create
             </WrappedButton>
           )}
@@ -278,10 +265,7 @@ class EntityTable extends Component {
                 currentVisibleSubMenu={this.props.currentVisibleSubMenu}
                 menuType="actionsMenu"
                 buttonType="columnFilter"
-                tableType={
-                  this.props.entityMetadata &&
-                  this.props.entityMetadata.entityName
-                }
+                tableType={this.props.entityMetadata && this.props.entityMetadata.entityName}
                 id="actions-button"
               >
                 <ActionButton
@@ -298,11 +282,7 @@ class EntityTable extends Component {
                 >
                   Unselect All Visible
                 </ActionButton>
-                <ActionButton
-                  buttonType="columnFilter"
-                  id="table-items-actions-select-all"
-                  onClick={this.selectAll}
-                >
+                <ActionButton buttonType="columnFilter" id="table-items-actions-select-all" onClick={this.selectAll}>
                   Select All
                 </ActionButton>
                 <ActionButton
@@ -320,27 +300,18 @@ class EntityTable extends Component {
         <Table
           innerRef={r => (this.selectTable = r)}
           data={this.props.items}
-          noDataText={
-            this.props.fetching ? (
-              <LoadingSpinner size={60} />
-            ) : (
-              'No results found'
-            )
-          }
+          noDataText={this.props.fetching ? <LoadingSpinner size={60} /> : 'No results found'}
           columns={
             this.props.entityMetadata &&
             this.props.entityMetadata.entityName &&
-            (this.props.entityMetadata.bulkEditsAvailable() &&
-              this.props.userHasUpdatePermission)
+            (this.props.entityMetadata.bulkEditsAvailable() && this.props.userHasUpdatePermission)
               ? [bulkColumn, ...this.props.columns]
               : [...this.props.columns]
           }
           defaultPageSize={20}
           className="-striped EntityTable"
           filterable
-          defaultFilterMethod={(filter, row) =>
-            filterDefaultMethod(filter, row)
-          }
+          defaultFilterMethod={(filter, row) => filterDefaultMethod(filter, row)}
           defaultFiltered={this.props.filtered}
           defaultSorted={this.props.sorted}
           getTrProps={(state, rowInfo) => {
@@ -352,11 +323,7 @@ class EntityTable extends Component {
                     selected: rowInfo.index
                   });
                 },
-                className: `row-selected-${
-                  rowInfo.index === this.state.selected
-                    ? 'active'
-                    : 'not-active'
-                }`
+                className: `row-selected-${rowInfo.index === this.state.selected ? 'active' : 'not-active'}`
               };
             } else {
               return {};

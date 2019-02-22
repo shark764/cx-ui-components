@@ -3,6 +3,15 @@
  */
 
 import { camelCaseToRegularForm } from 'serenova-js-utils/strings';
+import { getFormattedValue } from './';
+
+export function filterDefaultMethod(filter, row) {
+  return (
+    String(row[filter.id])
+      .toLowerCase()
+      .indexOf(filter.value.toLowerCase()) > -1
+  );
+}
 
 export function filterSelectMethod(filter, row) {
   // Show all items on 'All'
@@ -14,9 +23,10 @@ export function filterSelectMethod(filter, row) {
     : camelCaseToRegularForm(row[filter.id]).trim() === camelCaseToRegularForm(filter.value).trim();
 }
 
-export function filterDefaultMethod(filter, row) {
+export function filterFormattedValueMethod(filter, row, format) {
+  const value = getFormattedValue(row[filter.id], format);
   return (
-    String(row[filter.id])
+    String(value)
       .toLowerCase()
       .indexOf(filter.value.toLowerCase()) > -1
   );

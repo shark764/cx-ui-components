@@ -120,7 +120,7 @@ function SidePanelTable(props) {
       noDataText={props.fetching ? <LoadingSpinner size={60} /> : 'No results found'}
       columns={columns}
       defaultPageSize={5}
-      pageSizeOptions={props.pageSizeOptions}
+      pageSizeOptions={props.pageSizeOptions.filter(pSize => pSize < props.items.length + 5)}
       pageSize={props.pageSize}
       onPageSizeChange={pageSize => props.setPageSize(pageSize, props.items.length)}
       showPagination={props.pagination}
@@ -128,6 +128,7 @@ function SidePanelTable(props) {
       defaultFilterMethod={(filter, row) => filterDefaultMethod(filter, row)}
       filtered={props.filtered}
       onFilteredChange={filtered => props.onFilteredChange(filtered)}
+      defaultSorted={props.defaultSorted || [{ id: 'name', desc: true }]}
     />
   );
 }
