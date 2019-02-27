@@ -120,7 +120,7 @@ function SidePanelTable(props) {
       noDataText={props.fetching ? <LoadingSpinner size={60} /> : 'No results found'}
       columns={columns}
       defaultPageSize={5}
-      pageSizeOptions={props.pageSizeOptions.filter(pSize => pSize < props.items.length + 5)}
+      pageSizeOptions={props.pageSizeOptions.filter(pSize => pSize < (props.items || []).length + 5)}
       pageSize={props.pageSize}
       onPageSizeChange={pageSize => props.setPageSize(pageSize, props.items.length)}
       showPagination={props.pagination}

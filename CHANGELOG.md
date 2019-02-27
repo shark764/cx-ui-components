@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.36.3] - 2019-02-27
+### Fixed
+- SidePanel Table Column definition now accepts custom sort method.
+- Entity Tables now restrict pagination options according to length of data.
+
 ## [0.36.2] - 2019-02-22
 ### Fixed
 - Datetime columns now are sorted properly.

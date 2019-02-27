@@ -308,6 +308,7 @@ class EntityTable extends Component {
               ? [bulkColumn, ...this.props.columns]
               : [...this.props.columns]
           }
+          pageSizeOptions={[5, 10, 20, 25, 50, 100].filter(pSize => pSize < (this.props.items || []).length + 5)}
           defaultPageSize={20}
           className="-striped EntityTable"
           filterable

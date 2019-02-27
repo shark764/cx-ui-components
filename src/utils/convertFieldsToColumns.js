@@ -84,6 +84,7 @@ export default function convertFieldsToColumns(fields, tableType) {
           />
         );
       }
-    }
+    },
+    sortMethod: (a, b) => (typeof field.customSortMethod === 'function' ? field.customSortMethod(a, b) : undefined)
   }));
 }
