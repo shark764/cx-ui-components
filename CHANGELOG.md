@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.36.5] - 2019-03-06
+### Fixed 
+* ConfirmationWrapper change the logic for the arrow function when user delete outbound identifier lists.
+* CXV1-17194 - Config 2 - Outbound Identifiers "This cannot be undone" warning appears when deleting Outbound identifier lists.
+
 ## [0.36.4] - 2019-03-06
 ### Changed
 - CXV1-16217 - LoadinSpinnerSVG color is customizable

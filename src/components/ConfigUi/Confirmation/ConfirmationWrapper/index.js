@@ -20,9 +20,7 @@ export default class ConfirmationWrapper extends Component {
   };
   render() {
     return (
-      <Wrapper
-        onClick={this.props.confirmBtnCallback ? this.toggle : undefined}
-      >
+      <Wrapper onClick={this.props.confirmBtnCallback ? this.toggle : undefined}>
         {this.state.open && (
           <Confirmation
             confirmBtnCallback={this.props.confirmBtnCallback}
