@@ -257,7 +257,6 @@ class EntityTable extends Component {
             </WrappedButton>
           )}
           {this.props.userHasUpdatePermission &&
-            this.props.entityMetadata.bulkEditsAvailable() &&
             this.props.showBulkActionsMenu && (
               <ActionsMenu
                 currentFilter="Actions"
