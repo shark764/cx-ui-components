@@ -258,7 +258,7 @@ class EntityTable extends Component {
           )}
           {this.props.userHasUpdatePermission &&
             this.props.entityMetadata.bulkEditsAvailable() &&
-            location.hash.includes('alpha') && (
+            this.props.showBulkActionsMenu && (
               <ActionsMenu
                 currentFilter="Actions"
                 setVisibleMenu={this.props.setVisibleMenu}
@@ -338,6 +338,7 @@ class EntityTable extends Component {
 
 EntityTable.propTypes = {
   filtered: PropTypes.array,
+  showBulkActionsMenu: PropTypes.bool,
   sorted: PropTypes.array,
   className: PropTypes.string,
   children: PropTypes.element,
