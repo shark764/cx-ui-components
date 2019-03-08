@@ -303,7 +303,7 @@ class EntityTable extends Component {
           columns={
             this.props.entityMetadata &&
             this.props.entityMetadata.entityName &&
-            (this.props.entityMetadata.bulkEditsAvailable() && this.props.userHasUpdatePermission)
+            (this.props.showBulkActionsMenu && this.props.userHasUpdatePermission)
               ? [bulkColumn, ...this.props.columns]
               : [...this.props.columns]
           }
