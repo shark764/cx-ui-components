@@ -35,6 +35,11 @@ module.exports = {
       components: 'src/components/SVGs/**/index.js',
       description: 'Svg Icons',
     },
+    {
+      name: 'Components',
+      components: 'src/components/General/**/index.js',
+      description: 'General Components',
+    },
   ],
   webpackConfig: {
     module: {

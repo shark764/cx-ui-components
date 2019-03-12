@@ -49,6 +49,9 @@ export { default as InteractionDetails } from './components/ConfigUi/Interaction
 export { default as FilterInput } from './components/ConfigUi/Filter/FilterInput';
 export { default as FilterSelect } from './components/ConfigUi/Filter/FilterSelect';
 
+// General Components
+export { default as Input } from './components/General/Input';
+
 // SVGs
 export { default as HangUpIconSVG } from './components/SVGs/HangUpIconSVG';
 export { default as MutedIconSVG } from './components/SVGs/MutedIconSVG';
