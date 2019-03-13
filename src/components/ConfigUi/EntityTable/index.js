@@ -25,6 +25,8 @@ import { filterDefaultMethod } from '../../../utils/filterMethod';
 import Checkbox from '../Checkbox';
 import CustomDropdownMenu from '../CustomDropdownMenu';
 
+import { vhToPixel, getClosestValue } from '../../../utils';
+
 // React-Table does not integrate well with Styled components
 // We will be writing table style overrides here
 // We will use a new class name to make these styles component specific
@@ -171,7 +173,10 @@ class EntityTable extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selected: null
+      selected: null,
+      pageSizeOptions: [5, 10, 20, 25, 50, 100],
+      defaultPageSize: 5,
+      pageSize: 5
     };
   }
 
@@ -213,6 +218,22 @@ class EntityTable extends Component {
     this.selectToggle(this.getData('all'), false, 'all');
   };
 
+  componentDidUpdate(prevProps, prevState) {
+    // Only update state if the data has changed
+    if (prevProps.items !== this.props.items && this.props.items.length) {
+      // We plus 5 to data length in case there are no data or data length is less than 5
+      const pageSizeOptions = this.state.pageSizeOptions.filter(pSize => pSize < (this.props.items || []).length + 5);
+      // Page size will be calculate depending on screen height
+      // EntityTable height: 80vh (it is converted to pixels, this process depends on screen height)
+      // Row height: 40px
+      const pageSize = getClosestValue(pageSizeOptions || [], vhToPixel(80) / 40);
+      this.setState({
+        pageSizeOptions,
+        pageSize
+      });
+    }
+  }
+
   render() {
     const bulkColumn = {
       id: 'bulkId',
@@ -248,6 +269,7 @@ class EntityTable extends Component {
         </CheckboxWrapper>
       )
     };
+
     return (
       <GridContainer id={this.props.id} className={this.props.className}>
         <Header text={this.props.pageTitle} helpLink={this.props.pageHelpLink}>
@@ -307,8 +329,10 @@ class EntityTable extends Component {
               ? [bulkColumn, ...this.props.columns]
               : [...this.props.columns]
           }
-          pageSizeOptions={[5, 10, 20, 25, 50, 100].filter(pSize => pSize < (this.props.items || []).length + 5)}
-          defaultPageSize={20}
+          pageSizeOptions={this.state.pageSizeOptions}
+          pageSize={this.state.pageSize}
+          onPageSizeChange={(pageSize, page) => this.setState({ pageSize })}
+          defaultPageSize={this.state.defaultPageSize}
           className="-striped EntityTable"
           filterable
           defaultFilterMethod={(filter, row) => filterDefaultMethod(filter, row)}

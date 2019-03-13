@@ -18,3 +18,18 @@ export function getFormattedValue(value, format) {
     return value;
   }
 }
+
+export const pixelToVH = value => 100 * value / window.innerHeight;
+
+export const pixelToVW = value => 100 * value / window.innerWidth;
+
+export const vhToPixel = value => window.innerHeight * value / 100;
+
+export const vwToPixel = value => window.innerWidth * value / 100;
+
+export function getClosestValue(arr, value) {
+  // Returns the closest item in an array to value given
+  return (
+    arr && arr.length && arr.reduce((prev, curr) => (Math.abs(curr - value) < Math.abs(prev - value) ? curr : prev))
+  );
+}
