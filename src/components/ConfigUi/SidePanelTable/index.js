@@ -90,28 +90,35 @@ function SidePanelTable(props) {
     props.addSubEntity,
     props.copySubEntity
   ].filter(a => a !== undefined);
-  if (actions.length) {
+  if (actions.length && (props.userHasUpdatePermission || props.userHasViewPermission) && !props.inherited) {
     columns.push({
       id: 'actions',
       Header: 'Actions',
       filterable: false,
       sortable: false,
-      accessor: d => (
-        <SidePanelTableActions
-          row={d}
-          entityName={props.contains}
-          viewSubEntity={props.viewSubEntity}
-          updateSubEntity={props.updateSubEntity}
-          deleteSubEntity={props.deleteSubEntity}
-          confirmDeleteSubEntity={props.confirmDeleteSubEntity}
-          addSubEntity={props.addSubEntity}
-          copySubEntity={props.copySubEntity}
-          toggleSubEntityActive={props.toggleSubEntityActive}
-          itemApiPending={props.itemApiPending}
-        />
-      ),
-      width: actions.length > 2 ? 130 : 90,
-      show: props.userHasUpdatePermission && !props.inherited
+      accessor: d =>
+        props.userHasUpdatePermission ? (
+          <SidePanelTableActions
+            row={d}
+            entityName={props.contains}
+            viewSubEntity={props.viewSubEntity}
+            updateSubEntity={props.updateSubEntity}
+            deleteSubEntity={props.deleteSubEntity}
+            confirmDeleteSubEntity={props.confirmDeleteSubEntity}
+            addSubEntity={props.addSubEntity}
+            copySubEntity={props.copySubEntity}
+            toggleSubEntityActive={props.toggleSubEntityActive}
+            itemApiPending={props.itemApiPending}
+          />
+        ) : (
+          <SidePanelTableActions
+            row={d}
+            entityName={props.contains}
+            viewSubEntity={props.viewSubEntity}
+            itemApiPending={props.itemApiPending}
+          />
+        ),
+      width: actions.length > 2 && props.userHasUpdatePermission ? 130 : 90
     });
   }
   return (
@@ -135,6 +142,7 @@ function SidePanelTable(props) {
 
 SidePanelTable.propTypes = {
   userHasUpdatePermission: PropTypes.bool,
+  userHasViewPermission: PropTypes.bool,
   inherited: PropTypes.bool,
   onFilteredChange: PropTypes.func,
   fetching: PropTypes.bool,

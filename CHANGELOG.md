@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.37.2] - 2019-03-22
+### Fixed
+- SidePanel Table Actions now can show a view action if user has view-only permissions.
+
 ## [0.37.1] - 2019-03-12
 ### Fixed
 - CXV1-17241 - Rows dropdown selection on EntityTable now shows default page size properly.

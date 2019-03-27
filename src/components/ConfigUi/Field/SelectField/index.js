@@ -14,20 +14,17 @@ const SelectInput = ({
   disabled,
   meta: { touched, error, warning },
   options,
-  required,
+  required
 }) => {
   if (options === 'boolean') {
-    options = [
-      { label : 'True', value: true },
-      { label : 'False', value: false }
-    ];
+    options = [{ label: 'True', value: true }, { label: 'False', value: false }];
   }
   return (
     <FieldWrapper inputName={input.name} label={label} touched={touched} error={error} warning={warning}>
       <Select {...input} id={id} className={className} disabled={disabled} hasError={touched && !!error}>
         {options ? (
           <Fragment>
-            {!required && <option />}
+            {!required && <option> -- Please select -- </option>}
             {options.map(option => (
               <option key={option.value} value={option.value}>
                 {option.label}
@@ -40,9 +37,9 @@ const SelectInput = ({
       </Select>
     </FieldWrapper>
   );
-}
+};
 
-const parseBoolean = (value) => {
+const parseBoolean = value => {
   if (value !== undefined && value === '') {
     return null;
   } else if (value !== undefined && value !== '') {
@@ -50,7 +47,7 @@ const parseBoolean = (value) => {
   } else {
     return undefined;
   }
-}
+};
 
 export default function SelectField(props) {
   if (props.options === 'boolean') {
@@ -70,23 +67,20 @@ SelectField.propTypes = {
   options: PropTypes.oneOfType([
     PropTypes.arrayOf(
       PropTypes.shape({
-        value: PropTypes.oneOfType([
-          PropTypes.string,
-          PropTypes.number,
-          PropTypes.bool,
-        ]),
-        label: PropTypes.string,
+        value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool]),
+        label: PropTypes.string
       })
     ),
     PropTypes.oneOf(['boolean']),
+    PropTypes.object
   ]),
   /** Will have an empty option when false */
-  required: PropTypes.bool,
+  required: PropTypes.bool
 };
 
 SelectField.defaultProps = {
   disabled: false,
-  required: false,
+  required: false
 };
 
 SelectInput.propTypes = {
@@ -99,15 +93,12 @@ SelectInput.propTypes = {
   options: PropTypes.oneOfType([
     PropTypes.arrayOf(
       PropTypes.shape({
-        value: PropTypes.oneOfType([
-          PropTypes.string,
-          PropTypes.number,
-          PropTypes.bool,
-        ]),
-        label: PropTypes.string,
+        value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool]),
+        label: PropTypes.string
       })
     ),
     PropTypes.oneOf(['boolean']),
+    PropTypes.object
   ]),
-  required: PropTypes.bool,
+  required: PropTypes.bool
 };
