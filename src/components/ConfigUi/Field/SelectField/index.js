@@ -24,7 +24,11 @@ const SelectInput = ({
       <Select {...input} id={id} className={className} disabled={disabled} hasError={touched && !!error}>
         {options ? (
           <Fragment>
-            {!required && <option> -- Please select -- </option>}
+            {!required && (
+              <option disabled hidden value="">
+                -- Please select --
+              </option>
+            )}
             {options.map(option => (
               <option key={option.value} value={option.value}>
                 {option.label}
