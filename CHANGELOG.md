@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.38.0] - 2019-04-04
+### Added
+- CXV1-17550 - Added Legalcopyrights and Logos to the components.
+
 ## [0.37.4] - 2019-04-23
 ### Fixed
 - CXV1-16854 - Columns in sidepanel table are now accepting custom width.

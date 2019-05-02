@@ -26,6 +26,8 @@ export { default as SidePanelTable } from './components/ConfigUi/SidePanelTable'
 export { default as Toast } from './components/ConfigUi/Toast';
 export { default as Toggle } from './components/ConfigUi/Toggle';
 export { default as SliderExpander } from './components/ConfigUi/SliderExpander';
+export { default as Logo } from './components/ConfigUi/Logos';
+export { default as LegalCopyright } from './components/ConfigUi/LegalCopyright';
 
 // Fields
 export { default as InputField } from './components/ConfigUi/Field/InputField';
@@ -67,6 +69,8 @@ export { default as CopyIconSVG } from './components/SVGs/CopyIconSVG';
 export { default as EditIconSVG } from './components/SVGs/EditIconSVG';
 export { default as QuestionIconSVG } from './components/SVGs/EditIconSVG';
 export { default as PlusIconSVG } from './components/SVGs/PlusIconSVG';
+export { default as SettingIconSVG } from './components/SVGs/SettingIconSVG';
+export { default as QuestionMarkCircleIconSVG } from './components/SVGs/QuestionMarkCircleIconSVG';
 
 // Constants
 export { defaultTheme } from './constants';
