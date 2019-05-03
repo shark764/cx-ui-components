@@ -44,6 +44,9 @@ export { default as AutoCompleteField } from './components/ConfigUi/Field/AutoCo
 export { default as FileUpload } from './components/ConfigUi/FileUpload';
 export { default as FileDownload } from './components/ConfigUi/FileDownload';
 
+// General
+export { default as Typeahead } from './components/General/Typeahead';
+
 // Reporting
 export { default as InteractionDetails } from './components/ConfigUi/InteractionDetails';
 
