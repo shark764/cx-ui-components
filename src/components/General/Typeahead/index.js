@@ -17,8 +17,9 @@ const Input = styled.input`
 box-sizing: border-box;
 height: 36px;
 width: ${props => props.listWidth}px;
-background-color: ${props => (props.disabled ? '#efefef' : 'inherit')};
+background-color: ${props => (props.noBackground ? 'transparent' : (props.disabled ? '#efefef' : 'white'))};
 padding: 2px 35px 0 20px;
+color: ${props => (props.noBackground ? '#ccc' : 'initial')};
 border: 1px solid lightgray;
 border-radius: 3px;
 font-size: 17px;
@@ -39,11 +40,12 @@ margin-top: 15px;
 width: ${props => props.width}px;
 border-radius: 3px;
 padding: 1px;
-position: absolute
+position: absolute;
+z-index: 1;
 `;
 
 const Suggestion = styled.div`
-background: ${props => (props.index % 2 ? '#cccccc3b;' : '#fff;')};
+background: ${props => (props.index % 2 ? '#ededed;' : '#fff;')};
 font-size: 17px;
 font-family: 'Arial';`;
 
@@ -66,7 +68,7 @@ vertical-align: middle;
 position: relative;
 left: ${props => props.inputWidth - 36}px;
 opacity: .4;
-padding-top: 10px;
+margin-top: 9px;
 `;
 
 const NoSuggestionsMessage = styled.div`
@@ -78,21 +80,20 @@ padding-left: 20px;
 padding-top: 5px;
 padding-bottom: 5px;
 box-sizing: border-box;
+background: white;
 `;
 
 export default class Typeahead extends Component {
 constructor(props) {
   super();
-  const suggestions = props.selectedOption ? props.options.filter(
-    option =>
-      option.label.toLowerCase().indexOf(props.selectedOption.label.toLowerCase().trim()) > -1
-  ) : props.options;
   this.state = {
     inputValue: props.selectedOption ? props.selectedOption.label : '',
     hasFocus: false,
-    suggestions: suggestions,
+    suggestions: props.options.map((option) => {
+      return Object.assign(option, {active: props.selectedOption && option.value === props.selectedOption.value});
+    }),
     timerId: undefined,
-    activeSuggestion: 0,
+    activeSuggestion: props.selectedOption ? props.options.findIndex((option) => props.selectedOption && option.value === props.selectedOption.value) : 0,
     keyboardShortcuts: fromEvent(window, 'keydown')
     .pluck('keyCode')
     .map(code => {
@@ -104,10 +105,7 @@ constructor(props) {
         this.changeActiveSuggestion(false);
       } else if(code === 13 || code === 9) {
         if(this.state.suggestions[this.state.activeSuggestion]) {
-          this.setState({
-            inputValue: this.state.suggestions[this.state.activeSuggestion].label
-          });
-          this.hideMenuAndResetActive();
+         this.selectOption(this.state.suggestions[this.state.activeSuggestion]);
         }
       }
     })
@@ -117,9 +115,7 @@ constructor(props) {
      if (this.containerRef.current.contains(target)) {
         return;
       }
-      this.setState({
-        hasFocus: false,
-      });
+      this.resetActive(true);
     })
     .subscribe(),
   };
@@ -132,26 +128,36 @@ componentWillUnmount() {
  this.state.outsideClick.unsubscribe();
 }
 
-showMenuAndResetActive = () => {
-  // TODO: Assign objects
-  const newSuggestions = [...this.state.suggestions].map(a => Object.assign(a, {active:false}));
-   if(newSuggestions[0]) {
-    newSuggestions[0].active = true;
-   }
+selectOption = (option) => {
+  const index = this.props.options.findIndex(({value}) => value === option.value);
+  this.setState({
+    inputValue: option.label,
+    hasFocus: false,
+    suggestions: this.props.options.map((o, i) => {
+      return Object.assign(o, {active: o.value === option.value});
+    }),
+    activeSuggestion: index,
+  });
+  this.props.onSelectedOptionChange(option);
+};
+
+resetActive = (isHiding) => {
+  const newSuggestions = [...this.state.suggestions].map((option) => {
+    return Object.assign(option, {active: false})
+  });
+  const index = this.props.selectedOption && isHiding && this.props.selectedOption.label === this.state.inputValue ? 
+  newSuggestions.findIndex(({value}) => value === this.props.selectedOption.value) : 
+  0;
+
+  newSuggestions[index].active = true
 
   this.setState({
-    activeSuggestion: 0,
+    activeSuggestion: index,
     suggestions: newSuggestions,
+    hasFocus: !isHiding,
   });
-};
-hideMenuAndResetActive = () => {
-  // TODO: Assign objects
-  const newSuggestions = [...this.state.suggestions].map(a => Object.assign(a, {active:false}));
-  this.setState({
-    hasFocus: false,
-    suggestions: newSuggestions,
-  });
-};
+}
+
 
 changeActiveSuggestion = increment => {
   const newSuggestions = [...this.state.suggestions];
@@ -185,7 +191,7 @@ hasFocus = () => {
   });
 }
 
-updateSuggestions = hideMenu => {
+updateSuggestions = () => {
   if (this.state.timerId) {
     clearTimeout(this.state.timerId);
   }
@@ -199,17 +205,17 @@ updateSuggestions = hideMenu => {
     this.setState({
       activeSuggestion: 0,
       suggestions,
-      hasFocus: hideMenu,
       timerId: undefined,
     });
-    this.showMenuAndResetActive();
+    this.resetActive(false);
+    listRef.current.scrollToItem(0);
   }, 300);
   this.setState({timerId: suggestionTimerId});
 }
 
 onChange = ({ currentTarget: { value } }) => {
   this.setState({inputValue: value.length > 0 ? value : ''});
-  this.updateSuggestions(true);
+  this.updateSuggestions();
 };
  
 ItemRenderer = props => {
@@ -221,15 +227,7 @@ ItemRenderer = props => {
     >
       <Item 
         isActiveSuggestion={active}
-        onClick={() => {
-          this.setState({
-            inputValue: label,
-            hasFocus: false,
-          });
-          this.showMenuAndResetActive();
-          this.updateSuggestions(false);
-          this.props.onSelectedOptionChange(props.data[props.index]);
-        }}
+        onClick={() => {this.selectOption(props.data[props.index])}}
       >
         {label}
       </Item>
@@ -239,12 +237,14 @@ ItemRenderer = props => {
 
 render() {
   const suggestionListHeight = this.state.suggestions.length * 28;
+  const initialOffset = this.state.activeSuggestion * 28;
   return (
     <div
       style={{
         width: `${this.props.listWidth}px`,
       }}
-      ref={this.containerRef}>
+      ref={this.containerRef}
+      className={this.props.className}>
         <Input
           disabled={this.props.disabled}
           value={this.state.inputValue}
@@ -252,6 +252,7 @@ render() {
           onFocus={this.hasFocus}
           onChange={this.onChange}
           listWidth={this.props.listWidth}
+          noBackground={this.props.noBackground}
         />
         <SearchIconWrapper 
           searchIconType="primary" 
@@ -267,6 +268,7 @@ render() {
                 itemSize={28}
                 itemData={this.state.suggestions}
                 width={this.props.listWidth}
+                initialScrollOffset={initialOffset}
               >
                 {this.ItemRenderer}
               </List>}
@@ -289,5 +291,7 @@ Typeahead.propTypes = {
     listWidth: PropTypes.number.isRequired,
     options: PropTypes.array.isRequired,
     onSelectedOptionChange: PropTypes.func.isRequired,
-    selectedOption: PropTypes.object
+    selectedOption: PropTypes.object,
+    className: PropTypes.string.isRequired,
+    noBackground: PropTypes.bool,
 }

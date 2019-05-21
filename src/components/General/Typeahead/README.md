@@ -7,7 +7,6 @@ const StyleGuideSpacerDiv = require('../../../utils/StyleGuideSpacer.js');
     }}>
     <Typeahead
         name="suggestions"
-        label="Suggestions"
         placeholder="Suggestions..."
         options={(() => {
             const fiveHunderedThousandItems = [];
