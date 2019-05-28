@@ -92,7 +92,7 @@ function Toggle(props) {
 Toggle.propTypes = {
   className: PropTypes.string,
   id: PropTypes.string,
-  value: PropTypes.bool,
+  value: PropTypes.oneOf([true, false, '']),
   onChange: PropTypes.func,
   disabled: PropTypes.bool,
   inherited: PropTypes.bool,

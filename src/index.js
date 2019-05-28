@@ -39,6 +39,8 @@ export { default as ColorField } from './components/ConfigUi/Field/ColorField';
 export { default as ListField } from './components/ConfigUi/Field/ListField';
 export { default as ExtensionListField } from './components/ConfigUi/Field/ExtensionListField';
 export { default as AutoCompleteField } from './components/ConfigUi/Field/AutoCompleteField';
+export { default as TransferListField } from './components/ConfigUi/Field/TransferListField';
+export { default as CheckboxField } from './components/ConfigUi/Field/CheckboxField';
 
 // File
 export { default as FileUpload } from './components/ConfigUi/FileUpload';

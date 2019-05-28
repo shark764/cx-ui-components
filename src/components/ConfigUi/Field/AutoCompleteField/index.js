@@ -31,13 +31,15 @@ const SuggestionsDropdown = styled.ul`
   overflow-y: auto;
   padding-left: 0;
   position: absolute;
-  width: 351px;
   z-index: 11;
+  width: ${props=> props.suggestedDropDownWidth ? props.suggestedDropDownWidth : '351px'};
 `;
 const SuggestionItem = styled.li`
   padding: 0.5rem;
   z-index: 11;
   cursor: pointer;
+  overflow: hidden;
+  text-overflow: ellipsis;
 
   &:hover {
     color: #fff;
@@ -237,6 +239,7 @@ class AutoCompleteInput extends Component {
                 ref={element => {
                   this.scrollContainer = element;
                 }}
+                suggestedDropDownWidth={this.props.suggestedDropDownWidth}
               >
                 {filteredSuggestions.map((suggestion, index) => (
                   <SuggestionItem
@@ -247,6 +250,7 @@ class AutoCompleteInput extends Component {
                     }
                     key={suggestion}
                     onMouseDown={onMouseDown}
+                    title={suggestion}
                   >
                     {suggestion}
                   </SuggestionItem>
@@ -280,7 +284,8 @@ AutoCompleteInput.propTypes = {
   meta: PropTypes.object,
   touched: PropTypes.bool,
   error: PropTypes.string,
-  warning: PropTypes.string
+  warning: PropTypes.string,
+  suggestedDropDownWidth: PropTypes.string,
 };
 
 AutoCompleteField.propTypes = {

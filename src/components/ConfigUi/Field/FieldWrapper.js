@@ -14,7 +14,7 @@ const Label = styled.label`
   flex-shrink: 0;
   display: inline-block;
   width: 150px;
-  margin-top: 5px;
+  margin-top: ${props => props.labelMargin ? props.labelMargin : '5px'};
 `;
 
 const HelpText = styled.div`
@@ -24,6 +24,7 @@ const HelpText = styled.div`
 
 const InputWrapper = styled.div`
   flex-grow: 1;
+  position:relative;
 `;
 
 const Error = styled.span`
@@ -34,10 +35,10 @@ const Warning = styled.span`
   color: orange;
 `;
 
-export default function FieldWrapper({ inputName, label, labelHelpText, children, touched, error, warning, hideLabel}) {
+export default function FieldWrapper({ inputName, label, labelHelpText, children, touched, error, warning, hideLabel, labelMargin }) {
   return (
     <FieldWrapperDiv>
-     {!hideLabel && <Label htmlFor={inputName}>
+      {!hideLabel && <Label labelMargin={labelMargin} htmlFor={inputName}>
         {label}
         {labelHelpText && (
           <HelpText>
@@ -64,4 +65,5 @@ FieldWrapper.propTypes = {
   hideLabel: PropTypes.bool,
   error: PropTypes.string,
   warning: PropTypes.string,
+  labelMargin: PropTypes.string,
 };

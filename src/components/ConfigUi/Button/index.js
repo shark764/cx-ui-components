@@ -62,6 +62,21 @@ const StyledButton = styled.button`
       }
     `}
 
+    ${props =>
+    props.buttonType === 'checkboxField' &&
+    css`
+      width: 100%;
+      height: 32px;
+      text-align: left;
+      padding: 0px 5px 0px 10px;
+      font-size: 13px;
+      border: 1px solid;
+      border-radius: initial;
+      border-color: transparent;
+      background-color: inherit;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.2) inset, 0 -1px 0 rgba(0,0,0,0.05) inset;      
+    `}
+
   ${props =>
     props.disabled &&
     css`
@@ -99,6 +114,7 @@ Button.propTypes = {
     'primary',
     'secondary',
     'columnFilter',
+    'checkboxField',
     'selector'
   ]),
   type: PropTypes.string,

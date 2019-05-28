@@ -67,13 +67,15 @@ function Confirmation(props) {
         <ConfirmCancelBtns id="cancel" onClick={props.cancelBtnCallback}>
           {props.cancelBtnText}
         </ConfirmCancelBtns>
-        <ConfirmCancelBtns
-          id="confirm"
-          onClick={props.confirmBtnCallback}
-          buttonType="primary"
-        >
-          {props.confirmBtnText}
-        </ConfirmCancelBtns>
+        {!props.openPopupBox && (
+          <ConfirmCancelBtns
+            id="confirm"
+            onClick={props.confirmBtnCallback}
+            buttonType="primary"
+          >
+            {props.confirmBtnText}
+          </ConfirmCancelBtns>
+        )}
       </BtnsContainer>
     </ConfirmationModal>
   );
@@ -86,7 +88,8 @@ Confirmation.propTypes = {
   cancelBtnCallback: PropTypes.func,
   mainText: PropTypes.string,
   secondaryText: PropTypes.string,
-  onMaskClick: PropTypes.func
+  onMaskClick: PropTypes.func,
+  openPopupBox: PropTypes.bool,
 };
 
 Confirmation.defaultProps = {

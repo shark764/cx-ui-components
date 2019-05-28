@@ -25,7 +25,7 @@ const SlimButton = styled(Button)`
 
 function SidePanelActions(props) {
   return (
-      <div id={props.id} className={props.className}>
+    <div id={props.id} className={props.className}>
       <SlimButton
         type="submit"
         buttonType="primary"
@@ -33,7 +33,8 @@ function SidePanelActions(props) {
         onClick={props.onSubmit}
         id="sdpanel-submit"
       >
-        {props.isSaving ? 'Saving' : 'Submit'}
+        {!props.save && (props.isSaving ? 'Saving' : 'Submit')}
+        {props.save && 'Save'}
       </SlimButton>
       <SlimButton
         type="button"
@@ -54,7 +55,8 @@ SidePanelActions.propTypes = {
   onSubmit: PropTypes.func,
   onCancel: PropTypes.func.isRequired,
   pristine: PropTypes.bool,
-  invalid: PropTypes.bool
+  invalid: PropTypes.bool,
+  save: PropTypes.bool,
 };
 
 export default SidePanelActions;

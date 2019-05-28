@@ -25,13 +25,14 @@ function DropdownButton(props) {
   return (
     <Button
       id={props.id}
+      type={props.type}
       className={props.className}
       buttonType={props.buttonType}
       disabled={props.disabled}
       onClick={props.onClick}
     >
       <span>{props.children}</span>
-      <DropdownIcon direction={props.open ? 'up' : 'down'} />
+      <DropdownIcon size={props.size} direction={props.open ? 'up' : 'down'} />
     </Button>
   );
 }
@@ -39,12 +40,14 @@ function DropdownButton(props) {
 DropdownButton.propTypes = {
   id: PropTypes.string,
   className: PropTypes.string,
-  buttonType: PropTypes.oneOf(['primary', 'secondary', 'columnFilter', 'selector']),
+  buttonType: PropTypes.oneOf(['primary', 'secondary', 'columnFilter', 'checkboxField', 'selector']),
   disabled: PropTypes.bool,
   /** Text or icon to go inside the button */
   children: PropTypes.any,
   onClick: PropTypes.func,
   open: PropTypes.bool,
+  type: PropTypes.string,
+  size: PropTypes.number,
 };
 
 export default DropdownButton;

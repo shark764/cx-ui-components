@@ -11,6 +11,7 @@ const ToggleInput = ({
   className,
   disabled,
   title,
+  labelMargin,
   meta: { touched, error, warning }
 }) => (
   <FieldWrapper
@@ -19,6 +20,7 @@ const ToggleInput = ({
     touched={touched}
     error={error}
     warning={warning}
+    labelMargin={labelMargin}
   >
     <Toggle
       {...input}
@@ -58,5 +60,6 @@ ToggleInput.propTypes = {
   className: PropTypes.string,
   disabled: PropTypes.bool,
   title: PropTypes.string,
-  meta: PropTypes.object
+  meta: PropTypes.object,
+  labelMargin: PropTypes.string,
 };
