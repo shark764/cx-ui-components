@@ -142,20 +142,26 @@ selectOption = (option) => {
 };
 
 resetActive = (isHiding) => {
-  const newSuggestions = [...this.state.suggestions].map((option) => {
-    return Object.assign(option, {active: false})
-  });
-  const index = this.props.selectedOption && isHiding && this.props.selectedOption.label === this.state.inputValue ? 
+  const newSuggestions = isHiding ? 
+  this.props.options.map((option) => {
+    return Object.assign(option, {active: false})}) : 
+  [...this.state.suggestions].map((option) => {
+    return Object.assign(option, {active: false})});
+
+  const index = this.props.selectedOption && isHiding ?
   newSuggestions.findIndex(({value}) => value === this.props.selectedOption.value) : 
   0;
 
-  newSuggestions[index].active = true
+  if (newSuggestions.length > 0) {
+    newSuggestions[index].active = true;
+  }
 
-  this.setState({
+  this.setState((state, props) => ({
     activeSuggestion: index,
     suggestions: newSuggestions,
     hasFocus: !isHiding,
-  });
+    inputValue: props.selectedOption && isHiding && props.selectedOption.label !== state.inputValue ? props.selectedOption.label : state.inputValue
+  }));
 }
 
 
@@ -182,7 +188,10 @@ changeActiveSuggestion = increment => {
     activeSuggestion: newIndex,
     suggestions: newSuggestions
   });
-  listRef.current.scrollToItem(newIndex);
+  
+  if (newSuggestions.length > 0) {
+    listRef.current.scrollToItem(newIndex);
+  }
 }
 
 hasFocus = () => {
@@ -208,7 +217,9 @@ updateSuggestions = () => {
       timerId: undefined,
     });
     this.resetActive(false);
-    listRef.current.scrollToItem(0);
+    if (suggestions.length > 0) {
+      listRef.current.scrollToItem(0);
+    }
   }, 300);
   this.setState({timerId: suggestionTimerId});
 }
@@ -268,8 +279,7 @@ render() {
                 itemSize={28}
                 itemData={this.state.suggestions}
                 width={this.props.listWidth}
-                initialScrollOffset={initialOffset}
-              >
+                initialScrollOffset={initialOffset}>
                 {this.ItemRenderer}
               </List>}
             {this.state.suggestions.length === 0 &&
