@@ -112,7 +112,7 @@ constructor(props) {
     .subscribe(),
     outsideClick: fromEvent(document, 'click')
     .map(({ target }) => {
-     if (this.containerRef.current.contains(target)) {
+     if (this.containerRef.current.contains(target) || !this.state.hasFocus) {
         return;
       }
       this.resetActive(true);
