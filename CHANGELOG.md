@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.40.3] - 2019-06-20
+### Fixed
+- small changes made in TransferList Field component
+
 ## [0.40.2] - 2019-06-05
 ### Fixed
 - Fixed some issues with the typeahead component that were causing the component's state to change frequently and bundling this changes making it slow.

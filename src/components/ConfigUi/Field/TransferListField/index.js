@@ -141,7 +141,7 @@ class TransferListInput extends Component {
     if (result.type !== 'DEFAULT') {
 
       // filters out transfer-list items belong to the same hierarchy based on the current dragging item:
-      const categoryItems = endpoints.filter(endpoint => endpoint.get('hierarchy') === result.type);
+      const categoryItems = endpoints.filter(endpoint => endpoint.get('categoryUUID') === result.type);
 
       // returns reOrdered categories items:
       const reOrderedCategoryItems = categoryItems
@@ -164,7 +164,7 @@ class TransferListInput extends Component {
           return accumlator.push(...reOrderedCategoryItems);
         }
         // If the current value doesnot belong to the current dragging elements hierarchy, do not reorder: 
-        else if (currentVal.get('hierarchy') !== categoryItems.getIn([0, 'hierarchy'])) {
+        else if (currentVal.get('categoryUUID') !== categoryItems.getIn([0, 'categoryUUID'])) {
           return accumlator.push(currentVal);
         }
         return accumlator;
@@ -175,27 +175,27 @@ class TransferListInput extends Component {
     // Re-orders group of transfer list items(categories) after the drag:
     else {
       const sourceItems = endpoints.filter(
-        endpoint => endpoint.get('hierarchy') === this.props.endpointHeaders.getIn([source.index, 'hierarchy'])
+        endpoint => endpoint.get('categoryUUID') === this.props.endpointHeaders.getIn([source.index, 'categoryUUID'])
       );
       const destinationItems = endpoints.filter(
-        endpoint => endpoint.get('hierarchy') === this.props.endpointHeaders.getIn([destination.index, 'hierarchy'])
+        endpoint => endpoint.get('categoryUUID') === this.props.endpointHeaders.getIn([destination.index, 'categoryUUID'])
       );
 
       const sourceIndex = endpoints.findIndex(
-        endpoint => endpoint.get('hierarchy') === this.props.endpointHeaders.getIn([source.index, 'hierarchy'])
+        endpoint => endpoint.get('categoryUUID') === this.props.endpointHeaders.getIn([source.index, 'categoryUUID'])
       );
       const destinationIndex = endpoints.findIndex(
-        endpoint => endpoint.get('hierarchy') === this.props.endpointHeaders.getIn([destination.index, 'hierarchy'])
+        endpoint => endpoint.get('categoryUUID') === this.props.endpointHeaders.getIn([destination.index, 'categoryUUID'])
       );
 
       const reOrderedEndpoints = endpoints.reduce((accumlator, currentVal, index) => {
         if (
-          currentVal.get('hierarchy') !== sourceItems.getIn([0, 'hierarchy']) &&
-          currentVal.get('hierarchy') !== destinationItems.getIn([0, 'hierarchy'])
+          currentVal.get('categoryUUID') !== sourceItems.getIn([0, 'categoryUUID']) &&
+          currentVal.get('categoryUUID') !== destinationItems.getIn([0, 'categoryUUID'])
         ) {
           return accumlator.push(currentVal);
         } else if (
-          currentVal.get('hierarchy') === destinationItems.getIn([0, 'hierarchy']) &&
+          currentVal.get('categoryUUID') === destinationItems.getIn([0, 'categoryUUID']) &&
           index === destinationIndex
         ) {
           const items =
@@ -268,24 +268,24 @@ class TransferListInput extends Component {
                                   <EditIconSVG size={15} editIconType="primary" />
                                 </ActionButton>
                                 <ConfirmationWrapper
-                                  confirmBtnCallback={() => this.props.removeCategoryItems(category.get('hierarchy'))}
+                                  confirmBtnCallback={() => this.props.removeCategoryItems(category.get('categoryUUID'))}
                                   mainText={
-                                    this.props.selectedEntityId !== 'create' && this.props.input.value.size === 1
+                                    this.props.selectedEntityId !== 'create' && this.props.endpointHeaders.size === 1
                                       ? `TransferList Cannot be empty.`
                                       : `This will delete all of the transfer list items in this category.`
                                   }
                                   secondaryText={
-                                    this.props.selectedEntityId !== 'create' && this.props.input.value.size === 1
-                                      ? 'TransferList should contain at least one contact.'
+                                    this.props.selectedEntityId !== 'create' && this.props.endpointHeaders.size === 1
+                                      ? 'TransferList should contain at least one category.'
                                       : 'Are you sure you want to continue?'
                                   }
                                   cancelBtnText={
-                                    this.props.selectedEntityId !== 'create' && this.props.input.value.size === 1
+                                    this.props.selectedEntityId !== 'create' && this.props.endpointHeaders.size === 1
                                       ? 'Okay'
                                       : 'Cancel'
                                   }
                                   openPopupBox={
-                                    this.props.selectedEntityId !== 'create' && this.props.input.value.size === 1
+                                    this.props.selectedEntityId !== 'create' && this.props.endpointHeaders.size === 1
                                       ? true
                                       : false
                                   }
@@ -307,7 +307,7 @@ class TransferListInput extends Component {
                                 </ConfirmationWrapper>
                               </HeaderActionsWrapper>
                             </HeaderContainer>
-                            <Droppable droppableId={category.get('droppableUUID')} type={category.get('hierarchy')}>
+                            <Droppable droppableId={category.get('droppableUUID')} type={category.get('categoryUUID')}>
                               {(provided, snapshot) => (
                                 <EndpointsContainer
                                   innerRef={provided.innerRef}
@@ -315,7 +315,7 @@ class TransferListInput extends Component {
                                   isDraggingOver={snapshot.isDraggingOver}
                                 >
                                   {this.props.input.value
-                                    .filter(point => point.get('hierarchy') === category.get('hierarchy'))
+                                    .filter(point => point.get('categoryUUID') === category.get('categoryUUID'))
                                     .map((endpoint, index) => (
                                       <Draggable
                                         draggableId={endpoint.get('draggableUUID')}
