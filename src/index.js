@@ -28,6 +28,7 @@ export { default as Toggle } from './components/ConfigUi/Toggle';
 export { default as SliderExpander } from './components/ConfigUi/SliderExpander';
 export { default as Logo } from './components/ConfigUi/Logos';
 export { default as LegalCopyright } from './components/ConfigUi/LegalCopyright';
+export { default as DetailsPanelMessage } from './components/ConfigUi/DetailsPanelMessage';
 
 // Fields
 export { default as InputField } from './components/ConfigUi/Field/InputField';

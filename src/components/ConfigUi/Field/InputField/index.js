@@ -31,7 +31,7 @@ const RenderField = ({
   disabled,
   onFocus,
   hideLabel,
-  meta: { touched, error, warning }
+  meta: { touched, error, warning },
 }) => {
   let inputElement;
   const inputProps = {
@@ -40,7 +40,7 @@ const RenderField = ({
     placeholder,
     disabled,
     type,
-    onFocus
+    onFocus,
   };
   const textareaProps = { id, className, disabled };
   const fieldWrapperProps = {
@@ -50,20 +50,16 @@ const RenderField = ({
     touched,
     error,
     warning,
-    hideLabel
+    hideLabel,
   };
 
   if (componentType === 'input') {
-    inputElement = (
-      <Input {...input} {...inputProps} hasError={touched && !!error} />
-    );
+    inputElement = <Input {...input} {...inputProps} hasError={touched && !!error} />;
   } else if (componentType === 'textarea') {
-    inputElement = (
-      <Textarea {...input} {...textareaProps} hasError={touched && !!error} />
-    );
+    inputElement = <Textarea {...input} {...textareaProps} hasError={touched && !!error} />;
   }
   return (
-    <FieldWrapper {...fieldWrapperProps} inputName={input.name} >
+    <FieldWrapper {...fieldWrapperProps} inputName={input.name}>
       {inputElement}
     </FieldWrapper>
   );
@@ -79,12 +75,14 @@ const parseNumber = value => {
 
 export default function InputField(props) {
   if (props.dataType === 'number') {
+    return <ReduxFormField {...props} component={RenderField} type="number" parse={parseNumber} />;
+  } else if (props.dataType === 'password') {
     return (
       <ReduxFormField
         {...props}
         component={RenderField}
-        type="number"
-        parse={parseNumber}
+        type="password"
+        parse={value => (value !== undefined ? value.replace(/^\s+/g, '') : value)}
       />
     );
   } else {
@@ -92,9 +90,7 @@ export default function InputField(props) {
       <ReduxFormField
         {...props}
         component={RenderField}
-        parse={value =>
-          value !== undefined ? value.replace(/^\s+/g, '') : value
-        }
+        parse={value => (value !== undefined ? value.replace(/^\s+/g, '') : value)}
       />
     );
     // The above regex prevents user from putting whitespace at the beginning of the input
@@ -111,12 +107,12 @@ InputField.propTypes = {
   placeholder: PropTypes.string,
   disabled: PropTypes.bool,
   componentType: PropTypes.oneOf(['input', 'textarea']),
-  dataType: PropTypes.oneOf(['string', 'number'])
+  dataType: PropTypes.oneOf(['string', 'number', 'password']),
 };
 
 InputField.defaultProps = {
   disabled: false,
-  componentType: 'input'
+  componentType: 'input',
 };
 
 RenderField.propTypes = {
@@ -131,5 +127,5 @@ RenderField.propTypes = {
   disabled: PropTypes.bool,
   meta: PropTypes.object,
   type: PropTypes.string,
-  componentType: PropTypes.oneOf(['input', 'textarea'])
+  componentType: PropTypes.oneOf(['input', 'textarea']),
 };
