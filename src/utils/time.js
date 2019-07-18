@@ -29,3 +29,21 @@ export function startOfDay(value) {
     .seconds(value)
     .format('HH:mm:ss');
 }
+
+export function timeFromStatisticsFormat(value) {
+  let hours, minutes, seconds, formattedData;
+  if (value > 3600000) {
+    hours = ('0' + Math.floor(value / 1000 / 60 / 60)).slice(-2);
+    minutes = ('0' + Math.floor((value / 1000 / 60) % 60)).slice(-2);
+    seconds = ('0' + Math.floor(((value / 1000) % 60) % 60)).slice(-2);
+    formattedData = hours + ':' + minutes + ':' + seconds;
+  } else if (value > 60000) {
+    minutes = ('0' + Math.floor(value / 1000 / 60)).slice(-2);
+    seconds = ('0' + Math.floor((value / 1000) % 60)).slice(-2);
+    formattedData = '00:' + minutes + ':' + seconds;
+  } else {
+    seconds = Math.floor(value / 1000);
+    formattedData = seconds + 's';
+  }
+  return formattedData;
+}

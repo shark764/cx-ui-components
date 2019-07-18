@@ -90,6 +90,7 @@ export {
   twentyFourHourTime,
   currentTime,
   startOfDay,
+  timeFromStatisticsFormat,
 } from './utils/time';
 
 // Filter Methods and Accessor for ReactTable
