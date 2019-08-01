@@ -42,8 +42,8 @@ export { default as ExtensionListField } from './components/ConfigUi/Field/Exten
 export { default as AutoCompleteField } from './components/ConfigUi/Field/AutoCompleteField';
 export { default as TransferListField } from './components/ConfigUi/Field/TransferListField';
 export { default as CheckboxField } from './components/ConfigUi/Field/CheckboxField';
-export { default as TimepickerField } from './components/ConfigUi/Field/TimepickerField';
-export { default as DatepickerField} from './components/ConfigUi/Field/DatePickerField'
+export { TimepickerField } from './components/ConfigUi/Field/TimepickerField';
+export { DatePickerField as DatepickerField } from './components/ConfigUi/Field/DatePickerField'
 
 // File
 export { default as FileUpload } from './components/ConfigUi/FileUpload';
