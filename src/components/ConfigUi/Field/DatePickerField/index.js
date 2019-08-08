@@ -1,13 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Field as ReduxFormField } from 'redux-form/immutable';
-import DatePicker from "react-datepicker";
+import DatePicker from "react-day-picker/DayPickerInput";
+import { DateUtils } from 'react-day-picker';
+import dateFnsFormat from 'date-fns/format';
+import dateFnsParse from 'date-fns/parse';
+
 
 import FieldWrapper from '../FieldWrapper';
-import { Input } from '../StyledInputs';
+import { StatefulInput as Input } from '../StyledInputs';
 
-import "react-datepicker/dist/react-datepicker.css";
-import "./custom.css";
+import 'react-day-picker/lib/style.css';
+import './custom.css';
+
+const parseDate = (str, format, locale) => {
+    const parsed = dateFnsParse(str, format, { locale });
+    if (DateUtils.isDate(parsed)) {
+      return parsed;
+    }
+    return undefined;
+  }
+  
+const formatDate = (date, format, locale) => dateFnsFormat(date, format, { locale });
 
 const Picker = ({
     input,
@@ -38,13 +52,27 @@ const Picker = ({
         
         return (
             <FieldWrapper {...fieldWrapperProps} inputName={input.name}>
-                <DatePicker customInput={<Input {...input} {...inputProps} hasError={touched && !!error} />}
-                    onChange={(date) => input.onChange(date)}
-                    selected={input.value} 
-                    placeholderText={placeholder}
-                    disabled={disabled}
-                    minDate={minDate}
-                    maxDate={maxDate}/>
+                <DatePicker
+                    component={props => 
+                    <input
+                        {...props}
+                        disabled={disabled}
+                        className={touched && !!error ? 'errored' : ''}
+                    />}
+                    onDayChange={(date) => input.onChange(date)}
+                    value={input.value} 
+                    placeholder={placeholder || "YYYY-MM-DD"}
+                    format="YYYY-MM-DD"
+                    formatDate={formatDate}
+                    parseDate={parseDate}
+                    dayPickerProps={
+                        {
+                            disabledDays : {
+                                after: maxDate,
+                                before: minDate
+                            }
+                        }
+                    }/>
             </FieldWrapper>
         )
 };
