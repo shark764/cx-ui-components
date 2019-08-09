@@ -28,16 +28,8 @@ function OnPstnCallSVG(props) {
         }
       `}
       </style>
-      <SvgWrapper
-        size={props.size}
-        className="OnPstnCallSVG"
-        onClick={props.onClick}
-      >
-        <svg
-          version="1.1"
-          viewBox="0 0 76 76"
-          xmlns="http://www.w3.org/2000/svg"
-        >
+      <SvgWrapper size={props.size} className={`OnPstnCallSVG ${props.className}`} onClick={props.onClick}>
+        <svg version="1.1" viewBox="0 0 76 76" xmlns="http://www.w3.org/2000/svg">
           <g>
             <g>
               <path
@@ -56,6 +48,7 @@ function OnPstnCallSVG(props) {
   );
 }
 OnPstnCallSVG.propTypes = {
+  className: PropTypes.string,
   size: PropTypes.number,
   onClick: PropTypes.func.isRequired,
 };

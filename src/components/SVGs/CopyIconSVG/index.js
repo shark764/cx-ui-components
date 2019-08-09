@@ -8,21 +8,31 @@ const SvgWrapper = styled.div`
   &:hover > svg > .icon {
     fill: darken(${props => props.theme.primaryColor}, 30%);
   }
-  ${props => props.disabled && css`cursor: not-allowed;`}
+  ${props =>
+    props.disabled &&
+    css`
+      cursor: not-allowed;
+    `};
   ${props => props.size && `width: ${props.size}px;`};
 `;
 const StyledPath = styled.path`
   fill: ${props => props.theme.primaryColor};
-  ${props => (props.copyIconType === undefined || props.copyIconType === 'primary') &&
-    css`fill: ${props => props.theme.primaryColor};`} 
-  ${props => props.copyIconType === 'secondary' &&
-    css`fill: rgb(153, 153, 153);`};
+  ${props =>
+    (props.copyIconType === undefined || props.copyIconType === 'primary') &&
+    css`
+      fill: ${props => props.theme.primaryColor};
+    `};
+  ${props =>
+    props.copyIconType === 'secondary' &&
+    css`
+      fill: rgb(153, 153, 153);
+    `};
 `;
 
 export default function CopyIconSVG(props) {
   return (
     <Fragment>
-      <SvgWrapper id={props.id} size={props.size} className="CopyIconSVG" onClick={props.onClick}>
+      <SvgWrapper id={props.id} size={props.size} className={`CopyIconSVG ${props.className}`} onClick={props.onClick}>
         <svg viewBox="0 0 448 512">
           <StyledPath
             className="icon"
@@ -36,6 +46,7 @@ export default function CopyIconSVG(props) {
 }
 CopyIconSVG.propTypes = {
   copyIconType: PropTypes.oneOf(['primary', 'secondary']),
+  className: PropTypes.string,
   size: PropTypes.number,
   onClick: PropTypes.func,
   id: PropTypes.string,
@@ -44,4 +55,3 @@ CopyIconSVG.propTypes = {
 CopyIconSVG.defaultProps = {
   size: 25,
 };
-

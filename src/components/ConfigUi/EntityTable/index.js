@@ -176,7 +176,7 @@ class EntityTable extends Component {
       selected: null,
       pageSizeOptions: [5, 10, 20, 25, 50, 100],
       defaultPageSize: 5,
-      pageSize: 5
+      pageSize: 5,
     };
   }
 
@@ -229,7 +229,7 @@ class EntityTable extends Component {
       const pageSize = getClosestValue(pageSizeOptions || [], vhToPixel(80) / 40);
       this.setState({
         pageSizeOptions,
-        pageSize
+        pageSize,
       });
     }
   }
@@ -267,7 +267,7 @@ class EntityTable extends Component {
             title="Add or remove this from the bulk actions form"
           />
         </CheckboxWrapper>
-      )
+      ),
     };
 
     return (
@@ -344,10 +344,10 @@ class EntityTable extends Component {
                 onClick: () => {
                   this.props.onRowClick(rowInfo.original.id);
                   this.setState({
-                    selected: rowInfo.index
+                    selected: rowInfo.index,
                   });
                 },
-                className: `row-selected-${rowInfo.index === this.state.selected ? 'active' : 'not-active'}`
+                className: `row-selected-${rowInfo.index === this.state.selected ? 'active' : 'not-active'}`,
               };
             } else {
               return {};
@@ -381,7 +381,7 @@ EntityTable.propTypes = {
   columns: PropTypes.array,
   onRowClick: PropTypes.func,
   userHasCreatePermission: PropTypes.bool,
-  userHasUpdatePermission: PropTypes.bool
+  userHasUpdatePermission: PropTypes.bool,
 };
 
 export default EntityTable;

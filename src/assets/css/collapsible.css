@@ -1,0 +1,63 @@
+.Collapsible__trigger-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: rgb(255, 255, 255);
+  padding: 17px 24px;
+  height: 74px;
+  border-top: 1px solid rgb(228, 228, 228);
+  border-bottom: 1px solid rgb(228, 228, 228);
+}
+
+.CollapsibleReason__trigger-container,
+.CollapsibleReasonBold__trigger-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 3px 24px;
+}
+
+.Collapsible__trigger-container:hover:not(.is-disabled),
+.CollapsibleReason__trigger-container:hover:not(.is-disabled),
+.CollapsibleReasonBold__trigger-container:hover:not(.is-disabled) {
+  background-color: darkslategray;
+  cursor: pointer;
+}
+
+.is-disabled {
+  background-color: rgb(243, 243, 243);
+}
+
+.Collapsible__trigger {
+  font-size: 18px;
+  color: rgb(75, 75, 75);
+  font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 303px;
+}
+
+.CollapsibleReason__trigger {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /* width: 303px; */
+}
+
+.CollapsibleReasonBold__trigger {
+  font-weight: bold;
+}
+
+.Collapsible__contentInner {
+  padding: 5px 0;
+  border-bottom: 1px solid rgb(228, 228, 228);
+}
+
+.CollapsibleReason__contentInner,
+.CollapsibleReasonBold__contentInner {
+  padding: 5px 0 5px 5px;
+  max-height: 150px;
+  overflow-x: auto;
+  box-shadow: inset 0px 0 7px 1px #cecece;
+}

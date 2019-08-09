@@ -27,7 +27,7 @@ const StyledPath = styled.path`
 function EditIconSVG(props) {
   return (
     <Fragment>
-      <SvgWrapper size={props.size} className="EditIconSVG" onClick={props.onClick}>
+      <SvgWrapper size={props.size} className={`EditIconSVG ${props.className}`} onClick={props.onClick}>
         <svg viewBox="0 0 576 512">
           <StyledPath
             editIconType={props.editIconType}
@@ -42,6 +42,7 @@ function EditIconSVG(props) {
 }
 EditIconSVG.propTypes = {
   editIconType: PropTypes.oneOf(['primary', 'secondary']),
+  className: PropTypes.string,
   size: PropTypes.number,
   onClick: PropTypes.func,
 };

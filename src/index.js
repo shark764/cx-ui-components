@@ -43,25 +43,30 @@ export { default as AutoCompleteField } from './components/ConfigUi/Field/AutoCo
 export { default as TransferListField } from './components/ConfigUi/Field/TransferListField';
 export { default as CheckboxField } from './components/ConfigUi/Field/CheckboxField';
 export { TimepickerField } from './components/ConfigUi/Field/TimepickerField';
-export { DatePickerField as DatepickerField } from './components/ConfigUi/Field/DatePickerField'
+export { DatePickerField as DatepickerField } from './components/ConfigUi/Field/DatePickerField';
 
 // File
 export { default as FileUpload } from './components/ConfigUi/FileUpload';
 export { default as FileDownload } from './components/ConfigUi/FileDownload';
 
-// General
+// General Components
+export { default as Input } from './components/General/Input';
 export { default as Typeahead } from './components/General/Typeahead';
-export {default as Timepicker} from './components/General/Timepicker';
+export { default as Timepicker } from './components/General/Timepicker';
+export { default as PopoverDialog } from './components/General/PopoverDialog';
+export { default as MenuRow } from './components/General/Menu/MenuRow';
+export { default as Collapsible } from './components/General/Menu/Collapsible';
+export { default as DirectionRow } from './components/General/Menu/DirectionRow';
+export { default as PresenceStateRow } from './components/General/Menu/PresenceStateRow';
+export { default as FormattedTitle } from './components/General/PopoverDialog/FormattedTitle';
 
 // Reporting
 export { default as InteractionDetails } from './components/ConfigUi/InteractionDetails';
+export { default as AgentStateDetails } from './components/ConfigUi/AgentStateDetails';
 
 // Fields
 export { default as FilterInput } from './components/ConfigUi/Filter/FilterInput';
 export { default as FilterSelect } from './components/ConfigUi/Filter/FilterSelect';
-
-// General Components
-export { default as Input } from './components/General/Input';
 
 // SVGs
 export { default as HangUpIconSVG } from './components/SVGs/HangUpIconSVG';
@@ -80,6 +85,11 @@ export { default as QuestionIconSVG } from './components/SVGs/EditIconSVG';
 export { default as PlusIconSVG } from './components/SVGs/PlusIconSVG';
 export { default as SettingIconSVG } from './components/SVGs/SettingIconSVG';
 export { default as QuestionMarkCircleIconSVG } from './components/SVGs/QuestionMarkCircleIconSVG';
+export { default as DirectionIconSVG } from './components/SVGs/DirectionIconSVG';
+export { default as ChannelIconSVG } from './components/SVGs/ChannelIconSVG';
+export { default as PresenceStateIconSVG } from './components/SVGs/PresenceStateIconSVG';
+export { default as SimpleCaretIconSVG } from './components/SVGs/SimpleCaretIconSVG';
+export { default as CheckedIconSVG } from './components/SVGs/CheckedIconSVG';
 
 // Constants
 export { defaultTheme } from './constants';
