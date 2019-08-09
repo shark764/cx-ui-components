@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.47.0] - 2019-08-09
+## Fixed
+- <no-ticket> - Fixing required props in Agent Monitoring Details component.
+
 ## [0.46.0] - 2019-08-08
 ### Added
 - CXV1-18908 - Direction column and change-direction component

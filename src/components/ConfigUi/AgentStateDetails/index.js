@@ -108,11 +108,11 @@ export default function AgentStateDetails(props) {
 }
 
 AgentStateDetails.propTypes = {
-  twelveHourFormat: PropTypes.bool.isRequired,
+  twelveHourFormat: PropTypes.bool,
   data: PropTypes.shape({
     agentName: PropTypes.string.isRequired,
     direction: PropTypes.string.isRequired,
-    channelTypes: PropTypes.string.isRequired,
+    channelTypes: PropTypes.string,
     state: PropTypes.string.isRequired,
     currentStateDuration: PropTypes.string,
     presence: PropTypes.string,
