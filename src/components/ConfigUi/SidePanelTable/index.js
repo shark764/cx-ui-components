@@ -21,6 +21,7 @@ import { filterDefaultMethod } from '../../../utils/filterMethod';
 import LoadingSpinner from '../../SVGs/LoadingSpinnerSVG';
 
 import DynamicTableWrapper from '../DynamicTableWrapper';
+import Pagination from '../EntityTable/Pagination';
 
 // React-Table does not integrate well with Styled components
 // We will be writing table style overrides here
@@ -77,6 +78,11 @@ injectGlobal`${importantCss(`
     box-shadow: none;
     border-top: 1px solid #e6e6e6;
   }
+
+  .SidePanelTable .-pagination .-center {
+    -ms-flex: inherit;
+    flex: inherit;
+  }
 `)}`;
 
 export default DynamicTableWrapper(SidePanelTable);
@@ -88,7 +94,7 @@ function SidePanelTable(props) {
     props.updateSubEntity,
     props.deleteSubEntity,
     props.addSubEntity,
-    props.copySubEntity
+    props.copySubEntity,
   ].filter(a => a !== undefined);
   if (actions.length && (props.userHasUpdatePermission || props.userHasViewPermission) && !props.inherited) {
     columns.push({
@@ -118,11 +124,12 @@ function SidePanelTable(props) {
             itemApiPending={props.itemApiPending}
           />
         ),
-      width: actions.length > 2 && props.userHasUpdatePermission ? 130 : 90
+      width: actions.length > 2 && props.userHasUpdatePermission ? 130 : 90,
     });
   }
   return (
     <ReactTable
+      PaginationComponent={Pagination}
       data={props.items}
       noDataText={props.fetching ? <LoadingSpinner size={60} /> : 'No results found'}
       columns={columns}
@@ -165,10 +172,10 @@ SidePanelTable.propTypes = {
   pageSize: PropTypes.number,
   setPageSize: PropTypes.func,
   filtered: PropTypes.array,
-  itemApiPending: PropTypes.string
+  itemApiPending: PropTypes.string,
 };
 
 SidePanelTable.defaultProps = {
   pagination: true,
-  confirmDeleteSubEntity: false
+  confirmDeleteSubEntity: false,
 };

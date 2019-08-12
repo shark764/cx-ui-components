@@ -32,7 +32,7 @@ const SuggestionsDropdown = styled.ul`
   padding-left: 0;
   position: absolute;
   z-index: 11;
-  width: ${props=> props.suggestedDropDownWidth ? props.suggestedDropDownWidth : '351px'};
+  width: ${props => (props.suggestedDropDownWidth ? props.suggestedDropDownWidth : '351px')};
 `;
 const SuggestionItem = styled.li`
   padding: 0.5rem;
@@ -66,7 +66,7 @@ class AutoCompleteInput extends Component {
       // Whether or not the suggestion list is shown
       showSuggestions: false,
       // What the user has entered
-      value
+      value,
     };
   }
 
@@ -87,9 +87,7 @@ class AutoCompleteInput extends Component {
       if (scrollContainerNode !== null) {
         // Move scroll according to suggestion's height
         scrollContainerNode.scrollTop =
-          scrollContainerNode.clientHeight /
-          filteredSuggestions.length *
-          (activeSuggestion - 1);
+          (scrollContainerNode.clientHeight / filteredSuggestions.length) * (activeSuggestion - 1);
       }
     }
   }
@@ -100,8 +98,7 @@ class AutoCompleteInput extends Component {
 
     // Filter our suggestions that don't contain the user's input
     const filteredSuggestions = suggestions.filter(
-      suggestion =>
-        suggestion.toLowerCase().indexOf(value.toLowerCase().trim()) > -1
+      suggestion => suggestion.toLowerCase().indexOf(value.toLowerCase().trim()) > -1
     );
 
     // Update the user input and filtered suggestions, reset the active
@@ -110,7 +107,7 @@ class AutoCompleteInput extends Component {
       activeSuggestion: 0,
       filteredSuggestions,
       showSuggestions: true,
-      value: value.length > 0 ? value : ' '
+      value: value.length > 0 ? value : ' ',
     });
   };
 
@@ -122,7 +119,7 @@ class AutoCompleteInput extends Component {
       activeSuggestion: 0,
       filteredSuggestions: [],
       showSuggestions: false,
-      value: innerText
+      value: innerText,
     });
   };
 
@@ -145,16 +142,13 @@ class AutoCompleteInput extends Component {
     // is empty
     const filteredSuggestions =
       value.trim().length > 0
-        ? suggestions.filter(
-            suggestion =>
-              suggestion.toLowerCase().indexOf(value.toLowerCase().trim()) > -1
-          )
+        ? suggestions.filter(suggestion => suggestion.toLowerCase().indexOf(value.toLowerCase().trim()) > -1)
         : [...suggestions];
     this.setState({
       activeSuggestion: 0,
       filteredSuggestions,
       showSuggestions: true,
-      value: value.length > 0 ? value : ' '
+      value: value.length > 0 ? value : ' ',
     });
   };
 
@@ -168,7 +162,7 @@ class AutoCompleteInput extends Component {
       this.setState({
         activeSuggestion: 0,
         showSuggestions: false,
-        value: filteredSuggestions[activeSuggestion]
+        value: filteredSuggestions[activeSuggestion],
       });
     } else if (keyCode === 38) {
       // User pressed the up arrow, decrement the index
@@ -202,8 +196,8 @@ class AutoCompleteInput extends Component {
         labelHelpText,
         placeholder,
         disabled,
-        meta: { touched, error, warning }
-      }
+        meta: { touched, error, warning },
+      },
     } = this;
 
     const fieldProps = { label, labelHelpText, touched, error, warning };
@@ -215,7 +209,7 @@ class AutoCompleteInput extends Component {
       value,
       onChange,
       onKeyDown,
-      onFocus
+      onFocus,
     };
 
     return (
@@ -225,13 +219,7 @@ class AutoCompleteInput extends Component {
             this.wrapper = element;
           }}
         >
-          <Input
-            type="text"
-            {...input}
-            {...inputProps}
-            autoComplete="off"
-            hasError={touched && !!error}
-          />
+          <Input type="text" {...input} {...inputProps} autoComplete="off" hasError={touched && !!error} />
           {showSuggestions &&
             value &&
             (filteredSuggestions.length ? (
@@ -243,11 +231,7 @@ class AutoCompleteInput extends Component {
               >
                 {filteredSuggestions.map((suggestion, index) => (
                   <SuggestionItem
-                    className={
-                      index === activeSuggestion
-                        ? 'suggestion-active'
-                        : 'suggestion'
-                    }
+                    className={index === activeSuggestion ? 'suggestion-active' : 'suggestion'}
                     key={suggestion}
                     onMouseDown={onMouseDown}
                     title={suggestion}
@@ -297,10 +281,10 @@ AutoCompleteField.propTypes = {
   className: PropTypes.string,
   disabled: PropTypes.bool,
   meta: PropTypes.object,
-  suggestions: PropTypes.instanceOf(Array)
+  suggestions: PropTypes.instanceOf(Array),
 };
 
 AutoCompleteField.defaultProps = {
   disabled: false,
-  suggestions: []
+  suggestions: [],
 };

@@ -27,6 +27,8 @@ import CustomDropdownMenu from '../CustomDropdownMenu';
 
 import { vhToPixel, getClosestValue } from '../../../utils';
 
+import Pagination from './Pagination';
+
 // React-Table does not integrate well with Styled components
 // We will be writing table style overrides here
 // We will use a new class name to make these styles component specific
@@ -78,6 +80,11 @@ injectGlobal`${importantCss(`
     border: none;
     color: #483737;
   }
+
+  .ReactTable .-pagination .-center {
+    -ms-flex: inherit;
+    flex: inherit;
+  }
 `)}`;
 
 const GridContainer = styled.div`
@@ -118,7 +125,6 @@ const Table = styled(ReactTable)`
     .EntityTable,
     .SidePanelTable {
       .pagination-bottom button {
-        background-color: ${props.theme.accentHoverColor} !important;
         max-height: 30px;
         margin-top: 3px;
         :hover {
@@ -319,6 +325,7 @@ class EntityTable extends Component {
         </Header>
 
         <Table
+          PaginationComponent={Pagination}
           innerRef={r => (this.selectTable = r)}
           data={this.props.items}
           noDataText={this.props.fetching ? <LoadingSpinner size={60} /> : 'No results found'}

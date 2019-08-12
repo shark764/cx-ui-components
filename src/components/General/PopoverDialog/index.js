@@ -30,25 +30,24 @@ const PopoverWrapper = styled.div`
   margin: 10px;
   color: white;
   z-index: 3;
-  position: relative;
+  position: absolute;
   ${props => props.size && `width: ${props.size}px;`};
 `;
 const Triangle = styled.span`
   position: absolute;
   width: 0px;
   height: 0px;
-  left: 40px;
-  bottom: -7px;
-  z-index: 1;
-  border-width: 8px;
+  top: 27px;
+  z-index: 4;
+  border-width: 9px;
   border-style: solid;
-  border-color: #1d3239 transparent transparent #1d3239;
+  border-color: #45aad7 transparent transparent #45aad7;
   border-image: initial;
-  transform: rotate(-134deg);
+  transform: rotate(45deg);
   box-shadow: -6px -6px 11px -4px rgba(0, 0, 0, 0.29);
   border-radius: 3px;
   left: ${props =>
-    typeof props.arrowLeftOffsetPx !== 'undefined' ? props.arrowLeftOffsetPx : Math.round(props.widthPx / 4)}px;
+    typeof props.arrowLeftOffsetPx !== 'undefined' ? props.arrowLeftOffsetPx : Math.round(props.widthPx / 5)}px;
 `;
 
 function PopoverDialog(props) {
@@ -57,8 +56,8 @@ function PopoverDialog(props) {
       {props.isVisible && (
         <Fragment>
           <ScreenMask onClick={props.hide} />
+          <Triangle arrowLeftOffsetPx={props.arrowLeftOffsetPx} widthPx={props.widthPx} />
           <PopoverWrapper id={props.id} className={props.className} size={props.widthPx}>
-            <Triangle arrowLeftOffsetPx={props.arrowLeftOffsetPx} widthPx={props.widthPx} />
             {props.children}
           </PopoverWrapper>
         </Fragment>

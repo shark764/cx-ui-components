@@ -1,6 +1,6 @@
 {
   "name": "cx-ui-components",
-  "version": "0.47.0",
+  "version": "0.48.0",
   "description": "Front end react components for any cx-related projects",
   "main": "./src/index.js",
   "scripts": {
@@ -85,7 +85,7 @@
     "redux-immutable": "^4.0.0",
     "rxjs": "^5.5.7",
     "sanitize.css": "^5.0.0",
-    "serenova-js-utils": "^1.6.13",
+    "serenova-js-utils": "^1.6.15",
     "style-loader": "^0.19.1",
     "styled-components": "^3.1.4",
     "url-loader": "^0.6.2",
