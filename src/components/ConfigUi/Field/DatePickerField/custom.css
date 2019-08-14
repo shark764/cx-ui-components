@@ -17,3 +17,8 @@ div.DayPickerInput > input {
 div.DayPickerInput > input.errored {
     border-color: red !important;
 }
+
+div.DayPickerInput > input:disabled {
+    background-color: #efefef;
+    cursor: not-allowed;
+}

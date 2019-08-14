@@ -8,7 +8,6 @@ import dateFnsParse from 'date-fns/parse';
 
 
 import FieldWrapper from '../FieldWrapper';
-import { StatefulInput as Input } from '../StyledInputs';
 
 import 'react-day-picker/lib/style.css';
 import './custom.css';
@@ -28,18 +27,12 @@ const Picker = ({
     label,
     labelHelpText,
     placeholder,
-    id,
-    className,
     disabled,
     hideLabel,
     meta: { touched, error, warning },
     minDate,
     maxDate
     }) => {
-        const inputProps = {
-            id,
-            className,
-          };
         const fieldWrapperProps = {
             input: input.name,
             label,
@@ -53,13 +46,11 @@ const Picker = ({
         return (
             <FieldWrapper {...fieldWrapperProps} inputName={input.name}>
                 <DatePicker
-                    component={props => 
-                    <input
-                        {...props}
-                        disabled={disabled}
-                        className={touched && !!error ? 'errored' : ''}
-                    />}
                     onDayChange={(date) => input.onChange(date)}
+                    inputProps={{
+                        className: touched && !!error ? 'errored' : '',
+                        disabled,
+                    }}
                     value={input.value} 
                     placeholder={placeholder || "YYYY-MM-DD"}
                     format="YYYY-MM-DD"
