@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+##[0.49.0] - 2019-08-19
+### Fixed
+- CXV1-19185 - Update WebRTC Region Support
+
 ## [0.48.1] - 2019-08-13
 ## Fixed
 - <no-ticket> - Cleaning code and fixing some little issues with DatepickerField component

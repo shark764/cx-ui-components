@@ -191,14 +191,16 @@ class ExtensionListInput extends Component {
                                 <option label="Global Low Latency" value="gll"></option>
                                 <option label="Australia" value="au1"></option>
                                 <option label="Brazil" value="br1"></option>
+                                <option label="Germany" value="de1"></option>
                                 <option label="Ireland" value="ie1"></option>
                                 <option label="Japan" value="jp1"></option>
                                 <option label="Singapore" value="sg1"></option>
                                 <option label="US East Coast (Virginia)" value="us1"></option>
-                                <option label="Virginia Interconnect" value="us1-tnx"></option>
-                                <option label="Oregon Interconnect" value="us2-tnx"></option>
-                                <option label="Germany" value="de1"></option>
-                                <option label="Ireland Interconnect" value="ie1-tnx"></option>
+                                <option label="US West Coast (Oregon)" value="us2"></option>
+                                <option label="Interconnect - Ireland" value="ie1-tnx"></option>
+                                <option label="Interconnect - Sigapore" value="sg1-ix"></option>
+                                <option label="Interconnect - US East" value="us1-ix"></option>
+                                <option label="Interconnect - US West" value="us2-ix"></option>
                               </StyledRegion>
                           }
 
