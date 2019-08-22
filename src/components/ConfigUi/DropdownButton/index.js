@@ -13,9 +13,9 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import Button from '../Button';
-import CaretIconSVG from '../../SVGs/CaretIconSVG';
+import SimpleCaretIconSVG from '../../SVGs/SimpleCaretIconSVG';
 
-const DropdownIcon = styled(CaretIconSVG)`
+const DropdownIcon = styled(SimpleCaretIconSVG)`
   width: 10px;
   margin-left: 15px;
   float: right;

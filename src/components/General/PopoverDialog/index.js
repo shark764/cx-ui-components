@@ -48,6 +48,9 @@ const Triangle = styled.span`
   border-radius: 3px;
   left: ${props =>
     typeof props.arrowLeftOffsetPx !== 'undefined' ? props.arrowLeftOffsetPx : Math.round(props.widthPx / 5)}px;
+  &:hover {
+    background-color: #288dba;
+  }
 `;
 
 function PopoverDialog(props) {

@@ -34,11 +34,12 @@ const StatusCheckedIconSVG = styled(CheckedIconSVG)`
   float: right;
 `;
 
-function PresenceStateRow({ presenceState, label, isSelectedPresenceState, onSelect }) {
+function PresenceStateRow({ presenceState, label, isSelectedPresenceState, onSelect, className }) {
   const notReadySelectable = isSelectedPresenceState && presenceState !== 'notready';
   return (
     <PresenceStateRowContainer
       id={`agentPresenceState${capitalizeFirstLetter(presenceState)}`}
+      className={className}
       disabled={notReadySelectable}
       onClick={!isSelectedPresenceState || presenceState === 'notready' ? onSelect : undefined}
     >
@@ -55,6 +56,7 @@ PresenceStateRow.propTypes = {
   isSelectedPresenceState: PropTypes.bool,
   onSelect: PropTypes.func,
   disabled: PropTypes.bool,
+  className: PropTypes.string,
 };
 
 export default PresenceStateRow;

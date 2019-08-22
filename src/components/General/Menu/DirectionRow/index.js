@@ -27,10 +27,11 @@ const StatusCheckedIconSVG = styled(CheckedIconSVG)`
   float: right;
 `;
 
-function DirectionRow({ direction, label, isSelectedDirection, onSelect }) {
+function DirectionRow({ direction, label, isSelectedDirection, onSelect, className }) {
   return (
     <DirectionRowContainer
       id={`agentDirection${capitalizeFirstLetter(direction)}`}
+      className={className}
       disabled={isSelectedDirection}
       onClick={!isSelectedDirection ? onSelect : undefined}
     >
@@ -46,6 +47,7 @@ DirectionRow.propTypes = {
   isSelectedDirection: PropTypes.bool,
   onSelect: PropTypes.func,
   disabled: PropTypes.bool,
+  className: PropTypes.string,
 };
 
 export default DirectionRow;

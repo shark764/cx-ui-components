@@ -72,38 +72,42 @@ class SubMenu extends React.Component {
           <ItemList>
             {this.props.selectionType === 'checkbox' && (
               <Fragment>
-                <ListItem>
-                  <input
-                    type="checkbox"
-                    checked={this.props.allActive}
-                    onChange={() => {
-                      this.props.allActive
-                        ? this.props.toggleAllOff(this.props.menuType, this.props.tableType)
-                        : this.props.toggleAllOn(this.props.menuType, this.props.tableType);
-                    }}
-                  />
-                  <AllSelector>All</AllSelector>
-                </ListItem>
+                <label>
+                  <ListItem>
+                    <input
+                      type="checkbox"
+                      checked={this.props.allActive}
+                      onChange={() => {
+                        this.props.allActive
+                          ? this.props.toggleAllOff(this.props.menuType, this.props.tableType)
+                          : this.props.toggleAllOn(this.props.menuType, this.props.tableType);
+                      }}
+                    />
+                    <AllSelector>All</AllSelector>
+                  </ListItem>
+                </label>
                 <Seperator />
               </Fragment>
             )}
             {this.props.items.map((item, i) => [
-              <ListItem key={item.name}>
-                <input
-                  type={this.props.selectionType === 'checkbox' ? 'checkbox' : 'radio'}
-                  onChange={() => {
-                    if (this.props.selectionType === 'checkbox') {
-                      this.props.toggleItem(item.name, this.props.menuType, this.props.tableType);
-                    } else {
-                      this.props.oneOnRestOff(item.name, this.props.menuType, this.props.tableType);
-                      this.props.updateFilter(item.name);
-                    }
-                  }}
-                  value={item.name}
-                  checked={item.active}
-                />
-                <ItemText>{item.name}</ItemText>
-              </ListItem>,
+              <label key={item.name}>
+                <ListItem>
+                  <input
+                    type={this.props.selectionType === 'checkbox' ? 'checkbox' : 'radio'}
+                    onChange={() => {
+                      if (this.props.selectionType === 'checkbox') {
+                        this.props.toggleItem(item.name, this.props.menuType, this.props.tableType);
+                      } else {
+                        this.props.oneOnRestOff(item.name, this.props.menuType, this.props.tableType);
+                        this.props.updateFilter(item.name);
+                      }
+                    }}
+                    value={item.name}
+                    checked={item.active}
+                  />
+                  <ItemText>{item.name}</ItemText>
+                </ListItem>
+              </label>,
               item.name === 'All' && <Seperator key={`${item.name}-seperator`} />,
             ])}
           </ItemList>

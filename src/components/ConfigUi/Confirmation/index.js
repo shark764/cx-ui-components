@@ -57,22 +57,16 @@ const ConfirmCancelBtns = styled(Button)`
 
 function Confirmation(props) {
   return (
-    <ConfirmationModal onMaskClick={props.onMaskClick}>
+    <ConfirmationModal onMaskClick={props.onMaskClick} className={props.className}>
       <MainText>{props.mainText}</MainText>
-      {props.secondaryText && (
-        <SecondaryText>{props.secondaryText}</SecondaryText>
-      )}
+      {props.secondaryText && <SecondaryText>{props.secondaryText}</SecondaryText>}
 
       <BtnsContainer>
         <ConfirmCancelBtns id="cancel" onClick={props.cancelBtnCallback}>
           {props.cancelBtnText}
         </ConfirmCancelBtns>
         {!props.openPopupBox && (
-          <ConfirmCancelBtns
-            id="confirm"
-            onClick={props.confirmBtnCallback}
-            buttonType="primary"
-          >
+          <ConfirmCancelBtns id="confirm" onClick={props.confirmBtnCallback} buttonType="primary">
             {props.confirmBtnText}
           </ConfirmCancelBtns>
         )}
@@ -90,11 +84,12 @@ Confirmation.propTypes = {
   secondaryText: PropTypes.string,
   onMaskClick: PropTypes.func,
   openPopupBox: PropTypes.bool,
+  className: PropTypes.string,
 };
 
 Confirmation.defaultProps = {
   confirmBtnText: 'Confirm',
-  cancelBtnText: 'Cancel'
+  cancelBtnText: 'Cancel',
 };
 
 export default Confirmation;

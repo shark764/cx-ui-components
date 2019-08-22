@@ -101,8 +101,7 @@ const Header = styled(PageHeader)`
 
 const Table = styled(ReactTable)`
   grid-area: table;
-  height: 80vh;
-
+  height: 90vh;
   ${props => injectGlobal`
     .EntityTable .rt-tbody .rt-tr-group {
       :hover {

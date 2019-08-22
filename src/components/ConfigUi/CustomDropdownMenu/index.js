@@ -10,8 +10,8 @@ const StackingContextReset = styled.div`
 `;
 
 const SubMenuDiv = styled.div`
-  ${props => props.menuType === 'actionsMenu'? 'padding: 10px;' : 'padding: 2px;'}
-  ${props => props.menuType === 'actionsMenu'? 'min-width: 195px;' : 'min-width: 260px;'}
+  ${props => (props.menuType === 'actionsMenu' ? 'padding: 10px;' : 'padding: 2px;')};
+  ${props => (props.menuType === 'actionsMenu' ? 'min-width: 195px;' : 'min-width: 260px;')};
   position: absolute;
   background: white;
   right: -2px;

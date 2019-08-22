@@ -11,7 +11,7 @@ export default class ConfirmationWrapper extends Component {
   constructor() {
     super();
     this.state = {
-      open: false
+      open: false,
     };
   }
   toggle = e => {
@@ -20,7 +20,7 @@ export default class ConfirmationWrapper extends Component {
   };
   render() {
     return (
-      <Wrapper onClick={this.props.confirmBtnCallback ? this.toggle : undefined}>
+      <Wrapper onClick={this.props.confirmBtnCallback ? this.toggle : undefined} className={this.props.className}>
         {this.state.open && (
           <Confirmation
             confirmBtnCallback={this.props.confirmBtnCallback}
@@ -45,4 +45,5 @@ ConfirmationWrapper.propTypes = {
   secondaryText: PropTypes.string,
   cancelBtnText: PropTypes.string,
   openPopupBox: PropTypes.bool,
+  className: PropTypes.string,
 };

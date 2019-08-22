@@ -56,7 +56,7 @@
 
 .CollapsibleReason__contentInner,
 .CollapsibleReasonBold__contentInner {
-  padding: 5px 0 5px 5px;
+  padding: 5px;
   max-height: 150px;
   overflow-x: auto;
   box-shadow: inset 0px 0 7px 1px #cecece;

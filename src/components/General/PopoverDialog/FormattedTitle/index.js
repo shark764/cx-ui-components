@@ -39,6 +39,7 @@ export class FormattedTitle extends Component {
       <StyledTitle
         hasPrevious={this.props.hasPrevious}
         onClick={this.props.hasPrevious ? this.props.onClick : undefined}
+        className={this.props.className}
       >
         {!this.props.hasPrevious && this.props.messageTitle}
         {this.props.hasPrevious && (
@@ -57,6 +58,7 @@ FormattedTitle.propTypes = {
   messageTitleBack: PropTypes.string,
   hasPrevious: PropTypes.bool,
   onClick: PropTypes.func,
+  className: PropTypes.string,
 };
 FormattedTitle.defaultProps = {
   messageTitleBack: '-',

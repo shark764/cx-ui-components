@@ -6,7 +6,7 @@ const SvgWrapper = styled.div`
   display: inline-block;
   cursor: pointer;
   &:hover > svg > .icon {
-    fill: rgb(101, 101, 101);
+    fill: darken(0.3, ${props => props.theme.primaryColor});
   }
   ${props => props.size && `width: ${props.size}px;`};
 `;
