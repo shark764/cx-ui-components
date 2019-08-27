@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+##[0.49.2] - 2019-08-27
+### Changed
+- <no-jira> - Adding animation to ChannelType icon.
+- <no-jira> - Fixing dropdown filter to accept customization and dispatch action when "All" is selected.
+
 ##[0.49.1] - 2019-08-22
 ### Changed
 - <no-jira> - Adding classNames to menu and SVG components to allow customs styles from Config-UI2.

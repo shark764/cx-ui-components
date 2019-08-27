@@ -68,7 +68,7 @@ class SubMenu extends React.Component {
         )}
 
         {this.props.currentVisibleSubMenu === this.props.menuType && <SubMenuTopArrow key="SubMenuTopArrow" />}
-        <SubMenuDiv key="SubMenu">
+        <SubMenuDiv key="SubMenu" className={`DropDown-SubMenu ${this.props.className}`}>
           <ItemList>
             {this.props.selectionType === 'checkbox' && (
               <Fragment>
@@ -81,6 +81,9 @@ class SubMenu extends React.Component {
                         this.props.allActive
                           ? this.props.toggleAllOff(this.props.menuType, this.props.tableType)
                           : this.props.toggleAllOn(this.props.menuType, this.props.tableType);
+                        if (typeof this.props.updateFilter === 'function') {
+                          this.props.updateFilter('All');
+                        }
                       }}
                     />
                     <AllSelector>All</AllSelector>
@@ -97,6 +100,9 @@ class SubMenu extends React.Component {
                     onChange={() => {
                       if (this.props.selectionType === 'checkbox') {
                         this.props.toggleItem(item.name, this.props.menuType, this.props.tableType);
+                        if (typeof this.props.updateFilter === 'function') {
+                          this.props.updateFilter(item.name);
+                        }
                       } else {
                         this.props.oneOnRestOff(item.name, this.props.menuType, this.props.tableType);
                         this.props.updateFilter(item.name);
@@ -136,6 +142,7 @@ SubMenu.propTypes = {
   toggleAllOn: PropTypes.func.isRequired,
   toggleAllOff: PropTypes.func.isRequired,
   toggleAllInverse: PropTypes.func.isRequired,
+  className: PropTypes.string,
 };
 
 export default SubMenu;

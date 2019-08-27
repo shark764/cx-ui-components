@@ -6,7 +6,7 @@ const SvgWrapper = styled.div`
   display: inline-block;
   cursor: pointer;
   &:hover > svg > .icon {
-    fill: darken(0.30, ${props => props.theme.primaryColor});
+    fill: darken(0.3, ${props => props.theme.primaryColor});
   }
   ${props => props.size && `width: ${props.size}px;`};
   ${props =>
@@ -37,7 +37,12 @@ const StyledPath = styled.path`
 function ChannelIconSVG(props) {
   let viewBox = '0 0 22.68 22.68',
     iconPath =
-      'M12,17.54c-4.35,0-7.94-3.08-8-6.85V8.5a1,1,0,0,1,2,0v2.18c0,2.67,2.72,4.86,6,4.86s6-2.18,6-4.86V8.5a1,1,0,0,1,2,0v2.23C19.92,14.48,16.33,17.54,12,17.54Z';
+      'M12,17.54c-4.35,0-7.94-3.08-8-6.85V8.5a1,1,0,0,1,2,0v2.18c0,2.67,2.72,4.86,6,4.86s6-2.18,6-4.86V8.5a1,1,0,0,1,2,0v2.23C19.92,14.48,16.33,17.54,12,17.54Z',
+    animateValues =
+      'rgb(117, 212, 147); rgb(30, 232, 95); rgb(0, 255, 81); rgb(53, 222, 107); rgb(72, 219, 119); rgb(117, 212, 147);';
+  if (props.channelIconType === 'out-of-focus') {
+    animateValues = 'rgb(236, 85, 104); rgb(219, 50, 72); rgb(222, 64, 84); rgb(230, 83, 102); rgb(236, 85, 104);';
+  }
   switch (props.channelType) {
     case 'messaging':
       iconPath =
@@ -60,18 +65,26 @@ function ChannelIconSVG(props) {
       viewBox = '0 0 24 24';
       break;
   }
+  const animationContent = props.animated &&
+    (props.channelIconType === 'in-focus' || props.channelIconType === 'out-of-focus') && (
+      <animate attributeType="XML" attributeName="fill" values={animateValues} dur="0.9s" repeatCount="indefinite" />
+    );
   return (
     <Fragment>
       <SvgWrapper size={props.size} className={`ChannelIconSVG ${props.className}`} onClick={props.onClick}>
         <svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox={viewBox}>
-          <StyledPath channelIconType={props.channelIconType} className="icon" d={iconPath} class="" />
+          <StyledPath channelIconType={props.channelIconType} className="icon" d={iconPath} class="">
+            {animationContent}
+          </StyledPath>
           {props.channelType === 'voice' && (
             <StyledPath
               channelIconType={props.channelIconType}
               className="icon"
               d="M12,13.62a3.9,3.9,0,0,1-4-3.8V6.3a3.9,3.9,0,0,1,4-3.8,4,4,0,0,1,4,3.86V9.88A3.89,3.89,0,0,1,12,13.62ZM12,4.5a1.9,1.9,0,0,0-2,1.8V9.82a1.89,1.89,0,0,0,2,1.8,1.9,1.9,0,0,0,2-1.74V6.36A2,2,0,0,0,12,4.5Z"
               class=""
-            />
+            >
+              {animationContent}
+            </StyledPath>
           )}
           {props.channelType === 'voice' && (
             <StyledPath
@@ -79,7 +92,9 @@ function ChannelIconSVG(props) {
               className="icon"
               d="M15,21.5H9a1,1,0,0,1,0-2h6a1,1,0,0,1,0,2Z"
               class=""
-            />
+            >
+              {animationContent}
+            </StyledPath>
           )}
         </svg>
       </SvgWrapper>
@@ -92,8 +107,9 @@ ChannelIconSVG.propTypes = {
   className: PropTypes.string,
   size: PropTypes.number,
   onClick: PropTypes.func,
+  animated: PropTypes.bool,
 };
 
-ChannelIconSVG.defaultProps = { channelIconType: 'secondary', channelType: 'voice', size: 25 };
+ChannelIconSVG.defaultProps = { channelIconType: 'secondary', channelType: 'voice', size: 25, animated: false };
 
 export default ChannelIconSVG;
