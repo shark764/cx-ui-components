@@ -30,7 +30,10 @@ const Picker = ({
     return (
         <FieldWrapper {...fieldWrapperProps} inputName={input.name}>
             <Timepicker
-                onChange={(minutesOnDay) => input.onChange(minutesOnDay)}
+                onChange={minutesOnDay => {
+                    input.onChange(minutesOnDay);
+                    input.onBlur();
+                }}
                 minutesOnDay={input.value} 
                 disabled={disabled}
                 twelveHoursMode={twelveHoursMode}

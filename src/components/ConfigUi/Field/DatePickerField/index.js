@@ -46,7 +46,10 @@ const Picker = ({
         return (
             <FieldWrapper {...fieldWrapperProps} inputName={input.name}>
                 <DatePicker
-                    onDayChange={(date) => input.onChange(date)}
+                    onDayChange={date => {
+                        input.onChange(date);
+                        input.onBlur();
+                    }}
                     inputProps={{
                         className: touched && !!error ? 'errored' : '',
                         disabled,
