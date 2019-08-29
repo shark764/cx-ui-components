@@ -91,6 +91,7 @@ export { default as ChannelIconSVG } from './components/SVGs/ChannelIconSVG';
 export { default as PresenceStateIconSVG } from './components/SVGs/PresenceStateIconSVG';
 export { default as SimpleCaretIconSVG } from './components/SVGs/SimpleCaretIconSVG';
 export { default as CheckedIconSVG } from './components/SVGs/CheckedIconSVG';
+export { default as WordWrapIconSVG } from './components/SVGs/WordwrapIconSVG';
 
 // Constants
 export { defaultTheme } from './constants';
