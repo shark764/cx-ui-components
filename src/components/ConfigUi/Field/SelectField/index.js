@@ -3,8 +3,11 @@ import PropTypes from 'prop-types';
 import { Field as ReduxFormField } from 'redux-form/immutable';
 import FieldWrapper from '../FieldWrapper';
 import { Input } from '../StyledInputs';
+import { css } from 'styled-components';
 
-const Select = Input.withComponent('select');
+const Select = Input.withComponent('select').extend`
+  ${props => !props.disabled && css`cursor: pointer;`}
+`;
 
 const SelectInput = ({
   input,
@@ -36,8 +39,8 @@ const SelectInput = ({
             ))}
           </Fragment>
         ) : (
-          <option>Loading...</option>
-        )}
+            <option>Loading...</option>
+          )}
       </Select>
     </FieldWrapper>
   );

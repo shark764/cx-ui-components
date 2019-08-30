@@ -29,6 +29,7 @@ export default class ConfirmationWrapper extends Component {
             secondaryText={this.props.secondaryText}
             onMaskClick={this.toggle}
             cancelBtnText={this.props.cancelBtnText}
+            confirmBtnText={this.props.confirmBtnText}
             openPopupBox={this.props.openPopupBox}
           />
         )}
@@ -44,6 +45,7 @@ ConfirmationWrapper.propTypes = {
   mainText: PropTypes.string.isRequired,
   secondaryText: PropTypes.string,
   cancelBtnText: PropTypes.string,
+  confirmBtnText: PropTypes.string,
   openPopupBox: PropTypes.bool,
   className: PropTypes.string,
 };

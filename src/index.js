@@ -45,6 +45,7 @@ export { default as TransferListField } from './components/ConfigUi/Field/Transf
 export { default as CheckboxField } from './components/ConfigUi/Field/CheckboxField';
 export { TimepickerField } from './components/ConfigUi/Field/TimepickerField';
 export { DatePickerField as DatepickerField } from './components/ConfigUi/Field/DatePickerField';
+export { default as RichTextEditorField } from './components/ConfigUi/Field/RichTextEditorField';
 
 // File
 export { default as FileUpload } from './components/ConfigUi/FileUpload';

@@ -97,6 +97,7 @@ function Button(props) {
       disabled={props.disabled}
       title={props.title}
       onClick={props.onClick}
+      onMouseDown={props.onMouseDown}
     >
       {props.children}
     </StyledButton>
@@ -117,6 +118,7 @@ Button.propTypes = {
   /** Text or icon to go inside the button */
   children: PropTypes.any,
   onClick: PropTypes.func,
+  onMouseDown: PropTypes.func,
 };
 
 Button.defaultProps = {

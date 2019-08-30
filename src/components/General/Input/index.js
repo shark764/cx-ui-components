@@ -54,7 +54,10 @@ export default class Input extends Component {
         onFocus={this.toggleActive}
         onBlur={this.toggleActive}
         onKeyDown={this.onKeyDown}
-        onChange={this.onChange}
+        onChange={(e) => { 
+          this.onChange(e);
+          this.props.retrieveInputValue && this.props.getInputValue(e, e.target.value) 
+        }}
         value={this.state.value}
         border={this.props.border}
         isActive={this.state.isActive}
@@ -72,7 +75,9 @@ Input.propTypes = {
   id: PropTypes.string,
   /** Input's name */
   name: PropTypes.string,
-  className: PropTypes.string
+  className: PropTypes.string,
+  getInputValue: PropTypes.func,
+  retrieveInputValue: PropTypes.bool,
 }
 
 Input.defaultProps = {
