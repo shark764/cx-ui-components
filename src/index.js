@@ -93,6 +93,7 @@ export { default as PresenceStateIconSVG } from './components/SVGs/PresenceState
 export { default as SimpleCaretIconSVG } from './components/SVGs/SimpleCaretIconSVG';
 export { default as CheckedIconSVG } from './components/SVGs/CheckedIconSVG';
 export { default as WordWrapIconSVG } from './components/SVGs/WordwrapIconSVG';
+export { default as EyeIconSVG } from './components/SVGs/EyeIconSVG';
 
 // Constants
 export { defaultTheme } from './constants';

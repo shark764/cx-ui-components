@@ -17,7 +17,7 @@ import Modal from '../Modal';
 
 const ConfirmationModal = styled(Modal)`
   min-width: 300px;
-  max-width: 400px;
+  max-width: 500px;
   text-align: center;
   justify-content: center;
   background-color: ${colors.lightGray};
@@ -59,8 +59,12 @@ function Confirmation(props) {
   return (
     <ConfirmationModal onMaskClick={props.onMaskClick} className={props.className}>
       <MainText>{props.mainText}</MainText>
-      {props.secondaryText && <SecondaryText>{props.secondaryText}</SecondaryText>}
-
+      {props.secondaryText && (
+        <SecondaryText>{props.secondaryText}</SecondaryText>
+      )}
+      {props.children && (
+        <SecondaryText>{props.children}</SecondaryText>
+      )}
       <BtnsContainer>
         <ConfirmCancelBtns id="cancel" onClick={props.cancelBtnCallback}>
           {props.cancelBtnText}
@@ -85,6 +89,7 @@ Confirmation.propTypes = {
   onMaskClick: PropTypes.func,
   openPopupBox: PropTypes.bool,
   className: PropTypes.string,
+  children: PropTypes.element
 };
 
 Confirmation.defaultProps = {
