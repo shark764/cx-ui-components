@@ -46,6 +46,7 @@ export { default as CheckboxField } from './components/ConfigUi/Field/CheckboxFi
 export { TimepickerField } from './components/ConfigUi/Field/TimepickerField';
 export { DatePickerField as DatepickerField } from './components/ConfigUi/Field/DatePickerField';
 export { default as RichTextEditorField } from './components/ConfigUi/Field/RichTextEditorField';
+export { default as NestedListField } from './components/ConfigUi/Field/NestedListField';
 
 // File
 export { default as FileUpload } from './components/ConfigUi/FileUpload';
