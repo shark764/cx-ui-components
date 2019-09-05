@@ -243,6 +243,7 @@ class NestedListInput extends Component {
                         draggableId={category.get('categoryUUID')}
                         index={index}
                         key={category.get('categoryUUID')}
+                        isDragDisabled={!this.props.userHasUpdatePermission}
                       >
                         {(provided, snapshot) => (
                           <NestedListItemWrapper
@@ -258,59 +259,64 @@ class NestedListInput extends Component {
                               <HierarchyName title={hierarchy}>
                                 {hierarchy}
                               </HierarchyName>
-                              <HeaderActionsWrapper>
-                                <ActionButton
-                                  className="dtpanel-action-update-item"
-                                  title={`Update Category Name : ${hierarchy}`}
-                                  onClick={() =>
-                                    this.props.setSelectedSubEntityId(
-                                      `updateCategoryHeader:${category.get('categoryUUID')}`
-                                    )
-                                  }
-                                  disabled={!this.props.userHasUpdatePermission}
-                                  type="button"
-                                >
-                                  <EditIconSVG size={15} editIconType="primary" />
-                                </ActionButton>
-                                <ConfirmationWrapper
-                                  confirmBtnCallback={() => this.props.removeCategoryItems(category.get('categoryUUID'))}
-                                  mainText={
-                                    this.props.selectedEntityId !== 'create' && this.props.reasonHeaders.size === 1
-                                      ? `Nested List Cannot be empty.`
-                                      : `This will delete all of the nested list items in this category.`
-                                  }
-                                  secondaryText={
-                                    this.props.selectedEntityId !== 'create' && this.props.reasonHeaders.size === 1
-                                      ? 'Nested List should contain at least one category.'
-                                      : 'Are you sure you want to continue?'
-                                  }
-                                  cancelBtnText={
-                                    this.props.selectedEntityId !== 'create' && this.props.reasonHeaders.size === 1
-                                      ? 'Okay'
-                                      : 'Cancel'
-                                  }
-                                  openPopupBox={
-                                    this.props.selectedEntityId !== 'create' && this.props.reasonHeaders.size === 1
-                                      ? true
-                                      : false
-                                  }
-                                >
-                                  <div style={{ marginRight: '10px' }}>
-                                    <ActionButton
-                                      className="dtpanel-action-remove-item"
-                                      title={`Delete All Nested List Items in : ${hierarchy}`}
-                                      disabled={!this.props.userHasUpdatePermission}
-                                      type="button"
-                                    >
-                                      <CloseIconSVG
-                                        size={10}
-                                        closeIconType="primary"
+                              {this.props.userHasUpdatePermission && 
+                                <HeaderActionsWrapper>
+                                  <ActionButton
+                                    className="dtpanel-action-update-item"
+                                    title={`Update Category Name : ${hierarchy}`}
+                                    onClick={() =>
+                                      this.props.setSelectedSubEntityId(
+                                        `updateCategoryHeader:${category.get('categoryUUID')}`
+                                      )
+                                    }
+                                    disabled={!this.props.userHasUpdatePermission}
+                                    type="button"
+                                  >
+                                    <EditIconSVG 
+                                      size={15} 
+                                      editIconType="primary" 
+                                      disabled={!this.props.userHasUpdatePermission} />
+                                  </ActionButton>
+                                  <ConfirmationWrapper
+                                    confirmBtnCallback={() => this.props.removeCategoryItems(category.get('categoryUUID'))}
+                                    mainText={
+                                      this.props.selectedEntityId !== 'create' && this.props.reasonHeaders.size === 1
+                                        ? `Nested List Cannot be empty.`
+                                        : `This will delete all of the nested list items in this category.`
+                                    }
+                                    secondaryText={
+                                      this.props.selectedEntityId !== 'create' && this.props.reasonHeaders.size === 1
+                                        ? 'Nested List should contain at least one category.'
+                                        : 'Are you sure you want to continue?'
+                                    }
+                                    cancelBtnText={
+                                      this.props.selectedEntityId !== 'create' && this.props.reasonHeaders.size === 1
+                                        ? 'Okay'
+                                        : 'Cancel'
+                                    }
+                                    openPopupBox={
+                                      this.props.selectedEntityId !== 'create' && this.props.reasonHeaders.size === 1
+                                        ? true
+                                        : false
+                                    }
+                                  >
+                                    <div style={{ marginRight: '10px' }}>
+                                      <ActionButton
+                                        className="dtpanel-action-remove-item"
+                                        title={`Delete All Nested List Items in : ${hierarchy}`}
                                         disabled={!this.props.userHasUpdatePermission}
-                                      />
-                                    </ActionButton>
-                                  </div>
-                                </ConfirmationWrapper>
-                              </HeaderActionsWrapper>
+                                        type="button"
+                                      >
+                                        <CloseIconSVG
+                                          size={10}
+                                          closeIconType="primary"
+                                          disabled={!this.props.userHasUpdatePermission}
+                                        />
+                                      </ActionButton>
+                                    </div>
+                                  </ConfirmationWrapper>
+                                </HeaderActionsWrapper>
+                              } 
                             </HeaderContainer>
                             <Droppable droppableId={category.get('droppableUUID')} type={category.get('categoryUUID')}>
                               {(provided, snapshot) => (
@@ -326,6 +332,7 @@ class NestedListInput extends Component {
                                         draggableId={reason.get('draggableUUID')}
                                         index={index}
                                         key={reason.get('draggableUUID')}
+                                        isDragDisabled={!this.props.userHasUpdatePermission}
                                       >
                                         {(provided, snapshot) => (
                                           <ReasonsWrapper
@@ -348,50 +355,52 @@ class NestedListInput extends Component {
                                             <ReasonItem title={reason.get('contactType')}>
                                               {reason.get('contactType')}
                                             </ReasonItem>
-                                            <ReasonActionsWrapper>
-                                              <ConfirmationWrapper
-                                                confirmBtnCallback={() =>
-                                                  this.props.removeReasonListItem(reason.get('reasonUUID'))
-                                                }
-                                                mainText={
-                                                  this.props.selectedEntityId !== 'create' &&
-                                                    this.props.input.value.size === 1
-                                                    ? `Nested List Cannot be empty.`
-                                                    : `Deleting this item cannot be undone.`
-                                                }
-                                                secondaryText={
-                                                  this.props.selectedEntityId !== 'create' &&
-                                                    this.props.input.value.size === 1
-                                                    ? 'Nested List should contain at least one contact.'
-                                                    : 'Are you sure you want to continue?'
-                                                }
-                                                cancelBtnText={
-                                                  this.props.selectedEntityId !== 'create' &&
-                                                    this.props.input.value.size === 1
-                                                    ? 'Okay'
-                                                    : 'Cancel'
-                                                }
-                                                openPopupBox={
-                                                  this.props.selectedEntityId !== 'create' &&
-                                                    this.props.input.value.size === 1
-                                                    ? true
-                                                    : false
-                                                }
-                                              >
-                                                <ActionButton
-                                                  className="dtpanel-action-remove-item"
-                                                  title={`Delete Nested List Item : ${reason.get('name')}`}
-                                                  disabled={!this.props.userHasUpdatePermission}
-                                                  type="button"
+                                            {this.props.userHasUpdatePermission &&
+                                              <ReasonActionsWrapper>
+                                                <ConfirmationWrapper
+                                                  confirmBtnCallback={() =>
+                                                    this.props.removeReasonListItem(reason.get('reasonUUID'))
+                                                  }
+                                                  mainText={
+                                                    this.props.selectedEntityId !== 'create' &&
+                                                      this.props.input.value.size === 1
+                                                      ? `Nested List Cannot be empty.`
+                                                      : `Deleting this item cannot be undone.`
+                                                  }
+                                                  secondaryText={
+                                                    this.props.selectedEntityId !== 'create' &&
+                                                      this.props.input.value.size === 1
+                                                      ? 'Nested List should contain at least one contact.'
+                                                      : 'Are you sure you want to continue?'
+                                                  }
+                                                  cancelBtnText={
+                                                    this.props.selectedEntityId !== 'create' &&
+                                                      this.props.input.value.size === 1
+                                                      ? 'Okay'
+                                                      : 'Cancel'
+                                                  }
+                                                  openPopupBox={
+                                                    this.props.selectedEntityId !== 'create' &&
+                                                      this.props.input.value.size === 1
+                                                      ? true
+                                                      : false
+                                                  }
                                                 >
-                                                  <CloseIconSVG
-                                                    size={10}
-                                                    closeIconType="primary"
+                                                  <ActionButton
+                                                    className="dtpanel-action-remove-item"
+                                                    title={`Delete Nested List Item : ${reason.get('name')}`}
                                                     disabled={!this.props.userHasUpdatePermission}
-                                                  />
-                                                </ActionButton>
-                                              </ConfirmationWrapper>
-                                            </ReasonActionsWrapper>
+                                                    type="button"
+                                                  >
+                                                    <CloseIconSVG
+                                                      size={10}
+                                                      closeIconType="primary"
+                                                      disabled={!this.props.userHasUpdatePermission}
+                                                    />
+                                                  </ActionButton>
+                                                </ConfirmationWrapper>
+                                              </ReasonActionsWrapper>
+                                            }
                                           </ReasonsWrapper>
                                         )}
                                       </Draggable>

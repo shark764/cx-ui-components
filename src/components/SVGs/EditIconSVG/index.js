@@ -8,6 +8,7 @@ const SvgWrapper = styled.div`
   &:hover > svg > .icon {
     fill: darken(0.3, ${props => props.theme.primaryColor});
   }
+  ${props => props.disabled && css`cursor: not-allowed;`}
   ${props => props.size && `width: ${props.size}px;`};
 `;
 const StyledPath = styled.path`
@@ -27,7 +28,7 @@ const StyledPath = styled.path`
 function EditIconSVG(props) {
   return (
     <Fragment>
-      <SvgWrapper size={props.size} className={`EditIconSVG ${props.className}`} onClick={props.onClick}>
+      <SvgWrapper size={props.size} className={`EditIconSVG ${props.className}`} onClick={props.onClick} disabled={props.disabled}>
         <svg viewBox="0 0 576 512">
           <StyledPath
             editIconType={props.editIconType}
@@ -45,6 +46,7 @@ EditIconSVG.propTypes = {
   className: PropTypes.string,
   size: PropTypes.number,
   onClick: PropTypes.func,
+  disabled: PropTypes.bool,
 };
 
 EditIconSVG.defaultProps = {
