@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.54.0] - 2019-09-25
+### Added
+- <no-jira> - CheckList and Filter Icon components.
+### Changed
+- CXV1-19972 - Agent State Monitoring - No visual feedback on when a filter is selected.
+- CXV1-19967 - Bulk Action filter selection becomes a Check All/Uncheck All component.
+
 ## [0.53.1] - 2019-09-05
 ### Fixed
 - <no-jira> - Hiding action buttons on nested list component when user has no permissions to edit it

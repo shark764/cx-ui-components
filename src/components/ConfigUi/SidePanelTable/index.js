@@ -173,6 +173,7 @@ SidePanelTable.propTypes = {
   setPageSize: PropTypes.func,
   filtered: PropTypes.array,
   itemApiPending: PropTypes.string,
+  defaultSorted: PropTypes.any,
 };
 
 SidePanelTable.defaultProps = {

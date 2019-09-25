@@ -95,6 +95,8 @@ export { default as SimpleCaretIconSVG } from './components/SVGs/SimpleCaretIcon
 export { default as CheckedIconSVG } from './components/SVGs/CheckedIconSVG';
 export { default as WordWrapIconSVG } from './components/SVGs/WordwrapIconSVG';
 export { default as EyeIconSVG } from './components/SVGs/EyeIconSVG';
+export { default as CheckListIconSVG } from './components/SVGs/CheckListIconSVG';
+export { default as FilterIconSVG } from './components/SVGs/FilterIconSVG';
 
 // Constants
 export { defaultTheme } from './constants';

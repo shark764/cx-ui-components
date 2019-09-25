@@ -14,10 +14,15 @@ import styled from 'styled-components';
 
 import Button from '../Button';
 import SimpleCaretIconSVG from '../../SVGs/SimpleCaretIconSVG';
+import FilterIconSVG from '../../SVGs/FilterIconSVG';
 
+const DropdownFilterIcon = styled(FilterIconSVG)`
+  margin-left: 5px;
+  float: right;
+`;
 const DropdownIcon = styled(SimpleCaretIconSVG)`
   width: 10px;
-  margin-left: 15px;
+  margin-left: 5px;
   float: right;
 `;
 
@@ -33,6 +38,7 @@ function DropdownButton(props) {
     >
       <span>{props.children}</span>
       <DropdownIcon size={props.size} direction={props.open ? 'up' : 'down'} />
+      {props.buttonType === 'columnFilter' && props.hasActiveFilter && <DropdownFilterIcon size={15} />}
     </Button>
   );
 }
@@ -48,6 +54,7 @@ DropdownButton.propTypes = {
   open: PropTypes.bool,
   type: PropTypes.string,
   size: PropTypes.number,
+  hasActiveFilter: PropTypes.bool,
 };
 
 export default DropdownButton;

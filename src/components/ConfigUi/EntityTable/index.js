@@ -142,13 +142,13 @@ const CheckboxWrapper = styled.div`
   height: 100%;
 `;
 
-const Checkbox1 = styled(Checkbox)`
+const HeaderCheckbox = styled(Checkbox)`
   width: 15px;
   height: 15px;
   margin: 5px;
 `;
 
-const Checkbox2 = styled.input`
+const RowCheckbox = styled.input`
   width: 15px;
   height: 15px;
   margin-top: 2px;
@@ -222,8 +222,15 @@ class EntityTable extends Component {
   unselectAll = () => {
     this.selectToggle(this.getData('all'), false, 'all');
   };
+  toggleHeader = value => {
+    if (value === 'on') {
+      this.selectAllVisible();
+    } else if (value === 'off') {
+      this.unselectAllVisible();
+    }
+  };
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps) {
     // Only update state if the data has changed
     if (prevProps.items !== this.props.items && this.props.items.length) {
       // We plus 5 to data length in case there are no data or data length is less than 5
@@ -242,21 +249,14 @@ class EntityTable extends Component {
   render() {
     const bulkColumn = {
       id: 'bulkId',
+      // Changing filter behavior for header toggle to
+      // Select/Unselect All Visible functionality.
+      // See CXV1-19967 for more details.
+      Header: <HeaderCheckbox className="bulk-action-select-all-toggle" onChange={this.toggleHeader} />,
       accessor: 'bulkChangeItem',
-      filterMethod: ({ value, id }, rows) => {
-        if (value === 'on') {
-          return rows[id] === true;
-        } else if (value === 'off') {
-          return rows[id] === undefined;
-        } else {
-          return true;
-        }
-      },
-      Filter: ({ onChange }) => (
-        <Checkbox1 className="bulk-action-filter-toggle" onChange={onChange} indeterminate="true" />
-      ),
       sortable: false,
       resizable: false,
+      filterable: false,
       width: 40,
       Cell: ({ row }) => (
         <CheckboxWrapper
@@ -265,7 +265,7 @@ class EntityTable extends Component {
             this.props.onBulkClick(this.props.entityMetadata.entityName, row._original.id) && e.stopPropagation()
           }
         >
-          <Checkbox2
+          <RowCheckbox
             type="checkbox"
             checked={row._original.bulkChangeItem || false}
             readOnly
@@ -337,7 +337,7 @@ class EntityTable extends Component {
           }
           pageSizeOptions={this.state.pageSizeOptions}
           pageSize={this.state.pageSize}
-          onPageSizeChange={(pageSize, page) => this.setState({ pageSize })}
+          onPageSizeChange={pageSize => this.setState({ pageSize })}
           defaultPageSize={this.state.defaultPageSize}
           className="-striped EntityTable"
           filterable

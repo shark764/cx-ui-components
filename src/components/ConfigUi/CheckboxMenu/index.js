@@ -41,6 +41,7 @@ export default class CheckboxMenu extends React.Component {
           onClick={() => {
             this.props.setSubMenuVisibility(this.props.menuType, this.props.tableType);
           }}
+          hasActiveFilter={this.props.hasActiveFilter}
         >
           {this.props.children}
         </DropdownButton>
@@ -81,6 +82,7 @@ CheckboxMenu.propTypes = {
   menuType: PropTypes.string.isRequired,
   tableType: PropTypes.string.isRequired,
   allActive: PropTypes.bool.isRequired,
+  hasActiveFilter: PropTypes.bool,
   toggleItem: PropTypes.func.isRequired,
   toggleAllOn: PropTypes.func,
   toggleAllOff: PropTypes.func,
