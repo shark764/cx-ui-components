@@ -12,7 +12,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import QuestionIconSVG from '../../SVGs/QuestionIconSVG';
+import QuestionIconSVG from '../../Icons/QuestionIconSVG';
 
 const Wrapper = styled.div`
   width: 100%;

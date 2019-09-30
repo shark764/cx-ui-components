@@ -6,7 +6,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { FixedSizeList as List } from "react-window";
-import SearchIconSVG from '../../SVGs/SearchIconSVG';
+import SearchIconSVG from '../../Icons/SearchIconSVG';
 import { fromEvent } from 'rxjs/observable/fromEvent';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/pluck';
@@ -302,6 +302,6 @@ Typeahead.propTypes = {
     options: PropTypes.array.isRequired,
     onSelectedOptionChange: PropTypes.func.isRequired,
     selectedOption: PropTypes.object,
-    className: PropTypes.string.isRequired,
+    className: PropTypes.string,
     noBackground: PropTypes.bool,
 }

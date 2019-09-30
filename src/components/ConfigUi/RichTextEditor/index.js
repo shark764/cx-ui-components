@@ -5,17 +5,17 @@ import styled, { css, injectGlobal } from 'styled-components';
 import { EditorState, RichUtils, AtomicBlockUtils, Modifier, CompositeDecorator } from 'draft-js';
 
 // Inline style Icons:
-import BoldSvgIcon from '../../SVGs/RichTextEditorSVGs/BoldSvgIcon';
-import ItalicFontSvgIcon from '../../SVGs/RichTextEditorSVGs/ItalicFontSvgIcon';
-import UnderlineSvgIcon from '../../SVGs/RichTextEditorSVGs/UnderlineSvgIcon';
-import TextColorSvgIcon, { colorStyleMap } from '../../SVGs/RichTextEditorSVGs/TextColorSvgIcon';
+import BoldSvgIcon from '../../Icons/RichTextEditorSVGs/BoldSvgIcon';
+import ItalicFontSvgIcon from '../../Icons/RichTextEditorSVGs/ItalicFontSvgIcon';
+import UnderlineSvgIcon from '../../Icons/RichTextEditorSVGs/UnderlineSvgIcon';
+import TextColorSvgIcon, { colorStyleMap } from '../../Icons/RichTextEditorSVGs/TextColorSvgIcon';
 
 // Block style Icons:
-import OrderedListSvgIcon from '../../SVGs/RichTextEditorSVGs/OrderedListSvgIcon';
-import UnorderedListSvgIcon from '../../SVGs/RichTextEditorSVGs/UnOrderedListSvgIcon';
-import ImageUploadSvgIcon from '../../SVGs/RichTextEditorSVGs/ImageUploadSvgIcon';
-import ToggleTextSvgIcon from '../../SVGs/RichTextEditorSVGs/ToggleTextSvgIcon';
-import HeaderSvgIcon from '../../SVGs/RichTextEditorSVGs/HeaderSvgIcon';
+import OrderedListSvgIcon from '../../Icons/RichTextEditorSVGs/OrderedListSvgIcon';
+import UnorderedListSvgIcon from '../../Icons/RichTextEditorSVGs/UnOrderedListSvgIcon';
+import ImageUploadSvgIcon from '../../Icons/RichTextEditorSVGs/ImageUploadSvgIcon';
+import ToggleTextSvgIcon from '../../Icons/RichTextEditorSVGs/ToggleTextSvgIcon';
+import HeaderSvgIcon from '../../Icons/RichTextEditorSVGs/HeaderSvgIcon';
 
 // Image & text conversion Plugins:
 import { plugins, blockRenderer, decorators, AddImageComponent } from './imagePlugins';

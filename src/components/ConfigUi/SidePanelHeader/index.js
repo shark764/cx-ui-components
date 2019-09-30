@@ -13,8 +13,8 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import Toggle from '../Toggle';
-import CloseIconSVG from '../../SVGs/CloseIconSVG';
-import CopyIconSVG from '../../SVGs/CopyIconSVG';
+import CloseIconSVG from '../../Icons/CloseIconSVG';
+import CopyIconSVG from '../../Icons/CopyIconSVG';
 
 const Wrapper = styled.div`
   display: flex;

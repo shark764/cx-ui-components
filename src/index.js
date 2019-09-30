@@ -71,32 +71,33 @@ export { default as AgentStateDetails } from './components/ConfigUi/AgentStateDe
 export { default as FilterInput } from './components/ConfigUi/Filter/FilterInput';
 export { default as FilterSelect } from './components/ConfigUi/Filter/FilterSelect';
 
-// SVGs
-export { default as HangUpIconSVG } from './components/SVGs/HangUpIconSVG';
-export { default as MutedIconSVG } from './components/SVGs/MutedIconSVG';
-export { default as OnPstnCallSVG } from './components/SVGs/OnPstnCallSVG';
-export { default as UnMutedIconSVG } from './components/SVGs/UnMutedIconSVG';
-export { default as CaretIconSVG } from './components/SVGs/CaretIconSVG';
-export { default as VoiceIconSVG } from './components/SVGs/VoiceIconSVG';
-export { default as LoadingSpinnerSVG } from './components/SVGs/LoadingSpinnerSVG';
-export { default as SearchIconSVG } from './components/SVGs/SearchIconSVG';
-export { default as ViewIconSVG } from './components/SVGs/ViewIconSVG';
-export { default as CloseIconSVG } from './components/SVGs/CloseIconSVG';
-export { default as CopyIconSVG } from './components/SVGs/CopyIconSVG';
-export { default as EditIconSVG } from './components/SVGs/EditIconSVG';
-export { default as QuestionIconSVG } from './components/SVGs/EditIconSVG';
-export { default as PlusIconSVG } from './components/SVGs/PlusIconSVG';
-export { default as SettingIconSVG } from './components/SVGs/SettingIconSVG';
-export { default as QuestionMarkCircleIconSVG } from './components/SVGs/QuestionMarkCircleIconSVG';
-export { default as DirectionIconSVG } from './components/SVGs/DirectionIconSVG';
-export { default as ChannelIconSVG } from './components/SVGs/ChannelIconSVG';
-export { default as PresenceStateIconSVG } from './components/SVGs/PresenceStateIconSVG';
-export { default as SimpleCaretIconSVG } from './components/SVGs/SimpleCaretIconSVG';
-export { default as CheckedIconSVG } from './components/SVGs/CheckedIconSVG';
-export { default as WordWrapIconSVG } from './components/SVGs/WordwrapIconSVG';
-export { default as EyeIconSVG } from './components/SVGs/EyeIconSVG';
-export { default as CheckListIconSVG } from './components/SVGs/CheckListIconSVG';
-export { default as FilterIconSVG } from './components/SVGs/FilterIconSVG';
+// Icons
+export { default as HangUpIconSVG } from './components/Icons/HangUpIconSVG';
+export { default as MutedIconSVG } from './components/Icons/MutedIconSVG';
+export { default as OnPstnCallSVG } from './components/Icons/OnPstnCallSVG';
+export { default as UnMutedIconSVG } from './components/Icons/UnMutedIconSVG';
+export { default as CaretIconSVG } from './components/Icons/CaretIconSVG';
+export { default as VoiceIconSVG } from './components/Icons/VoiceIconSVG';
+export { default as LoadingSpinnerSVG } from './components/Icons/LoadingSpinnerSVG';
+export { default as SearchIconSVG } from './components/Icons/SearchIconSVG';
+export { default as ViewIconSVG } from './components/Icons/ViewIconSVG';
+export { default as CloseIconSVG } from './components/Icons/CloseIconSVG';
+export { default as CopyIconSVG } from './components/Icons/CopyIconSVG';
+export { default as EditIconSVG } from './components/Icons/EditIconSVG';
+export { default as QuestionIconSVG } from './components/Icons/EditIconSVG';
+export { default as PlusIconSVG } from './components/Icons/PlusIconSVG';
+export { default as SettingIconSVG } from './components/Icons/SettingIconSVG';
+export { default as QuestionMarkCircleIconSVG } from './components/Icons/QuestionMarkCircleIconSVG';
+export { default as DirectionIconSVG } from './components/Icons/DirectionIconSVG';
+export { default as ChannelIconSVG } from './components/Icons/ChannelIconSVG';
+export { default as PresenceStateIconSVG } from './components/Icons/PresenceStateIconSVG';
+export { default as SimpleCaretIconSVG } from './components/Icons/SimpleCaretIconSVG';
+export { default as CheckedIconSVG } from './components/Icons/CheckedIconSVG';
+export { default as WordWrapIconSVG } from './components/Icons/WordwrapIconSVG';
+export { default as EyeIconSVG } from './components/Icons/EyeIconSVG';
+export { default as CheckListIconSVG } from './components/Icons/CheckListIconSVG';
+export { default as FilterIconSVG } from './components/Icons/FilterIconSVG';
+export { default as TypingIndicator } from './components/Icons/TypingIndicator';
 
 // Constants
 export { defaultTheme } from './constants';

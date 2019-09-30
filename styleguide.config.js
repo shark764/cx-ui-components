@@ -30,10 +30,9 @@ module.exports = {
       ],
     },
     {
-      name: 'Scalable Vector Grapics',
+      name: 'Icons',
       // content: 'src/colors.md',
-      components: 'src/components/SVGs/**/index.js',
-      description: 'Svg Icons',
+      components: 'src/components/Icons/**/index.js',
     },
     {
       name: 'Components',

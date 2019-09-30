@@ -7,8 +7,8 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { capitalizeFirstLetter } from 'serenova-js-utils/strings';
 
-import CheckedIconSVG from '../../../SVGs/CheckedIconSVG';
-import DirectionIconSVG from '../../../SVGs/DirectionIconSVG';
+import CheckedIconSVG from '../../../Icons/CheckedIconSVG';
+import DirectionIconSVG from '../../../Icons/DirectionIconSVG';
 
 const DirectionRowContainer = styled.div`
   padding: 5px 25px 0;

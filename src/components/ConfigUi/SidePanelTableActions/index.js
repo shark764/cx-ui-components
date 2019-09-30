@@ -6,12 +6,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Button from '../Button';
-import ViewIconSVG from '../../SVGs/ViewIconSVG';
-import EditIconSVG from '../../SVGs/EditIconSVG';
-import CloseIconSVG from '../../SVGs/CloseIconSVG';
-import PlusIconSVG from '../../SVGs/PlusIconSVG';
-import CopyIconSVG from '../../SVGs/CopyIconSVG';
-import LoadingSpinner from '../../SVGs/LoadingSpinnerSVG';
+import ViewIconSVG from '../../Icons/ViewIconSVG';
+import EditIconSVG from '../../Icons/EditIconSVG';
+import CloseIconSVG from '../../Icons/CloseIconSVG';
+import PlusIconSVG from '../../Icons/PlusIconSVG';
+import CopyIconSVG from '../../Icons/CopyIconSVG';
+import LoadingSpinner from '../../Icons/LoadingSpinnerSVG';
 import Toggle from '../Toggle';
 import ConfirmationWrapper from '../Confirmation/ConfirmationWrapper';
 

@@ -12,8 +12,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 
-import CheckedIconSVG from '../../../SVGs/CheckedIconSVG';
-import PresenceStateIconSVG from '../../../SVGs/PresenceStateIconSVG';
+import CheckedIconSVG from '../../../Icons/CheckedIconSVG';
+import PresenceStateIconSVG from '../../../Icons/PresenceStateIconSVG';
 
 const StatusCheckedIconSVG = styled(CheckedIconSVG)`
   float: right;

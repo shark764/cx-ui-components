@@ -16,7 +16,7 @@ import styled, { css } from 'styled-components';
 
 import '../../../../assets/css/collapsible.css';
 
-import SimpleCaretIconSVG from '../../../SVGs/SimpleCaretIconSVG';
+import SimpleCaretIconSVG from '../../../Icons/SimpleCaretIconSVG';
 
 const CollapsibleTriggerText = styled.div`
   display: flex;

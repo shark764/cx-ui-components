@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 
-import SimpleCaretIconSVG from '../../../SVGs/SimpleCaretIconSVG';
+import SimpleCaretIconSVG from '../../../Icons/SimpleCaretIconSVG';
 
 const BackCaret = styled(SimpleCaretIconSVG)`
   vertical-align: top;

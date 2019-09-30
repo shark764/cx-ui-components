@@ -15,9 +15,9 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Button from '../../Button';
 import { List } from 'immutable';
-import EditIconSVG from '../../../SVGs/EditIconSVG';
-import CloseIconSVG from '../../../SVGs/CloseIconSVG';
-import LoadingSpinnerSVG from '../../../SVGs/LoadingSpinnerSVG';
+import EditIconSVG from '../../../Icons/EditIconSVG';
+import CloseIconSVG from '../../../Icons/CloseIconSVG';
+import LoadingSpinnerSVG from '../../../Icons/LoadingSpinnerSVG';
 import ConfirmationWrapper from '../../Confirmation/ConfirmationWrapper';
 
 const AddNewContactHelpTextWrapper = styled.div`

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { generateUUID } from 'serenova-js-utils/uuid';
 import { Field as ReduxFormField } from 'redux-form/immutable';
 import FieldWrapper from '../FieldWrapper';
-import CloseIconSVG from '../../../SVGs/CloseIconSVG';
+import CloseIconSVG from '../../../Icons/CloseIconSVG';
 import { Input } from '../StyledInputs';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 

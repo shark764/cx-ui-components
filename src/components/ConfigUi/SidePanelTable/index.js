@@ -18,7 +18,7 @@ import 'react-table/react-table.css';
 import SidePanelTableActions from '../SidePanelTableActions';
 import { importantCss, convertFieldsToColumns } from '../../../utils';
 import { filterDefaultMethod } from '../../../utils/filterMethod';
-import LoadingSpinner from '../../SVGs/LoadingSpinnerSVG';
+import LoadingSpinner from '../../Icons/LoadingSpinnerSVG';
 
 import DynamicTableWrapper from '../DynamicTableWrapper';
 import Pagination from '../EntityTable/Pagination';

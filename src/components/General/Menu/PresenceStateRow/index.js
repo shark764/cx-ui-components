@@ -7,10 +7,10 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { capitalizeFirstLetter } from 'serenova-js-utils/strings';
 
-import CheckedIconSVG from '../../../SVGs/CheckedIconSVG';
-import PresenceStateIconSVG from '../../../SVGs/PresenceStateIconSVG';
+import CheckedIconSVG from '../../../Icons/CheckedIconSVG';
+import PresenceStateIconSVG from '../../../Icons/PresenceStateIconSVG';
 
-import SimpleCaretIconSVG from '../../../SVGs/SimpleCaretIconSVG';
+import SimpleCaretIconSVG from '../../../Icons/SimpleCaretIconSVG';
 
 const FrontCaret = styled(SimpleCaretIconSVG)`
   float: right;

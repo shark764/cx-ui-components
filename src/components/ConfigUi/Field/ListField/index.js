@@ -4,8 +4,8 @@ import styled from 'styled-components';
 import { List } from 'immutable';
 import { Field as ReduxFormField } from 'redux-form/immutable';
 import FieldWrapper from '../FieldWrapper';
-import PlusIconSVG from '../../../SVGs/PlusIconSVG';
-import CloseIconSVG from '../../../SVGs/CloseIconSVG';
+import PlusIconSVG from '../../../Icons/PlusIconSVG';
+import CloseIconSVG from '../../../Icons/CloseIconSVG';
 import { Input } from '../StyledInputs';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
 

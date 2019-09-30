@@ -13,8 +13,8 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import Button from '../Button';
-import SimpleCaretIconSVG from '../../SVGs/SimpleCaretIconSVG';
-import FilterIconSVG from '../../SVGs/FilterIconSVG';
+import SimpleCaretIconSVG from '../../Icons/SimpleCaretIconSVG';
+import FilterIconSVG from '../../Icons/FilterIconSVG';
 
 const DropdownFilterIcon = styled(FilterIconSVG)`
   margin-left: 5px;

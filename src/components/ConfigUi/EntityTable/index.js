@@ -17,7 +17,7 @@ import 'react-table/react-table.css';
 
 import Button from '../Button';
 import PageHeader from '../PageHeader';
-import LoadingSpinner from '../../SVGs/LoadingSpinnerSVG';
+import LoadingSpinner from '../../Icons/LoadingSpinnerSVG';
 
 import { importantCss } from '../../../utils';
 import { filterDefaultMethod } from '../../../utils/filterMethod';
