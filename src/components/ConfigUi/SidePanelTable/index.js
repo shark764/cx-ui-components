@@ -99,7 +99,7 @@ function SidePanelTable(props) {
   if (actions.length && (props.userHasUpdatePermission || props.userHasViewPermission) && !props.inherited) {
     columns.push({
       id: 'actions',
-      Header: 'Actions',
+      Header: <span title="Actions">Actions</span>,
       filterable: false,
       sortable: false,
       accessor: d =>

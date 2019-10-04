@@ -13,7 +13,11 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import Button from '../Button';
+import ConfirmationWrapper from '../Confirmation/ConfirmationWrapper';
 
+const CancelConfirmationWrapper = styled(ConfirmationWrapper)`
+  display: block;
+`;
 const SlimButton = styled(Button)`
   max-width: 200px;
   width: 45%;
@@ -24,6 +28,10 @@ const SlimButton = styled(Button)`
 `;
 
 function SidePanelActions(props) {
+  // We add a confirmation for cancel button, to match
+  // Config1 behavior.
+  // We need to warn the user about losing all changes
+  // when clicking on it.
   return (
     <div id={props.id} className={props.className}>
       <SlimButton
@@ -36,14 +44,21 @@ function SidePanelActions(props) {
         {!props.save && (props.isSaving ? 'Saving' : 'Submit')}
         {props.save && 'Save'}
       </SlimButton>
-      <SlimButton
-        type="button"
-        buttonType="secondary"
-        onClick={props.onCancel}
-        id="sdpanel-cancel"
+      <CancelConfirmationWrapper
+        confirmBtnCallback={props.dirty ? props.onCancel : undefined}
+        mainText="You have unsaved changes that will be lost!."
+        secondaryText="Click Confirm to discard changes, or Cancel to continue editing."
       >
-        Cancel
-      </SlimButton>
+        <SlimButton
+          type="button"
+          buttonType="secondary"
+          onClick={!props.dirty ? props.onCancel : undefined}
+          id="sdpanel-cancel"
+          disabled={props.isSaving}
+        >
+          Cancel
+        </SlimButton>
+      </CancelConfirmationWrapper>
     </div>
   );
 }
@@ -55,6 +70,7 @@ SidePanelActions.propTypes = {
   onSubmit: PropTypes.func,
   onCancel: PropTypes.func.isRequired,
   pristine: PropTypes.bool,
+  dirty: PropTypes.bool,
   invalid: PropTypes.bool,
   save: PropTypes.bool,
 };

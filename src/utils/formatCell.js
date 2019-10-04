@@ -7,7 +7,8 @@ import { getFormattedValue } from './';
 
 export function formatCell(value, format) {
   if (format !== undefined) {
-    return getFormattedValue(value, format);
+    const formattedValue = getFormattedValue(value, format);
+    return <span title={`${formattedValue}`}>{`${formattedValue}`}</span>;
   }
   return value && <span title={`${value}`}>{`${value}`}</span>;
 }
