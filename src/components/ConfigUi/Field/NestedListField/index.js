@@ -14,7 +14,7 @@ import { Field as ReduxFormField } from 'redux-form/immutable';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Button from '../../Button';
-import { List } from 'immutable';
+import { List, is } from 'immutable';
 import EditIconSVG from '../../../Icons/EditIconSVG';
 import CloseIconSVG from '../../../Icons/CloseIconSVG';
 import LoadingSpinnerSVG from '../../../Icons/LoadingSpinnerSVG';
@@ -41,23 +41,22 @@ const NestedListItemsContainer = styled.div`
   background-color: ${props => (props.isDraggingOver ? 'rgba(0, 0, 0, 0.21)' : 'white')};
 `;
 const NestedListItemWrapper = styled.div`
-  margin-top: 10px;
-  margin-bottom: 10px;
-  padding: 5px;
-  border: ${props => (props.isDragging ? '1px solid rgb(170, 214, 255)' : 'none')};
-  background-color: ${props => (props.isDragging ? 'rgb(170, 214, 255)' : 'white')};
+  border: ${props => (props.isDragging ? '5px solid rgb(170, 214, 255)' : 'none')};
+  background-color: white;
+  margin-bottom: 5px;
+  border-radius: 2px
+  box-shadow: 0px 1px 2px 0px rgba(9, 30, 66, 0.25);
+  :hover {
+    border: 5px solid #d7e9f5;
+  }
 `;
 const HeaderContainer = styled.div`
   display: flex;
   flex-direction: row;
   border: none !important;
-  height: 40px !important;
-  max-height: 40px !important;
+  height: 30px !important;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.03);
-  :hover {
-    background: #d7e9f5;
-  }
+  background-color: rgba(0, 0, 0, 0.1);
 `;
 const CategoryGripIcon = styled.div`
   flex: 10 0;
@@ -91,9 +90,7 @@ const ReasonsContainer = styled.div`
 const ReasonsWrapper = styled.div`
   display: flex;
   flex-direction: row;
-  height: 40px !important;
-  max-height: 40px !important;
-  margin-top: 10px;
+  height: 30px !important;
   margin-bottom: 10px;
   align-items: center;
   :hover {
@@ -214,6 +211,19 @@ class NestedListInput extends Component {
       this.props.input.onChange(updatedReasons);
     }
   };
+  shouldComponentUpdate(nextProps) {
+    // render method gets called each time an item from the list is dragged, even though a complete drag-drop action is not perfomed.
+    // as a result the snapshot value in the "Droppable" & "Draggable" functions gets updated because we are applying styles on "isDragging".
+    // to optimize the performance of this component, we have to call the render method only when drag-drop action is performed successfully.
+    if (List.isList(this.props.input.value)) {
+      const currentOrder = this.props.input.value.map(val => val.get('reasonUUID'));
+      const nextOrder = nextProps.input.value.map(val => val.get('reasonUUID'));
+      if (is(currentOrder, nextOrder)) {
+        return false;
+      }
+    }
+    return true;
+  }
 
   render() {
     return (
@@ -273,7 +283,7 @@ class NestedListInput extends Component {
                                     type="button"
                                   >
                                     <EditIconSVG 
-                                      size={15} 
+                                      size={10} 
                                       editIconType="primary" 
                                       disabled={!this.props.userHasUpdatePermission} />
                                   </ActionButton>
@@ -308,7 +318,7 @@ class NestedListInput extends Component {
                                         type="button"
                                       >
                                         <CloseIconSVG
-                                          size={10}
+                                          size={8}
                                           closeIconType="primary"
                                           disabled={!this.props.userHasUpdatePermission}
                                         />
@@ -393,7 +403,7 @@ class NestedListInput extends Component {
                                                     type="button"
                                                   >
                                                     <CloseIconSVG
-                                                      size={10}
+                                                      size={8}
                                                       closeIconType="primary"
                                                       disabled={!this.props.userHasUpdatePermission}
                                                     />

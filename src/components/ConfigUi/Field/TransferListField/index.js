@@ -14,7 +14,7 @@ import { Field as ReduxFormField } from 'redux-form/immutable';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Button from '../../Button';
-import { List } from 'immutable';
+import { List, is } from 'immutable';
 import EditIconSVG from '../../../Icons/EditIconSVG';
 import CloseIconSVG from '../../../Icons/CloseIconSVG';
 import LoadingSpinnerSVG from '../../../Icons/LoadingSpinnerSVG';
@@ -37,27 +37,26 @@ const AddNewContactWarningText = styled.p`
   margin: 0px;
 `;
 const TransferListItemsContainer = styled.div`
-  padding: ${props => (props.isDraggingOver ? '15px' : '0')};
-  background-color: ${props => (props.isDraggingOver ? 'rgba(0, 0, 0, 0.21)' : 'white')};
+  padding: ${props => (props.isDraggingOver ? '20px' : '5px')};
+  background-color: ${props => (props.isDraggingOver ? 'rgba(0, 0, 0, 0.21)' : '#F4F5F7')};
 `;
 const TransferListItemWrapper = styled.div`
-  margin-top: 10px;
-  margin-bottom: 10px;
-  padding: 5px;
-  border: ${props => (props.isDragging ? '1px solid rgb(170, 214, 255)' : 'none')};
-  background-color: ${props => (props.isDragging ? 'rgb(170, 214, 255)' : 'white')};
+  border: ${props => (props.isDragging ? '5px solid rgb(170, 214, 255)' : 'none')};
+  background-color: white;
+  margin-bottom: 5px;
+  border-radius: 2px
+  box-shadow: 0px 1px 2px 0px rgba(9, 30, 66, 0.25);
+  :hover {
+    border: 5px solid #d7e9f5;
+  }
 `;
 const HeaderContainer = styled.div`
   display: flex;
   flex-direction: row;
   border: none !important;
-  height: 40px !important;
-  max-height: 40px !important;
+  height: 30px !important;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.03);
-  :hover {
-    background: #d7e9f5;
-  }
+  background-color: rgba(0, 0, 0, 0.1)
 `;
 const CategoryGripIcon = styled.div`
   flex: 10 0;
@@ -91,9 +90,7 @@ const EndpointsContainer = styled.div`
 const EndpointsWrapper = styled.div`
   display: flex;
   flex-direction: row;
-  height: 40px !important;
-  max-height: 40px !important;
-  margin-top: 10px;
+  height: 30px !important;
   margin-bottom: 10px;
   align-items: center;
   :hover {
@@ -210,6 +207,19 @@ class TransferListInput extends Component {
       this.props.input.onChange(reOrderedEndpoints);
     }
   };
+  shouldComponentUpdate(nextProps) {
+    // render method gets called each time an item from the list is dragged, even though a complete drag-drop action is not perfomed.
+    // as a result the snapshot value in the "Droppable" & "Draggable" functions gets updated because we are applying styles on "isDragging".
+    // to optimize the performance of this component, we have to call the render method only when drag-drop action is performed successfully.
+    if (List.isList(this.props.input.value)) {
+      const currentOrder = this.props.input.value.map(val => val.get('endpointUUID'));
+      const nextOrder = nextProps.input.value.map(val => val.get('endpointUUID'));
+      if (is(currentOrder, nextOrder)) {
+        return false;
+      }
+    }
+    return true;
+  }
   render() {
     return (
       <Fragment>
@@ -249,7 +259,7 @@ class TransferListInput extends Component {
                             <HeaderContainer>
                               <CategoryGripIcon title={`Drag to reorder category : ${category.get('hierarchy')}`}>
                                 :::
-                              </CategoryGripIcon>
+                                </CategoryGripIcon>
                               <HierarchyName title={category.get('hierarchy')}>
                                 {category.get('hierarchy')}
                               </HierarchyName>
@@ -265,7 +275,7 @@ class TransferListInput extends Component {
                                   disabled={!this.props.userHasUpdatePermission}
                                   type="button"
                                 >
-                                  <EditIconSVG size={15} editIconType="primary" />
+                                  <EditIconSVG size={10} editIconType="primary" />
                                 </ActionButton>
                                 <ConfirmationWrapper
                                   confirmBtnCallback={() => this.props.removeCategoryItems(category.get('categoryUUID'))}
@@ -298,7 +308,7 @@ class TransferListInput extends Component {
                                       type="button"
                                     >
                                       <CloseIconSVG
-                                        size={10}
+                                        size={8}
                                         closeIconType="primary"
                                         disabled={!this.props.userHasUpdatePermission}
                                       />
@@ -336,7 +346,7 @@ class TransferListInput extends Component {
                                               title={`Drag to Reorder Transfer List Item : ${endpoint.get('name')}`}
                                             >
                                               :::
-                                            </EndpointItem>
+                                              </EndpointItem>
                                             <EndpointItem title={endpoint.get('name')}>
                                               {endpoint.get('name')}
                                             </EndpointItem>
@@ -355,7 +365,7 @@ class TransferListInput extends Component {
                                                 disabled={!this.props.userHasUpdatePermission}
                                                 type="button"
                                               >
-                                                <EditIconSVG size={15} editIconType="primary" />
+                                                <EditIconSVG size={10} editIconType="primary" />
                                               </ActionButton>
                                               <ConfirmationWrapper
                                                 confirmBtnCallback={() =>
@@ -393,7 +403,7 @@ class TransferListInput extends Component {
                                                   type="button"
                                                 >
                                                   <CloseIconSVG
-                                                    size={10}
+                                                    size={8}
                                                     closeIconType="primary"
                                                     disabled={!this.props.userHasUpdatePermission}
                                                   />
