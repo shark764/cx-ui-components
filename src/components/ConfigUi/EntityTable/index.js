@@ -234,13 +234,11 @@ class EntityTable extends Component {
     // Only update state if the data has changed
     if (prevProps.items !== this.props.items && this.props.items.length) {
       // We plus 5 to data length in case there are no data or data length is less than 5
-      const pageSizeOptions = this.state.pageSizeOptions.filter(pSize => pSize < (this.props.items || []).length + 5);
       // Page size will be calculate depending on screen height
       // EntityTable height: 80vh (it is converted to pixels, this process depends on screen height)
       // Row height: 40px
-      const pageSize = getClosestValue(pageSizeOptions || [], vhToPixel(80) / 40);
+      const pageSize = getClosestValue(this.state.pageSizeOptions || [], vhToPixel(80) / 40);
       this.setState({
-        pageSizeOptions,
         pageSize,
       });
     }
