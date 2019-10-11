@@ -9,23 +9,21 @@ const Select = Input.withComponent('select').extend`
   ${props => !props.disabled && css`cursor: pointer;`}
 `;
 
-const SelectInput = ({
-  input,
-  label,
-  id,
-  className,
-  disabled,
-  meta: { touched, error, warning },
-  options,
-  required
-}) => {
-  if (options === 'boolean') {
-    options = [{ label: 'True', value: true }, { label: 'False', value: false }];
-  }
+const SelectInput = (props) => {
+  let options = (props.options === 'boolean')? [{ label: 'True', value: true }, { label: 'False', value: false }] : props.options;
+  const {
+    input,
+    label,
+    id,
+    className,
+    disabled,
+    meta: { touched, error, warning },
+    required
+  } = props;
+
   return (
     <FieldWrapper inputName={input.name} label={label} touched={touched} error={error} warning={warning}>
-      <Select {...input} id={id} className={className} disabled={disabled} hasError={touched && !!error}>
-        {options ? (
+<Select {...input} id={id} className={className} data-automation={props["data-automation"]} disabled={disabled} hasError={touched && !!error}>        {options ? (
           <Fragment>
             {!required && (
               <option disabled hidden value="">
@@ -67,6 +65,7 @@ export default function SelectField(props) {
 SelectField.propTypes = {
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
+  'data-automation': PropTypes.string,
   id: PropTypes.string,
   className: PropTypes.string,
   disabled: PropTypes.bool,
@@ -96,6 +95,7 @@ SelectInput.propTypes = {
   id: PropTypes.string,
   className: PropTypes.string,
   disabled: PropTypes.bool,
+  'data-automation': PropTypes.string,
   meta: PropTypes.object,
   options: PropTypes.oneOfType([
     PropTypes.arrayOf(

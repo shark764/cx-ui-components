@@ -32,6 +32,7 @@ function DropdownButton(props) {
       id={props.id}
       type={props.type}
       className={props.className}
+      data-automation={props['data-automation']}
       buttonType={props.buttonType}
       disabled={props.disabled}
       onClick={props.onClick}
@@ -48,6 +49,7 @@ DropdownButton.propTypes = {
   className: PropTypes.string,
   buttonType: PropTypes.oneOf(['primary', 'secondary', 'columnFilter', 'checkboxField', 'selector']),
   disabled: PropTypes.bool,
+  'data-automation':PropTypes.string,
   /** Text or icon to go inside the button */
   children: PropTypes.any,
   onClick: PropTypes.func,

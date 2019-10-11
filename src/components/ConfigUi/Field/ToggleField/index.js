@@ -4,7 +4,8 @@ import { Field as ReduxFormField } from 'redux-form/immutable';
 import Toggle from '../../Toggle';
 import FieldWrapper from '../FieldWrapper';
 
-const ToggleInput = ({
+const ToggleInput = (props)=> {
+  const {
   input,
   label,
   id,
@@ -13,7 +14,9 @@ const ToggleInput = ({
   title,
   labelMargin,
   meta: { touched, error, warning }
-}) => (
+} = props;
+
+return(
   <FieldWrapper
     inputName={input.name}
     label={label}
@@ -26,12 +29,13 @@ const ToggleInput = ({
       {...input}
       id={id}
       className={className}
+      data-automation={props['data-automation']}
       disabled={disabled}
       title={title}
     />
   </FieldWrapper>
 );
-
+}
 const parseToggle = value => value === true;
 
 export default function ToggleField(props) {
@@ -45,6 +49,7 @@ ToggleField.propTypes = {
   label: PropTypes.string.isRequired,
   id: PropTypes.string,
   className: PropTypes.string,
+  'data-automation': PropTypes.string,
   disabled: PropTypes.bool,
   title: PropTypes.string
 };
@@ -58,6 +63,7 @@ ToggleInput.propTypes = {
   label: PropTypes.string.isRequired,
   id: PropTypes.string,
   className: PropTypes.string,
+  'data-automation': PropTypes.string,
   disabled: PropTypes.bool,
   title: PropTypes.string,
   meta: PropTypes.object,

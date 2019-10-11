@@ -37,6 +37,7 @@ injectGlobal`${importantCss(`
     overflow-y: auto;
 
     .rt-resizer {
+      z-index: 0;
       right: 0;
     }
   }
@@ -277,7 +278,7 @@ class EntityTable extends Component {
       <GridContainer id={this.props.id} className={this.props.className}>
         <Header text={this.props.pageTitle} helpLink={this.props.pageHelpLink}>
           {this.props.userHasCreatePermission && (
-            <WrappedButton buttonType="primary" id="sdpanel-create" onClick={this.props.onCreateButtonClick}>
+            <WrappedButton buttonType="primary" id="sdpanel-create" data-automation="entityCreateButton" onClick={this.props.onCreateButtonClick}>
               Create
             </WrappedButton>
           )}
@@ -289,8 +290,9 @@ class EntityTable extends Component {
                 currentVisibleSubMenu={this.props.currentVisibleSubMenu}
                 menuType="actionsMenu"
                 buttonType="columnFilter"
+                data-automation="actionsButton"
                 tableType={this.props.entityMetadata && this.props.entityMetadata.entityName}
-                id="actions-button"
+                className="actions-button"
               >
                 <ActionButton
                   buttonType="columnFilter"
@@ -368,10 +370,12 @@ EntityTable.propTypes = {
   showBulkActionsMenu: PropTypes.bool,
   sorted: PropTypes.array,
   className: PropTypes.string,
+  tableRowSelect: PropTypes.string,
   children: PropTypes.element,
   fetching: PropTypes.bool,
   currentVisibleSubMenu: PropTypes.string,
   id: PropTypes.string,
+  'data-automation':PropTypes.string,
   pageTitle: PropTypes.string,
   onBulkClick: PropTypes.func,
   entityMetadata: PropTypes.object,

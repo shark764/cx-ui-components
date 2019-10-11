@@ -76,8 +76,10 @@ function SidePanelHeader(props) {
       hasCreatedUpdatedAt={props.createdAt || props.updatedAt}
     >
       {props.toggleStatus !== undefined && (
-          <StyledToggle id="sdpanel-toggle-status" value={props.toggleStatus} onChange={props.onToggle} inherited={props.inherited} disabled={!props.userHasUpdatePermission || (props.disabled !== undefined && props.disabled)} />
-        )}
+        <StyledToggle id="sdpanel-toggle-status" data-automation="statusToggle" 
+        value={props.toggleStatus} onChange={props.onToggle} inherited={props.inherited} 
+        disabled={!props.userHasUpdatePermission || (props.disabled !== undefined && props.disabled)} />
+)}
       <HeaderArea>
         <Header title={props.title}>{props.title}</Header>
         {props.createdAt && <SubHeader>{props.createdAt}</SubHeader>}
@@ -100,6 +102,7 @@ function SidePanelHeader(props) {
 SidePanelHeader.propTypes = {
   userHasUpdatePermission: PropTypes.bool,
   className: PropTypes.string,
+  'data-automation': PropTypes.string,
   id: PropTypes.string,
   title: PropTypes.string,
   createdAt: PropTypes.string,

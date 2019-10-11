@@ -91,7 +91,8 @@ function Button(props) {
   return (
     <StyledButton
       id={props.id}
-      className={props.className}
+      data-automation={props['data-automation']}
+      className= {props.className}
       buttonType={props.buttonType}
       type={props.type}
       disabled={props.disabled}
@@ -107,6 +108,7 @@ function Button(props) {
 Button.propTypes = {
   id: PropTypes.string,
   style: PropTypes.object,
+  'data-automation': PropTypes.string,
   className: PropTypes.string,
   /**
    * Possible options are primary, secondary, columnFilter.

@@ -46,6 +46,7 @@ class CustomDropdownMenu extends React.Component {
             this.props.setVisibleMenu(this.props.menuType, this.props.tableType);
           }}
           className={this.props.className}
+          data-automation={this.props['data-automation']}
         >
           {this.props.currentFilter}
         </DropdownButton>
@@ -67,6 +68,7 @@ CustomDropdownMenu.propTypes = {
   disabled: PropTypes.bool,
   buttonType: PropTypes.string.isRequired,
   currentFilter: PropTypes.string.isRequired,
+  'data-automation': PropTypes.string,
   setVisibleMenu: PropTypes.func.isRequired,
   currentVisibleSubMenu: PropTypes.string,
   menuType: PropTypes.string.isRequired,

@@ -39,14 +39,16 @@ const parseBooleans = value => {
   }
 }
 
-const RadioGroup = ({
+const RadioGroup = (props)=>{
+  const {
     input,
     label,
     disabled,
     meta: { touched, error, warning },
     options,
     required
-  }) => {
+  } = props; 
+
     return (
       <FieldWrapper inputName={input.name} label={label} touched={touched} error={error} warning={warning}>
         {options.map(option => (
@@ -58,6 +60,7 @@ const RadioGroup = ({
                   {...input}
                   id={option.id}
                   className={option.className}
+                  data-automation={props['data-automation']}
                   key={option.value}
                   value={option.value}
                   checked={option.value === input.value}
@@ -87,6 +90,7 @@ RadioGroupField.propTypes = {
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
+  'data-automation': PropTypes.string,
   options: PropTypes.arrayOf(
     PropTypes.shape({
       value: PropTypes.oneOfType([
@@ -114,6 +118,7 @@ RadioGroup.propTypes = {
   label: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
   meta: PropTypes.object,
+  'data-automation': PropTypes.string,
   options: PropTypes.arrayOf(
     PropTypes.shape({
       value: PropTypes.oneOfType([

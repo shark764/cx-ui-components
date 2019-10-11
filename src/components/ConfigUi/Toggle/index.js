@@ -71,7 +71,8 @@ const Slider = styled.span`
 
 function Toggle(props) {
   return (
-    <StyledLabel id={props.id} className={props.className} title={props.title}>
+    <StyledLabel id={props.id} className={props.className} title={props.title} 
+    data-automation={props['data-automation']}>
       <Switch
         type="checkbox"
         checked={props.value}
@@ -95,6 +96,7 @@ Toggle.propTypes = {
   value: PropTypes.oneOf([true, false, '']),
   onChange: PropTypes.func,
   disabled: PropTypes.bool,
+  'data-automation': PropTypes.string,
   inherited: PropTypes.bool,
   title: PropTypes.string
 };

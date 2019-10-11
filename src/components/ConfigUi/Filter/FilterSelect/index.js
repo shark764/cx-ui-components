@@ -51,6 +51,7 @@ function FilterSelect(props) {
       onChange={props.onChange}
       className={props.className}
       defaultValue={props.defaultValue}
+      data-automation={props['data-automation']}
       value={props.value}
     >
       {props.options.map(value => (
@@ -70,6 +71,7 @@ FilterSelect.propTypes = {
   className: PropTypes.string,
   options: PropTypes.arrayOf(PropTypes.string).isRequired,
   onChange: PropTypes.func.isRequired,
+  'data-automation':PropTypes.string,
   defaultValue: PropTypes.string,
   value: PropTypes.string,
   tableType: PropTypes.string,

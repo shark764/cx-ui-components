@@ -37,6 +37,7 @@ function SidePanelActions(props) {
       <SlimButton
         type="submit"
         buttonType="primary"
+        data-automation="submitButton"
         disabled={props.isSaving || props.pristine || props.invalid}
         onClick={props.onSubmit}
         id="sdpanel-submit"

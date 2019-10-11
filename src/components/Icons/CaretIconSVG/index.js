@@ -13,7 +13,7 @@ const SvgInnerWrapper = styled.div`
 
 function CaretIconSVG(props) {
   return (
-    <SvgOuterWrapper className={props.className}>
+    <SvgOuterWrapper className={props.className} data-automation={props['data-automation']}>
       <SvgInnerWrapper size={props.size}>
         {props.direction === 'down' && (
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 154.21 88.74">
@@ -95,6 +95,7 @@ CaretIconSVG.propTypes = {
    * Color in CSS supported color format
    */
   strokeColor: PropTypes.string,
+  'data-automation':PropTypes.string,
 };
 CaretIconSVG.defaultProps = {
   strokeColor: '#07487a',

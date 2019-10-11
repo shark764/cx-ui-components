@@ -19,7 +19,8 @@ const Textarea = Input.withComponent('textarea').extend`
   padding-top: 10px;
 `;
 
-const RenderField = ({
+const RenderField = (props) => {
+  const {
   input,
   label,
   labelHelpText,
@@ -30,19 +31,28 @@ const RenderField = ({
   type,
   disabled,
   onFocus,
-  hideLabel,
-  meta: { touched, error, warning },
-}) => {
+  hideLabel,	    
+  meta: { touched, error, warning }
+  } = props;
+  
   let inputElement;
   const inputProps = {
     id,
     className,
+    'data-automation': props['data-automation'],
     placeholder,
     disabled,
     type,
     onFocus,
   };
-  const textareaProps = { id, className, disabled };
+ 
+  const textareaProps = { 
+    id, 
+    className,
+    'data-automation': props['data-automation'],
+    disabled 
+  };
+
   const fieldWrapperProps = {
     input: input.name,
     label,
@@ -104,6 +114,7 @@ InputField.propTypes = {
   labelHelpText: PropTypes.string,
   id: PropTypes.string,
   className: PropTypes.string,
+  'data-automation': PropTypes.string,
   placeholder: PropTypes.string,
   disabled: PropTypes.bool,
   componentType: PropTypes.oneOf(['input', 'textarea']),
@@ -123,6 +134,7 @@ RenderField.propTypes = {
   onFocus: PropTypes.func,
   hideLabel: PropTypes.bool,
   className: PropTypes.string,
+  'data-automation': PropTypes.string,
   placeholder: PropTypes.string,
   disabled: PropTypes.bool,
   meta: PropTypes.object,

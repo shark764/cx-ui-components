@@ -219,7 +219,14 @@ class AutoCompleteInput extends Component {
             this.wrapper = element;
           }}
         >
-          <Input type="text" {...input} {...inputProps} autoComplete="off" hasError={touched && !!error} />
+          <Input
+            type="text"
+            {...input}
+            data-automation={this.props['data-automation']}
+            {...inputProps}
+            autoComplete="off"
+            hasError={touched && !!error}
+          />
           {showSuggestions &&
             value &&
             (filteredSuggestions.length ? (
@@ -252,7 +259,7 @@ class AutoCompleteInput extends Component {
 }
 
 export default function AutoCompleteField(props) {
-  return <ReduxFormField {...props} component={AutoCompleteInput} />;
+  return <ReduxFormField {...props} component={AutoCompleteInput}/>;
 }
 
 AutoCompleteInput.propTypes = {
@@ -260,6 +267,7 @@ AutoCompleteInput.propTypes = {
   label: PropTypes.string.isRequired,
   labelHelpText: PropTypes.string,
   placeholder: PropTypes.string,
+  'data-automation': PropTypes.string,
   id: PropTypes.string,
   onFocus: PropTypes.func,
   className: PropTypes.string,
@@ -277,6 +285,7 @@ AutoCompleteField.propTypes = {
   label: PropTypes.string.isRequired,
   labelHelpText: PropTypes.string,
   placeholder: PropTypes.string,
+  'data-automation': PropTypes.string,
   id: PropTypes.string,
   className: PropTypes.string,
   disabled: PropTypes.bool,
