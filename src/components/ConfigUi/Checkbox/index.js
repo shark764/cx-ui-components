@@ -48,6 +48,7 @@ export default class Checkbox extends Component {
         ref={el => (this.el = el)}
         onChange={this.toggleState}
         checked={this.state.status === 'on'}
+        data-automation={this.props['data-automation']}
       />
     );
   }
@@ -56,4 +57,5 @@ export default class Checkbox extends Component {
 Checkbox.propTypes = {
   onChange: PropTypes.func,
   indeterminate: PropTypes.string,
+  'data-automation': PropTypes.string,
 };

@@ -56,7 +56,7 @@ const HeaderContainer = styled.div`
   border: none !important;
   height: 30px !important;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.1)
+  background-color: rgba(0, 0, 0, 0.1);
 `;
 const CategoryGripIcon = styled.div`
   flex: 10 0;
@@ -136,7 +136,6 @@ class TransferListInput extends Component {
 
     // Re-orders individual transfer list items after the drag:
     if (result.type !== 'DEFAULT') {
-
       // filters out transfer-list items belong to the same hierarchy based on the current dragging item:
       const categoryItems = endpoints.filter(endpoint => endpoint.get('categoryUUID') === result.type);
 
@@ -152,37 +151,36 @@ class TransferListInput extends Component {
           currentVal.get('endpointUUID') === categoryItems.getIn([source.index, 'endpointUUID'])
         ) {
           return accumlator.push(...reOrderedCategoryItems);
-        }
-        // If drag and drop is from down to top: insert reOrderedCategoryItems at the destiantion Index element:
-        else if (
+        } else if (
           source.index > destination.index &&
           currentVal.get('endpointUUID') === categoryItems.getIn([destination.index, 'endpointUUID'])
         ) {
+          // If drag and drop is from down to top: insert reOrderedCategoryItems at the destiantion Index element:
           return accumlator.push(...reOrderedCategoryItems);
-        }
-        // If the current value doesnot belong to the current dragging elements hierarchy, do not reorder: 
-        else if (currentVal.get('categoryUUID') !== categoryItems.getIn([0, 'categoryUUID'])) {
+        } else if (currentVal.get('categoryUUID') !== categoryItems.getIn([0, 'categoryUUID'])) {
+          // If the current value doesnot belong to the current dragging elements hierarchy, do not reorder:
           return accumlator.push(currentVal);
         }
         return accumlator;
       }, List());
 
       this.props.input.onChange(reOrderedEndpoints);
-    }
-    // Re-orders group of transfer list items(categories) after the drag:
-    else {
+    } else {
+      // Re-orders group of transfer list items(categories) after the drag:
       const sourceItems = endpoints.filter(
         endpoint => endpoint.get('categoryUUID') === this.props.endpointHeaders.getIn([source.index, 'categoryUUID'])
       );
       const destinationItems = endpoints.filter(
-        endpoint => endpoint.get('categoryUUID') === this.props.endpointHeaders.getIn([destination.index, 'categoryUUID'])
+        endpoint =>
+          endpoint.get('categoryUUID') === this.props.endpointHeaders.getIn([destination.index, 'categoryUUID'])
       );
 
       const sourceIndex = endpoints.findIndex(
         endpoint => endpoint.get('categoryUUID') === this.props.endpointHeaders.getIn([source.index, 'categoryUUID'])
       );
       const destinationIndex = endpoints.findIndex(
-        endpoint => endpoint.get('categoryUUID') === this.props.endpointHeaders.getIn([destination.index, 'categoryUUID'])
+        endpoint =>
+          endpoint.get('categoryUUID') === this.props.endpointHeaders.getIn([destination.index, 'categoryUUID'])
       );
 
       const reOrderedEndpoints = endpoints.reduce((accumlator, currentVal, index) => {
@@ -259,13 +257,14 @@ class TransferListInput extends Component {
                             <HeaderContainer>
                               <CategoryGripIcon title={`Drag to reorder category : ${category.get('hierarchy')}`}>
                                 :::
-                                </CategoryGripIcon>
+                              </CategoryGripIcon>
                               <HierarchyName title={category.get('hierarchy')}>
                                 {category.get('hierarchy')}
                               </HierarchyName>
                               <HeaderActionsWrapper>
                                 <ActionButton
                                   className="dtpanel-action-update-item"
+                                  data-automation="dtpanelActionUpdateItem"
                                   title={`Update Category Name : ${category.get('hierarchy')}`}
                                   onClick={() =>
                                     this.props.setSelectedSubEntityId(
@@ -278,7 +277,9 @@ class TransferListInput extends Component {
                                   <EditIconSVG size={10} editIconType="primary" />
                                 </ActionButton>
                                 <ConfirmationWrapper
-                                  confirmBtnCallback={() => this.props.removeCategoryItems(category.get('categoryUUID'))}
+                                  confirmBtnCallback={() =>
+                                    this.props.removeCategoryItems(category.get('categoryUUID'))
+                                  }
                                   mainText={
                                     this.props.selectedEntityId !== 'create' && this.props.endpointHeaders.size === 1
                                       ? `TransferList Cannot be empty.`
@@ -303,6 +304,7 @@ class TransferListInput extends Component {
                                   <div style={{ marginRight: '10px' }}>
                                     <ActionButton
                                       className="dtpanel-action-remove-item"
+                                      data-automation="dtpanelActionRemoveItem"
                                       title={`Delete All Transfer List Items in : ${category.get('hierarchy')}`}
                                       disabled={!this.props.userHasUpdatePermission}
                                       type="button"
@@ -346,7 +348,7 @@ class TransferListInput extends Component {
                                               title={`Drag to Reorder Transfer List Item : ${endpoint.get('name')}`}
                                             >
                                               :::
-                                              </EndpointItem>
+                                            </EndpointItem>
                                             <EndpointItem title={endpoint.get('name')}>
                                               {endpoint.get('name')}
                                             </EndpointItem>
@@ -356,6 +358,7 @@ class TransferListInput extends Component {
                                             <EndpointActionsWrapper>
                                               <ActionButton
                                                 className="dtpanel-action-update-item"
+                                                data-automation="dtpanelActionUpdateItem"
                                                 title={`Update Transfer List Item : ${endpoint.get('name')}`}
                                                 onClick={() =>
                                                   this.props.setSelectedSubEntityId(
@@ -373,31 +376,32 @@ class TransferListInput extends Component {
                                                 }
                                                 mainText={
                                                   this.props.selectedEntityId !== 'create' &&
-                                                    this.props.input.value.size === 1
+                                                  this.props.input.value.size === 1
                                                     ? `TransferList Cannot be empty.`
                                                     : `Deleting this item cannot be undone.`
                                                 }
                                                 secondaryText={
                                                   this.props.selectedEntityId !== 'create' &&
-                                                    this.props.input.value.size === 1
+                                                  this.props.input.value.size === 1
                                                     ? 'TransferList should contain at least one contact.'
                                                     : 'Are you sure you want to continue?'
                                                 }
                                                 cancelBtnText={
                                                   this.props.selectedEntityId !== 'create' &&
-                                                    this.props.input.value.size === 1
+                                                  this.props.input.value.size === 1
                                                     ? 'Okay'
                                                     : 'Cancel'
                                                 }
                                                 openPopupBox={
                                                   this.props.selectedEntityId !== 'create' &&
-                                                    this.props.input.value.size === 1
+                                                  this.props.input.value.size === 1
                                                     ? true
                                                     : false
                                                 }
                                               >
                                                 <ActionButton
                                                   className="dtpanel-action-remove-item"
+                                                  data-automation="dtpanelActionRemoveItem"
                                                   title={`Delete Transfer List Item : ${endpoint.get('name')}`}
                                                   disabled={!this.props.userHasUpdatePermission}
                                                   type="button"
@@ -439,11 +443,11 @@ export default function TransferListField(props) {
 
 TransferListField.propTypes = {
   name: PropTypes.string.isRequired,
-  disabled: PropTypes.bool
+  disabled: PropTypes.bool,
 };
 
 TransferListField.defaultProps = {
-  disabled: false
+  disabled: false,
 };
 
 TransferListInput.propTypes = {
@@ -454,5 +458,5 @@ TransferListInput.propTypes = {
   userHasUpdatePermission: PropTypes.bool,
   setSelectedSubEntityId: PropTypes.func.isRequired,
   removeTransferListItem: PropTypes.func.isRequired,
-  removeCategoryItems: PropTypes.func.isRequired
+  removeCategoryItems: PropTypes.func.isRequired,
 };

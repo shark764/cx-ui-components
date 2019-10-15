@@ -55,11 +55,7 @@ function FilterSelect(props) {
       value={props.value}
     >
       {props.options.map(value => (
-        <option
-          key={camelCaseToRegularForm(value)}
-          value={value}
-          className={'subentity-filter-column-option-' + value}
-        >
+        <option key={camelCaseToRegularForm(value)} value={value} className={'subentity-filter-column-option-' + value}>
           {camelCaseToRegularForm(value)}
         </option>
       ))}
@@ -71,7 +67,7 @@ FilterSelect.propTypes = {
   className: PropTypes.string,
   options: PropTypes.arrayOf(PropTypes.string).isRequired,
   onChange: PropTypes.func.isRequired,
-  'data-automation':PropTypes.string,
+  'data-automation': PropTypes.string,
   defaultValue: PropTypes.string,
   value: PropTypes.string,
   tableType: PropTypes.string,

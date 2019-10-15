@@ -110,18 +110,6 @@ const Table = styled(ReactTable)`
       }
     }
 
-    .EntityTable .rt-tbody .row-selected-active .rt-td,
-    &.row-selected-active {
-      color: #000;
-      background-color: #d7e9f5;
-    }
-    
-    .EntityTable .rt-tbody .row-selected-active .rt-td,
-    &.row-selected-active.-odd {
-      color: #000 !important;
-      background-color: #d7e9f5 !important;
-    }
-
     .EntityTable,
     .SidePanelTable {
       .pagination-bottom button {
@@ -202,13 +190,17 @@ class EntityTable extends Component {
 
   selectToggle = (data, bool, visibleOrAll) => {
     this.props.setVisibleMenu('none', this.props.entityMetadata.entityName);
-    data.forEach(x =>
+    for (let i = 0, len = data.length; i < len; i++) {
+      let x = data[i];
+      // Agents can be selected for bulk actions
+      // only if they haven't been disconnected.
+
       this.props.onBulkClick(
         this.props.entityMetadata.entityName,
         visibleOrAll === 'visible' ? x._original.id : x.id,
         bool
-      )
-    );
+      );
+    }
   };
 
   selectAllVisible = () => {
@@ -230,6 +222,38 @@ class EntityTable extends Component {
       this.unselectAllVisible();
     }
   };
+
+  highlightRow = ({ index, row: { _original: { bulkChangeItem } } }) => {
+    if (index === this.state.selected) {
+      return 'rgba(253, 255, 50, 0.17)';
+    } else if (bulkChangeItem) {
+      // New color to make bulk selected rows
+      // more visible.
+      return 'rgba(232,232,232, 1)';
+    }
+    return null;
+  };
+
+  getTableRowProps = (state, rowInfo) => {
+    if (rowInfo && rowInfo.row) {
+      return {
+        onClick: () => {
+          this.props.onRowClick(rowInfo.original.id);
+          this.setState({
+            selected: rowInfo.index,
+          });
+        },
+        className: `row-selected-${rowInfo.index === this.state.selected ? 'active' : 'not-active'}`,
+        style: {
+          background: this.highlightRow(rowInfo),
+        },
+      };
+    } else {
+      return { style: {} };
+    }
+  };
+  getTdProps = () => ({ style: { fontSize: '11.5pt' } });
+  getTheadProps = () => ({ style: { color: 'grey' } });
 
   componentDidUpdate(prevProps) {
     // Only update state if the data has changed
@@ -278,7 +302,12 @@ class EntityTable extends Component {
       <GridContainer id={this.props.id} className={this.props.className}>
         <Header text={this.props.pageTitle} helpLink={this.props.pageHelpLink}>
           {this.props.userHasCreatePermission && (
-            <WrappedButton buttonType="primary" id="sdpanel-create" data-automation="entityCreateButton" onClick={this.props.onCreateButtonClick}>
+            <WrappedButton
+              buttonType="primary"
+              id="sdpanel-create"
+              data-automation="entityCreateButton"
+              onClick={this.props.onCreateButtonClick}
+            >
               Create
             </WrappedButton>
           )}
@@ -297,6 +326,7 @@ class EntityTable extends Component {
                 <ActionButton
                   buttonType="columnFilter"
                   id="table-items-actions-select-all-visible"
+                  data-automation="tableItemsActionsSelectAllVisible"
                   onClick={this.selectAllVisible}
                 >
                   Select All Visible
@@ -304,16 +334,23 @@ class EntityTable extends Component {
                 <ActionButton
                   buttonType="columnFilter"
                   id="table-items-actions-unselect-all-visible"
+                  data-automation="tableItemsActionsUnselectAllVisible"
                   onClick={this.unselectAllVisible}
                 >
                   Unselect All Visible
                 </ActionButton>
-                <ActionButton buttonType="columnFilter" id="table-items-actions-select-all" onClick={this.selectAll}>
+                <ActionButton
+                  buttonType="columnFilter"
+                  id="table-items-actions-select-all"
+                  data-automation="tableItemsActionsSelectAll"
+                  onClick={this.selectAll}
+                >
                   Select All
                 </ActionButton>
                 <ActionButton
                   buttonType="columnFilter"
                   id="table-items-actions-unselect-all"
+                  data-automation="tableItemsActionsUnselectAll"
                   onClick={this.unselectAll}
                 >
                   Unselect All
@@ -344,21 +381,9 @@ class EntityTable extends Component {
           defaultFilterMethod={(filter, row) => filterDefaultMethod(filter, row)}
           defaultFiltered={this.props.filtered}
           defaultSorted={this.props.sorted}
-          getTrProps={(state, rowInfo) => {
-            if (rowInfo && rowInfo.row) {
-              return {
-                onClick: () => {
-                  this.props.onRowClick(rowInfo.original.id);
-                  this.setState({
-                    selected: rowInfo.index,
-                  });
-                },
-                className: `row-selected-${rowInfo.index === this.state.selected ? 'active' : 'not-active'}`,
-              };
-            } else {
-              return {};
-            }
-          }}
+          getTdProps={this.getTdProps}
+          getTheadProps={this.getTheadProps}
+          getTrProps={this.getTableRowProps}
         />
       </GridContainer>
     );
@@ -375,7 +400,7 @@ EntityTable.propTypes = {
   fetching: PropTypes.bool,
   currentVisibleSubMenu: PropTypes.string,
   id: PropTypes.string,
-  'data-automation':PropTypes.string,
+  'data-automation': PropTypes.string,
   pageTitle: PropTypes.string,
   onBulkClick: PropTypes.func,
   entityMetadata: PropTypes.object,

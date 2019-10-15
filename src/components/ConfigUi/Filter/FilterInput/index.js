@@ -21,6 +21,7 @@ function FilterInput(props) {
     <StyledInput
       onChange={props.onChange}
       className={props.className}
+      data-automation={props['data-automation']}
       defaultValue={props.defaultValue}
       value={props.value}
     />
@@ -29,9 +30,10 @@ function FilterInput(props) {
 
 FilterInput.propTypes = {
   className: PropTypes.string,
+  'data-automation': PropTypes.string,
   onChange: PropTypes.func.isRequired,
   defaultValue: PropTypes.string,
-  value: PropTypes.string
+  value: PropTypes.string,
 };
 
 export default FilterInput;

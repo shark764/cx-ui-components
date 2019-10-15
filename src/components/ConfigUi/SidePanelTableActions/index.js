@@ -41,7 +41,7 @@ export default function SidePanelTableActions({
   addSubEntity,
   copySubEntity,
   toggleSubEntityActive,
-  itemApiPending
+  itemApiPending,
 }) {
   return itemApiPending && (row.id === itemApiPending || row.key === itemApiPending) ? (
     <RightAlign>
@@ -54,8 +54,9 @@ export default function SidePanelTableActions({
         viewSubEntity && (
           <ActionButton
             className="dtpanel-action-view-item"
+            data-automation="dtpanelActionViewItem"
             title={!row.viewing ? `View ${row.key || row.name}` : `row.viewing ${row.key || row.name}`}
-            onClick={() => viewSubEntity(row.key || row.id, row, entityName)}
+            onClick={() => viewSubEntity(row.key || row.id || row.version, row, entityName)}
             disabled={row.viewing}
           >
             <ViewIconSVG size={10} disabled={row.viewing} viewIconType={row.viewing ? 'secondary' : 'primary'} />
@@ -66,8 +67,9 @@ export default function SidePanelTableActions({
         updateSubEntity && (
           <ActionButton
             className="dtpanel-action-update-item"
+            data-automation="dtpanelActionUpdateItem"
             title={!row.deleting ? `Update ${row.key || row.name}` : undefined}
-            onClick={() => updateSubEntity(row.key || row.id, row, entityName)}
+            onClick={() => updateSubEntity(row.key || row.id || row.version, row, entityName)}
             disabled={row.deleting}
           >
             <EditIconSVG size={15} editIconType={row.deleting ? 'secondary' : 'primary'} />
@@ -78,6 +80,7 @@ export default function SidePanelTableActions({
         copySubEntity && (
           <ActionButton
             className="dtpanel-action-copy-item"
+            data-automation="dtpanelActionCopyItem"
             title={!row.copying ? `Copy ${row.key || row.name}` : `row.copying ${row.key || row.name}`}
             onClick={() => copySubEntity(row.key || row.id || row.version, row, entityName)}
             disabled={row.copying}
@@ -90,16 +93,21 @@ export default function SidePanelTableActions({
         deleteSubEntity && (
           <ConfirmationWrapper
             confirmBtnCallback={
-              confirmDeleteSubEntity ? () => deleteSubEntity(row.key || row.id, entityName, 'dissociate') : undefined
+              confirmDeleteSubEntity
+                ? () => deleteSubEntity(row.key || row.id || row.version, entityName, 'dissociate')
+                : undefined
             }
             mainText={`Deleting this item cannot be undone.`}
             secondaryText={'Are you sure you want to continue?'}
           >
             <ActionButton
               className="dtpanel-action-remove-item"
+              data-automation="dtpanelActionRemoveItem"
               title={!row.deleting ? `Delete ${row.key || row.name}` : `row.deleting ${row.key || row.name}`}
               onClick={() =>
-                !confirmDeleteSubEntity ? deleteSubEntity(row.key || row.id, entityName, 'dissociate') : undefined
+                !confirmDeleteSubEntity
+                  ? deleteSubEntity(row.key || row.id || row.version, entityName, 'dissociate')
+                  : undefined
               }
               disabled={row.deleting}
             >
@@ -112,8 +120,9 @@ export default function SidePanelTableActions({
         addSubEntity && (
           <ActionButton
             className="dtpanel-action-add-item"
+            data-automation="dtpanelActionAddItem"
             title={!row.adding ? `Add ${row.key || row.name}` : `row.adding ${row.key || row.name}`}
-            onClick={() => addSubEntity(row.key || row.id, entityName, 'associate')}
+            onClick={() => addSubEntity(row.key || row.id || row.version, entityName, 'associate')}
             disabled={row.adding}
           >
             <PlusIconSVG size={10} disabled={row.adding} plusIconType={row.adding ? 'secondary' : 'primary'} />
@@ -131,7 +140,12 @@ export default function SidePanelTableActions({
             }
             secondaryText={'Do you want to continue?'}
           >
-            <PositionedToggle className="dtpanel-action-toggle-active-item" value={row.active} onChange={() => {}} />
+            <PositionedToggle
+              className="dtpanel-action-toggle-active-item"
+              data-automation="dtpanelActionToggleActiveItem"
+              value={row.active}
+              onChange={() => {}}
+            />
           </ConfirmationWrapper>
         )}
     </ActionsWrapper>
@@ -141,7 +155,7 @@ export default function SidePanelTableActions({
 SidePanelTableActions.propTypes = {
   row: PropTypes.shape({
     key: PropTypes.string,
-    deleting: PropTypes.bool
+    deleting: PropTypes.bool,
   }).isRequired,
   entityName: PropTypes.string,
   viewSubEntity: PropTypes.func,
@@ -151,5 +165,5 @@ SidePanelTableActions.propTypes = {
   confirmDeleteSubEntity: PropTypes.bool,
   addSubEntity: PropTypes.func,
   toggleSubEntityActive: PropTypes.func,
-  itemApiPending: PropTypes.string
+  itemApiPending: PropTypes.string,
 };

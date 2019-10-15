@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import styled from 'styled-components'
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import { colors } from './../../../constants';
 
 const StyledInput = styled.input`
@@ -10,40 +10,38 @@ const StyledInput = styled.input`
   width: 100%;
   padding-left: 10px;
   padding-right: 10px;
-  border-style: ${props => props.border && props.isActive ? 'solid' : 'none'};
-  border-color: ${props => props.isActive ? (props.activeColor || colors.skylightBlue) : '#DCDCDC' };
+  border-style: ${props => (props.border && props.isActive ? 'solid' : 'none')};
+  border-color: ${props => (props.isActive ? props.activeColor || colors.skylightBlue : '#DCDCDC')};
 `;
 
 export default class Input extends Component {
-
-  constructor(props){
+  constructor(props) {
     super(props);
-    this.onKeyDown = this.onKeyDown.bind(this);
 
     this.state = {
       value: '',
-      isActive: false
+      isActive: false,
     };
-  };
+  }
 
   toggleActive = () => {
     this.setState({
-      isActive: !this.state.isActive
+      isActive: !this.state.isActive,
     });
-  }
+  };
 
   onKeyDown = e => {
     this.props.onKeyDown(e);
-    if(e.keyCode === 13) {
-      this.setState({value: ''});
-    };
+    if (e.keyCode === 13) {
+      this.setState({ value: '' });
+    }
   };
 
   onChange = e => {
     this.setState({
-      value: e.target.value
-    })
-  }
+      value: e.target.value,
+    });
+  };
 
   render() {
     return (
@@ -54,17 +52,19 @@ export default class Input extends Component {
         onFocus={this.toggleActive}
         onBlur={this.toggleActive}
         onKeyDown={this.onKeyDown}
-        onChange={(e) => { 
+        onChange={e => {
           this.onChange(e);
-          this.props.retrieveInputValue && this.props.getInputValue(e, e.target.value) 
+          this.props.retrieveInputValue && this.props.getInputValue(e, e.target.value);
         }}
         value={this.state.value}
         border={this.props.border}
         isActive={this.state.isActive}
-        activeColor={this.props.activeColor}/>
+        activeColor={this.props.activeColor}
+        data-automation={this.props['data-automation']}
+      />
     );
-  };
-};
+  }
+}
 
 Input.propTypes = {
   /** Enable or disable the input's border */
@@ -76,10 +76,12 @@ Input.propTypes = {
   /** Input's name */
   name: PropTypes.string,
   className: PropTypes.string,
+  'data-automation': PropTypes.string,
   getInputValue: PropTypes.func,
   retrieveInputValue: PropTypes.bool,
-}
+  onKeyDown: PropTypes.func,
+};
 
 Input.defaultProps = {
-  border: true
-}
+  border: true,
+};

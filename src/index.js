@@ -101,7 +101,7 @@ export { default as TypingIndicator } from './components/Icons/TypingIndicator';
 
 // Constants
 export { defaultTheme } from './constants';
-export { colors } from './constants';
+export { colors, regions } from './constants';
 
 // Time Conversion and Displays
 export {

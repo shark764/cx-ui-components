@@ -3,9 +3,9 @@ import PropTypes, { number } from 'prop-types';
 import styled from 'styled-components';
 
 const Slider = styled.div.attrs({
-  style: (props => ({
-    right : props.rightPageOffset
-  }))
+  style: props => ({
+    right: props.rightPageOffset,
+  }),
 })`
   position: absolute;
   cursor: col-resize;
@@ -27,15 +27,17 @@ const SliderIcon = styled.div`
 `;
 
 function SliderExpander(props) {
-  return <Slider id={props.id} rightPageOffset={props.rightPageOffset}>
-    <SliderIcon id="SlidingResizerInnerIcon"/>
-  </Slider>;
+  return (
+    <Slider id={props.id} rightPageOffset={props.rightPageOffset}>
+      <SliderIcon id="SlidingResizerInnerIcon" />
+    </Slider>
+  );
 }
 
 SliderExpander.propTypes = {
-    id: PropTypes.string,
-    rightPageOffset: number.isRequired,
-    onClick: PropTypes.func,
+  id: PropTypes.string,
+  rightPageOffset: number.isRequired,
+  onClick: PropTypes.func,
 };
 
 export default SliderExpander;

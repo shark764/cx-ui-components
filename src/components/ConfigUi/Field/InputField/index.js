@@ -19,22 +19,22 @@ const Textarea = Input.withComponent('textarea').extend`
   padding-top: 10px;
 `;
 
-const RenderField = (props) => {
+const RenderField = props => {
   const {
-  input,
-  label,
-  labelHelpText,
-  placeholder,
-  id,
-  className,
-  componentType,
-  type,
-  disabled,
-  onFocus,
-  hideLabel,	    
-  meta: { touched, error, warning }
+    input,
+    label,
+    labelHelpText,
+    placeholder,
+    id,
+    className,
+    componentType,
+    type,
+    disabled,
+    onFocus,
+    hideLabel,
+    meta: { touched, error, warning },
   } = props;
-  
+
   let inputElement;
   const inputProps = {
     id,
@@ -45,12 +45,12 @@ const RenderField = (props) => {
     type,
     onFocus,
   };
- 
-  const textareaProps = { 
-    id, 
+
+  const textareaProps = {
+    id,
     className,
     'data-automation': props['data-automation'],
-    disabled 
+    disabled,
   };
 
   const fieldWrapperProps = {

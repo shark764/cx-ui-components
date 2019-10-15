@@ -85,6 +85,7 @@ class SubMenu extends React.Component {
                           this.props.updateFilter('All');
                         }
                       }}
+                      data-automation="subMenuAllActive"
                     />
                     <AllSelector>All</AllSelector>
                   </ListItem>
@@ -110,6 +111,7 @@ class SubMenu extends React.Component {
                     }}
                     value={item.name}
                     checked={item.active}
+                    data-automation="subMenuToggleItem"
                   />
                   <ItemText>{item.name}</ItemText>
                 </ListItem>

@@ -55,7 +55,7 @@ const SearchIconOuterBox = styled.div`
 function SearchBox(props) {
   return (
     <Wrapper className={props.className}>
-      <Input id={props.id} placeholder={props.placeholder} onChange={props.onChange} />
+      <Input id={props.id} placeholder={props.placeholder} onChange={props.onChange} data-automation="searchBoxInput" />
       <SearchIconOuterBox>
         <SearchIconSVG searchIconType="searchBox" />
       </SearchIconOuterBox>

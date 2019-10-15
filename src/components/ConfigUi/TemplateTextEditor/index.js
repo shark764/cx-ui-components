@@ -5,25 +5,21 @@ import { Editor, EditorState, ContentState, CompositeDecorator } from 'draft-js'
 import 'draft-js/dist/Draft.css';
 
 injectGlobal`
-.public-DraftEditor-content {
-  max-height: 200px;
-  overflow: auto;
-}
+  .public-DraftEditor-content {
+    max-height: 200px;
+    overflow: auto;
+  }
 `;
 
-const TemplateSpan = (props) => {
+const TemplateSpan = props => {
   return (
-    <span
-      style={{ color: 'rgb(190, 195, 17)' }}
-      data-offset-key={props.offsetKey}
-    >
+    <span style={{ color: 'rgb(190, 195, 17)' }} data-offset-key={props.offsetKey}>
       {props.children}
     </span>
   );
 };
 
 export default class TemplateTextEditor extends React.Component {
-
   templateStrategy = (contentBlock, callback, contentState) => {
     if (this.props.templates.length) {
       const templateRegex = new RegExp(`{{{(${this.props.templates.join('|')})+}}}`, 'g');
@@ -34,7 +30,7 @@ export default class TemplateTextEditor extends React.Component {
         callback(start, start + matchArr[0].length);
       }
     }
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -49,14 +45,14 @@ export default class TemplateTextEditor extends React.Component {
     this.state = {
       editorState: this.props.value
         ? EditorState.createWithContent(ContentState.createFromText(this.props.value), compositeDecorator)
-        : EditorState.createEmpty(compositeDecorator)
+        : EditorState.createEmpty(compositeDecorator),
     };
   }
 
-  onChange = (editorState) => {
+  onChange = editorState => {
     this.props.onChange(editorState.getCurrentContent().getPlainText());
     this.setState({ editorState });
-  }
+  };
 
   render() {
     return (
@@ -72,12 +68,12 @@ export default class TemplateTextEditor extends React.Component {
 
 TemplateSpan.propTypes = {
   offsetKey: PropTypes.string,
-  children: PropTypes.any
-}
+  children: PropTypes.any,
+};
 
 TemplateTextEditor.propTypes = {
   value: PropTypes.string,
   onChange: PropTypes.func,
   disabled: PropTypes.bool,
   templates: PropTypes.arrayOf(PropTypes.string).isRequired,
-}
+};

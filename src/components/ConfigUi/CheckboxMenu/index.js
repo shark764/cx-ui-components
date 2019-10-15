@@ -42,6 +42,7 @@ export default class CheckboxMenu extends React.Component {
             this.props.setSubMenuVisibility(this.props.menuType, this.props.tableType);
           }}
           hasActiveFilter={this.props.hasActiveFilter}
+          data-automation={this.props['data-automation']}
         >
           {this.props.children}
         </DropdownButton>
@@ -88,4 +89,5 @@ CheckboxMenu.propTypes = {
   toggleAllOff: PropTypes.func,
   toggleAllInverse: PropTypes.func,
   updateFilter: PropTypes.func,
+  'data-automation': PropTypes.string,
 };

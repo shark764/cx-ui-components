@@ -6,39 +6,44 @@ import { Input } from '../StyledInputs';
 import { css } from 'styled-components';
 
 const Select = Input.withComponent('select').extend`
-  ${props => !props.disabled && css`cursor: pointer;`}
+  ${props =>
+    !props.disabled &&
+    css`
+      cursor: pointer;
+    `}
 `;
 
-const SelectInput = (props) => {
-  let options = (props.options === 'boolean')? [{ label: 'True', value: true }, { label: 'False', value: false }] : props.options;
-  const {
-    input,
-    label,
-    id,
-    className,
-    disabled,
-    meta: { touched, error, warning },
-    required
-  } = props;
+const SelectInput = props => {
+  let options =
+    props.options === 'boolean' ? [{ label: 'True', value: true }, { label: 'False', value: false }] : props.options;
+  const { input, label, id, className, disabled, meta: { touched, error, warning }, required } = props;
 
   return (
     <FieldWrapper inputName={input.name} label={label} touched={touched} error={error} warning={warning}>
-<Select {...input} id={id} className={className} data-automation={props["data-automation"]} disabled={disabled} hasError={touched && !!error}>        {options ? (
+      <Select
+        {...input}
+        id={id}
+        className={className}
+        data-automation={props['data-automation']}
+        disabled={disabled}
+        hasError={touched && !!error}
+      >
+        {options ? (
           <Fragment>
             {!required && (
               <option disabled hidden value="">
                 -- Please select --
               </option>
             )}
-            {options.map(option => (
-              <option key={option.value} value={option.value}>
+            {options.map((option, index) => (
+              <option key={index} value={option.value}>
                 {option.label}
               </option>
             ))}
           </Fragment>
         ) : (
-            <option>Loading...</option>
-          )}
+          <option>Loading...</option>
+        )}
       </Select>
     </FieldWrapper>
   );
@@ -74,19 +79,19 @@ SelectField.propTypes = {
     PropTypes.arrayOf(
       PropTypes.shape({
         value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool]),
-        label: PropTypes.string
+        label: PropTypes.string,
       })
     ),
     PropTypes.oneOf(['boolean']),
-    PropTypes.object
+    PropTypes.object,
   ]),
   /** Will have an empty option when false */
-  required: PropTypes.bool
+  required: PropTypes.bool,
 };
 
 SelectField.defaultProps = {
   disabled: false,
-  required: false
+  required: false,
 };
 
 SelectInput.propTypes = {
@@ -101,11 +106,11 @@ SelectInput.propTypes = {
     PropTypes.arrayOf(
       PropTypes.shape({
         value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool]),
-        label: PropTypes.string
+        label: PropTypes.string,
       })
     ),
     PropTypes.oneOf(['boolean']),
-    PropTypes.object
+    PropTypes.object,
   ]),
-  required: PropTypes.bool
+  required: PropTypes.bool,
 };

@@ -30,56 +30,45 @@ const HelpText = styled.div`
 `;
 
 const parseBooleans = value => {
-  if(value === 'true') {
+  if (value === 'true') {
     return true;
-  } else if(value === 'false') {
+  } else if (value === 'false') {
     return false;
   } else {
     return value;
   }
-}
+};
 
-const RadioGroup = (props)=>{
-  const {
-    input,
-    label,
-    disabled,
-    meta: { touched, error, warning },
-    options,
-    required
-  } = props; 
+const RadioGroup = props => {
+  const { input, label, disabled, meta: { touched, error, warning }, options } = props;
 
-    return (
-      <FieldWrapper inputName={input.name} label={label} touched={touched} error={error} warning={warning}>
-        {options.map(option => (
-          <Wrapper key={option.value}>
-            <Label>
-              <InputWrapper key={option.value}>
-                <input
-                  type='radio'
-                  {...input}
-                  id={option.id}
-                  className={option.className}
-                  data-automation={props['data-automation']}
-                  key={option.value}
-                  value={option.value}
-                  checked={option.value === input.value}
-                  disabled={option.disabled || disabled}
-                />
-              </InputWrapper>
-              <Fragment>
-                {option.label}
-                {option.helpText && (
-                  <HelpText>
-                    {option.helpText}
-                  </HelpText>
-                )}
-              </Fragment>
-            </Label>
-          </Wrapper>
-        ))}
-      </FieldWrapper>
-    );
+  return (
+    <FieldWrapper inputName={input.name} label={label} touched={touched} error={error} warning={warning}>
+      {options.map(option => (
+        <Wrapper key={option.value}>
+          <Label>
+            <InputWrapper key={option.value}>
+              <input
+                type="radio"
+                {...input}
+                id={option.id}
+                className={option.className}
+                data-automation={props['data-automation']}
+                key={option.value}
+                value={option.value}
+                checked={option.value === input.value}
+                disabled={option.disabled || disabled}
+              />
+            </InputWrapper>
+            <Fragment>
+              {option.label}
+              {option.helpText && <HelpText>{option.helpText}</HelpText>}
+            </Fragment>
+          </Label>
+        </Wrapper>
+      ))}
+    </FieldWrapper>
+  );
 };
 
 export default function RadioGroupField(props) {
@@ -93,11 +82,7 @@ RadioGroupField.propTypes = {
   'data-automation': PropTypes.string,
   options: PropTypes.arrayOf(
     PropTypes.shape({
-      value: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.number,
-        PropTypes.bool,
-      ]).isRequired,
+      value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool]).isRequired,
       label: PropTypes.string.isRequired,
       helpText: PropTypes.string,
       id: PropTypes.string,
@@ -121,11 +106,7 @@ RadioGroup.propTypes = {
   'data-automation': PropTypes.string,
   options: PropTypes.arrayOf(
     PropTypes.shape({
-      value: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.number,
-        PropTypes.bool,
-      ]).isRequired,
+      value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool]).isRequired,
       label: PropTypes.string.isRequired,
       helpText: PropTypes.string,
       id: PropTypes.string,

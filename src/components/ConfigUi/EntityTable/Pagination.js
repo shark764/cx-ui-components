@@ -42,6 +42,9 @@ const PaginationButton = styled.button`
 `;
 
 const defaultButton = props => <PaginationButton {...props}>{props.children}</PaginationButton>;
+defaultButton.propTypes = {
+  children: PropTypes.any,
+};
 
 export default class Pagination extends Component {
   constructor(props) {
@@ -64,6 +67,19 @@ export default class Pagination extends Component {
     onPageChange: PropTypes.func,
     previousText: PropTypes.string,
     nextText: PropTypes.string,
+    children: PropTypes.any,
+    canNextFromData: PropTypes.bool,
+    showPageSizeOptions: PropTypes.bool,
+    pageSizeOptions: PropTypes.array,
+    pageSize: PropTypes.number,
+    showPageJump: PropTypes.bool,
+    onPageSizeChange: PropTypes.func,
+    className: PropTypes.string,
+    showTotalPages: PropTypes.bool,
+    style: PropTypes.any,
+    pageText: PropTypes.string,
+    ofText: PropTypes.string,
+    rowsText: PropTypes.string,
   };
 
   componentWillReceiveProps(nextProps) {
@@ -189,7 +205,7 @@ export default class Pagination extends Component {
 
         <PaginationList className="-center">
           <span className="-pageInfo">
-            {this.props.pageText}{' '}
+            {this.props.pageText}
             {showPageJump ? (
               <div className="-pageJump">
                 <input
@@ -213,7 +229,7 @@ export default class Pagination extends Component {
               </div>
             ) : (
               <span className="-currentPage">{page + 1}</span>
-            )}{' '}
+            )}
             {showTotalPages ? (
               <React.Fragment>
                 {this.props.ofText} <span className="-totalPages">{pages || 1}</span>

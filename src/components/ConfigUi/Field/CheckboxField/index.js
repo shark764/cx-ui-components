@@ -27,19 +27,21 @@ const SubMenuItemLabel = styled.label`
 
 class CheckboxInputField extends Component {
   state = {
-    isSubMenuOpen: false
+    isSubMenuOpen: false,
   };
   updateSubMenuDisplay = () => {
     this.setState({ isSubMenuOpen: !this.state.isSubMenuOpen });
   };
-  updateFieldValues = (item) => {
+  updateFieldValues = item => {
     if (this.props.input.value === '') {
       // if none of the checkboxes are checked:
       return this.props.input.onChange(List([item.name]));
     } else {
-      // Remove the unchecked item from the list (if the user is unchecking the checkbox) or 
+      // Remove the unchecked item from the list (if the user is unchecking the checkbox) or
       // push the checked item to the list (if the user is checking the checkbox):
-      const updatedItems = !this.props.input.value.find(a => a === item.name) ? this.props.input.value.push(item.name) : this.props.input.value.filter(a => a !== item.name)
+      const updatedItems = !this.props.input.value.find(a => a === item.name)
+        ? this.props.input.value.push(item.name)
+        : this.props.input.value.filter(a => a !== item.name);
       return this.props.input.onChange(updatedItems);
     }
   };
@@ -51,7 +53,7 @@ class CheckboxInputField extends Component {
     } else {
       return value.size > 1 ? value.join(', ') : value.get(0);
     }
-  }
+  };
   render() {
     const { value } = this.props.input;
     return (
@@ -74,10 +76,15 @@ class CheckboxInputField extends Component {
               {this.props.items.map((item, index) => {
                 return (
                   <SubMenuItem key={index}>
-                    <input type="checkbox" name={item.name} checked={(value !== '' && (value.find(a => a === item.name) !== undefined))} onChange={() => this.updateFieldValues(item)} />
+                    <input
+                      type="checkbox"
+                      name={item.name}
+                      checked={value !== '' && value.find(a => a === item.name) !== undefined}
+                      onChange={() => this.updateFieldValues(item)}
+                    />
                     <SubMenuItemLabel>{item.label}</SubMenuItemLabel>
                   </SubMenuItem>
-                )
+                );
               })}
             </SubMenuDiv>
           )}
@@ -88,7 +95,11 @@ class CheckboxInputField extends Component {
 }
 
 export default function CheckboxField(props) {
-  const component = props.name ? <ReduxFormField {...props} component={CheckboxInputField} /> : <CheckboxInputField {...props} />
+  const component = props.name ? (
+    <ReduxFormField {...props} component={CheckboxInputField} />
+  ) : (
+    <CheckboxInputField {...props} />
+  );
   return component;
 }
 
@@ -104,9 +115,9 @@ CheckboxInputField.propTypes = {
   dropDownText: PropTypes.string,
   items: PropTypes.array.isRequired,
   meta: PropTypes.object,
-  ['data-automation']: PropTypes.string,
+  'data-automation': PropTypes.string,
 };
 
 CheckboxField.defaultProps = {
-  buttonType: 'checkboxField'
+  buttonType: 'checkboxField',
 };

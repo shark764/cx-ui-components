@@ -57,14 +57,14 @@ const ConfirmCancelBtns = styled(Button)`
 
 function Confirmation(props) {
   return (
-    <ConfirmationModal onMaskClick={props.onMaskClick} className={props.className}>
+    <ConfirmationModal
+      onMaskClick={props.onMaskClick}
+      className={props.className}
+      data-automation={props['data-automation']}
+    >
       <MainText>{props.mainText}</MainText>
-      {props.secondaryText && (
-        <SecondaryText>{props.secondaryText}</SecondaryText>
-      )}
-      {props.children && (
-        <SecondaryText>{props.children}</SecondaryText>
-      )}
+      {props.secondaryText && <SecondaryText>{props.secondaryText}</SecondaryText>}
+      {props.children && <SecondaryText>{props.children}</SecondaryText>}
       <BtnsContainer>
         <ConfirmCancelBtns id="cancel" onClick={props.cancelBtnCallback}>
           {props.cancelBtnText}
@@ -89,7 +89,8 @@ Confirmation.propTypes = {
   onMaskClick: PropTypes.func,
   openPopupBox: PropTypes.bool,
   className: PropTypes.string,
-  children: PropTypes.element
+  'data-automation': PropTypes.string,
+  children: PropTypes.element,
 };
 
 Confirmation.defaultProps = {

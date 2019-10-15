@@ -92,7 +92,7 @@ function Button(props) {
     <StyledButton
       id={props.id}
       data-automation={props['data-automation']}
-      className= {props.className}
+      className={props.className}
       buttonType={props.buttonType}
       type={props.type}
       disabled={props.disabled}

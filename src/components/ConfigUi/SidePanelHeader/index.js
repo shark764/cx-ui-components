@@ -76,10 +76,15 @@ function SidePanelHeader(props) {
       hasCreatedUpdatedAt={props.createdAt || props.updatedAt}
     >
       {props.toggleStatus !== undefined && (
-        <StyledToggle id="sdpanel-toggle-status" data-automation="statusToggle" 
-        value={props.toggleStatus} onChange={props.onToggle} inherited={props.inherited} 
-        disabled={!props.userHasUpdatePermission || (props.disabled !== undefined && props.disabled)} />
-)}
+        <StyledToggle
+          id="sdpanel-toggle-status"
+          data-automation="sdpanelStatusToggle"
+          value={props.toggleStatus}
+          onChange={props.onToggle}
+          inherited={props.inherited}
+          disabled={!props.userHasUpdatePermission || (props.disabled !== undefined && props.disabled)}
+        />
+      )}
       <HeaderArea>
         <Header title={props.title}>{props.title}</Header>
         {props.createdAt && <SubHeader>{props.createdAt}</SubHeader>}
@@ -87,12 +92,28 @@ function SidePanelHeader(props) {
       </HeaderArea>
       {props.copy !== undefined && (
         <CopyIconOuterBox>
-          <CopyIconSVG  id="sdpanel-copy-entity" size={17} alt="close menu" title="Copy entity" copyIconType="secondary" onClick={props.copy} />
+          <CopyIconSVG
+            id="sdpanel-copy-entity"
+            data-automation="sdpanelCopyEntity"
+            size={17}
+            alt="close menu"
+            title="Copy entity"
+            copyIconType="secondary"
+            onClick={props.copy}
+          />
         </CopyIconOuterBox>
       )}
       {props.onClose !== undefined && (
         <CloseIconOuterBox>
-          <CloseIconSVG  id="sdpanel-close-panel" size={17} alt="close menu" title="Close side panel" closeIconType="secondary" onClick={props.onClose} />
+          <CloseIconSVG
+            id="sdpanel-close-panel"
+            data-automation="sdpanelClosePanel"
+            size={17}
+            alt="close menu"
+            title="Close side panel"
+            closeIconType="secondary"
+            onClick={props.onClose}
+          />
         </CloseIconOuterBox>
       )}
     </Wrapper>

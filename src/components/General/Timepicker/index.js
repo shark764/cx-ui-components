@@ -173,6 +173,7 @@ export default class Timepicker extends Component {
       <TimepickerContainer twelveHoursMode={this.props.twelveHoursMode}>
         <StyledSelect
           id="hoursSelector"
+          data-automation="hoursSelector"
           value={this.state.hours}
           onChange={this.onHoursChange}
           twelveHoursMode={this.props.twelveHoursMode}
@@ -187,6 +188,7 @@ export default class Timepicker extends Component {
         <span>:</span>
         <StyledSelect
           id="minutesSelector"
+          data-automation="minutesSelector"
           value={this.state.minutes}
           onChange={this.onMinutesChange}
           twelveHoursMode={this.props.twelveHoursMode}
@@ -201,6 +203,7 @@ export default class Timepicker extends Component {
         {this.props.twelveHoursMode && (
           <StyledSelect
             id="ampmSelector"
+            data-automation="ampmSelector"
             value={this.state.amPm}
             onChange={this.onAMPMChange}
             twelveHoursMode={this.props.twelveHoursMode}

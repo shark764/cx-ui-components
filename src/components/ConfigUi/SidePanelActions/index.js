@@ -37,7 +37,7 @@ function SidePanelActions(props) {
       <SlimButton
         type="submit"
         buttonType="primary"
-        data-automation="submitButton"
+        data-automation="sdpanelSubmitButton"
         disabled={props.isSaving || props.pristine || props.invalid}
         onClick={props.onSubmit}
         id="sdpanel-submit"
@@ -55,6 +55,7 @@ function SidePanelActions(props) {
           buttonType="secondary"
           onClick={!props.dirty ? props.onCancel : undefined}
           id="sdpanel-cancel"
+          data-automation="sdpanelCancelButton"
           disabled={props.isSaving}
         >
           Cancel

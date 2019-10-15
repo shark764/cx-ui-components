@@ -4,44 +4,33 @@ import { Field as ReduxFormField } from 'redux-form/immutable';
 import Toggle from '../../Toggle';
 import FieldWrapper from '../FieldWrapper';
 
-const ToggleInput = (props)=> {
-  const {
-  input,
-  label,
-  id,
-  className,
-  disabled,
-  title,
-  labelMargin,
-  meta: { touched, error, warning }
-} = props;
+const ToggleInput = props => {
+  const { input, label, id, className, disabled, title, labelMargin, meta: { touched, error, warning } } = props;
 
-return(
-  <FieldWrapper
-    inputName={input.name}
-    label={label}
-    touched={touched}
-    error={error}
-    warning={warning}
-    labelMargin={labelMargin}
-  >
-    <Toggle
-      {...input}
-      id={id}
-      className={className}
-      data-automation={props['data-automation']}
-      disabled={disabled}
-      title={title}
-    />
-  </FieldWrapper>
-);
-}
+  return (
+    <FieldWrapper
+      inputName={input.name}
+      label={label}
+      touched={touched}
+      error={error}
+      warning={warning}
+      labelMargin={labelMargin}
+    >
+      <Toggle
+        {...input}
+        id={id}
+        className={className}
+        data-automation={props['data-automation']}
+        disabled={disabled}
+        title={title}
+      />
+    </FieldWrapper>
+  );
+};
 const parseToggle = value => value === true;
 
 export default function ToggleField(props) {
-  return (
-    <ReduxFormField {...props} component={ToggleInput} parse={parseToggle} />
-  );
+  return <ReduxFormField {...props} component={ToggleInput} parse={parseToggle} />;
 }
 
 ToggleField.propTypes = {
@@ -51,11 +40,11 @@ ToggleField.propTypes = {
   className: PropTypes.string,
   'data-automation': PropTypes.string,
   disabled: PropTypes.bool,
-  title: PropTypes.string
+  title: PropTypes.string,
 };
 
 ToggleField.defaultProps = {
-  disabled: false
+  disabled: false,
 };
 
 ToggleInput.propTypes = {
