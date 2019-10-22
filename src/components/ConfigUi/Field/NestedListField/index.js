@@ -37,7 +37,7 @@ const AddNewContactWarningText = styled.p`
   margin: 0px;
 `;
 const NestedListItemsContainer = styled.div`
-  padding: ${props => (props.isDraggingOver ? '15px' : '0')};
+  padding: 15px;
   background-color: ${props => (props.isDraggingOver ? 'rgba(0, 0, 0, 0.21)' : 'white')};
 `;
 const NestedListItemWrapper = styled.div`
