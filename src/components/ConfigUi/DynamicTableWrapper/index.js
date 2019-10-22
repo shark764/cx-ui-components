@@ -22,12 +22,17 @@ export default function DynamicTableWrapper(WrappedComponent) {
       };
     }
 
-    componentDidMount() {
+    /*
+    * TODO this is going to be commented because of the Exceptions table in SidePanelDetails for Business Hours 
+    * when we add one exception the table add 1 row and does not respect the pageSize default value.
+    */
+
+   /* componentDidMount() {
       const numOfRows = parseFloat((this.refs.inner.clientHeight / 50 - 2).toFixed(0));
       /**
        * Make sure to allways show at lease 3 rows for a better ux on smaller resolutions
        */
-      const defaultPageSizeOptions = this.state.pageSizeOptions;
+     /* const defaultPageSizeOptions = this.state.pageSizeOptions;
       const pageSize = numOfRows < 4 ? 3 : numOfRows;
       const constructedPageSizeOptions = defaultPageSizeOptions.filter(x => x > pageSize);
 
@@ -35,7 +40,7 @@ export default function DynamicTableWrapper(WrappedComponent) {
         pageSize,
         pageSizeOptions: [pageSize, ...constructedPageSizeOptions],
       });
-    }
+    }*/
 
     setPageSize = pageSize => this.setState({ pageSize });
 
