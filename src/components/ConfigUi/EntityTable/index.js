@@ -326,7 +326,7 @@ class EntityTable extends Component {
                 <ActionButton
                   buttonType="columnFilter"
                   id="table-items-actions-select-all-visible"
-                  data-automation="tableItemsActionsSelectAllVisible"
+                  data-automation="selectAllVisibleButton"
                   onClick={this.selectAllVisible}
                 >
                   Select All Visible
@@ -334,7 +334,7 @@ class EntityTable extends Component {
                 <ActionButton
                   buttonType="columnFilter"
                   id="table-items-actions-unselect-all-visible"
-                  data-automation="tableItemsActionsUnselectAllVisible"
+                  data-automation="unselectAllVisibleButton"
                   onClick={this.unselectAllVisible}
                 >
                   Unselect All Visible
@@ -342,7 +342,7 @@ class EntityTable extends Component {
                 <ActionButton
                   buttonType="columnFilter"
                   id="table-items-actions-select-all"
-                  data-automation="tableItemsActionsSelectAll"
+                  data-automation="selectAllButton"
                   onClick={this.selectAll}
                 >
                   Select All
@@ -350,7 +350,7 @@ class EntityTable extends Component {
                 <ActionButton
                   buttonType="columnFilter"
                   id="table-items-actions-unselect-all"
-                  data-automation="tableItemsActionsUnselectAll"
+                  data-automation="unselectAllButton"
                   onClick={this.unselectAll}
                 >
                   Unselect All

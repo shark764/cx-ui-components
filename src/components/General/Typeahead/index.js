@@ -271,6 +271,7 @@ export default class Typeahead extends Component {
           onChange={this.onChange}
           listWidth={this.props.listWidth}
           noBackground={this.props.noBackground}
+          data-automation={this.props['data-automation']}
         />
         <SearchIconWrapper searchIconType="primary" inputWidth={this.props.listWidth} />
         {this.state.hasFocus && (

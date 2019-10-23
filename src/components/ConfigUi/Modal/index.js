@@ -44,7 +44,11 @@ export default function Modal(props) {
   return (
     <Fragment>
       <GrayClickMask onClick={props.onMaskClick} />
-      <ModalWrapper className={props.className} selectedSubEntityId={props.selectedSubEntityId}>
+      <ModalWrapper
+        data-automation={props['data-automation']}
+        className={props.className}
+        selectedSubEntityId={props.selectedSubEntityId}
+      >
         {props.children}
       </ModalWrapper>
     </Fragment>

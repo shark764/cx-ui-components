@@ -263,7 +263,7 @@ class NestedListInput extends Component {
                                   <HeaderActionsWrapper>
                                     <ActionButton
                                       className="dtpanel-action-update-item"
-                                      data-automation="dtpanelActionUpdateItem"
+                                      data-automation="updateItemButton"
                                       title={`Update Category Name : ${hierarchy}`}
                                       onClick={() =>
                                         this.props.setSelectedSubEntityId(
@@ -307,7 +307,7 @@ class NestedListInput extends Component {
                                       <div style={{ marginRight: '10px' }}>
                                         <ActionButton
                                           className="dtpanel-action-remove-item"
-                                          data-automation="dtpanelActionRemoveItem"
+                                          data-automation="removeCategoryButton"
                                           title={`Delete All Nested List Items in : ${hierarchy}`}
                                           disabled={!this.props.userHasUpdatePermission}
                                           type="button"
@@ -395,7 +395,7 @@ class NestedListInput extends Component {
                                                   >
                                                     <ActionButton
                                                       className="dtpanel-action-remove-item"
-                                                      data-automation="dtpanelActionRemoveItem"
+                                                      data-automation="removeItemButton"
                                                       title={`Delete Nested List Item : ${reason.get('name')}`}
                                                       disabled={!this.props.userHasUpdatePermission}
                                                       type="button"

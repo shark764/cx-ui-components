@@ -15,6 +15,7 @@ function LoadingSpinnerSVG(props) {
     <SvgWrapper
       size={props.size}
       className={`LoadingSpinnerSVG ${props.className}`}
+      data-automation="loadingSpinnerIcon"
     >
      <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -68,6 +69,7 @@ LoadingSpinnerSVG.propTypes = {
  */
   size: PropTypes.number,
   className: PropTypes.string,
+  'data-automation': PropTypes.string,
   /** Icon color, can be a RGB, HEX, or keyword. If color is not specified, it will fallback to the primary color.*/
   color: PropTypes.string
 };

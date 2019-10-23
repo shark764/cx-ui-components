@@ -107,7 +107,7 @@ function SidePanelHeader(props) {
         <CloseIconOuterBox>
           <CloseIconSVG
             id="sdpanel-close-panel"
-            data-automation="sdpanelClosePanel"
+            data-automation="sdpanelCloseButton"
             size={17}
             alt="close menu"
             title="Close side panel"

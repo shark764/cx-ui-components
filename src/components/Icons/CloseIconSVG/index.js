@@ -28,6 +28,7 @@ function CloseIconSVG(props) {
         className="CloseIconSVG"
         onClick={props.onClick}
         disabled={props.disabled}
+        data-automation={props['data-automation']}
       >
         <svg viewBox="0 0 384 512">
           <StyledPath
@@ -45,6 +46,7 @@ CloseIconSVG.propTypes = {
   size: PropTypes.number,
   onClick: PropTypes.func,
   disabled: PropTypes.bool,
+  'data-automation': PropTypes.string,
 };
 
 CloseIconSVG.defaultProps = {
