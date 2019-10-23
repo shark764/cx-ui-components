@@ -212,19 +212,6 @@ class NestedListInput extends Component {
       this.props.input.onChange(updatedReasons);
     }
   };
-  shouldComponentUpdate(nextProps) {
-    // render method gets called each time an item from the list is dragged, even though a complete drag-drop action is not perfomed.
-    // as a result the snapshot value in the "Droppable" & "Draggable" functions gets updated because we are applying styles on "isDragging".
-    // to optimize the performance of this component, we have to call the render method only when drag-drop action is performed successfully.
-    if (List.isList(this.props.input.value)) {
-      const currentOrder = this.props.input.value.map(val => val.get('reasonUUID'));
-      const nextOrder = nextProps.input.value.map(val => val.get('reasonUUID'));
-      if (is(currentOrder, nextOrder)) {
-        return false;
-      }
-    }
-    return true;
-  }
 
   render() {
     return (
