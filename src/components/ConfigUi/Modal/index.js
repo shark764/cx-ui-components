@@ -30,7 +30,8 @@ const ModalWrapper = styled.div`
       display: flex;
       display: flex;
       flex-direction: column;
-    `} ${props =>
+    `};
+  ${props =>
     props.selectedSubEntityId !== 'addItemToList' &&
     css`
       max-width: 800px;
@@ -55,4 +56,5 @@ Modal.propTypes = {
   children: PropTypes.any,
   onMaskClick: PropTypes.func,
   selectedSubEntityId: PropTypes.string,
+  'data-automation': PropTypes.string,
 };

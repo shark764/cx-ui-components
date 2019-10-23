@@ -13,6 +13,11 @@ import PropTypes from 'prop-types';
 
 export default function DynamicTableWrapper(WrappedComponent) {
   return class extends Component {
+    static propTypes = {
+      children: PropTypes.any,
+      filtered: PropTypes.array,
+      tableType: PropTypes.string,
+    };
     constructor(props) {
       super(props);
       this.state = {
@@ -22,25 +27,25 @@ export default function DynamicTableWrapper(WrappedComponent) {
       };
     }
 
-    /*
-    * TODO this is going to be commented because of the Exceptions table in SidePanelDetails for Business Hours 
-    * when we add one exception the table add 1 row and does not respect the pageSize default value.
-    */
+    componentDidMount() {
+      // We just want to adapt pagination fields in case
+      // of a sidePanel table, modal tables need to display
+      // as more rows as possible.
+      if (this.props.tableType !== 'sidePanel') {
+        const numOfRows = parseFloat((this.refs.inner.clientHeight / 50 - 2).toFixed(0));
+        /**
+         * Make sure to allways show at lease 3 rows for a better ux on smaller resolutions
+         */
+        const defaultPageSizeOptions = this.state.pageSizeOptions;
+        const pageSize = numOfRows < 4 ? 3 : numOfRows;
+        const constructedPageSizeOptions = defaultPageSizeOptions.filter(x => x > pageSize);
 
-   /* componentDidMount() {
-      const numOfRows = parseFloat((this.refs.inner.clientHeight / 50 - 2).toFixed(0));
-      /**
-       * Make sure to allways show at lease 3 rows for a better ux on smaller resolutions
-       */
-     /* const defaultPageSizeOptions = this.state.pageSizeOptions;
-      const pageSize = numOfRows < 4 ? 3 : numOfRows;
-      const constructedPageSizeOptions = defaultPageSizeOptions.filter(x => x > pageSize);
-
-      this.setState({
-        pageSize,
-        pageSizeOptions: [pageSize, ...constructedPageSizeOptions],
-      });
-    }*/
+        this.setState({
+          pageSize,
+          pageSizeOptions: [pageSize, ...constructedPageSizeOptions],
+        });
+      }
+    }
 
     setPageSize = pageSize => this.setState({ pageSize });
 
@@ -62,8 +67,3 @@ export default function DynamicTableWrapper(WrappedComponent) {
     }
   };
 }
-
-DynamicTableWrapper.propTypes = {
-  children: PropTypes.any,
-  filtered: PropTypes.array,
-};

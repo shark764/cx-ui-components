@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.55.10] - 2019-10-23
+### Fixed
+- CXV1-20382 - Fixing Ireland twilio ID region.
+- CXV1-20381 - Adding item on modal was showing a smaller table instead of using whole boundary.
+
 ## [0.55.9] - 2019-10-23
 ## Fixed
 - CXV1-20321 - Unable to delete a new reasonlistItem.
