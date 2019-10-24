@@ -55,7 +55,7 @@ export default function SidePanelTableActions({
           <ActionButton
             className="dtpanel-action-view-item"
             data-automation="dtpanelActionViewItem"
-            title={!row.viewing ? `View ${row.key || row.name}` : `row.viewing ${row.key || row.name}`}
+            title={!row.viewing ? `View` : `row.viewing ${row.key || row.name}`}
             onClick={() => viewSubEntity(row.key || row.id || row.version, row, entityName)}
             disabled={row.viewing}
           >
@@ -68,7 +68,7 @@ export default function SidePanelTableActions({
           <ActionButton
             className="dtpanel-action-update-item"
             data-automation="dtpanelActionUpdateItem"
-            title={!row.deleting ? `Update ${row.key || row.name}` : undefined}
+            title={!row.deleting ? `Update` : undefined}
             onClick={() => updateSubEntity(row.key || row.id || row.version, row, entityName)}
             disabled={row.deleting}
           >
@@ -81,7 +81,7 @@ export default function SidePanelTableActions({
           <ActionButton
             className="dtpanel-action-copy-item"
             data-automation="dtpanelActionCopyItem"
-            title={!row.copying ? `Copy ${row.key || row.name}` : `row.copying ${row.key || row.name}`}
+            title={!row.copying ? "Copy" : `row.copying ${row.key || row.name}`}
             onClick={() => copySubEntity(row.key || row.id || row.version, row, entityName)}
             disabled={row.copying}
           >
