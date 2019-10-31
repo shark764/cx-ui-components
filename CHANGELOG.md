@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.56.1] - 2019-10-31
+## Changed
+- <no-jira> - Changing warning text color for panel message component.
+
 ## [0.56.0] - 2019-10-24
 ## Fixed
 - CXV1-20262 - Updated the display text whenn you hover over a copy button on flows page.

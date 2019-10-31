@@ -16,33 +16,29 @@ const Wrapper = styled.div`
   padding-top: 15px;
   width: 100%;
 `;
-const Message = styled.p`  
-${props =>
-  props.type === 'info' &&
-  css`
-    color: #3498db;
-  `}
-${props =>
-  props.type === 'success' &&
-  css`
-    color: #54b84f;
-  `}
-${props =>
-  props.type === 'error' &&
-  css`
-    color: red;
-  `}
-${props =>
-  props.type === 'warning' &&
-  css`
-    color: #656565;
-  `}
-
+const Message = styled.p`
+  color: ${props => messageColor(props.type)};
   font-style: italic;
   font-size: 14px;
   width: 100%;
   text-align: center;
 `;
+
+const messageColor = type => {
+  switch (type) {
+    case 'info':
+      return '#3498db';
+    case 'success':
+      return '#54b84f';
+    case 'warning':
+      return '#f58c00';
+    case 'error':
+      return 'red';
+    case 'default':
+    default:
+      return '#656565';
+  }
+};
 
 function DetailsPanelMessage(props) {
   return (
@@ -56,11 +52,11 @@ DetailsPanelMessage.propTypes = {
   className: PropTypes.string,
   id: PropTypes.string,
   text: PropTypes.string.isRequired,
-  type: PropTypes.oneOf(['info', 'success', 'error', 'warning']),
+  type: PropTypes.oneOf(['default', 'info', 'success', 'error', 'warning']),
 };
 
 DetailsPanelMessage.defaultProps = {
-  type: 'info',
+  type: 'default',
 };
 
 export default DetailsPanelMessage;
