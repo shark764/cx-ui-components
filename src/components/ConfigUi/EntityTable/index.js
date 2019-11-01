@@ -28,6 +28,7 @@ import CustomDropdownMenu from '../CustomDropdownMenu';
 import { vhToPixel, getClosestValue } from '../../../utils';
 
 import Pagination from './Pagination';
+import { withRouter } from 'react-router-dom';
 
 // React-Table does not integrate well with Styled components
 // We will be writing table style overrides here
@@ -234,6 +235,13 @@ class EntityTable extends Component {
     return null;
   };
 
+  updateURL = (queryString) => {
+    this.props.history.push({
+      ...this.props.location,
+      search: queryString
+    });
+  }
+
   getTableRowProps = (state, rowInfo) => {
     if (rowInfo && rowInfo.row) {
       return {
@@ -242,6 +250,7 @@ class EntityTable extends Component {
           this.setState({
             selected: rowInfo.index,
           });
+          this.updateURL(`id=${rowInfo.original.id}`);
         },
         className: `row-selected-${rowInfo.index === this.state.selected ? 'active' : 'not-active'}`,
         style: {
@@ -306,7 +315,10 @@ class EntityTable extends Component {
               buttonType="primary"
               id="sdpanel-create"
               data-automation="entityCreateButton"
-              onClick={this.props.onCreateButtonClick}
+              onClick={() => {
+                this.props.onCreateButtonClick();
+                this.updateURL('');
+              }}
             >
               Create
             </WrappedButton>
@@ -327,7 +339,10 @@ class EntityTable extends Component {
                   buttonType="columnFilter"
                   id="table-items-actions-select-all-visible"
                   data-automation="selectAllVisibleButton"
-                  onClick={this.selectAllVisible}
+                  onClick={()=> {
+                    this.selectAllVisible();
+                    this.updateURL('');
+                  }}
                 >
                   Select All Visible
                 </ActionButton>
@@ -343,7 +358,10 @@ class EntityTable extends Component {
                   buttonType="columnFilter"
                   id="table-items-actions-select-all"
                   data-automation="selectAllButton"
-                  onClick={this.selectAll}
+                  onClick={()=> {
+                    this.selectAll();
+                    this.updateURL('');
+                  }}
                 >
                   Select All
                 </ActionButton>
@@ -367,8 +385,8 @@ class EntityTable extends Component {
           noDataText={this.props.fetching ? <LoadingSpinner size={60} /> : 'No results found'}
           columns={
             this.props.entityMetadata &&
-            this.props.entityMetadata.entityName &&
-            (this.props.showBulkActionsMenu && this.props.userHasUpdatePermission)
+              this.props.entityMetadata.entityName &&
+              (this.props.showBulkActionsMenu && this.props.userHasUpdatePermission)
               ? [bulkColumn, ...this.props.columns]
               : [...this.props.columns]
           }
@@ -417,4 +435,4 @@ EntityTable.propTypes = {
   userHasUpdatePermission: PropTypes.bool,
 };
 
-export default EntityTable;
+export default withRouter(EntityTable);

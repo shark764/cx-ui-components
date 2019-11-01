@@ -15,6 +15,7 @@ import styled from 'styled-components';
 import Toggle from '../Toggle';
 import CloseIconSVG from '../../Icons/CloseIconSVG';
 import CopyIconSVG from '../../Icons/CopyIconSVG';
+import { withRouter } from 'react-router-dom';
 
 const Wrapper = styled.div`
   display: flex;
@@ -67,6 +68,12 @@ const CopyIconOuterBox = styled.div`
 `;
 
 function SidePanelHeader(props) {
+  const updateURL = (queryString)=> {
+    props.history.push({
+      ...props.location,
+      search: queryString
+    });
+  }
   return (
     <Wrapper
       id={props.id}
@@ -112,7 +119,10 @@ function SidePanelHeader(props) {
             alt="close menu"
             title="Close side panel"
             closeIconType="secondary"
-            onClick={props.onClose}
+            onClick={()=> {
+              props.onClose();
+              updateURL();
+            }}
           />
         </CloseIconOuterBox>
       )}
@@ -136,4 +146,4 @@ SidePanelHeader.propTypes = {
   disabled: PropTypes.bool,
 };
 
-export default SidePanelHeader;
+export default withRouter(SidePanelHeader);

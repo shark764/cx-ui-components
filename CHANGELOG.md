@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.56.2] - 2019-11-01
+## Fixed
+- CXV1-20236 - Display entity ID's in the URL.
+- <no-jira> -  Also update node from v8.11.3 to v10.5.0.
+
 ## [0.56.1] - 2019-10-31
 ## Changed
 - <no-jira> - Changing warning text color for panel message component.
