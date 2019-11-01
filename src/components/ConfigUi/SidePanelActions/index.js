@@ -34,17 +34,23 @@ function SidePanelActions(props) {
   // when clicking on it.
   return (
     <div id={props.id} className={props.className}>
-      <SlimButton
-        type="submit"
-        buttonType="primary"
-        data-automation="sdpanelSubmitButton"
-        disabled={props.isSaving || props.pristine || props.invalid}
-        onClick={props.onSubmit}
-        id="sdpanel-submit"
+      <CancelConfirmationWrapper
+        confirmBtnCallback={props.selectedEntityId === 'bulk' ? props.onSubmit : undefined}
+        mainText={`This bulk action will affect ${props.bulkItemsAffected} items`}
+        secondaryText="Do you want to continue?"
       >
-        {!props.save && (props.isSaving ? 'Saving' : 'Submit')}
-        {props.save && 'Save'}
-      </SlimButton>
+        <SlimButton
+          type="submit"
+          buttonType="primary"
+          data-automation="sdpanelSubmitButton"
+          disabled={props.isSaving || props.isBulkUpdating || props.pristine || props.invalid}
+          onClick={props.selectedEntityId !== 'bulk' ? props.onSubmit : undefined}
+          id="sdpanel-submit"
+        >
+          {!props.save && (props.isSaving ? 'Saving' : 'Submit')}
+          {props.save && 'Save'}
+        </SlimButton>
+      </CancelConfirmationWrapper>
       <CancelConfirmationWrapper
         confirmBtnCallback={props.dirty ? props.onCancel : undefined}
         mainText="You have unsaved changes that will be lost!."
@@ -56,7 +62,7 @@ function SidePanelActions(props) {
           onClick={!props.dirty ? props.onCancel : undefined}
           id="sdpanel-cancel"
           data-automation="sdpanelCancelButton"
-          disabled={props.isSaving}
+          disabled={props.isSaving || props.isBulkUpdating}
         >
           Cancel
         </SlimButton>
@@ -69,12 +75,20 @@ SidePanelActions.propTypes = {
   className: PropTypes.string,
   id: PropTypes.string,
   isSaving: PropTypes.bool,
+  isBulkUpdating: PropTypes.bool,
   onSubmit: PropTypes.func,
   onCancel: PropTypes.func.isRequired,
   pristine: PropTypes.bool,
   dirty: PropTypes.bool,
   invalid: PropTypes.bool,
   save: PropTypes.bool,
+  selectedEntityId: PropTypes.string,
+  bulkItemsAffected: PropTypes.number,
+};
+
+SidePanelActions.defaultProps = {
+  selectedEntityId: '',
+  bulkItemsAffected: 0,
 };
 
 export default SidePanelActions;
