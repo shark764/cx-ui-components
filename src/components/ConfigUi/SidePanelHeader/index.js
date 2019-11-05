@@ -16,6 +16,7 @@ import Toggle from '../Toggle';
 import CloseIconSVG from '../../Icons/CloseIconSVG';
 import CopyIconSVG from '../../Icons/CopyIconSVG';
 import { withRouter } from 'react-router-dom';
+import ConfirmationWrapper from '../Confirmation/ConfirmationWrapper';
 
 const Wrapper = styled.div`
   display: flex;
@@ -68,12 +69,16 @@ const CopyIconOuterBox = styled.div`
 `;
 
 function SidePanelHeader(props) {
-  const updateURL = (queryString)=> {
+  const updateURL = queryString => {
     props.history.push({
       ...props.location,
-      search: queryString
+      search: queryString,
     });
-  }
+  };
+  const onClose = () => {
+    props.onClose();
+    updateURL();
+  };
   return (
     <Wrapper
       id={props.id}
@@ -83,14 +88,20 @@ function SidePanelHeader(props) {
       hasCreatedUpdatedAt={props.createdAt || props.updatedAt}
     >
       {props.toggleStatus !== undefined && (
-        <StyledToggle
-          id="sdpanel-toggle-status"
-          data-automation="sdpanelStatusToggle"
-          value={props.toggleStatus}
-          onChange={props.onToggle}
-          inherited={props.inherited}
-          disabled={!props.userHasUpdatePermission || (props.disabled !== undefined && props.disabled)}
-        />
+        <ConfirmationWrapper
+          confirmBtnCallback={props.onToggle}
+          mainText={props.confirmationMessage || `This will enable this entity.`}
+          secondaryText="Do you want to continue?"
+        >
+          <StyledToggle
+            id="sdpanel-toggle-status"
+            data-automation="sdpanelStatusToggle"
+            value={props.toggleStatus}
+            onChange={() => {}}
+            inherited={props.inherited}
+            disabled={!props.userHasUpdatePermission || (props.disabled !== undefined && props.disabled)}
+          />
+        </ConfirmationWrapper>
       )}
       <HeaderArea>
         <Header title={props.title}>{props.title}</Header>
@@ -112,18 +123,21 @@ function SidePanelHeader(props) {
       )}
       {props.onClose !== undefined && (
         <CloseIconOuterBox>
-          <CloseIconSVG
-            id="sdpanel-close-panel"
-            data-automation="sdpanelCloseButton"
-            size={17}
-            alt="close menu"
-            title="Close side panel"
-            closeIconType="secondary"
-            onClick={()=> {
-              props.onClose();
-              updateURL();
-            }}
-          />
+          <ConfirmationWrapper
+            confirmBtnCallback={props.dirty ? onClose : undefined}
+            mainText="You have unsaved changes that will be lost!."
+            secondaryText="Click Confirm to discard changes, or Cancel to continue editing."
+          >
+            <CloseIconSVG
+              id="sdpanel-close-panel"
+              data-automation="sdpanelCloseButton"
+              size={17}
+              alt="close menu"
+              title="Close side panel"
+              closeIconType="secondary"
+              onClick={!props.dirty ? onClose : undefined}
+            />
+          </ConfirmationWrapper>
         </CloseIconOuterBox>
       )}
     </Wrapper>
@@ -144,6 +158,12 @@ SidePanelHeader.propTypes = {
   copy: PropTypes.func,
   inherited: PropTypes.bool,
   disabled: PropTypes.bool,
+  history: PropTypes.any,
+  location: PropTypes.any,
+  isBulkUpdating: PropTypes.bool,
+  pristine: PropTypes.bool,
+  dirty: PropTypes.bool,
+  confirmationMessage: PropTypes.string,
 };
 
 export default withRouter(SidePanelHeader);

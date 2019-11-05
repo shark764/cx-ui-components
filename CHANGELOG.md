@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.56.4] - 2019-11-05
+## Fixed
+- CXV1-20574 - Closing SidePanel Form should display a confirmation warning.
+
 ## [0.56.3] - 2019-11-01
 ## Fixed
 - CXV1-20518 - Diaplay confirmation modal before submitting bulk actions form.

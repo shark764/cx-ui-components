@@ -235,12 +235,12 @@ class EntityTable extends Component {
     return null;
   };
 
-  updateURL = (queryString) => {
+  updateURL = queryString => {
     this.props.history.push({
       ...this.props.location,
-      search: queryString
+      search: queryString,
     });
-  }
+  };
 
   getTableRowProps = (state, rowInfo) => {
     if (rowInfo && rowInfo.row) {
@@ -339,7 +339,7 @@ class EntityTable extends Component {
                   buttonType="columnFilter"
                   id="table-items-actions-select-all-visible"
                   data-automation="selectAllVisibleButton"
-                  onClick={()=> {
+                  onClick={() => {
                     this.selectAllVisible();
                     this.updateURL('');
                   }}
@@ -358,7 +358,7 @@ class EntityTable extends Component {
                   buttonType="columnFilter"
                   id="table-items-actions-select-all"
                   data-automation="selectAllButton"
-                  onClick={()=> {
+                  onClick={() => {
                     this.selectAll();
                     this.updateURL('');
                   }}
@@ -385,8 +385,8 @@ class EntityTable extends Component {
           noDataText={this.props.fetching ? <LoadingSpinner size={60} /> : 'No results found'}
           columns={
             this.props.entityMetadata &&
-              this.props.entityMetadata.entityName &&
-              (this.props.showBulkActionsMenu && this.props.userHasUpdatePermission)
+            this.props.entityMetadata.entityName &&
+            (this.props.showBulkActionsMenu && this.props.userHasUpdatePermission)
               ? [bulkColumn, ...this.props.columns]
               : [...this.props.columns]
           }
@@ -433,6 +433,8 @@ EntityTable.propTypes = {
   onRowClick: PropTypes.func,
   userHasCreatePermission: PropTypes.bool,
   userHasUpdatePermission: PropTypes.bool,
+  history: PropTypes.any,
+  location: PropTypes.any,
 };
 
 export default withRouter(EntityTable);

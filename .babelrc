@@ -1,4 +1,4 @@
 {
-    "presets": ["env","react"],
-    "plugins": ["transform-class-properties","babel-plugin-add-module-exports"]
-  }
+  "presets": ["env", "react", "stage-0"],
+  "plugins": ["transform-class-properties", "transform-object-rest-spread", "babel-plugin-add-module-exports"]
+}
