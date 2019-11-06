@@ -79,6 +79,7 @@ class CheckboxInputField extends Component {
                     <input
                       type="checkbox"
                       name={item.name}
+                      data-automation={item.name + "Checkbox"}
                       checked={value !== '' && value.find(a => a === item.name) !== undefined}
                       onChange={() => this.updateFieldValues(item)}
                     />
