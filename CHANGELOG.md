@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.56.7] - 2019-11-07
+## Added
+- <no-jira> - added data-automation to clickMask
+
 ## [0.56.6] - 2019-11-06
 ## Added
 - CXV1-20596 - Pass config2 selectedEntityId param to config-ui URL

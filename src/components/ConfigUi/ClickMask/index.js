@@ -12,7 +12,7 @@ const ClickMaskDiv = styled.div`
 `;
 
 function ClickMask(props) {
-  return <ClickMaskDiv className={props.className} onClick={props.onClick ? props.onClick : undefined} />;
+  return <ClickMaskDiv className={props.className} data-automation="clickMask" onClick={props.onClick ? props.onClick : undefined} />;
 }
 
 ClickMask.propTypes = {
