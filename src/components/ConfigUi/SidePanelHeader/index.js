@@ -69,12 +69,22 @@ const CopyIconOuterBox = styled.div`
 `;
 
 function SidePanelHeader(props) {
-  const updateURL = queryString => {
-    props.history.push({
-      ...props.location,
-      search: queryString,
-    });
+
+  const updateURL = () => {
+    if (props.insideIframe) {
+      const data = {
+        module: 'updateURLWithQueryString',
+        entityId: '',
+      }
+      window.parent.postMessage(data, '*');
+    } else {
+      props.history.push({
+        ...props.location,
+        search: '',
+      });
+    }
   };
+
   const onClose = () => {
     props.onClose();
     updateURL();
@@ -164,6 +174,7 @@ SidePanelHeader.propTypes = {
   pristine: PropTypes.bool,
   dirty: PropTypes.bool,
   confirmationMessage: PropTypes.string,
+  insideIframe: PropTypes.bool,
 };
 
 export default withRouter(SidePanelHeader);

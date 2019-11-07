@@ -236,10 +236,18 @@ class EntityTable extends Component {
   };
 
   updateURL = queryString => {
-    this.props.history.push({
-      ...this.props.location,
-      search: queryString,
-    });
+    if(this.props.insideIframe) {
+      const data = {
+        module: 'updateURLWithQueryString',
+        entityId: queryString,
+      }
+      window.parent.postMessage(data, '*');
+    } else {
+      this.props.history.push({
+        ...this.props.location,
+        search: queryString,
+      });
+    }
   };
 
   getTableRowProps = (state, rowInfo) => {
@@ -385,8 +393,8 @@ class EntityTable extends Component {
           noDataText={this.props.fetching ? <LoadingSpinner size={60} /> : 'No results found'}
           columns={
             this.props.entityMetadata &&
-            this.props.entityMetadata.entityName &&
-            (this.props.showBulkActionsMenu && this.props.userHasUpdatePermission)
+              this.props.entityMetadata.entityName &&
+              (this.props.showBulkActionsMenu && this.props.userHasUpdatePermission)
               ? [bulkColumn, ...this.props.columns]
               : [...this.props.columns]
           }
@@ -435,6 +443,7 @@ EntityTable.propTypes = {
   userHasUpdatePermission: PropTypes.bool,
   history: PropTypes.any,
   location: PropTypes.any,
+  insideIframe: PropTypes.bool,
 };
 
 export default withRouter(EntityTable);
