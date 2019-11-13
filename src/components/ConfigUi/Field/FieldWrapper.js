@@ -15,6 +15,7 @@ const Label = styled.label`
   display: inline-block;
   width: 150px;
   margin-top: ${props => props.labelMargin ? props.labelMargin : '5px'};
+  padding-right: 10px;
 `;
 
 const HelpText = styled.div`

@@ -19,7 +19,7 @@ const Textarea = Input.withComponent('textarea').extend`
   padding-top: 10px;
 `;
 
-const RenderField = props => {
+export const RenderField = props => {
   const {
     input,
     label,

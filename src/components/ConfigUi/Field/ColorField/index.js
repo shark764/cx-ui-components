@@ -5,6 +5,7 @@ import { Field as ReduxFormField } from 'redux-form/immutable';
 import FieldWrapper from '../FieldWrapper';
 import { ChromePicker } from 'react-color';
 import ClickMask from '../../ClickMask';
+import { RenderField } from '../InputField';
 
 const Sample = styled.div`
   display: inline-block;
@@ -13,31 +14,19 @@ const Sample = styled.div`
   border-radius: 5px;
   background: ${props => props.color};
   border: 1px solid grey;
-  z-index: 4;
-  :hover {
-    box-shadow: 0px 0px 2px 0px rgba(42, 45, 41, 0.63);
-    cursor: pointer;
+  z-index: 3;
+  ${props => !props.disabled 
+    ? `:hover {
+        box-shadow: 0px 0px 2px 0px rgba(42, 45, 41, 0.63);
+      }
+      cursor: pointer;`
+    : 'cursor: not-allowed;'
   }
 `;
 
 const PickerWrapper = styled.div`
   position: absolute;
-  margin-top: 35px;
-  z-index: 2;
-`;
-
-const HexValue = styled.input`
-  height: 32px;
-  padding-left: 10px;
-  font-size: 13px;
-  border: 1px solid;
-  border-color: transparent;
-  background-color: inherit;
-  cursor: text;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2) inset, 0 -1px 0 rgba(0, 0, 0, 0.05) inset;
-  margin-left: 20px;
-  position: relative;
-  top: -10px;
+  z-index: 4;
 `;
 
 class ColorInput extends Component {
@@ -57,7 +46,9 @@ class ColorInput extends Component {
   };
 
   toggleColorPicker = () => {
-    this.setState({ opened: !this.state.opened });
+    if (!this.props.disabled) {
+      this.setState({ opened: !this.state.opened });
+    }
   };
 
   render() {
@@ -71,21 +62,25 @@ class ColorInput extends Component {
           error={this.props.error}
           warning={this.props.warning}
         >
-          <div style={{ float: 'right' }}>
+          <div style={{ display: 'flex' }}>
             <Sample
               className="color-picker-swatch"
               data-automation="colorPickerSwatch"
               color={this.props.input.value}
               onClick={this.toggleColorPicker}
+              disabled={this.props.disabled}
             />
-            <HexValue
+            <RenderField
               className="color-picker-text-input"
               data-automation="colorPickerTextInput"
               value={this.props.input.value}
               onChange={this.handleChangeComplete}
+              componentType="input"
+              hideLabel
+              {...this.props}
             />
           </div>
-          {this.state.opened && (
+          {this.state.opened && !this.props.disabled && (
             <PickerWrapper className="color-picker-wrapper" data-automation="colorPickerWrapper">
               <ChromePicker
                 className="color-picker"

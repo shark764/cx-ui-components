@@ -1,13 +1,21 @@
 ```js
 const Store = require('../../../../utils/store');
 const Form = require('../../../../utils/reduxForm');
-const { Map } = require('immutable');
 
 <Store>
   <Form>
     <ColorField
-      name="headerColor"
-      label="Header Color"
+      name="color"
+      label="Color"
+    />
+    <ColorField
+      name="anotherColor"
+      label="Another Color To Test Overlap"
+    />
+    <ColorField
+      name="disabledColor"
+      label="Disabled Color"
+      disabled
     />
   </Form>
 </Store>
