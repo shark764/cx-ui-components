@@ -243,7 +243,7 @@ class TransferListInput extends Component {
                             isDragging={snapshot.isDragging}
                           >
                             <HeaderContainer>
-                              <CategoryGripIcon title={`Drag to reorder category : ${category.get('hierarchy')}`}>
+                              <CategoryGripIcon title={`Drag to reorder category : ${category.get('hierarchy')}`} data-automation="categoryDragDropIcon">
                                 :::
                               </CategoryGripIcon>
                               <HierarchyName title={category.get('hierarchy')}>
@@ -252,7 +252,7 @@ class TransferListInput extends Component {
                               <HeaderActionsWrapper>
                                 <ActionButton
                                   className="dtpanel-action-update-item"
-                                  data-automation="dtpanelActionUpdateItem"
+                                  data-automation="updateCategoryButton"
                                   title={`Update Category Name : ${category.get('hierarchy')}`}
                                   onClick={() =>
                                     this.props.setSelectedSubEntityId(
@@ -292,7 +292,7 @@ class TransferListInput extends Component {
                                   <div style={{ marginRight: '10px' }}>
                                     <ActionButton
                                       className="dtpanel-action-remove-item"
-                                      data-automation="dtpanelActionRemoveItem"
+                                      data-automation="removeCategoryButton"
                                       title={`Delete All Transfer List Items in : ${category.get('hierarchy')}`}
                                       disabled={!this.props.userHasUpdatePermission}
                                       type="button"
@@ -333,6 +333,7 @@ class TransferListInput extends Component {
                                           >
                                             <EndpointItem
                                               className="list-item-grip-icon"
+                                              data-automation="listItemDragDropIcon"
                                               title={`Drag to Reorder Transfer List Item : ${endpoint.get('name')}`}
                                             >
                                               :::
@@ -346,7 +347,7 @@ class TransferListInput extends Component {
                                             <EndpointActionsWrapper>
                                               <ActionButton
                                                 className="dtpanel-action-update-item"
-                                                data-automation="dtpanelActionUpdateItem"
+                                                data-automation="updateListItemButton"
                                                 title={`Update Transfer List Item : ${endpoint.get('name')}`}
                                                 onClick={() =>
                                                   this.props.setSelectedSubEntityId(
@@ -389,7 +390,7 @@ class TransferListInput extends Component {
                                               >
                                                 <ActionButton
                                                   className="dtpanel-action-remove-item"
-                                                  data-automation="dtpanelActionRemoveItem"
+                                                  data-automation="removeListItemButton"
                                                   title={`Delete Transfer List Item : ${endpoint.get('name')}`}
                                                   disabled={!this.props.userHasUpdatePermission}
                                                   type="button"

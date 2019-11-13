@@ -24,6 +24,14 @@ const SubMenuItem = styled.div`
 const SubMenuItemLabel = styled.label`
   margin-left: auto;
 `;
+const ClickMaskDiv = styled.div`
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+`;
 
 class CheckboxInputField extends Component {
   state = {
@@ -58,7 +66,7 @@ class CheckboxInputField extends Component {
     const { value } = this.props.input;
     return (
       <Fragment>
-        {this.state.isSubMenuOpen && <ClickMask onClick={this.updateSubMenuDisplay} />}
+        {this.state.isSubMenuOpen && <ClickMaskDiv className={this.props.className} data-automation="modalMask" onClick={this.updateSubMenuDisplay} />}
         <FieldWrapper label={this.props.label}>
           <DropdownButton
             type="button"
@@ -72,7 +80,7 @@ class CheckboxInputField extends Component {
             {this.dropDownText()}
           </DropdownButton>
           {this.state.isSubMenuOpen && (
-            <SubMenuDiv>
+            <SubMenuDiv data-automation="checkboxMenuWrapper">
               {this.props.items.map((item, index) => {
                 return (
                   <SubMenuItem key={index}>

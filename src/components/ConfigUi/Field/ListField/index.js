@@ -173,7 +173,7 @@ class ListInput extends Component {
                                 </ListItemText>
                                 <RemoveButton
                                   className="list-item-remove-button"
-                                  data-automation="listItemRemoveButton"
+                                  data-automation="removeListItemButton"
                                   type={this.props.input.name}
                                   onClick={() => this.removeListItem(index)}
                                 >

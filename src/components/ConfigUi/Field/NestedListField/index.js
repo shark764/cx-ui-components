@@ -255,7 +255,7 @@ class NestedListInput extends Component {
                               isDragging={snapshot.isDragging}
                             >
                               <HeaderContainer>
-                                <CategoryGripIcon title={`Drag to reorder category : ${hierarchy}`}>
+                                <CategoryGripIcon title={`Drag to reorder category : ${hierarchy}`} data-automation="categoryDragDropIcon">
                                   :::
                                 </CategoryGripIcon>
                                 <HierarchyName title={hierarchy}>{hierarchy}</HierarchyName>
@@ -263,7 +263,7 @@ class NestedListInput extends Component {
                                   <HeaderActionsWrapper>
                                     <ActionButton
                                       className="dtpanel-action-update-item"
-                                      data-automation="updateItemButton"
+                                      data-automation="updateCategoryButton"
                                       title={`Update Category Name : ${hierarchy}`}
                                       onClick={() =>
                                         this.props.setSelectedSubEntityId(
@@ -353,7 +353,7 @@ class NestedListInput extends Component {
                                             >
                                               <ReasonItem
                                                 className="list-item-grip-icon"
-                                                data-automation="listItemGripIcon"
+                                                data-automation="listItemDragDropIcon"
                                                 title={`Drag to Reorder Nested List Item : ${reason.get('name')}`}
                                               >
                                                 :::
@@ -395,7 +395,7 @@ class NestedListInput extends Component {
                                                   >
                                                     <ActionButton
                                                       className="dtpanel-action-remove-item"
-                                                      data-automation="removeItemButton"
+                                                      data-automation="removeListItemButton"
                                                       title={`Delete Nested List Item : ${reason.get('name')}`}
                                                       disabled={!this.props.userHasUpdatePermission}
                                                       type="button"
