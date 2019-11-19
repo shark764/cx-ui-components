@@ -212,13 +212,13 @@ export default class Pagination extends Component {
                   type={this.state.page === '' ? 'text' : 'number'}
                   onChange={e => {
                     const val = e.target.value;
-                    const page = val ;
+                    const page = val;
                     if (val === '') {
                       return this.setState({ page: val });
                     }
                     this.setState({ page: this.getSafePage(page) });
                   }}
-                  value={this.state.page === '' ? '' : this.state.page === 0 ? 1 : this.state.page }
+                  value={this.state.page === '' ? '' : this.state.page === 0 ? 1 : this.state.page}
                   onBlur={this.applyPage}
                   onKeyPress={e => {
                     if (e.which === 13 || e.keyCode === 13) {

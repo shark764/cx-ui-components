@@ -25,8 +25,6 @@ import { filterDefaultMethod } from '../../../utils/filterMethod';
 import Checkbox from '../Checkbox';
 import CustomDropdownMenu from '../CustomDropdownMenu';
 
-import { vhToPixel, getClosestValue } from '../../../utils';
-
 import Pagination from './Pagination';
 import { withRouter } from 'react-router-dom';
 
@@ -168,10 +166,9 @@ class EntityTable extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selected: null,
       pageSizeOptions: [5, 10, 20, 25, 50, 100],
-      defaultPageSize: 5,
-      pageSize: 5,
+      defaultPageSize: 20,
+      pageSize: 20,
     };
   }
 
@@ -193,8 +190,6 @@ class EntityTable extends Component {
     this.props.setVisibleMenu('none', this.props.entityMetadata.entityName);
     for (let i = 0, len = data.length; i < len; i++) {
       let x = data[i];
-      // Agents can be selected for bulk actions
-      // only if they haven't been disconnected.
 
       this.props.onBulkClick(
         this.props.entityMetadata.entityName,
@@ -224,8 +219,13 @@ class EntityTable extends Component {
     }
   };
 
-  highlightRow = ({ index, row: { _original: { bulkChangeItem } } }) => {
-    if (index === this.state.selected) {
+  highlightRow = ({
+    index,
+    row: {
+      _original: { bulkChangeItem, id },
+    },
+  }) => {
+    if (id === this.props.selectedEntityId) {
       return 'rgba(253, 255, 50, 0.17)';
     } else if (bulkChangeItem) {
       // New color to make bulk selected rows
@@ -236,11 +236,11 @@ class EntityTable extends Component {
   };
 
   updateURL = queryString => {
-    if(this.props.insideIframe) {
+    if (this.props.insideIframe) {
       const data = {
         module: 'updateURLWithQueryString',
         entityId: queryString,
-      }
+      };
       window.parent.postMessage(data, '*');
     } else {
       this.props.history.push({
@@ -255,12 +255,9 @@ class EntityTable extends Component {
       return {
         onClick: () => {
           this.props.onRowClick(rowInfo.original.id);
-          this.setState({
-            selected: rowInfo.index,
-          });
           this.updateURL(`id=${rowInfo.original.id}`);
         },
-        className: `row-selected-${rowInfo.index === this.state.selected ? 'active' : 'not-active'}`,
+        className: `row-selected-${rowInfo.original.id === this.props.selectedEntityId ? 'active' : 'not-active'}`,
         style: {
           background: this.highlightRow(rowInfo),
         },
@@ -272,47 +269,45 @@ class EntityTable extends Component {
   getTdProps = () => ({ style: { fontSize: '11.5pt' } });
   getTheadProps = () => ({ style: { color: 'grey' } });
 
-  componentDidUpdate(prevProps) {
-    // Only update state if the data has changed
-    if (prevProps.items !== this.props.items && this.props.items.length) {
-      // We plus 5 to data length in case there are no data or data length is less than 5
-      // Page size will be calculate depending on screen height
-      // EntityTable height: 80vh (it is converted to pixels, this process depends on screen height)
-      // Row height: 40px
-      const pageSize = getClosestValue(this.state.pageSizeOptions || [], vhToPixel(80) / 40);
-      this.setState({
-        pageSize,
-      });
-    }
-  }
-
   render() {
     const bulkColumn = {
       id: 'bulkId',
       // Changing filter behavior for header toggle to
       // Select/Unselect All Visible functionality.
       // See CXV1-19967 for more details.
-      Header: <HeaderCheckbox className="bulk-action-select-all-toggle" onChange={this.toggleHeader} />,
+      Header: (
+        <HeaderCheckbox
+          className="bulk-action-select-all-toggle"
+          onChange={this.toggleHeader}
+          data-automation="bulkSelectAllCheckbox"
+        />
+      ),
       accessor: 'bulkChangeItem',
       sortable: false,
       resizable: false,
       filterable: false,
       width: 40,
-      Cell: ({ row }) => (
-        <CheckboxWrapper
-          className="bulk-action-selector-toggle"
-          onClick={e =>
-            this.props.onBulkClick(this.props.entityMetadata.entityName, row._original.id) && e.stopPropagation()
-          }
-        >
-          <RowCheckbox
-            type="checkbox"
-            checked={row._original.bulkChangeItem || false}
-            readOnly
-            title="Add or remove this from the bulk actions form"
-          />
-        </CheckboxWrapper>
-      ),
+      Cell: ({ row }) =>
+        row._original.inherited !== false ? (
+          <CheckboxWrapper
+            className="bulk-action-selector-toggle"
+            onClick={e =>
+              this.props.onBulkClick(this.props.entityMetadata.entityName, row._original.id) && e.stopPropagation()
+            }
+          >
+            <RowCheckbox
+              type="checkbox"
+              checked={row._original.bulkChangeItem || false}
+              readOnly
+              title="Add or remove this from the bulk actions form"
+              data-automation={`${row._original.id}Checkbox`}
+            />
+          </CheckboxWrapper>
+        ) : (
+          <div style={{ textAlign: 'center' }} title={`Not available`}>
+            <span>--</span>
+          </div>
+        ),
     };
 
     return (
@@ -331,58 +326,57 @@ class EntityTable extends Component {
               Create
             </WrappedButton>
           )}
-          {this.props.userHasUpdatePermission &&
-            this.props.showBulkActionsMenu && (
-              <ActionsMenu
-                currentFilter="Actions"
-                setVisibleMenu={this.props.setVisibleMenu}
-                currentVisibleSubMenu={this.props.currentVisibleSubMenu}
-                menuType="actionsMenu"
+          {this.props.userHasUpdatePermission && this.props.showBulkActionsMenu && (
+            <ActionsMenu
+              currentFilter="Actions"
+              setVisibleMenu={this.props.setVisibleMenu}
+              currentVisibleSubMenu={this.props.currentVisibleSubMenu}
+              menuType="actionsMenu"
+              buttonType="columnFilter"
+              data-automation="actionsButton"
+              tableType={this.props.entityMetadata && this.props.entityMetadata.entityName}
+              className="actions-button"
+            >
+              <ActionButton
                 buttonType="columnFilter"
-                data-automation="actionsButton"
-                tableType={this.props.entityMetadata && this.props.entityMetadata.entityName}
-                className="actions-button"
+                id="table-items-actions-select-all-visible"
+                data-automation="selectAllVisibleButton"
+                onClick={() => {
+                  this.selectAllVisible();
+                  this.updateURL('');
+                }}
               >
-                <ActionButton
-                  buttonType="columnFilter"
-                  id="table-items-actions-select-all-visible"
-                  data-automation="selectAllVisibleButton"
-                  onClick={() => {
-                    this.selectAllVisible();
-                    this.updateURL('');
-                  }}
-                >
-                  Select All Visible
-                </ActionButton>
-                <ActionButton
-                  buttonType="columnFilter"
-                  id="table-items-actions-unselect-all-visible"
-                  data-automation="unselectAllVisibleButton"
-                  onClick={this.unselectAllVisible}
-                >
-                  Unselect All Visible
-                </ActionButton>
-                <ActionButton
-                  buttonType="columnFilter"
-                  id="table-items-actions-select-all"
-                  data-automation="selectAllButton"
-                  onClick={() => {
-                    this.selectAll();
-                    this.updateURL('');
-                  }}
-                >
-                  Select All
-                </ActionButton>
-                <ActionButton
-                  buttonType="columnFilter"
-                  id="table-items-actions-unselect-all"
-                  data-automation="unselectAllButton"
-                  onClick={this.unselectAll}
-                >
-                  Unselect All
-                </ActionButton>
-              </ActionsMenu>
-            )}
+                Select All Visible
+              </ActionButton>
+              <ActionButton
+                buttonType="columnFilter"
+                id="table-items-actions-unselect-all-visible"
+                data-automation="unselectAllVisibleButton"
+                onClick={this.unselectAllVisible}
+              >
+                Unselect All Visible
+              </ActionButton>
+              <ActionButton
+                buttonType="columnFilter"
+                id="table-items-actions-select-all"
+                data-automation="selectAllButton"
+                onClick={() => {
+                  this.selectAll();
+                  this.updateURL('');
+                }}
+              >
+                Select All
+              </ActionButton>
+              <ActionButton
+                buttonType="columnFilter"
+                id="table-items-actions-unselect-all"
+                data-automation="unselectAllButton"
+                onClick={this.unselectAll}
+              >
+                Unselect All
+              </ActionButton>
+            </ActionsMenu>
+          )}
           {this.props.children}
         </Header>
 
@@ -393,8 +387,8 @@ class EntityTable extends Component {
           noDataText={this.props.fetching ? <LoadingSpinner size={60} /> : 'No results found'}
           columns={
             this.props.entityMetadata &&
-              this.props.entityMetadata.entityName &&
-              (this.props.showBulkActionsMenu && this.props.userHasUpdatePermission)
+            this.props.entityMetadata.entityName &&
+            (this.props.showBulkActionsMenu && this.props.userHasUpdatePermission)
               ? [bulkColumn, ...this.props.columns]
               : [...this.props.columns]
           }
@@ -444,6 +438,7 @@ EntityTable.propTypes = {
   history: PropTypes.any,
   location: PropTypes.any,
   insideIframe: PropTypes.bool,
+  selectedEntityId: PropTypes.string,
 };
 
 export default withRouter(EntityTable);

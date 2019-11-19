@@ -14,7 +14,7 @@ import { Field as ReduxFormField } from 'redux-form/immutable';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Button from '../../Button';
-import { List, is } from 'immutable';
+import { List } from 'immutable';
 import EditIconSVG from '../../../Icons/EditIconSVG';
 import CloseIconSVG from '../../../Icons/CloseIconSVG';
 import LoadingSpinnerSVG from '../../../Icons/LoadingSpinnerSVG';
@@ -216,218 +216,219 @@ class NestedListInput extends Component {
   render() {
     return (
       <Fragment>
-        {!this.props.input.value &&
-          this.props.selectedEntityId === 'create' && (
-            <AddNewContactHelpTextWrapper>
-              <AddNewContactHelpText>Add Reason List with the plus button above. </AddNewContactHelpText>
-              <AddNewContactWarningText>
-                You must have one or more reason categories in your reason list in order to save.
-              </AddNewContactWarningText>
-            </AddNewContactHelpTextWrapper>
-          )}
+        {!this.props.input.value && this.props.selectedEntityId === 'create' && (
+          <AddNewContactHelpTextWrapper>
+            <AddNewContactHelpText>Add Reason List with the plus button above. </AddNewContactHelpText>
+            <AddNewContactWarningText>
+              You must have one or more reason categories in your reason list in order to save.
+            </AddNewContactWarningText>
+          </AddNewContactHelpTextWrapper>
+        )}
         {!this.props.input.value && this.props.selectedEntityId !== 'create' && <LoadingSpinnerSVG size={100} />}
-        {this.props.input.value &&
-          this.props.input.value.size > 0 &&
-          this.props.input.value.toJS()[0].name && (
-            <DragDropContext onDragEnd={this.onDragEnd} onDragStart={this.onDragStart}>
-              <Droppable droppableId="nestedLists">
-                {(provided, snapshot) => (
-                  <NestedListItemsContainer
-                    innerRef={provided.innerRef}
-                    {...provided.droppableProps}
-                    isDraggingOver={snapshot.isDraggingOver}
-                  >
-                    {this.props.reasonHeaders.map((category, index) => {
-                      let hierarchy =
-                        category.get('hierarchy').size > 0 ? category.get('hierarchy').toJS()[0] : 'default';
-                      return (
-                        <Draggable
-                          draggableId={category.get('categoryUUID')}
-                          index={index}
-                          key={category.get('categoryUUID')}
-                          isDragDisabled={!this.props.userHasUpdatePermission}
-                        >
-                          {(provided, snapshot) => (
-                            <NestedListItemWrapper
-                              {...provided.draggableProps}
-                              {...provided.dragHandleProps}
-                              innerRef={provided.innerRef}
-                              isDragging={snapshot.isDragging}
-                            >
-                              <HeaderContainer>
-                                <CategoryGripIcon title={`Drag to reorder category : ${hierarchy}`} data-automation="categoryDragDropIcon">
-                                  :::
-                                </CategoryGripIcon>
-                                <HierarchyName title={hierarchy}>{hierarchy}</HierarchyName>
-                                {this.props.userHasUpdatePermission && (
-                                  <HeaderActionsWrapper>
-                                    <ActionButton
-                                      className="dtpanel-action-update-item"
-                                      data-automation="updateCategoryButton"
-                                      title={`Update Category Name : ${hierarchy}`}
-                                      onClick={() =>
-                                        this.props.setSelectedSubEntityId(
-                                          `updateCategoryHeader:${category.get('categoryUUID')}`
-                                        )
-                                      }
-                                      disabled={!this.props.userHasUpdatePermission}
-                                      type="button"
-                                    >
-                                      <EditIconSVG
-                                        size={10}
-                                        editIconType="primary"
-                                        disabled={!this.props.userHasUpdatePermission}
-                                      />
-                                    </ActionButton>
-                                    <ConfirmationWrapper
-                                      confirmBtnCallback={() =>
-                                        this.props.removeCategoryItems(category.get('categoryUUID'))
-                                      }
-                                      mainText={
-                                        this.props.selectedEntityId !== 'create' && this.props.reasonHeaders.size === 1
-                                          ? `Nested List Cannot be empty.`
-                                          : `This will delete all of the nested list items in this category.`
-                                      }
-                                      secondaryText={
-                                        this.props.selectedEntityId !== 'create' && this.props.reasonHeaders.size === 1
-                                          ? 'Nested List should contain at least one category.'
-                                          : 'Are you sure you want to continue?'
-                                      }
-                                      cancelBtnText={
-                                        this.props.selectedEntityId !== 'create' && this.props.reasonHeaders.size === 1
-                                          ? 'Okay'
-                                          : 'Cancel'
-                                      }
-                                      openPopupBox={
-                                        this.props.selectedEntityId !== 'create' && this.props.reasonHeaders.size === 1
-                                          ? true
-                                          : false
-                                      }
-                                    >
-                                      <div style={{ marginRight: '10px' }}>
-                                        <ActionButton
-                                          className="dtpanel-action-remove-item"
-                                          data-automation="removeCategoryButton"
-                                          title={`Delete All Nested List Items in : ${hierarchy}`}
-                                          disabled={!this.props.userHasUpdatePermission}
-                                          type="button"
-                                        >
-                                          <CloseIconSVG
-                                            size={8}
-                                            closeIconType="primary"
-                                            disabled={!this.props.userHasUpdatePermission}
-                                          />
-                                        </ActionButton>
-                                      </div>
-                                    </ConfirmationWrapper>
-                                  </HeaderActionsWrapper>
-                                )}
-                              </HeaderContainer>
-                              <Droppable
-                                droppableId={category.get('droppableUUID')}
-                                type={category.get('categoryUUID')}
+        {this.props.input.value && this.props.input.value.size > 0 && this.props.input.value.toJS()[0].name && (
+          <DragDropContext onDragEnd={this.onDragEnd} onDragStart={this.onDragStart}>
+            <Droppable droppableId="nestedLists" isDropDisabled={!this.props.userHasUpdatePermission}>
+              {(provided, snapshot) => (
+                <NestedListItemsContainer
+                  innerRef={provided.innerRef}
+                  {...provided.droppableProps}
+                  isDraggingOver={snapshot.isDraggingOver}
+                >
+                  {this.props.reasonHeaders.map((category, index) => {
+                    let hierarchy =
+                      category.get('hierarchy').size > 0 ? category.get('hierarchy').toJS()[0] : 'default';
+                    return (
+                      <Draggable
+                        draggableId={category.get('categoryUUID')}
+                        index={index}
+                        key={category.get('categoryUUID')}
+                        isDragDisabled={!this.props.userHasUpdatePermission}
+                      >
+                        {(provided, snapshot) => (
+                          <NestedListItemWrapper
+                            {...provided.draggableProps}
+                            {...provided.dragHandleProps}
+                            innerRef={provided.innerRef}
+                            isDragging={snapshot.isDragging}
+                          >
+                            <HeaderContainer>
+                              <CategoryGripIcon
+                                title={`Drag to reorder category : ${hierarchy}`}
+                                data-automation="categoryDragDropIcon"
                               >
-                                {(provided, snapshot) => (
-                                  <ReasonsContainer
-                                    innerRef={provided.innerRef}
-                                    {...provided.droppableProps}
-                                    isDraggingOver={snapshot.isDraggingOver}
+                                :::
+                              </CategoryGripIcon>
+                              <HierarchyName title={hierarchy}>{hierarchy}</HierarchyName>
+                              {this.props.userHasUpdatePermission && (
+                                <HeaderActionsWrapper>
+                                  <ActionButton
+                                    className="dtpanel-action-update-item"
+                                    data-automation="updateCategoryButton"
+                                    title={`Update Category Name : ${hierarchy}`}
+                                    onClick={() =>
+                                      this.props.setSelectedSubEntityId(
+                                        `updateCategoryHeader:${category.get('categoryUUID')}`
+                                      )
+                                    }
+                                    disabled={!this.props.userHasUpdatePermission}
+                                    type="button"
                                   >
-                                    {this.props.input.value
-                                      .filter(point => point.get('categoryUUID') === category.get('categoryUUID'))
-                                      .map((reason, index) => (
-                                        <Draggable
-                                          draggableId={reason.get('draggableUUID')}
-                                          index={index}
-                                          key={reason.get('draggableUUID')}
-                                          isDragDisabled={!this.props.userHasUpdatePermission}
-                                        >
-                                          {(provided, snapshot) => (
-                                            <ReasonsWrapper
-                                              {...provided.draggableProps}
-                                              {...provided.dragHandleProps}
-                                              innerRef={provided.innerRef}
-                                              isDragging={snapshot.isDragging}
-                                              key={reason.get('reasonUUID')}
-                                              index={index}
+                                    <EditIconSVG
+                                      size={10}
+                                      editIconType="primary"
+                                      disabled={!this.props.userHasUpdatePermission}
+                                    />
+                                  </ActionButton>
+                                  <ConfirmationWrapper
+                                    confirmBtnCallback={() =>
+                                      this.props.removeCategoryItems(category.get('categoryUUID'))
+                                    }
+                                    mainText={
+                                      this.props.selectedEntityId !== 'create' && this.props.reasonHeaders.size === 1
+                                        ? `Nested List Cannot be empty.`
+                                        : `This will delete all of the nested list items in this category.`
+                                    }
+                                    secondaryText={
+                                      this.props.selectedEntityId !== 'create' && this.props.reasonHeaders.size === 1
+                                        ? 'Nested List should contain at least one category.'
+                                        : 'Are you sure you want to continue?'
+                                    }
+                                    cancelBtnText={
+                                      this.props.selectedEntityId !== 'create' && this.props.reasonHeaders.size === 1
+                                        ? 'Okay'
+                                        : 'Cancel'
+                                    }
+                                    openPopupBox={
+                                      this.props.selectedEntityId !== 'create' && this.props.reasonHeaders.size === 1
+                                        ? true
+                                        : false
+                                    }
+                                  >
+                                    <div style={{ marginRight: '10px' }}>
+                                      <ActionButton
+                                        className="dtpanel-action-remove-item"
+                                        data-automation="removeCategoryButton"
+                                        title={`Delete All Nested List Items in : ${hierarchy}`}
+                                        disabled={!this.props.userHasUpdatePermission}
+                                        type="button"
+                                      >
+                                        <CloseIconSVG
+                                          size={8}
+                                          closeIconType="primary"
+                                          disabled={!this.props.userHasUpdatePermission}
+                                        />
+                                      </ActionButton>
+                                    </div>
+                                  </ConfirmationWrapper>
+                                </HeaderActionsWrapper>
+                              )}
+                            </HeaderContainer>
+                            <Droppable
+                              droppableId={category.get('droppableUUID')}
+                              type={category.get('categoryUUID')}
+                              isDropDisabled={!this.props.userHasUpdatePermission}
+                            >
+                              {(provided, snapshot) => (
+                                <ReasonsContainer
+                                  innerRef={provided.innerRef}
+                                  {...provided.droppableProps}
+                                  isDraggingOver={snapshot.isDraggingOver}
+                                >
+                                  {this.props.input.value
+                                    .filter(point => point.get('categoryUUID') === category.get('categoryUUID'))
+                                    .map((reason, index) => (
+                                      <Draggable
+                                        draggableId={reason.get('draggableUUID')}
+                                        index={index}
+                                        key={reason.get('draggableUUID')}
+                                        isDragDisabled={!this.props.userHasUpdatePermission}
+                                      >
+                                        {(provided, snapshot) => (
+                                          <ReasonsWrapper
+                                            {...provided.draggableProps}
+                                            {...provided.dragHandleProps}
+                                            innerRef={provided.innerRef}
+                                            isDragging={snapshot.isDragging}
+                                            key={reason.get('reasonUUID')}
+                                            index={index}
+                                          >
+                                            <ReasonItem
+                                              className="list-item-grip-icon"
+                                              data-automation="listItemDragDropIcon"
+                                              title={`Drag to Reorder Nested List Item : ${reason.get('name')}`}
                                             >
-                                              <ReasonItem
-                                                className="list-item-grip-icon"
-                                                data-automation="listItemDragDropIcon"
-                                                title={`Drag to Reorder Nested List Item : ${reason.get('name')}`}
-                                              >
-                                                :::
-                                              </ReasonItem>
-                                              <ReasonItem title={reason.get('name')}>{reason.get('name')}</ReasonItem>
-                                              <ReasonItem title={reason.get('contactType')}>
-                                                {reason.get('contactType')}
-                                              </ReasonItem>
-                                              {this.props.userHasUpdatePermission && (
-                                                <ReasonActionsWrapper>
-                                                  <ConfirmationWrapper
-                                                    confirmBtnCallback={() =>
-                                                      this.props.removeReasonListItem(reason.get('reasonUUID'))
-                                                    }
-                                                    mainText={
-                                                      this.props.selectedEntityId !== 'create' &&
-                                                      this.props.input.value.size === 1
-                                                        ? `Nested List Cannot be empty.`
-                                                        : `Deleting this item cannot be undone.`
-                                                    }
-                                                    secondaryText={
-                                                      this.props.selectedEntityId !== 'create' &&
-                                                      this.props.input.value.size === 1
-                                                        ? 'Nested List should contain at least one contact.'
-                                                        : 'Are you sure you want to continue?'
-                                                    }
-                                                    cancelBtnText={
-                                                      this.props.selectedEntityId !== 'create' &&
-                                                      this.props.input.value.size === 1
-                                                        ? 'Okay'
-                                                        : 'Cancel'
-                                                    }
-                                                    openPopupBox={
-                                                      this.props.selectedEntityId !== 'create' &&
-                                                      this.props.input.value.size === 1
-                                                        ? true
-                                                        : false
-                                                    }
+                                              :::
+                                            </ReasonItem>
+                                            <ReasonItem title={reason.get('name')}>{reason.get('name')}</ReasonItem>
+                                            <ReasonItem title={reason.get('contactType')}>
+                                              {reason.get('contactType')}
+                                            </ReasonItem>
+                                            {this.props.userHasUpdatePermission && (
+                                              <ReasonActionsWrapper>
+                                                <ConfirmationWrapper
+                                                  confirmBtnCallback={() =>
+                                                    this.props.removeReasonListItem(reason.get('reasonUUID'))
+                                                  }
+                                                  mainText={
+                                                    this.props.selectedEntityId !== 'create' &&
+                                                    this.props.input.value.size === 1
+                                                      ? `Nested List Cannot be empty.`
+                                                      : `Deleting this item cannot be undone.`
+                                                  }
+                                                  secondaryText={
+                                                    this.props.selectedEntityId !== 'create' &&
+                                                    this.props.input.value.size === 1
+                                                      ? 'Nested List should contain at least one contact.'
+                                                      : 'Are you sure you want to continue?'
+                                                  }
+                                                  cancelBtnText={
+                                                    this.props.selectedEntityId !== 'create' &&
+                                                    this.props.input.value.size === 1
+                                                      ? 'Okay'
+                                                      : 'Cancel'
+                                                  }
+                                                  openPopupBox={
+                                                    this.props.selectedEntityId !== 'create' &&
+                                                    this.props.input.value.size === 1
+                                                      ? true
+                                                      : false
+                                                  }
+                                                >
+                                                  <ActionButton
+                                                    className="dtpanel-action-remove-item"
+                                                    data-automation="removeListItemButton"
+                                                    title={`Delete Nested List Item : ${reason.get('name')}`}
+                                                    disabled={!this.props.userHasUpdatePermission}
+                                                    type="button"
                                                   >
-                                                    <ActionButton
-                                                      className="dtpanel-action-remove-item"
-                                                      data-automation="removeListItemButton"
-                                                      title={`Delete Nested List Item : ${reason.get('name')}`}
+                                                    <CloseIconSVG
+                                                      size={8}
+                                                      closeIconType="primary"
                                                       disabled={!this.props.userHasUpdatePermission}
-                                                      type="button"
-                                                    >
-                                                      <CloseIconSVG
-                                                        size={8}
-                                                        closeIconType="primary"
-                                                        disabled={!this.props.userHasUpdatePermission}
-                                                      />
-                                                    </ActionButton>
-                                                  </ConfirmationWrapper>
-                                                </ReasonActionsWrapper>
-                                              )}
-                                            </ReasonsWrapper>
-                                          )}
-                                        </Draggable>
-                                      ))}
-                                    {provided.placeholder}
-                                  </ReasonsContainer>
-                                )}
-                              </Droppable>
-                            </NestedListItemWrapper>
-                          )}
-                        </Draggable>
-                      );
-                    })}
-                    {provided.placeholder}
-                  </NestedListItemsContainer>
-                )}
-              </Droppable>
-            </DragDropContext>
-          )}
+                                                    />
+                                                  </ActionButton>
+                                                </ConfirmationWrapper>
+                                              </ReasonActionsWrapper>
+                                            )}
+                                          </ReasonsWrapper>
+                                        )}
+                                      </Draggable>
+                                    ))}
+                                  {provided.placeholder}
+                                </ReasonsContainer>
+                              )}
+                            </Droppable>
+                          </NestedListItemWrapper>
+                        )}
+                      </Draggable>
+                    );
+                  })}
+                  {provided.placeholder}
+                </NestedListItemsContainer>
+              )}
+            </Droppable>
+          </DragDropContext>
+        )}
       </Fragment>
     );
   }

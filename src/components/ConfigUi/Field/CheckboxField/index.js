@@ -66,7 +66,13 @@ class CheckboxInputField extends Component {
     const { value } = this.props.input;
     return (
       <Fragment>
-        {this.state.isSubMenuOpen && <ClickMaskDiv className={this.props.className} data-automation="modalMask" onClick={this.updateSubMenuDisplay} />}
+        {this.state.isSubMenuOpen && (
+          <ClickMaskDiv
+            className={this.props.className}
+            data-automation="modalMask"
+            onClick={this.updateSubMenuDisplay}
+          />
+        )}
         <FieldWrapper label={this.props.label}>
           <DropdownButton
             type="button"
@@ -87,7 +93,7 @@ class CheckboxInputField extends Component {
                     <input
                       type="checkbox"
                       name={item.name}
-                      data-automation={item.name + "Checkbox"}
+                      data-automation={item.name + 'Checkbox'}
                       checked={value !== '' && value.find(a => a === item.name) !== undefined}
                       onChange={() => this.updateFieldValues(item)}
                     />
@@ -117,6 +123,7 @@ CheckboxField.propTypes = {
 };
 
 CheckboxInputField.propTypes = {
+  input: PropTypes.object.isRequired,
   label: PropTypes.string.isRequired,
   buttonType: PropTypes.string,
   open: PropTypes.bool,
@@ -125,6 +132,7 @@ CheckboxInputField.propTypes = {
   items: PropTypes.array.isRequired,
   meta: PropTypes.object,
   'data-automation': PropTypes.string,
+  className: PropTypes.string,
 };
 
 CheckboxField.defaultProps = {

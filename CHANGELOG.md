@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.56.11] - 2019-11-19
+## Fixed
+- CXV1-20460 - Transfer Lists component | User without Permissions is able to remove contacts.
+- CXV1-20641 - Clicking on action button cancels paging settings
+
 ## [0.56.10] - 2019-11-13
 ## Fixed
 - Made ColorField disable-able and fixed some overlap issues

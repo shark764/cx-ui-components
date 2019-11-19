@@ -14,7 +14,7 @@ import { Field as ReduxFormField } from 'redux-form/immutable';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Button from '../../Button';
-import { List, is } from 'immutable';
+import { List } from 'immutable';
 import EditIconSVG from '../../../Icons/EditIconSVG';
 import CloseIconSVG from '../../../Icons/CloseIconSVG';
 import LoadingSpinnerSVG from '../../../Icons/LoadingSpinnerSVG';
@@ -209,218 +209,236 @@ class TransferListInput extends Component {
   render() {
     return (
       <Fragment>
-        {!this.props.input.value &&
-          this.props.selectedEntityId === 'create' && (
-            <AddNewContactHelpTextWrapper>
-              <AddNewContactHelpText>Add transfer contacts with the plus button above. </AddNewContactHelpText>
-              <AddNewContactWarningText>
-                You must have one or more contacts in your transfer list in order to save.
-              </AddNewContactWarningText>
-            </AddNewContactHelpTextWrapper>
-          )}
+        {!this.props.input.value && this.props.selectedEntityId === 'create' && (
+          <AddNewContactHelpTextWrapper>
+            <AddNewContactHelpText>Add transfer contacts with the plus button above. </AddNewContactHelpText>
+            <AddNewContactWarningText>
+              You must have one or more contacts in your transfer list in order to save.
+            </AddNewContactWarningText>
+          </AddNewContactHelpTextWrapper>
+        )}
         {!this.props.input.value && this.props.selectedEntityId !== 'create' && <LoadingSpinnerSVG size={100} />}
-        {this.props.input.value &&
-          this.props.input.value.size > 0 && (
-            <DragDropContext onDragEnd={this.onDragEnd} onDragStart={this.onDragStart}>
-              <Droppable droppableId="transferLists">
-                {(provided, snapshot) => (
-                  <TransferListItemsContainer
-                    innerRef={provided.innerRef}
-                    {...provided.droppableProps}
-                    isDraggingOver={snapshot.isDraggingOver}
-                  >
-                    {this.props.endpointHeaders.map((category, index) => (
-                      <Draggable
-                        draggableId={category.get('categoryUUID')}
-                        index={index}
-                        key={category.get('categoryUUID')}
-                      >
-                        {(provided, snapshot) => (
-                          <TransferListItemWrapper
-                            {...provided.draggableProps}
-                            {...provided.dragHandleProps}
-                            innerRef={provided.innerRef}
-                            isDragging={snapshot.isDragging}
-                          >
-                            <HeaderContainer>
-                              <CategoryGripIcon title={`Drag to reorder category : ${category.get('hierarchy')}`} data-automation="categoryDragDropIcon">
-                                :::
-                              </CategoryGripIcon>
-                              <HierarchyName title={category.get('hierarchy')}>
-                                {category.get('hierarchy')}
-                              </HierarchyName>
-                              <HeaderActionsWrapper>
-                                <ActionButton
-                                  className="dtpanel-action-update-item"
-                                  data-automation="updateCategoryButton"
-                                  title={`Update Category Name : ${category.get('hierarchy')}`}
-                                  onClick={() =>
-                                    this.props.setSelectedSubEntityId(
-                                      `updateCategoryHeader:${category.get('categoryUUID')}`
-                                    )
-                                  }
+        {this.props.input.value && this.props.input.value.size > 0 && (
+          <DragDropContext onDragEnd={this.onDragEnd} onDragStart={this.onDragStart}>
+            <Droppable droppableId="transferLists" isDropDisabled={!this.props.userHasUpdatePermission}>
+              {(provided, snapshot) => (
+                <TransferListItemsContainer
+                  innerRef={provided.innerRef}
+                  {...provided.droppableProps}
+                  isDraggingOver={snapshot.isDraggingOver}
+                >
+                  {this.props.endpointHeaders.map((category, index) => (
+                    <Draggable
+                      draggableId={category.get('categoryUUID')}
+                      index={index}
+                      key={category.get('categoryUUID')}
+                      isDragDisabled={!this.props.userHasUpdatePermission}
+                    >
+                      {(provided, snapshot) => (
+                        <TransferListItemWrapper
+                          {...provided.draggableProps}
+                          {...provided.dragHandleProps}
+                          innerRef={provided.innerRef}
+                          isDragging={snapshot.isDragging}
+                        >
+                          <HeaderContainer>
+                            <CategoryGripIcon
+                              title={`Drag to reorder category : ${category.get('hierarchy')}`}
+                              data-automation="categoryDragDropIcon"
+                            >
+                              :::
+                            </CategoryGripIcon>
+                            <HierarchyName title={category.get('hierarchy')}>{category.get('hierarchy')}</HierarchyName>
+                            <HeaderActionsWrapper>
+                              <ActionButton
+                                className="dtpanel-action-update-item"
+                                data-automation="updateCategoryButton"
+                                title={`Update Category Name : ${category.get('hierarchy')}`}
+                                onClick={() =>
+                                  this.props.setSelectedSubEntityId(
+                                    `updateCategoryHeader:${category.get('categoryUUID')}`
+                                  )
+                                }
+                                disabled={!this.props.userHasUpdatePermission}
+                                type="button"
+                              >
+                                <EditIconSVG
+                                  size={10}
+                                  editIconType="primary"
                                   disabled={!this.props.userHasUpdatePermission}
-                                  type="button"
-                                >
-                                  <EditIconSVG size={10} editIconType="primary" />
-                                </ActionButton>
-                                <ConfirmationWrapper
-                                  confirmBtnCallback={() =>
-                                    this.props.removeCategoryItems(category.get('categoryUUID'))
-                                  }
-                                  mainText={
-                                    this.props.selectedEntityId !== 'create' && this.props.endpointHeaders.size === 1
-                                      ? `TransferList Cannot be empty.`
-                                      : `This will delete all of the transfer list items in this category.`
-                                  }
-                                  secondaryText={
-                                    this.props.selectedEntityId !== 'create' && this.props.endpointHeaders.size === 1
-                                      ? 'TransferList should contain at least one category.'
-                                      : 'Are you sure you want to continue?'
-                                  }
-                                  cancelBtnText={
-                                    this.props.selectedEntityId !== 'create' && this.props.endpointHeaders.size === 1
-                                      ? 'Okay'
-                                      : 'Cancel'
-                                  }
-                                  openPopupBox={
-                                    this.props.selectedEntityId !== 'create' && this.props.endpointHeaders.size === 1
-                                      ? true
-                                      : false
-                                  }
-                                >
-                                  <div style={{ marginRight: '10px' }}>
-                                    <ActionButton
-                                      className="dtpanel-action-remove-item"
-                                      data-automation="removeCategoryButton"
-                                      title={`Delete All Transfer List Items in : ${category.get('hierarchy')}`}
+                                />
+                              </ActionButton>
+                              <ConfirmationWrapper
+                                confirmBtnCallback={
+                                  this.props.userHasUpdatePermission
+                                    ? () => this.props.removeCategoryItems(category.get('categoryUUID'))
+                                    : undefined
+                                }
+                                mainText={
+                                  this.props.selectedEntityId !== 'create' && this.props.endpointHeaders.size === 1
+                                    ? `TransferList Cannot be empty.`
+                                    : `This will delete all of the transfer list items in this category.`
+                                }
+                                secondaryText={
+                                  this.props.selectedEntityId !== 'create' && this.props.endpointHeaders.size === 1
+                                    ? 'TransferList should contain at least one category.'
+                                    : 'Are you sure you want to continue?'
+                                }
+                                cancelBtnText={
+                                  this.props.selectedEntityId !== 'create' && this.props.endpointHeaders.size === 1
+                                    ? 'Okay'
+                                    : 'Cancel'
+                                }
+                                openPopupBox={
+                                  this.props.selectedEntityId !== 'create' && this.props.endpointHeaders.size === 1
+                                    ? true
+                                    : false
+                                }
+                              >
+                                <div style={{ marginRight: '10px' }}>
+                                  <ActionButton
+                                    className="dtpanel-action-remove-item"
+                                    data-automation="removeCategoryButton"
+                                    title={`Delete All Transfer List Items in : ${category.get('hierarchy')}`}
+                                    disabled={!this.props.userHasUpdatePermission}
+                                    type="button"
+                                  >
+                                    <CloseIconSVG
+                                      size={8}
+                                      closeIconType="primary"
                                       disabled={!this.props.userHasUpdatePermission}
-                                      type="button"
+                                    />
+                                  </ActionButton>
+                                </div>
+                              </ConfirmationWrapper>
+                            </HeaderActionsWrapper>
+                          </HeaderContainer>
+                          <Droppable
+                            droppableId={category.get('droppableUUID')}
+                            type={category.get('categoryUUID')}
+                            isDropDisabled={!this.props.userHasUpdatePermission}
+                          >
+                            {(provided, snapshot) => (
+                              <EndpointsContainer
+                                innerRef={provided.innerRef}
+                                {...provided.droppableProps}
+                                isDraggingOver={snapshot.isDraggingOver}
+                              >
+                                {this.props.input.value
+                                  .filter(point => point.get('categoryUUID') === category.get('categoryUUID'))
+                                  .map((endpoint, index) => (
+                                    <Draggable
+                                      draggableId={endpoint.get('draggableUUID')}
+                                      index={index}
+                                      key={endpoint.get('draggableUUID')}
+                                      isDragDisabled={!this.props.userHasUpdatePermission}
                                     >
-                                      <CloseIconSVG
-                                        size={8}
-                                        closeIconType="primary"
-                                        disabled={!this.props.userHasUpdatePermission}
-                                      />
-                                    </ActionButton>
-                                  </div>
-                                </ConfirmationWrapper>
-                              </HeaderActionsWrapper>
-                            </HeaderContainer>
-                            <Droppable droppableId={category.get('droppableUUID')} type={category.get('categoryUUID')}>
-                              {(provided, snapshot) => (
-                                <EndpointsContainer
-                                  innerRef={provided.innerRef}
-                                  {...provided.droppableProps}
-                                  isDraggingOver={snapshot.isDraggingOver}
-                                >
-                                  {this.props.input.value
-                                    .filter(point => point.get('categoryUUID') === category.get('categoryUUID'))
-                                    .map((endpoint, index) => (
-                                      <Draggable
-                                        draggableId={endpoint.get('draggableUUID')}
-                                        index={index}
-                                        key={endpoint.get('draggableUUID')}
-                                      >
-                                        {(provided, snapshot) => (
-                                          <EndpointsWrapper
-                                            {...provided.draggableProps}
-                                            {...provided.dragHandleProps}
-                                            innerRef={provided.innerRef}
-                                            isDragging={snapshot.isDragging}
-                                            key={endpoint.get('endpointUUID')}
-                                            index={index}
+                                      {(provided, snapshot) => (
+                                        <EndpointsWrapper
+                                          {...provided.draggableProps}
+                                          {...provided.dragHandleProps}
+                                          innerRef={provided.innerRef}
+                                          isDragging={snapshot.isDragging}
+                                          key={endpoint.get('endpointUUID')}
+                                          index={index}
+                                        >
+                                          <EndpointItem
+                                            className="list-item-grip-icon"
+                                            data-automation="listItemDragDropIcon"
+                                            title={`Drag to Reorder Transfer List Item : ${endpoint.get('name')}`}
                                           >
-                                            <EndpointItem
-                                              className="list-item-grip-icon"
-                                              data-automation="listItemDragDropIcon"
-                                              title={`Drag to Reorder Transfer List Item : ${endpoint.get('name')}`}
+                                            :::
+                                          </EndpointItem>
+                                          <EndpointItem title={endpoint.get('name')}>
+                                            {endpoint.get('name')}
+                                          </EndpointItem>
+                                          <EndpointItem title={endpoint.get('contactType')}>
+                                            {endpoint.get('contactType')}
+                                          </EndpointItem>
+                                          <EndpointActionsWrapper>
+                                            <ActionButton
+                                              className="dtpanel-action-update-item"
+                                              data-automation="updateListItemButton"
+                                              title={`Update Transfer List Item : ${endpoint.get('name')}`}
+                                              onClick={() =>
+                                                this.props.setSelectedSubEntityId(
+                                                  `updateTransferListItem:${endpoint.get('endpointUUID')}`
+                                                )
+                                              }
+                                              disabled={!this.props.userHasUpdatePermission}
+                                              type="button"
                                             >
-                                              :::
-                                            </EndpointItem>
-                                            <EndpointItem title={endpoint.get('name')}>
-                                              {endpoint.get('name')}
-                                            </EndpointItem>
-                                            <EndpointItem title={endpoint.get('contactType')}>
-                                              {endpoint.get('contactType')}
-                                            </EndpointItem>
-                                            <EndpointActionsWrapper>
+                                              <EditIconSVG
+                                                size={10}
+                                                editIconType="primary"
+                                                disabled={!this.props.userHasUpdatePermission}
+                                              />
+                                            </ActionButton>
+                                            <ConfirmationWrapper
+                                              confirmBtnCallback={
+                                                this.props.userHasUpdatePermission
+                                                  ? () =>
+                                                      this.props.removeTransferListItem(endpoint.get('endpointUUID'))
+                                                  : undefined
+                                              }
+                                              mainText={
+                                                this.props.selectedEntityId !== 'create' &&
+                                                this.props.input.value.size === 1
+                                                  ? `TransferList Cannot be empty.`
+                                                  : `Deleting this item cannot be undone.`
+                                              }
+                                              secondaryText={
+                                                this.props.selectedEntityId !== 'create' &&
+                                                this.props.input.value.size === 1
+                                                  ? 'TransferList should contain at least one contact.'
+                                                  : 'Are you sure you want to continue?'
+                                              }
+                                              cancelBtnText={
+                                                this.props.selectedEntityId !== 'create' &&
+                                                this.props.input.value.size === 1
+                                                  ? 'Okay'
+                                                  : 'Cancel'
+                                              }
+                                              openPopupBox={
+                                                this.props.selectedEntityId !== 'create' &&
+                                                this.props.input.value.size === 1
+                                                  ? true
+                                                  : false
+                                              }
+                                            >
                                               <ActionButton
-                                                className="dtpanel-action-update-item"
-                                                data-automation="updateListItemButton"
-                                                title={`Update Transfer List Item : ${endpoint.get('name')}`}
-                                                onClick={() =>
-                                                  this.props.setSelectedSubEntityId(
-                                                    `updateTransferListItem:${endpoint.get('endpointUUID')}`
-                                                  )
-                                                }
+                                                className="dtpanel-action-remove-item"
+                                                data-automation="removeListItemButton"
+                                                title={`Delete Transfer List Item : ${endpoint.get('name')}`}
                                                 disabled={!this.props.userHasUpdatePermission}
                                                 type="button"
                                               >
-                                                <EditIconSVG size={10} editIconType="primary" />
-                                              </ActionButton>
-                                              <ConfirmationWrapper
-                                                confirmBtnCallback={() =>
-                                                  this.props.removeTransferListItem(endpoint.get('endpointUUID'))
-                                                }
-                                                mainText={
-                                                  this.props.selectedEntityId !== 'create' &&
-                                                  this.props.input.value.size === 1
-                                                    ? `TransferList Cannot be empty.`
-                                                    : `Deleting this item cannot be undone.`
-                                                }
-                                                secondaryText={
-                                                  this.props.selectedEntityId !== 'create' &&
-                                                  this.props.input.value.size === 1
-                                                    ? 'TransferList should contain at least one contact.'
-                                                    : 'Are you sure you want to continue?'
-                                                }
-                                                cancelBtnText={
-                                                  this.props.selectedEntityId !== 'create' &&
-                                                  this.props.input.value.size === 1
-                                                    ? 'Okay'
-                                                    : 'Cancel'
-                                                }
-                                                openPopupBox={
-                                                  this.props.selectedEntityId !== 'create' &&
-                                                  this.props.input.value.size === 1
-                                                    ? true
-                                                    : false
-                                                }
-                                              >
-                                                <ActionButton
-                                                  className="dtpanel-action-remove-item"
-                                                  data-automation="removeListItemButton"
-                                                  title={`Delete Transfer List Item : ${endpoint.get('name')}`}
+                                                <CloseIconSVG
+                                                  size={8}
+                                                  closeIconType="primary"
                                                   disabled={!this.props.userHasUpdatePermission}
-                                                  type="button"
-                                                >
-                                                  <CloseIconSVG
-                                                    size={8}
-                                                    closeIconType="primary"
-                                                    disabled={!this.props.userHasUpdatePermission}
-                                                  />
-                                                </ActionButton>
-                                              </ConfirmationWrapper>
-                                            </EndpointActionsWrapper>
-                                          </EndpointsWrapper>
-                                        )}
-                                      </Draggable>
-                                    ))}
-                                  {provided.placeholder}
-                                </EndpointsContainer>
-                              )}
-                            </Droppable>
-                          </TransferListItemWrapper>
-                        )}
-                      </Draggable>
-                    ))}
-                    {provided.placeholder}
-                  </TransferListItemsContainer>
-                )}
-              </Droppable>
-            </DragDropContext>
-          )}
+                                                />
+                                              </ActionButton>
+                                            </ConfirmationWrapper>
+                                          </EndpointActionsWrapper>
+                                        </EndpointsWrapper>
+                                      )}
+                                    </Draggable>
+                                  ))}
+                                {provided.placeholder}
+                              </EndpointsContainer>
+                            )}
+                          </Droppable>
+                        </TransferListItemWrapper>
+                      )}
+                    </Draggable>
+                  ))}
+                  {provided.placeholder}
+                </TransferListItemsContainer>
+              )}
+            </Droppable>
+          </DragDropContext>
+        )}
       </Fragment>
     );
   }
