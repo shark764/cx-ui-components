@@ -287,27 +287,35 @@ class EntityTable extends Component {
       resizable: false,
       filterable: false,
       width: 40,
-      Cell: ({ row }) =>
-        row._original.inherited !== false ? (
-          <CheckboxWrapper
-            className="bulk-action-selector-toggle"
-            onClick={e =>
-              this.props.onBulkClick(this.props.entityMetadata.entityName, row._original.id) && e.stopPropagation()
-            }
-          >
-            <RowCheckbox
-              type="checkbox"
-              checked={row._original.bulkChangeItem || false}
-              readOnly
-              title="Add or remove this from the bulk actions form"
-              data-automation={`${row._original.id}Checkbox`}
-            />
-          </CheckboxWrapper>
-        ) : (
-          <div style={{ textAlign: 'center' }} title={`Not available`}>
-            <span>--</span>
-          </div>
-        ),
+      Cell: ({ row }) => (
+        /**
+         * TODO:
+         * Inherited entities shouldn't be included when
+         * performing bulk actions.
+         * And checkbox should be disabled or not visible
+         * to user.
+         */
+        // row._original.inherited !== false ? (
+        // ) : (
+        //   <div style={{ textAlign: 'center' }} title={`Not available`}>
+        //     <span>--</span>
+        //   </div>
+        // ),
+        <CheckboxWrapper
+          className="bulk-action-selector-toggle"
+          onClick={e =>
+            this.props.onBulkClick(this.props.entityMetadata.entityName, row._original.id) && e.stopPropagation()
+          }
+        >
+          <RowCheckbox
+            type="checkbox"
+            checked={row._original.bulkChangeItem || false}
+            readOnly
+            title="Add or remove this from the bulk actions form"
+            data-automation={`${row._original.id}Checkbox`}
+          />
+        </CheckboxWrapper>
+      ),
     };
 
     return (
