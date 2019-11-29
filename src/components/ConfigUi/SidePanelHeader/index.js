@@ -69,13 +69,12 @@ const CopyIconOuterBox = styled.div`
 `;
 
 function SidePanelHeader(props) {
-
   const updateURL = () => {
     if (props.insideIframe) {
       const data = {
         module: 'updateURLWithQueryString',
         entityId: '',
-      }
+      };
       window.parent.postMessage(data, '*');
     } else {
       props.history.push({
@@ -99,7 +98,9 @@ function SidePanelHeader(props) {
     >
       {props.toggleStatus !== undefined && (
         <ConfirmationWrapper
-          confirmBtnCallback={props.onToggle}
+          confirmBtnCallback={
+            props.userHasUpdatePermission && !props.disabled && !props.inherited ? props.onToggle : undefined
+          }
           mainText={props.confirmationMessage || `This will enable this entity.`}
           secondaryText="Do you want to continue?"
         >
@@ -107,7 +108,6 @@ function SidePanelHeader(props) {
             id="sdpanel-toggle-status"
             data-automation="sdpanelStatusToggle"
             value={props.toggleStatus}
-            onChange={() => {}}
             inherited={props.inherited}
             disabled={!props.userHasUpdatePermission || (props.disabled !== undefined && props.disabled)}
           />

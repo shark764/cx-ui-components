@@ -15,8 +15,12 @@ export default class Checkbox extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.state.statue === 'indeterminate') {
+    if (this.state.status === 'indeterminate') {
       this.el.indeterminate = this.props.indeterminate;
+    }
+
+    if (prevProps.checked !== this.props.checked) {
+      this.setState({ status: this.props.checked ? 'on' : 'off' });
     }
   }
 
@@ -58,4 +62,9 @@ Checkbox.propTypes = {
   onChange: PropTypes.func,
   indeterminate: PropTypes.string,
   'data-automation': PropTypes.string,
+  checked: PropTypes.bool,
+};
+
+Checkbox.defaultProps = {
+  checked: false,
 };

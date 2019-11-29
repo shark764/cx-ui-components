@@ -27,6 +27,7 @@ import CustomDropdownMenu from '../CustomDropdownMenu';
 
 import Pagination from './Pagination';
 import { withRouter } from 'react-router-dom';
+import Confirmation from '../Confirmation';
 
 // React-Table does not integrate well with Styled components
 // We will be writing table style overrides here
@@ -169,6 +170,9 @@ class EntityTable extends Component {
       pageSizeOptions: [5, 10, 20, 25, 50, 100],
       defaultPageSize: 20,
       pageSize: 20,
+      selected: '',
+      showWarning: false,
+      allChecked: false,
     };
   }
 
@@ -191,11 +195,13 @@ class EntityTable extends Component {
     for (let i = 0, len = data.length; i < len; i++) {
       let x = data[i];
 
-      this.props.onBulkClick(
-        this.props.entityMetadata.entityName,
-        visibleOrAll === 'visible' ? x._original.id : x.id,
-        bool
-      );
+      if (!x._original.inherited) {
+        this.props.onBulkClick(
+          this.props.entityMetadata.entityName,
+          visibleOrAll === 'visible' ? x._original.id : x.id,
+          bool
+        );
+      }
     }
   };
 
@@ -217,6 +223,7 @@ class EntityTable extends Component {
     } else if (value === 'off') {
       this.unselectAllVisible();
     }
+    this.setState({ allChecked: value === 'on' });
   };
 
   highlightRow = ({
@@ -253,9 +260,13 @@ class EntityTable extends Component {
   getTableRowProps = (state, rowInfo) => {
     if (rowInfo && rowInfo.row) {
       return {
-        onClick: () => {
-          this.props.onRowClick(rowInfo.original.id);
-          this.updateURL(`id=${rowInfo.original.id}`);
+        onClick: e => {
+          if (this.props.dirty && rowInfo.original.id !== this.props.selectedEntityId) {
+            this.setState({ selected: rowInfo.original.id });
+            this.showWarning(e, true);
+          } else {
+            this.onRowClick(rowInfo.original.id);
+          }
         },
         className: `row-selected-${rowInfo.original.id === this.props.selectedEntityId ? 'active' : 'not-active'}`,
         style: {
@@ -269,6 +280,26 @@ class EntityTable extends Component {
   getTdProps = () => ({ style: { fontSize: '11.5pt' } });
   getTheadProps = () => ({ style: { color: 'grey' } });
 
+  showWarning = (e, show = true) => {
+    e.stopPropagation();
+    this.setState({ showWarning: show });
+  };
+
+  onRowClick = rowId => {
+    this.props.onRowClick(rowId);
+    this.updateURL(`id=${rowId}`);
+  };
+
+  componentDidUpdate(prevProps, nextProps) {
+    /**
+     * If we go from having selected items
+     * to no selected items , close the side panel
+     */
+    if (prevProps.selectedEntityId !== this.props.selectedEntityId && this.props.selectedEntityId === '') {
+      this.setState({ allChecked: false });
+    }
+  }
+
   render() {
     const bulkColumn = {
       id: 'bulkId',
@@ -280,6 +311,7 @@ class EntityTable extends Component {
           className="bulk-action-select-all-toggle"
           onChange={this.toggleHeader}
           data-automation="bulkSelectAllCheckbox"
+          checked={this.state.allChecked}
         />
       ),
       accessor: 'bulkChangeItem',
@@ -287,7 +319,7 @@ class EntityTable extends Component {
       resizable: false,
       filterable: false,
       width: 40,
-      Cell: ({ row }) => (
+      Cell: ({ row }) =>
         /**
          * TODO:
          * Inherited entities shouldn't be included when
@@ -295,27 +327,25 @@ class EntityTable extends Component {
          * And checkbox should be disabled or not visible
          * to user.
          */
-        // row._original.inherited !== false ? (
-        // ) : (
-        //   <div style={{ textAlign: 'center' }} title={`Not available`}>
-        //     <span>--</span>
-        //   </div>
-        // ),
-        <CheckboxWrapper
-          className="bulk-action-selector-toggle"
-          onClick={e =>
-            this.props.onBulkClick(this.props.entityMetadata.entityName, row._original.id) && e.stopPropagation()
-          }
-        >
-          <RowCheckbox
-            type="checkbox"
-            checked={row._original.bulkChangeItem || false}
-            readOnly
-            title="Add or remove this from the bulk actions form"
-            data-automation={`${row._original.id}Checkbox`}
-          />
-        </CheckboxWrapper>
-      ),
+        row._original.inherited ? (
+          <div style={{ textAlign: 'center' }} title={`Not available`}>
+            <span>-</span>
+          </div>
+        ) : (
+          <CheckboxWrapper
+            className="bulk-action-selector-toggle"
+            onClick={e =>
+              this.props.onBulkClick(this.props.entityMetadata.entityName, row._original.id) && e.stopPropagation()
+            }
+          >
+            <RowCheckbox
+              type="checkbox"
+              checked={row._original.bulkChangeItem || false}
+              title="Add or remove this from the bulk actions form"
+              data-automation={`${row._original.id}Checkbox`}
+            />
+          </CheckboxWrapper>
+        ),
     };
 
     return (
@@ -412,7 +442,23 @@ class EntityTable extends Component {
           getTdProps={this.getTdProps}
           getTheadProps={this.getTheadProps}
           getTrProps={this.getTableRowProps}
+          minRows={0}
+          emptyRowsWhenPaging={false}
         />
+
+        {this.state.showWarning && (
+          <Confirmation
+            mainText="You have unsaved changes that will be lost!."
+            secondaryText="Click Confirm to discard changes, or Cancel to continue editing."
+            confirmBtnCallback={e => {
+              console.log('this.state.selected', this.state.selected);
+              this.onRowClick(this.state.selected);
+              this.showWarning(e, false);
+            }}
+            cancelBtnCallback={e => this.showWarning(e, false)}
+            onMaskClick={e => this.showWarning(e, false)}
+          />
+        )}
       </GridContainer>
     );
   }
@@ -447,6 +493,8 @@ EntityTable.propTypes = {
   location: PropTypes.any,
   insideIframe: PropTypes.bool,
   selectedEntityId: PropTypes.string,
+  pristine: PropTypes.bool,
+  dirty: PropTypes.bool,
 };
 
 export default withRouter(EntityTable);

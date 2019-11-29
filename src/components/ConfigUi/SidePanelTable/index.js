@@ -143,6 +143,8 @@ function SidePanelTable(props) {
       filtered={props.filtered}
       onFilteredChange={filtered => props.onFilteredChange(filtered)}
       defaultSorted={props.defaultSorted || [{ id: 'name', desc: true }]}
+      minRows={5}
+      emptyRowsWhenPaging={false}
     />
   );
 }
