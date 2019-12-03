@@ -218,6 +218,12 @@ class ExtensionListInput extends Component {
                                       }
                                     />
                                   )}
+                                  
+                                  {this.props.meta.error &&
+                                    typeof this.props.meta.error[index] === 'string' &&
+                                    (this.props.meta.error[index] === 'Valid Phone Number Required' || this.props.meta.error[index] === 'Valid SIP Address Required') && (
+                                      <ErrorInExtension>{this.props.meta.error[index]}</ErrorInExtension>
+                                    )}
 
                                   <InputWrapper
                                     className="list-item-text"
@@ -231,11 +237,13 @@ class ExtensionListInput extends Component {
                                       this.props.meta.error[index] === 'Label is required'
                                     }
                                   />
-
+                                  
                                   {this.props.meta.error &&
-                                    typeof this.props.meta.error[index] === 'string' && (
+                                    typeof this.props.meta.error[index] === 'string' &&
+                                    this.props.meta.error[index] === 'Label is required' && (
                                       <ErrorInExtension>{this.props.meta.error[index]}</ErrorInExtension>
                                     )}
+
                                 </ListItem>
                               </Fragment>
                             )}
