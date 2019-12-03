@@ -262,71 +262,75 @@ class TransferListInput extends Component {
                               :::
                             </CategoryGripIcon>
                             <HierarchyName title={category.get('hierarchy')}>{category.get('hierarchy')}</HierarchyName>
-                            <HeaderActionsWrapper>
-                              {this.props.allowUpdateCategory && (
-                                <ActionButton
-                                  className="dtpanel-action-update-item"
-                                  data-automation="updateCategoryButton"
-                                  title={`Update Category Name : ${category.get('hierarchy')}`}
-                                  onClick={() =>
-                                    this.props.setSelectedSubEntityId(
-                                      `updateCategoryHeader:${category.get('categoryUUID')}`
-                                    )
-                                  }
-                                  disabled={!this.props.userHasUpdatePermission}
-                                  type="button"
-                                >
-                                  <EditIconSVG
-                                    size={10}
-                                    editIconType="primary"
-                                    disabled={!this.props.userHasUpdatePermission}
-                                  />
-                                </ActionButton>
-                              )}
-                              <ConfirmationWrapper
-                                confirmBtnCallback={
-                                  this.props.userHasUpdatePermission
-                                    ? () => this.props.removeCategoryItems(category.get('categoryUUID'))
-                                    : undefined
-                                }
-                                mainText={
-                                  this.props.selectedEntityId !== 'create' && this.props.endpointHeaders.size === 1
-                                    ? `${humanizedEntityName} Cannot be empty.`
-                                    : `This will delete all of the ${humanizedEntityName} items in this category.`
-                                }
-                                secondaryText={
-                                  this.props.selectedEntityId !== 'create' && this.props.endpointHeaders.size === 1
-                                    ? `${humanizedEntityName} should contain at least one category.`
-                                    : 'Are you sure you want to continue?'
-                                }
-                                cancelBtnText={
-                                  this.props.selectedEntityId !== 'create' && this.props.endpointHeaders.size === 1
-                                    ? 'Okay'
-                                    : 'Cancel'
-                                }
-                                openPopupBox={
-                                  this.props.selectedEntityId !== 'create' && this.props.endpointHeaders.size === 1
-                                    ? true
-                                    : false
-                                }
-                              >
-                                <div style={{ marginRight: '10px' }}>
+                            {this.props.userHasUpdatePermission && (
+                              <HeaderActionsWrapper>
+                                {this.props.allowUpdateCategory && (
                                   <ActionButton
-                                    className="dtpanel-action-remove-item"
-                                    data-automation="removeCategoryButton"
-                                    title={`Delete All ${humanizedEntityName} Items in : ${category.get('hierarchy')}`}
+                                    className="dtpanel-action-update-item"
+                                    data-automation="updateCategoryButton"
+                                    title={`Update Category Name : ${category.get('hierarchy')}`}
+                                    onClick={() =>
+                                      this.props.setSelectedSubEntityId(
+                                        `updateCategoryHeader:${category.get('categoryUUID')}`
+                                      )
+                                    }
                                     disabled={!this.props.userHasUpdatePermission}
                                     type="button"
                                   >
-                                    <CloseIconSVG
-                                      size={8}
-                                      closeIconType="primary"
+                                    <EditIconSVG
+                                      size={10}
+                                      editIconType="primary"
                                       disabled={!this.props.userHasUpdatePermission}
                                     />
                                   </ActionButton>
-                                </div>
-                              </ConfirmationWrapper>
-                            </HeaderActionsWrapper>
+                                )}
+                                <ConfirmationWrapper
+                                  confirmBtnCallback={
+                                    this.props.userHasUpdatePermission
+                                      ? () => this.props.removeCategoryItems(category.get('categoryUUID'))
+                                      : undefined
+                                  }
+                                  mainText={
+                                    this.props.selectedEntityId !== 'create' && this.props.endpointHeaders.size === 1
+                                      ? `${humanizedEntityName} Cannot be empty.`
+                                      : `This will delete all of the ${humanizedEntityName} items in this category.`
+                                  }
+                                  secondaryText={
+                                    this.props.selectedEntityId !== 'create' && this.props.endpointHeaders.size === 1
+                                      ? `${humanizedEntityName} should contain at least one category.`
+                                      : 'Are you sure you want to continue?'
+                                  }
+                                  cancelBtnText={
+                                    this.props.selectedEntityId !== 'create' && this.props.endpointHeaders.size === 1
+                                      ? 'Okay'
+                                      : 'Cancel'
+                                  }
+                                  openPopupBox={
+                                    this.props.selectedEntityId !== 'create' && this.props.endpointHeaders.size === 1
+                                      ? true
+                                      : false
+                                  }
+                                >
+                                  <div style={{ marginRight: '10px' }}>
+                                    <ActionButton
+                                      className="dtpanel-action-remove-item"
+                                      data-automation="removeCategoryButton"
+                                      title={`Delete All ${humanizedEntityName} Items in : ${category.get(
+                                        'hierarchy'
+                                      )}`}
+                                      disabled={!this.props.userHasUpdatePermission}
+                                      type="button"
+                                    >
+                                      <CloseIconSVG
+                                        size={8}
+                                        closeIconType="primary"
+                                        disabled={!this.props.userHasUpdatePermission}
+                                      />
+                                    </ActionButton>
+                                  </div>
+                                </ConfirmationWrapper>
+                              </HeaderActionsWrapper>
+                            )}
                           </HeaderContainer>
                           <Droppable
                             droppableId={category.get('droppableUUID')}
@@ -372,74 +376,76 @@ class TransferListInput extends Component {
                                           <EndpointItem title={endpoint.get('contactType')}>
                                             {endpoint.get('contactType')}
                                           </EndpointItem>
-                                          <EndpointActionsWrapper>
-                                            {this.props.allowUpdateItem && (
-                                              <ActionButton
-                                                className="dtpanel-action-update-item"
-                                                data-automation="updateListItemButton"
-                                                title={`Update ${humanizedEntityName} Item : ${endpoint.get('name')}`}
-                                                onClick={() =>
-                                                  this.props.setSelectedSubEntityId(
-                                                    `updateTransferListItem:${endpoint.get('endpointUUID')}`
-                                                  )
+                                          {this.props.userHasUpdatePermission && (
+                                            <EndpointActionsWrapper>
+                                              {this.props.allowUpdateItem && (
+                                                <ActionButton
+                                                  className="dtpanel-action-update-item"
+                                                  data-automation="updateListItemButton"
+                                                  title={`Update ${humanizedEntityName} Item : ${endpoint.get('name')}`}
+                                                  onClick={() =>
+                                                    this.props.setSelectedSubEntityId(
+                                                      `updateTransferListItem:${endpoint.get('endpointUUID')}`
+                                                    )
+                                                  }
+                                                  disabled={!this.props.userHasUpdatePermission}
+                                                  type="button"
+                                                >
+                                                  <EditIconSVG
+                                                    size={10}
+                                                    editIconType="primary"
+                                                    disabled={!this.props.userHasUpdatePermission}
+                                                  />
+                                                </ActionButton>
+                                              )}
+                                              <ConfirmationWrapper
+                                                confirmBtnCallback={
+                                                  this.props.userHasUpdatePermission
+                                                    ? () =>
+                                                        this.props.removeTransferListItem(endpoint.get('endpointUUID'))
+                                                    : undefined
                                                 }
-                                                disabled={!this.props.userHasUpdatePermission}
-                                                type="button"
+                                                mainText={
+                                                  this.props.selectedEntityId !== 'create' &&
+                                                  this.props.input.value.size === 1
+                                                    ? `${humanizedEntityName} Cannot be empty.`
+                                                    : `Deleting this item cannot be undone.`
+                                                }
+                                                secondaryText={
+                                                  this.props.selectedEntityId !== 'create' &&
+                                                  this.props.input.value.size === 1
+                                                    ? `${humanizedEntityName} should contain at least one contact.`
+                                                    : 'Are you sure you want to continue?'
+                                                }
+                                                cancelBtnText={
+                                                  this.props.selectedEntityId !== 'create' &&
+                                                  this.props.input.value.size === 1
+                                                    ? 'Okay'
+                                                    : 'Cancel'
+                                                }
+                                                openPopupBox={
+                                                  this.props.selectedEntityId !== 'create' &&
+                                                  this.props.input.value.size === 1
+                                                    ? true
+                                                    : false
+                                                }
                                               >
-                                                <EditIconSVG
-                                                  size={10}
-                                                  editIconType="primary"
+                                                <ActionButton
+                                                  className="dtpanel-action-remove-item"
+                                                  data-automation="removeListItemButton"
+                                                  title={`Delete ${humanizedEntityName} Item : ${endpoint.get('name')}`}
                                                   disabled={!this.props.userHasUpdatePermission}
-                                                />
-                                              </ActionButton>
-                                            )}
-                                            <ConfirmationWrapper
-                                              confirmBtnCallback={
-                                                this.props.userHasUpdatePermission
-                                                  ? () =>
-                                                      this.props.removeTransferListItem(endpoint.get('endpointUUID'))
-                                                  : undefined
-                                              }
-                                              mainText={
-                                                this.props.selectedEntityId !== 'create' &&
-                                                this.props.input.value.size === 1
-                                                  ? `${humanizedEntityName} Cannot be empty.`
-                                                  : `Deleting this item cannot be undone.`
-                                              }
-                                              secondaryText={
-                                                this.props.selectedEntityId !== 'create' &&
-                                                this.props.input.value.size === 1
-                                                  ? `${humanizedEntityName} should contain at least one contact.`
-                                                  : 'Are you sure you want to continue?'
-                                              }
-                                              cancelBtnText={
-                                                this.props.selectedEntityId !== 'create' &&
-                                                this.props.input.value.size === 1
-                                                  ? 'Okay'
-                                                  : 'Cancel'
-                                              }
-                                              openPopupBox={
-                                                this.props.selectedEntityId !== 'create' &&
-                                                this.props.input.value.size === 1
-                                                  ? true
-                                                  : false
-                                              }
-                                            >
-                                              <ActionButton
-                                                className="dtpanel-action-remove-item"
-                                                data-automation="removeListItemButton"
-                                                title={`Delete ${humanizedEntityName} Item : ${endpoint.get('name')}`}
-                                                disabled={!this.props.userHasUpdatePermission}
-                                                type="button"
-                                              >
-                                                <CloseIconSVG
-                                                  size={8}
-                                                  closeIconType="primary"
-                                                  disabled={!this.props.userHasUpdatePermission}
-                                                />
-                                              </ActionButton>
-                                            </ConfirmationWrapper>
-                                          </EndpointActionsWrapper>
+                                                  type="button"
+                                                >
+                                                  <CloseIconSVG
+                                                    size={8}
+                                                    closeIconType="primary"
+                                                    disabled={!this.props.userHasUpdatePermission}
+                                                  />
+                                                </ActionButton>
+                                              </ConfirmationWrapper>
+                                            </EndpointActionsWrapper>
+                                          )}
                                         </EndpointsWrapper>
                                       )}
                                     </Draggable>
