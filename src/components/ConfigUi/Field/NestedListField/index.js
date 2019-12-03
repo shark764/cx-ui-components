@@ -118,6 +118,9 @@ const ReasonItem = styled.div`
   white-space: nowrap;
   text-overflow: ellipsis;
 `;
+const CenterWrapper = styled.div`
+  text-align: center;
+`;
 
 class NestedListInput extends Component {
   onDragEnd = result => {
@@ -224,7 +227,11 @@ class NestedListInput extends Component {
             </AddNewContactWarningText>
           </AddNewContactHelpTextWrapper>
         )}
-        {!this.props.input.value && this.props.selectedEntityId !== 'create' && <LoadingSpinnerSVG size={100} />}
+        {!this.props.input.value && this.props.selectedEntityId !== 'create' && (
+          <CenterWrapper>
+            <LoadingSpinnerSVG size={100} />
+          </CenterWrapper>
+        )}
         {this.props.input.value && this.props.input.value.size > 0 && this.props.input.value.toJS()[0].name && (
           <DragDropContext onDragEnd={this.onDragEnd} onDragStart={this.onDragStart}>
             <Droppable droppableId="nestedLists" isDropDisabled={!this.props.userHasUpdatePermission}>

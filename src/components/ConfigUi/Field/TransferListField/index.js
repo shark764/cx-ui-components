@@ -13,8 +13,9 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { Field as ReduxFormField } from 'redux-form/immutable';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import Button from '../../Button';
 import { List } from 'immutable';
+import { camelCaseToRegularFormAndRemoveLastLetter } from 'serenova-js-utils/strings';
+import Button from '../../Button';
 import EditIconSVG from '../../../Icons/EditIconSVG';
 import CloseIconSVG from '../../../Icons/CloseIconSVG';
 import LoadingSpinnerSVG from '../../../Icons/LoadingSpinnerSVG';
@@ -102,7 +103,6 @@ const EndpointsWrapper = styled.div`
 const EndpointActionsWrapper = styled.div`
   display: flex;
   flex-direction: row;
-  flex: 130 0;
   max-width: 130px;
   padding: 10px;
   margin-left: auto;
@@ -119,6 +119,9 @@ const EndpointItem = styled.div`
   white-space: nowrap;
   text-overflow: ellipsis;
 `;
+const CenterWrapper = styled.div`
+  text-align: center;
+`;
 
 class TransferListInput extends Component {
   onDragEnd = result => {
@@ -134,7 +137,7 @@ class TransferListInput extends Component {
     }
     const endpoints = this.props.input.value;
 
-    // Re-orders individual transfer list items after the drag:
+    // Re-orders individual entity items after the drag:
     if (result.type !== 'DEFAULT') {
       // filters out transfer-list items belong to the same hierarchy based on the current dragging item:
       const categoryItems = endpoints.filter(endpoint => endpoint.get('categoryUUID') === result.type);
@@ -166,7 +169,7 @@ class TransferListInput extends Component {
 
       this.props.input.onChange(reOrderedEndpoints);
     } else {
-      // Re-orders group of transfer list items(categories) after the drag:
+      // Re-orders group of entity items(categories) after the drag:
       const sourceItems = endpoints.filter(
         endpoint => endpoint.get('categoryUUID') === this.props.endpointHeaders.getIn([source.index, 'categoryUUID'])
       );
@@ -207,17 +210,27 @@ class TransferListInput extends Component {
   };
 
   render() {
+    // We add a humanized string to show entity name
+    // in every message of the component.
+    // This component will be used by:
+    // - Transfer Lists
+    // - Disposition Lists
+    const humanizedEntityName = camelCaseToRegularFormAndRemoveLastLetter(this.props.entityName);
     return (
       <Fragment>
         {!this.props.input.value && this.props.selectedEntityId === 'create' && (
           <AddNewContactHelpTextWrapper>
-            <AddNewContactHelpText>Add transfer contacts with the plus button above. </AddNewContactHelpText>
+            <AddNewContactHelpText>Add {humanizedEntityName} items with the plus button above. </AddNewContactHelpText>
             <AddNewContactWarningText>
-              You must have one or more contacts in your transfer list in order to save.
+              You must have one or more items in your {humanizedEntityName} in order to save.
             </AddNewContactWarningText>
           </AddNewContactHelpTextWrapper>
         )}
-        {!this.props.input.value && this.props.selectedEntityId !== 'create' && <LoadingSpinnerSVG size={100} />}
+        {!this.props.input.value && this.props.selectedEntityId !== 'create' && (
+          <CenterWrapper>
+            <LoadingSpinnerSVG size={100} />
+          </CenterWrapper>
+        )}
         {this.props.input.value && this.props.input.value.size > 0 && (
           <DragDropContext onDragEnd={this.onDragEnd} onDragStart={this.onDragStart}>
             <Droppable droppableId="transferLists" isDropDisabled={!this.props.userHasUpdatePermission}>
@@ -250,24 +263,26 @@ class TransferListInput extends Component {
                             </CategoryGripIcon>
                             <HierarchyName title={category.get('hierarchy')}>{category.get('hierarchy')}</HierarchyName>
                             <HeaderActionsWrapper>
-                              <ActionButton
-                                className="dtpanel-action-update-item"
-                                data-automation="updateCategoryButton"
-                                title={`Update Category Name : ${category.get('hierarchy')}`}
-                                onClick={() =>
-                                  this.props.setSelectedSubEntityId(
-                                    `updateCategoryHeader:${category.get('categoryUUID')}`
-                                  )
-                                }
-                                disabled={!this.props.userHasUpdatePermission}
-                                type="button"
-                              >
-                                <EditIconSVG
-                                  size={10}
-                                  editIconType="primary"
+                              {this.props.allowUpdateCategory && (
+                                <ActionButton
+                                  className="dtpanel-action-update-item"
+                                  data-automation="updateCategoryButton"
+                                  title={`Update Category Name : ${category.get('hierarchy')}`}
+                                  onClick={() =>
+                                    this.props.setSelectedSubEntityId(
+                                      `updateCategoryHeader:${category.get('categoryUUID')}`
+                                    )
+                                  }
                                   disabled={!this.props.userHasUpdatePermission}
-                                />
-                              </ActionButton>
+                                  type="button"
+                                >
+                                  <EditIconSVG
+                                    size={10}
+                                    editIconType="primary"
+                                    disabled={!this.props.userHasUpdatePermission}
+                                  />
+                                </ActionButton>
+                              )}
                               <ConfirmationWrapper
                                 confirmBtnCallback={
                                   this.props.userHasUpdatePermission
@@ -276,12 +291,12 @@ class TransferListInput extends Component {
                                 }
                                 mainText={
                                   this.props.selectedEntityId !== 'create' && this.props.endpointHeaders.size === 1
-                                    ? `TransferList Cannot be empty.`
-                                    : `This will delete all of the transfer list items in this category.`
+                                    ? `${humanizedEntityName} Cannot be empty.`
+                                    : `This will delete all of the ${humanizedEntityName} items in this category.`
                                 }
                                 secondaryText={
                                   this.props.selectedEntityId !== 'create' && this.props.endpointHeaders.size === 1
-                                    ? 'TransferList should contain at least one category.'
+                                    ? `${humanizedEntityName} should contain at least one category.`
                                     : 'Are you sure you want to continue?'
                                 }
                                 cancelBtnText={
@@ -299,7 +314,7 @@ class TransferListInput extends Component {
                                   <ActionButton
                                     className="dtpanel-action-remove-item"
                                     data-automation="removeCategoryButton"
-                                    title={`Delete All Transfer List Items in : ${category.get('hierarchy')}`}
+                                    title={`Delete All ${humanizedEntityName} Items in : ${category.get('hierarchy')}`}
                                     disabled={!this.props.userHasUpdatePermission}
                                     type="button"
                                   >
@@ -345,7 +360,9 @@ class TransferListInput extends Component {
                                           <EndpointItem
                                             className="list-item-grip-icon"
                                             data-automation="listItemDragDropIcon"
-                                            title={`Drag to Reorder Transfer List Item : ${endpoint.get('name')}`}
+                                            title={`Drag to Reorder ${humanizedEntityName} Item : ${endpoint.get(
+                                              'name'
+                                            )}`}
                                           >
                                             :::
                                           </EndpointItem>
@@ -356,24 +373,26 @@ class TransferListInput extends Component {
                                             {endpoint.get('contactType')}
                                           </EndpointItem>
                                           <EndpointActionsWrapper>
-                                            <ActionButton
-                                              className="dtpanel-action-update-item"
-                                              data-automation="updateListItemButton"
-                                              title={`Update Transfer List Item : ${endpoint.get('name')}`}
-                                              onClick={() =>
-                                                this.props.setSelectedSubEntityId(
-                                                  `updateTransferListItem:${endpoint.get('endpointUUID')}`
-                                                )
-                                              }
-                                              disabled={!this.props.userHasUpdatePermission}
-                                              type="button"
-                                            >
-                                              <EditIconSVG
-                                                size={10}
-                                                editIconType="primary"
+                                            {this.props.allowUpdateItem && (
+                                              <ActionButton
+                                                className="dtpanel-action-update-item"
+                                                data-automation="updateListItemButton"
+                                                title={`Update ${humanizedEntityName} Item : ${endpoint.get('name')}`}
+                                                onClick={() =>
+                                                  this.props.setSelectedSubEntityId(
+                                                    `updateTransferListItem:${endpoint.get('endpointUUID')}`
+                                                  )
+                                                }
                                                 disabled={!this.props.userHasUpdatePermission}
-                                              />
-                                            </ActionButton>
+                                                type="button"
+                                              >
+                                                <EditIconSVG
+                                                  size={10}
+                                                  editIconType="primary"
+                                                  disabled={!this.props.userHasUpdatePermission}
+                                                />
+                                              </ActionButton>
+                                            )}
                                             <ConfirmationWrapper
                                               confirmBtnCallback={
                                                 this.props.userHasUpdatePermission
@@ -384,13 +403,13 @@ class TransferListInput extends Component {
                                               mainText={
                                                 this.props.selectedEntityId !== 'create' &&
                                                 this.props.input.value.size === 1
-                                                  ? `TransferList Cannot be empty.`
+                                                  ? `${humanizedEntityName} Cannot be empty.`
                                                   : `Deleting this item cannot be undone.`
                                               }
                                               secondaryText={
                                                 this.props.selectedEntityId !== 'create' &&
                                                 this.props.input.value.size === 1
-                                                  ? 'TransferList should contain at least one contact.'
+                                                  ? `${humanizedEntityName} should contain at least one contact.`
                                                   : 'Are you sure you want to continue?'
                                               }
                                               cancelBtnText={
@@ -409,7 +428,7 @@ class TransferListInput extends Component {
                                               <ActionButton
                                                 className="dtpanel-action-remove-item"
                                                 data-automation="removeListItemButton"
-                                                title={`Delete Transfer List Item : ${endpoint.get('name')}`}
+                                                title={`Delete ${humanizedEntityName} Item : ${endpoint.get('name')}`}
                                                 disabled={!this.props.userHasUpdatePermission}
                                                 type="button"
                                               >
@@ -451,10 +470,15 @@ export default function TransferListField(props) {
 TransferListField.propTypes = {
   name: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
+  entityName: PropTypes.string,
+  allowUpdateCategory: PropTypes.bool,
+  allowUpdateItem: PropTypes.bool,
 };
 
 TransferListField.defaultProps = {
   disabled: false,
+  allowUpdateCategory: true,
+  allowUpdateItem: false,
 };
 
 TransferListInput.propTypes = {
@@ -466,4 +490,7 @@ TransferListInput.propTypes = {
   setSelectedSubEntityId: PropTypes.func.isRequired,
   removeTransferListItem: PropTypes.func.isRequired,
   removeCategoryItems: PropTypes.func.isRequired,
+  entityName: PropTypes.string,
+  allowUpdateCategory: PropTypes.bool,
+  allowUpdateItem: PropTypes.bool,
 };

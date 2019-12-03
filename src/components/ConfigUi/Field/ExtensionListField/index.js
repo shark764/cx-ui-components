@@ -140,122 +140,121 @@ class ExtensionListInput extends Component {
         warning={this.props.warning}
         hideLabel
       >
-        {this.props.input.value &&
-          this.props.input.value.size > 0 && (
-            <ListWrapper type={this.props.input.name}>
-              <DragDropContext onDragEnd={this.onDragEnd} onDragStart={this.onDragStart}>
-                <Droppable droppableId={this.props.input.name}>
-                  {provided => (
-                    <div ref={provided.innerRef} {...provided.droppableProps}>
-                      {this.props.input.value &&
-                        this.props.input.value.map((li, index) => (
-                          <Draggable
-                            draggableId={li.get('id') || generateUUID()}
-                            index={index}
-                            key={li.get('id') || generateUUID()}
-                          >
-                            {provided => (
-                              <Fragment>
-                                <ListItem
-                                  innerRef={provided.innerRef}
-                                  {...provided.draggableProps}
-                                  {...provided.dragHandleProps}
+        {this.props.input.value && this.props.input.value.size > 0 && (
+          <ListWrapper type={this.props.input.name}>
+            <DragDropContext onDragEnd={this.onDragEnd} onDragStart={this.onDragStart}>
+              <Droppable droppableId={this.props.input.name}>
+                {provided => (
+                  <div ref={provided.innerRef} {...provided.droppableProps}>
+                    {this.props.input.value &&
+                      this.props.input.value.map((li, index) => (
+                        <Draggable
+                          draggableId={li.get('id') || generateUUID()}
+                          index={index}
+                          key={li.get('id') || generateUUID()}
+                        >
+                          {provided => (
+                            <Fragment>
+                              <ListItem
+                                innerRef={provided.innerRef}
+                                {...provided.draggableProps}
+                                {...provided.dragHandleProps}
+                              >
+                                <Grip className="list-item-grip-icon">:::</Grip>
+
+                                <StyledSelect
+                                  className="list-item-text"
+                                  onChange={e => this.saveRefrence(e, 'type', index)}
+                                  value={li.get('type')}
+                                  disabled={li.get('type') === 'webrtc'}
                                 >
-                                  <Grip className="list-item-grip-icon">:::</Grip>
+                                  <option value="pstn">PSTN</option>
+                                  {li.get('type') === 'webrtc' && <option value="webrtc">webRTC</option>}
+                                  <option value="sip">SIP</option>
+                                </StyledSelect>
 
-                                  <StyledSelect
-                                    className="list-item-text"
-                                    onChange={e => this.saveRefrence(e, 'type', index)}
-                                    value={li.get('type')}
+                                {li.get('type') === 'webrtc' && (
+                                  <ListItemText className="list-item-text"> {li.get('provider')} </ListItemText>
+                                )}
+
+                                {index === 0 && <PrimaryText className="list-item-text"> primary </PrimaryText>}
+
+                                <RemoveButton
+                                  className="list-item-remove-button"
+                                  onClick={e => li.get('type') !== 'webrtc' && this.removeListItem(index)}
+                                >
+                                  <CloseIconSVG
+                                    closeIconType="secondary"
+                                    size={12}
                                     disabled={li.get('type') === 'webrtc'}
-                                  >
-                                    <option value="pstn">PSTN</option>
-                                    {li.get('type') === 'webrtc' && <option value="webrtc">webRTC</option>}
-                                    <option value="sip">SIP</option>
-                                  </StyledSelect>
+                                  />
+                                </RemoveButton>
 
-                                  {li.get('type') === 'webrtc' && (
-                                    <ListItemText className="list-item-text"> {li.get('provider')} </ListItemText>
-                                  )}
-
-                                  {index === 0 && <PrimaryText className="list-item-text"> primary </PrimaryText>}
-
-                                  <RemoveButton
-                                    className="list-item-remove-button"
-                                    onClick={e => li.get('type') !== 'webrtc' && this.removeListItem(index)}
-                                  >
-                                    <CloseIconSVG
-                                      closeIconType="secondary"
-                                      size={12}
-                                      disabled={li.get('type') === 'webrtc'}
-                                    />
-                                  </RemoveButton>
-
-                                  {li.get('type') === 'webrtc' && (
-                                    <StyledRegion
-                                      className="list-item-text"
-                                      onChange={e => this.saveRefrence(e, 'region', index)}
-                                      value={li.get('region')}
-                                    >
-                                      {regions.map((region, index) => (
-                                        <option key={index} value={region.value}>
-                                          {region.label}
-                                        </option>
-                                      ))}
-                                    </StyledRegion>
-                                  )}
-
-                                  {li.get('type') !== 'webrtc' && (
-                                    <SmallInput
-                                      className="list-item-text"
-                                      value={this.props.input.value.getIn([index, 'value'])}
-                                      onChange={e => this.saveRefrence(e, 'value', index)}
-                                      placeholder="Extension"
-                                      hasError={
-                                        this.props.meta.error &&
-                                        typeof this.props.meta.error[index] === 'string' &&
-                                        this.props.meta.error[index] !== 'Label is required'
-                                      }
-                                    />
-                                  )}
-                                  
-                                  {this.props.meta.error &&
-                                    typeof this.props.meta.error[index] === 'string' &&
-                                    (this.props.meta.error[index] === 'Valid Phone Number Required' || this.props.meta.error[index] === 'Valid SIP Address Required') && (
-                                      <ErrorInExtension>{this.props.meta.error[index]}</ErrorInExtension>
-                                    )}
-
-                                  <InputWrapper
+                                {li.get('type') === 'webrtc' && (
+                                  <StyledRegion
                                     className="list-item-text"
-                                    value={this.props.input.value.getIn([index, 'description'])}
-                                    onChange={e => this.saveRefrence(e, 'description', index)}
-                                    placeholder="Label"
-                                    disabled={li.get('type') === 'webrtc'}
+                                    onChange={e => this.saveRefrence(e, 'region', index)}
+                                    value={li.get('region')}
+                                  >
+                                    {regions.map((region, index) => (
+                                      <option key={index} value={region.value}>
+                                        {region.label}
+                                      </option>
+                                    ))}
+                                  </StyledRegion>
+                                )}
+
+                                {li.get('type') !== 'webrtc' && (
+                                  <SmallInput
+                                    className="list-item-text"
+                                    value={this.props.input.value.getIn([index, 'value'])}
+                                    onChange={e => this.saveRefrence(e, 'value', index)}
+                                    placeholder="Extension"
                                     hasError={
                                       this.props.meta.error &&
                                       typeof this.props.meta.error[index] === 'string' &&
-                                      this.props.meta.error[index] === 'Label is required'
+                                      this.props.meta.error[index] !== 'Label is required'
                                     }
                                   />
-                                  
-                                  {this.props.meta.error &&
-                                    typeof this.props.meta.error[index] === 'string' &&
-                                    this.props.meta.error[index] === 'Label is required' && (
-                                      <ErrorInExtension>{this.props.meta.error[index]}</ErrorInExtension>
-                                    )}
+                                )}
 
-                                </ListItem>
-                              </Fragment>
-                            )}
-                          </Draggable>
-                        ))}
-                      {provided.placeholder}
-                    </div>
-                  )}
-                </Droppable>
-              </DragDropContext>
-            </ListWrapper>
-          )}
+                                {this.props.meta.error &&
+                                  typeof this.props.meta.error[index] === 'string' &&
+                                  (this.props.meta.error[index] === 'Valid Phone Number Required' ||
+                                    this.props.meta.error[index] === 'Valid SIP Address Required') && (
+                                    <ErrorInExtension>{this.props.meta.error[index]}</ErrorInExtension>
+                                  )}
+
+                                <InputWrapper
+                                  className="list-item-text"
+                                  value={this.props.input.value.getIn([index, 'description'])}
+                                  onChange={e => this.saveRefrence(e, 'description', index)}
+                                  placeholder="Label"
+                                  disabled={li.get('type') === 'webrtc'}
+                                  hasError={
+                                    this.props.meta.error &&
+                                    typeof this.props.meta.error[index] === 'string' &&
+                                    this.props.meta.error[index] === 'Label is required'
+                                  }
+                                />
+
+                                {this.props.meta.error &&
+                                  typeof this.props.meta.error[index] === 'string' &&
+                                  this.props.meta.error[index] === 'Label is required' && (
+                                    <ErrorInExtension>{this.props.meta.error[index]}</ErrorInExtension>
+                                  )}
+                              </ListItem>
+                            </Fragment>
+                          )}
+                        </Draggable>
+                      ))}
+                    {provided.placeholder}
+                  </div>
+                )}
+              </Droppable>
+            </DragDropContext>
+          </ListWrapper>
+        )}
       </FieldWrapper>
     );
   }
