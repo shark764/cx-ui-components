@@ -193,14 +193,10 @@ class EntityTable extends Component {
   selectToggle = (data, bool, visibleOrAll) => {
     this.props.setVisibleMenu('none', this.props.entityMetadata.entityName);
     for (let i = 0, len = data.length; i < len; i++) {
-      let x = data[i];
+      let x = visibleOrAll === 'visible' ? data[i]._original : data[i];
 
-      if (!x._original.inherited) {
-        this.props.onBulkClick(
-          this.props.entityMetadata.entityName,
-          visibleOrAll === 'visible' ? x._original.id : x.id,
-          bool
-        );
+      if (!x.inherited && x.bulkChangeItem !== bool) {
+        this.props.onBulkClick(this.props.entityMetadata.entityName, x.id, bool);
       }
     }
   };
