@@ -71,11 +71,7 @@ const CopyIconOuterBox = styled.div`
 function SidePanelHeader(props) {
   const updateURL = () => {
     if (props.insideIframe) {
-      const data = {
-        module: 'updateURLWithQueryString',
-        entityId: '',
-      };
-      window.parent.postMessage(data, '*');
+      props.updateConfigUIUrlWithQueryString('');
     } else {
       props.history.push({
         ...props.location,

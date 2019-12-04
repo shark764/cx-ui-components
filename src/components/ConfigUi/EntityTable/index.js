@@ -244,11 +244,7 @@ class EntityTable extends Component {
 
   updateURL = queryString => {
     if (this.props.insideIframe) {
-      const data = {
-        module: 'updateURLWithQueryString',
-        entityId: queryString,
-      };
-      window.parent.postMessage(data, '*');
+      this.props.updateConfigUIUrlWithQueryString(queryString);
     } else {
       this.props.history.push({
         ...this.props.location,
@@ -286,8 +282,8 @@ class EntityTable extends Component {
   };
 
   onRowClick = rowId => {
+    this.updateURL(rowId);
     this.props.onRowClick(rowId);
-    this.updateURL(`id=${rowId}`);
   };
 
   componentDidUpdate(prevProps, nextProps) {

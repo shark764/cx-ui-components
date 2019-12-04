@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.56.17] - 2019-12-04
+## Fixed
+- CXV1-20612 - Remove entityId from the URL when navigated between pages
+- CXV1-20611 - Display sidepanel entity form while accessing config-ui & config2 URL with id
+
 ## [0.56.16] - 2019-12-03
 ## Fixed
 - <no-jira> - Dispositions component shouldn't allow inherited entities to edit or remove items.
