@@ -40,7 +40,13 @@ const parseBooleans = value => {
 };
 
 const RadioGroup = props => {
-  const { input, label, disabled, meta: { touched, error, warning }, options } = props;
+  const {
+    input,
+    label,
+    disabled,
+    meta: { touched, error, warning },
+    options,
+  } = props;
 
   return (
     <FieldWrapper inputName={input.name} label={label} touched={touched} error={error} warning={warning}>

@@ -14,7 +14,7 @@ const Label = styled.label`
   flex-shrink: 0;
   display: inline-block;
   width: 150px;
-  margin-top: ${props => props.labelMargin ? props.labelMargin : '5px'};
+  margin-top: ${props => (props.labelMargin ? props.labelMargin : '5px')};
   padding-right: 10px;
 `;
 
@@ -25,7 +25,7 @@ const HelpText = styled.div`
 
 const InputWrapper = styled.div`
   flex-grow: 1;
-  position:relative;
+  position: relative;
 `;
 
 const Error = styled.span`
@@ -36,22 +36,28 @@ const Warning = styled.span`
   color: orange;
 `;
 
-export default function FieldWrapper({ inputName, label, labelHelpText, children, touched, error, warning, hideLabel, labelMargin }) {
+export default function FieldWrapper({
+  inputName,
+  label,
+  labelHelpText,
+  children,
+  touched,
+  error,
+  warning,
+  hideLabel,
+  labelMargin,
+}) {
   return (
     <FieldWrapperDiv>
-      {!hideLabel && <Label labelMargin={labelMargin} htmlFor={inputName}>
-        {label}
-        {labelHelpText && (
-          <HelpText>
-            {labelHelpText}
-          </HelpText>
-        )}
-      </Label>}
+      {!hideLabel && (
+        <Label labelMargin={labelMargin} htmlFor={inputName}>
+          {label}
+          {labelHelpText && <HelpText>{labelHelpText}</HelpText>}
+        </Label>
+      )}
       <InputWrapper>
         {children}
-        {touched &&
-          ((error && <Error>{error}</Error>) ||
-            (warning && <Warning>{warning}</Warning>))}
+        {touched && ((error && <Error>{error}</Error>) || (warning && <Warning>{warning}</Warning>))}
       </InputWrapper>
     </FieldWrapperDiv>
   );

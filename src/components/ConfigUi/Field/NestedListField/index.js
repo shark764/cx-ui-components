@@ -20,18 +20,18 @@ import CloseIconSVG from '../../../Icons/CloseIconSVG';
 import LoadingSpinnerSVG from '../../../Icons/LoadingSpinnerSVG';
 import ConfirmationWrapper from '../../Confirmation/ConfirmationWrapper';
 
-const AddNewContactHelpTextWrapper = styled.div`
-  dispaly: block;
+const AddNewReasonHelpTextWrapper = styled.div`
+  display: block;
   margin: 15px;
   text-align: center;
   font-size: 13px;
   font-style: italic;
 `;
-const AddNewContactHelpText = styled.p`
+const AddNewReasonHelpText = styled.p`
   color: #656565;
   margin: 0px;
 `;
-const AddNewContactWarningText = styled.p`
+const AddNewReasonWarningText = styled.p`
   font-weight: bold;
   color: #d72727;
   margin: 0px;
@@ -120,6 +120,9 @@ const ReasonItem = styled.div`
 `;
 const CenterWrapper = styled.div`
   text-align: center;
+`;
+const Warning = styled.span`
+  color: orange;
 `;
 
 class NestedListInput extends Component {
@@ -217,16 +220,13 @@ class NestedListInput extends Component {
   };
 
   render() {
+    const {
+      props: {
+        meta: { error, warning },
+      },
+    } = this;
     return (
       <Fragment>
-        {!this.props.input.value && this.props.selectedEntityId === 'create' && (
-          <AddNewContactHelpTextWrapper>
-            <AddNewContactHelpText>Add Reason List with the plus button above. </AddNewContactHelpText>
-            <AddNewContactWarningText>
-              You must have one or more reason categories in your reason list in order to save.
-            </AddNewContactWarningText>
-          </AddNewContactHelpTextWrapper>
-        )}
         {!this.props.input.value && this.props.selectedEntityId !== 'create' && (
           <CenterWrapper>
             <LoadingSpinnerSVG size={100} />
@@ -436,6 +436,21 @@ class NestedListInput extends Component {
             </Droppable>
           </DragDropContext>
         )}
+        {!this.props.input.value && this.props.selectedEntityId === 'create' && (
+          <AddNewReasonHelpTextWrapper>
+            <AddNewReasonHelpText>Add Reason List items with the plus button above. </AddNewReasonHelpText>
+          </AddNewReasonHelpTextWrapper>
+        )}
+        {(error && (
+          <AddNewReasonHelpTextWrapper>
+            <AddNewReasonWarningText>{error}</AddNewReasonWarningText>
+          </AddNewReasonHelpTextWrapper>
+        )) ||
+          (warning && (
+            <AddNewReasonHelpTextWrapper>
+              <Warning>{warning}</Warning>
+            </AddNewReasonHelpTextWrapper>
+          ))}
       </Fragment>
     );
   }
@@ -464,10 +479,14 @@ NestedListField.propTypes = {
 
 NestedListInput.propTypes = {
   input: PropTypes.object.isRequired,
+  meta: PropTypes.object,
   removeReasonListItem: PropTypes.func,
   reasonHeaders: PropTypes.object,
   selectedEntityId: PropTypes.string.isRequired,
   userHasUpdatePermission: PropTypes.bool,
   removeCategoryItems: PropTypes.func,
   setSelectedSubEntityId: PropTypes.func,
+  touched: PropTypes.bool,
+  error: PropTypes.string,
+  warning: PropTypes.string,
 };

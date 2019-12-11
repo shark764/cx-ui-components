@@ -22,7 +22,7 @@ import LoadingSpinnerSVG from '../../../Icons/LoadingSpinnerSVG';
 import ConfirmationWrapper from '../../Confirmation/ConfirmationWrapper';
 
 const AddNewContactHelpTextWrapper = styled.div`
-  dispaly: block;
+  display: block;
   margin: 15px;
   text-align: center;
   font-size: 13px;
@@ -122,6 +122,9 @@ const EndpointItem = styled.div`
 const CenterWrapper = styled.div`
   text-align: center;
 `;
+const Warning = styled.span`
+  color: orange;
+`;
 
 class TransferListInput extends Component {
   onDragEnd = result => {
@@ -167,7 +170,12 @@ class TransferListInput extends Component {
         return accumlator;
       }, List());
 
-      this.props.input.onChange(reOrderedEndpoints);
+      const updatedEndpoints =
+        this.props.selectedEntityId !== 'create'
+          ? reOrderedEndpoints.map((endpoint, index) => endpoint.set('sortOrder', index))
+          : reOrderedEndpoints;
+
+      this.props.input.onChange(updatedEndpoints);
     } else {
       // Re-orders group of entity items(categories) after the drag:
       const sourceItems = endpoints.filter(
@@ -205,7 +213,12 @@ class TransferListInput extends Component {
         return accumlator;
       }, List());
 
-      this.props.input.onChange(reOrderedEndpoints);
+      const updatedEndpoints =
+        this.props.selectedEntityId !== 'create'
+          ? reOrderedEndpoints.map((endpoint, index) => endpoint.set('sortOrder', index))
+          : reOrderedEndpoints;
+
+      this.props.input.onChange(updatedEndpoints);
     }
   };
 
@@ -216,16 +229,13 @@ class TransferListInput extends Component {
     // - Transfer Lists
     // - Disposition Lists
     const humanizedEntityName = camelCaseToRegularFormAndRemoveLastLetter(this.props.entityName);
+    const {
+      props: {
+        meta: { error, warning },
+      },
+    } = this;
     return (
       <Fragment>
-        {!this.props.input.value && this.props.selectedEntityId === 'create' && (
-          <AddNewContactHelpTextWrapper>
-            <AddNewContactHelpText>Add {humanizedEntityName} items with the plus button above. </AddNewContactHelpText>
-            <AddNewContactWarningText>
-              You must have one or more items in your {humanizedEntityName} in order to save.
-            </AddNewContactWarningText>
-          </AddNewContactHelpTextWrapper>
-        )}
         {!this.props.input.value && this.props.selectedEntityId !== 'create' && (
           <CenterWrapper>
             <LoadingSpinnerSVG size={100} />
@@ -464,6 +474,21 @@ class TransferListInput extends Component {
             </Droppable>
           </DragDropContext>
         )}
+        {!this.props.input.value && this.props.selectedEntityId === 'create' && (
+          <AddNewContactHelpTextWrapper>
+            <AddNewContactHelpText>Add {humanizedEntityName} items with the plus button above. </AddNewContactHelpText>
+          </AddNewContactHelpTextWrapper>
+        )}
+        {(error && (
+          <AddNewContactHelpTextWrapper>
+            <AddNewContactWarningText>{error}</AddNewContactWarningText>
+          </AddNewContactHelpTextWrapper>
+        )) ||
+          (warning && (
+            <AddNewContactHelpTextWrapper>
+              <Warning>{warning}</Warning>
+            </AddNewContactHelpTextWrapper>
+          ))}
       </Fragment>
     );
   }
@@ -499,4 +524,7 @@ TransferListInput.propTypes = {
   entityName: PropTypes.string,
   allowUpdateCategory: PropTypes.bool,
   allowUpdateItem: PropTypes.bool,
+  touched: PropTypes.bool,
+  error: PropTypes.string,
+  warning: PropTypes.string,
 };
