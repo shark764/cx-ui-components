@@ -73,10 +73,12 @@ function SidePanelHeader(props) {
     if (props.insideIframe) {
       props.updateConfigUIUrlWithQueryString('');
     } else {
-      props.history.push({
-        ...props.location,
-        search: '',
-      });
+      if (props.history.location.search && props.history.location.search !== '') {
+        props.history.push({
+          ...props.location,
+          search: '',
+        });
+      }
     }
   };
 

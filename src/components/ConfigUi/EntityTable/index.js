@@ -242,10 +242,14 @@ class EntityTable extends Component {
     if (this.props.insideIframe) {
       this.props.updateConfigUIUrlWithQueryString(queryString);
     } else {
-      this.props.history.push({
-        ...this.props.location,
-        search: queryString,
-      });
+      const currentSearchParam = this.props.history.location.search;
+      const pushingSameQueryString = queryString === '' ? (currentSearchParam === queryString) : (currentSearchParam === `?id=${queryString}`);
+      if (!pushingSameQueryString) {
+        this.props.history.push({
+          ...this.props.location,
+          search: queryString !== '' ? `id=${queryString}` : queryString,
+        });
+      }
     }
   };
 
@@ -324,20 +328,20 @@ class EntityTable extends Component {
             <span>-</span>
           </div>
         ) : (
-          <CheckboxWrapper
-            className="bulk-action-selector-toggle"
-            onClick={e =>
-              this.props.onBulkClick(this.props.entityMetadata.entityName, row._original.id) && e.stopPropagation()
-            }
-          >
-            <RowCheckbox
-              type="checkbox"
-              checked={row._original.bulkChangeItem || false}
-              title="Add or remove this from the bulk actions form"
-              data-automation={`${row._original.id}Checkbox`}
-            />
-          </CheckboxWrapper>
-        ),
+            <CheckboxWrapper
+              className="bulk-action-selector-toggle"
+              onClick={e =>
+                this.props.onBulkClick(this.props.entityMetadata.entityName, row._original.id) && e.stopPropagation()
+              }
+            >
+              <RowCheckbox
+                type="checkbox"
+                checked={row._original.bulkChangeItem || false}
+                title="Add or remove this from the bulk actions form"
+                data-automation={`${row._original.id}Checkbox`}
+              />
+            </CheckboxWrapper>
+          ),
     };
 
     return (
@@ -417,8 +421,8 @@ class EntityTable extends Component {
           noDataText={this.props.fetching ? <LoadingSpinner size={60} /> : 'No results found'}
           columns={
             this.props.entityMetadata &&
-            this.props.entityMetadata.entityName &&
-            (this.props.showBulkActionsMenu && this.props.userHasUpdatePermission)
+              this.props.entityMetadata.entityName &&
+              (this.props.showBulkActionsMenu && this.props.userHasUpdatePermission)
               ? [bulkColumn, ...this.props.columns]
               : [...this.props.columns]
           }
