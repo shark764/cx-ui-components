@@ -37,8 +37,8 @@ const AddNewReasonWarningText = styled.p`
   margin: 0px;
 `;
 const NestedListItemsContainer = styled.div`
-  padding: 15px;
-  background-color: ${props => (props.isDraggingOver ? 'rgba(0, 0, 0, 0.21)' : 'white')};
+  padding: ${props => (props.isDraggingOver ? '20px' : '5px')};
+  background-color: ${props => (props.isDraggingOver ? 'rgba(0, 0, 0, 0.21)' : '#F4F5F7')};
 `;
 const NestedListItemWrapper = styled.div`
   border: ${props => (props.isDragging ? '5px solid rgb(170, 214, 255)' : 'none')};
@@ -378,25 +378,25 @@ class NestedListInput extends Component {
                                                   }
                                                   mainText={
                                                     this.props.selectedEntityId !== 'create' &&
-                                                    this.props.input.value.size === 1
+                                                      this.props.input.value.size === 1
                                                       ? `Nested List Cannot be empty.`
                                                       : `Deleting this item cannot be undone.`
                                                   }
                                                   secondaryText={
                                                     this.props.selectedEntityId !== 'create' &&
-                                                    this.props.input.value.size === 1
+                                                      this.props.input.value.size === 1
                                                       ? 'Nested List should contain at least one contact.'
                                                       : 'Are you sure you want to continue?'
                                                   }
                                                   cancelBtnText={
                                                     this.props.selectedEntityId !== 'create' &&
-                                                    this.props.input.value.size === 1
+                                                      this.props.input.value.size === 1
                                                       ? 'Okay'
                                                       : 'Cancel'
                                                   }
                                                   openPopupBox={
                                                     this.props.selectedEntityId !== 'create' &&
-                                                    this.props.input.value.size === 1
+                                                      this.props.input.value.size === 1
                                                       ? true
                                                       : false
                                                   }
