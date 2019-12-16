@@ -269,7 +269,7 @@ class TransferListInput extends Component {
                               title={`Drag to reorder category : ${category.get('hierarchy')}`}
                               data-automation="categoryDragDropIcon"
                             >
-                              :::
+                              ::
                             </CategoryGripIcon>
                             <HierarchyName title={category.get('hierarchy')}>{category.get('hierarchy')}</HierarchyName>
                             {this.props.userHasUpdatePermission && (

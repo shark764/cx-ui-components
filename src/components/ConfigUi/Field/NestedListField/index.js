@@ -263,7 +263,7 @@ class NestedListInput extends Component {
                                 title={`Drag to reorder category : ${hierarchy}`}
                                 data-automation="categoryDragDropIcon"
                               >
-                                :::
+                                ::
                               </CategoryGripIcon>
                               <HierarchyName title={hierarchy}>{hierarchy}</HierarchyName>
                               {this.props.userHasUpdatePermission && (
