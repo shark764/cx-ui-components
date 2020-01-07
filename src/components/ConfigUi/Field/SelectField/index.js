@@ -16,18 +16,30 @@ const Select = Input.withComponent('select').extend`
 const SelectInput = props => {
   let options =
     props.options === 'boolean' ? [{ label: 'True', value: true }, { label: 'False', value: false }] : props.options;
-  const { input, label, id, className, disabled, meta: { touched, error, warning }, required } = props;
+  const {
+    input,
+    label,
+    id,
+    className,
+    disabled,
+    meta: { touched, error, warning },
+    required,
+    handleChange,
+  } = props;
+
+  const inputProps = {
+    ...input,
+    id,
+    className,
+    disabled,
+    // We overwrite onChange handler only if it's
+    // passed as prop.
+    ...(typeof handleChange === 'function' && { onChange: handleChange }),
+  };
 
   return (
     <FieldWrapper inputName={input.name} label={label} touched={touched} error={error} warning={warning}>
-      <Select
-        {...input}
-        id={id}
-        className={className}
-        data-automation={props['data-automation']}
-        disabled={disabled}
-        hasError={touched && !!error}
-      >
+      <Select {...inputProps} data-automation={props['data-automation']} hasError={touched && !!error}>
         {options ? (
           <Fragment>
             {!required && (
@@ -87,6 +99,7 @@ SelectField.propTypes = {
   ]),
   /** Will have an empty option when false */
   required: PropTypes.bool,
+  handleChange: PropTypes.func,
 };
 
 SelectField.defaultProps = {
@@ -113,4 +126,5 @@ SelectInput.propTypes = {
     PropTypes.object,
   ]),
   required: PropTypes.bool,
+  handleChange: PropTypes.func,
 };
