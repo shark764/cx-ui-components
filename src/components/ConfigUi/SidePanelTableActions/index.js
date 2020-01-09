@@ -4,7 +4,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import Button from '../Button';
 import ViewIconSVG from '../../Icons/ViewIconSVG';
 import EditIconSVG from '../../Icons/EditIconSVG';
@@ -18,6 +18,11 @@ import ConfirmationWrapper from '../Confirmation/ConfirmationWrapper';
 const ActionButton = styled(Button)`
   padding: 2px 8px 5px 8px;
   margin-right: 10px;
+  ${props =>
+    props.disabled &&
+    css`
+      cursor: not-allowed;
+    `};
 `;
 const ActionsWrapper = styled.div`
   display: flex;
@@ -109,9 +114,9 @@ export default function SidePanelTableActions({
                   ? deleteSubEntity(row.key || row.id || row.version, entityName, 'dissociate')
                   : undefined
               }
-              disabled={row.deleting}
+              disabled={row.deleting || row.disableDelete}
             >
-              <CloseIconSVG size={10} closeIconType={row.deleting ? 'secondary' : 'primary'} disabled={row.deleting} />
+              <CloseIconSVG size={10} closeIconType={row.deleting ? 'secondary' : 'primary'} disabled={row.deleting || row.disableDelete} />
             </ActionButton>
           </ConfirmationWrapper>
         )}
@@ -123,9 +128,9 @@ export default function SidePanelTableActions({
             data-automation="dtpanelActionAddItem"
             title={!row.adding ? `Add ${row.key || row.name}` : `row.adding ${row.key || row.name}`}
             onClick={() => addSubEntity(row.key || row.id || row.version, entityName, 'associate')}
-            disabled={row.adding}
+            disabled={row.adding || row.disableAdd}
           >
-            <PlusIconSVG size={10} disabled={row.adding} plusIconType={row.adding ? 'secondary' : 'primary'} />
+            <PlusIconSVG size={10} disabled={row.adding || row.disableAdd} plusIconType={row.adding ? 'secondary' : 'primary'} />
           </ActionButton>
         )}
       {!row.isDefault &&

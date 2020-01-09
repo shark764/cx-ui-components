@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.56.25] - 2020-01-07
+## Fixed
+- CXV1-15075 - UI showing Roles and Permissions that you do not have permission to assign to a user.
+
 ## [0.56.24] - 2020-01-07
 ## Fixed
 - <no-jira> - Fixed an issue with webpack and serenova-js-utils that broke the development server
