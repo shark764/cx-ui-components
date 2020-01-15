@@ -2,17 +2,18 @@
 const Store = require('../../../../utils/store');
 const Form = require('../../../../utils/reduxForm');
 const { Map } = require('immutable');
+const { isSerializedOrigin } = require('serenova-js-utils/strings');
 
 <Store>
-  <Form >
+  <Form>
+    <ListField name="urls" label="Urls" />
     <ListField
       name="urls"
-      label="Urls"
+      label="Urls with validation"
+      inputValidation={isSerializedOrigin}
+      inputError="This is an error"
     />
-    <ListField
-      name="fields"
-      label="Fields"
-    />
+    <ListField name="fields" label="Fields" />
   </Form>
-</Store>
+</Store>;
 ```

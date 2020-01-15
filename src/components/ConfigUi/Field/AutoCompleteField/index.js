@@ -87,7 +87,7 @@ class AutoCompleteInput extends Component {
       if (scrollContainerNode !== null) {
         // Move scroll according to suggestion's height
         scrollContainerNode.scrollTop =
-          scrollContainerNode.clientHeight / filteredSuggestions.length * (activeSuggestion - 1);
+          (scrollContainerNode.clientHeight / filteredSuggestions.length) * (activeSuggestion - 1);
       }
     }
   }
@@ -188,7 +188,16 @@ class AutoCompleteInput extends Component {
       onFocus,
       onKeyDown,
       state: { activeSuggestion, filteredSuggestions, showSuggestions, value },
-      props: { input, id, className, label, labelHelpText, placeholder, disabled, meta: { touched, error, warning } },
+      props: {
+        input,
+        id,
+        className,
+        label,
+        labelHelpText,
+        placeholder,
+        disabled,
+        meta: { touched, error, warning },
+      },
     } = this;
 
     const fieldProps = { label, labelHelpText, touched, error, warning };

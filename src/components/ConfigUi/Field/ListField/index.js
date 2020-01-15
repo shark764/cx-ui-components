@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 import { List } from 'immutable';
 import { Field as ReduxFormField } from 'redux-form/immutable';
+import styled, { css } from 'styled-components';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import FieldWrapper from '../FieldWrapper';
 import PlusIconSVG from '../../../Icons/PlusIconSVG';
 import CloseIconSVG from '../../../Icons/CloseIconSVG';
 import { Input } from '../StyledInputs';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 const ActionButton = styled.button`
   background-color: #f9f9f9;
@@ -24,6 +24,20 @@ const ActionButton = styled.button`
   :hover {
     box-shadow: inset 0px 1px 2px rgba(175, 175, 175, 0.4);
   }
+  ${props =>
+    props.disabled &&
+    css`
+      cursor: not-allowed;
+      color: gray;
+      & .PlusIconSVG {
+        cursor: not-allowed;
+        fill: gray;
+      }
+      & .PlusIconSVG .icon {
+        cursor: not-allowed;
+        fill: gray;
+      }
+    `};
 `;
 
 const RemoveButton = styled.div`
@@ -47,6 +61,11 @@ const Grip = styled.div`
 
 const InputWrapper = styled(Input)`
   width: 84%;
+  ${props =>
+    props.hasError &&
+    css`
+      border-color: red;
+    `};
 `;
 
 const ListWrapper = styled.div`
@@ -93,18 +112,42 @@ const ListItemText = styled.span`
   }};
 `;
 
+const HelpTextWrapper = styled.div`
+  display: block;
+  margin: 15px;
+  text-align: center;
+  font-size: 13px;
+  font-style: italic;
+`;
+const WarningText = styled.p`
+  font-weight: bold;
+  color: #d72727;
+  margin: 0px;
+`;
+const Warning = styled.span`
+  color: orange;
+`;
+
 class ListInput extends Component {
   constructor(props) {
     super(props);
     this.state = {
       currentListItem: '',
+      hasError: false,
     };
   }
 
-  saveRefrence = e => this.setState({ currentListItem: e.target.value });
+  saveReference = e => {
+    e.target.value === ''
+      ? this.setState({ currentListItem: '', hasError: false })
+      : this.setState({ currentListItem: e.target.value });
+  };
 
-  addFormItem = e => {
-    e.preventDefault();
+  handleAddItem = () => {
+    if (typeof this.props.inputValidation === 'function' && !this.props.inputValidation(this.state.currentListItem)) {
+      this.setState({ hasError: true });
+      return;
+    }
     if (this.state.currentListItem.trim() !== '') {
       this.props.input.onChange(
         this.props.input.value === ''
@@ -112,7 +155,12 @@ class ListInput extends Component {
           : this.props.input.value.push(this.state.currentListItem)
       );
     }
-    this.setState({ currentListItem: '' });
+    this.setState({ currentListItem: '', hasError: false });
+  };
+
+  addFormItem = e => {
+    e.preventDefault();
+    this.handleAddItem();
   };
 
   removeListItem = index => this.props.input.onChange(this.props.input.value.delete(index));
@@ -128,7 +176,21 @@ class ListInput extends Component {
     this.props.input.onChange(this.props.input.value.delete(source.index).insert(destination.index, draggableId));
   };
 
+  // Event fired when the user presses a key down
+  onKeyDown = ({ keyCode }) => {
+    // User pressed the enter key, update the input
+    // and add the item to list
+    if (keyCode === 13) {
+      this.handleAddItem();
+    }
+  };
+
   render() {
+    const {
+      props: {
+        meta: { error, warning },
+      },
+    } = this;
     return (
       <FieldWrapper
         inputName={this.props.input.name}
@@ -140,56 +202,74 @@ class ListInput extends Component {
         <InputWrapper
           className="list-item-add-input"
           data-automation="listItemAddInput"
-          onChange={this.saveRefrence}
+          onChange={this.saveReference}
+          onKeyDown={this.onKeyDown}
           value={this.state.currentListItem}
+          hasError={this.state.hasError}
         />
-        <ActionButton className="list-item-add-button" data-automation="listItemAddButton" onClick={this.addFormItem}>
+        <ActionButton
+          className="list-item-add-button"
+          data-automation="listItemAddButton"
+          onClick={this.state.currentListItem.trim() !== '' ? this.addFormItem : undefined}
+          disabled={this.state.currentListItem.trim() === ''}
+        >
           <PlusIconSVG size={12} />
         </ActionButton>
 
-        {this.props.input.value &&
-          this.props.input.value.size > 0 && (
-            <ListWrapper type={this.props.input.name}>
-              <DragDropContext onDragEnd={this.onDragEnd}>
-                <Droppable droppableId={this.props.input.name}>
-                  {provided => (
-                    <div ref={provided.innerRef} {...provided.droppableProps}>
-                      {this.props.input.value &&
-                        this.props.input.value.map((li, index) => (
-                          <Draggable draggableId={li} index={index} key={li + index}>
-                            {provided => (
-                              <ListItem
-                                innerRef={provided.innerRef}
-                                {...provided.draggableProps}
-                                {...provided.dragHandleProps}
+        {this.state.hasError && this.props.inputError}
+
+        {this.props.input.value && this.props.input.value.size > 0 && (
+          <ListWrapper type={this.props.input.name}>
+            <DragDropContext onDragEnd={this.onDragEnd}>
+              <Droppable droppableId={this.props.input.name}>
+                {provided => (
+                  <div ref={provided.innerRef} {...provided.droppableProps}>
+                    {this.props.input.value &&
+                      this.props.input.value.map((li, index) => (
+                        <Draggable draggableId={li} index={index} key={li + index}>
+                          {provided => (
+                            <ListItem
+                              innerRef={provided.innerRef}
+                              {...provided.draggableProps}
+                              {...provided.dragHandleProps}
+                            >
+                              {this.props.input.name !== 'urls' && (
+                                <Grip className="list-item-grip-icon" type={this.props.input.name}>
+                                  :::
+                                </Grip>
+                              )}
+                              <ListItemText className="list-item-text" type={this.props.input.name}>
+                                {li}
+                              </ListItemText>
+                              <RemoveButton
+                                className="list-item-remove-button"
+                                data-automation="removeListItemButton"
+                                type={this.props.input.name}
+                                onClick={() => this.removeListItem(index)}
                               >
-                                {this.props.input.name !== 'urls' && (
-                                  <Grip className="list-item-grip-icon" type={this.props.input.name}>
-                                    :::
-                                  </Grip>
-                                )}
-                                <ListItemText className="list-item-text" type={this.props.input.name}>
-                                  {li}
-                                </ListItemText>
-                                <RemoveButton
-                                  className="list-item-remove-button"
-                                  data-automation="removeListItemButton"
-                                  type={this.props.input.name}
-                                  onClick={() => this.removeListItem(index)}
-                                >
-                                  <CloseIconSVG closeIconType="secondary" size={12} />
-                                </RemoveButton>
-                              </ListItem>
-                            )}
-                          </Draggable>
-                        ))}
-                      {provided.placeholder}
-                    </div>
-                  )}
-                </Droppable>
-              </DragDropContext>
-            </ListWrapper>
-          )}
+                                <CloseIconSVG closeIconType="secondary" size={12} />
+                              </RemoveButton>
+                            </ListItem>
+                          )}
+                        </Draggable>
+                      ))}
+                    {provided.placeholder}
+                  </div>
+                )}
+              </Droppable>
+            </DragDropContext>
+          </ListWrapper>
+        )}
+        {(error && (
+          <HelpTextWrapper>
+            <WarningText>{error}</WarningText>
+          </HelpTextWrapper>
+        )) ||
+          (warning && (
+            <HelpTextWrapper>
+              <Warning>{warning}</Warning>
+            </HelpTextWrapper>
+          ))}
       </FieldWrapper>
     );
   }
@@ -203,6 +283,8 @@ ListField.propTypes = {
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
+  inputValidation: PropTypes.func,
+  inputError: PropTypes.any,
 };
 
 ListField.defaultProps = {
@@ -217,4 +299,6 @@ ListInput.propTypes = {
   touched: PropTypes.bool,
   error: PropTypes.string,
   warning: PropTypes.string,
+  inputValidation: PropTypes.func,
+  inputError: PropTypes.any,
 };

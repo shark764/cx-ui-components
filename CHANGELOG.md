@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.56.26] - 2020-01-15
+## Fixed
+- CXV1-21153 - Adding URL validation to ListField component.
+
 ## [0.56.25] - 2020-01-07
 ## Fixed
 - CXV1-15075 - UI showing Roles and Permissions that you do not have permission to assign to a user.
