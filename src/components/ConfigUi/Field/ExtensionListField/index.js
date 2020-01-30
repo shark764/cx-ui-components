@@ -164,6 +164,7 @@ class ExtensionListInput extends Component {
 
                                 <StyledSelect
                                   className="list-item-text"
+                                  data-automation="extensionList"
                                   onChange={e => this.saveRefrence(e, 'type', index)}
                                   value={li.get('type')}
                                   disabled={li.get('type') === 'webrtc'}
@@ -210,6 +211,7 @@ class ExtensionListInput extends Component {
                                     value={this.props.input.value.getIn([index, 'value'])}
                                     onChange={e => this.saveRefrence(e, 'value', index)}
                                     placeholder="Extension"
+                                    data-automation="extensionInput"
                                     hasError={
                                       this.props.meta.error &&
                                       typeof this.props.meta.error[index] === 'string' &&
@@ -230,6 +232,7 @@ class ExtensionListInput extends Component {
                                   value={this.props.input.value.getIn([index, 'description'])}
                                   onChange={e => this.saveRefrence(e, 'description', index)}
                                   placeholder="Label"
+                                  data-automation="extensionLabelInput"
                                   disabled={li.get('type') === 'webrtc'}
                                   hasError={
                                     this.props.meta.error &&
