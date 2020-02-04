@@ -1,6 +1,6 @@
 {
   "name": "cx-ui-components",
-  "version": "0.56.27",
+  "version": "0.56.28",
   "description": "Front end react components for any cx-related projects",
   "main": "./src/index.js",
   "scripts": {

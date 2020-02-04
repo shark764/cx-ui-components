@@ -5,7 +5,7 @@ import Toggle from '../../Toggle';
 import FieldWrapper from '../FieldWrapper';
 
 const ToggleInput = props => {
-  const { input, label, id, className, disabled, title, labelMargin, meta: { touched, error, warning } } = props;
+  const { input, label, id, className, disabled, title, labelMargin, labelWidth, meta: { touched, error, warning } } = props;
 
   return (
     <FieldWrapper
@@ -15,6 +15,7 @@ const ToggleInput = props => {
       error={error}
       warning={warning}
       labelMargin={labelMargin}
+      labelWidth={labelWidth}
     >
       <Toggle
         {...input}

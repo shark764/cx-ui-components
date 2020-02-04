@@ -13,7 +13,7 @@ const FieldWrapperDiv = styled.div`
 const Label = styled.label`
   flex-shrink: 0;
   display: inline-block;
-  width: 150px;
+  width: ${props => props.labelWidth ? props.labelWidth : '150px'};
   margin-top: ${props => (props.labelMargin ? props.labelMargin : '5px')};
   padding-right: 10px;
 `;
@@ -46,11 +46,12 @@ export default function FieldWrapper({
   warning,
   hideLabel,
   labelMargin,
+  labelWidth,
 }) {
   return (
     <FieldWrapperDiv>
       {!hideLabel && (
-        <Label labelMargin={labelMargin} htmlFor={inputName}>
+        <Label labelMargin={labelMargin} htmlFor={inputName} labelWidth={labelWidth}>
           {label}
           {labelHelpText && <HelpText>{labelHelpText}</HelpText>}
         </Label>

@@ -40,7 +40,7 @@ const Slider = styled.span`
 
   ${Switch}:checked + & {
     background-color: ${props =>
-      props.disabled || props.inherited ? colors.toggleCheckedDisabled : colors.toggleChecked};
+    props.disabled || props.inherited ? colors.toggleCheckedDisabled : colors.toggleChecked};
   }
 
   ${Switch}:focus + & {
@@ -77,7 +77,7 @@ function Toggle(props) {
       <Switch
         type="checkbox"
         checked={props.value}
-        onChange={!props.disabled && !props.inherited ? props.onChange : undefined}
+        onChange={((!props.disabled && !props.inherited) && props.onChange) ? props.onChange : () => { }}
         disabled={props.disabled}
         inherited={props.inherited}
       />
