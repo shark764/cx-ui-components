@@ -121,7 +121,6 @@ export default function SidePanelTableActions({
           </ConfirmationWrapper>
         )}
       {!row.isDefault &&
-        !row.inherited &&
         addSubEntity && (
           <ActionButton
             className="dtpanel-action-add-item"
