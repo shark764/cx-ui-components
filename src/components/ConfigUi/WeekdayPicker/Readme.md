@@ -1,5 +1,6 @@
 ```js
 const StyleGuideSpacerDiv = require('../../../utils/StyleGuideSpacer.js');
+
 initialState = {
   picker1: ['sunday'],
   picker2: ['monday', 'thursday']
@@ -13,15 +14,20 @@ function handleClick(e){
 }
 
 <div>
-  <WeekdayPicker 
+  <WeekdayPicker
+    id={"123"}
     activeDays={state.picker1}
-    onClick={handleClick}/>
+    onClick={handleClick}
+  />
 
   <StyleGuideSpacerDiv />
 
-  <WeekdayPicker 
-    activeDays={state.picker2} 
-    readOnly={true}/>
+  <WeekdayPicker
+    id={"456"}
+    activeDays={state.picker2}
+    onClick={handleClick}
+    readOnly
+  />
   
   <StyleGuideSpacerDiv />
 

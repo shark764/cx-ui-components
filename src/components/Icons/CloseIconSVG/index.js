@@ -25,7 +25,7 @@ function CloseIconSVG(props) {
       <SvgWrapper
         id={props.id}
         size={props.size}
-        className="CloseIconSVG"
+        className={`CloseIconSVG ${props.className}`}
         onClick={props.onClick}
         disabled={props.disabled}
         data-automation={props['data-automation']}
@@ -42,6 +42,8 @@ function CloseIconSVG(props) {
   );
 }
 CloseIconSVG.propTypes = {
+  id: PropTypes.string,
+  className: PropTypes.string,
   closeIconType: PropTypes.oneOf(['primary', 'secondary']),
   size: PropTypes.number,
   onClick: PropTypes.func,

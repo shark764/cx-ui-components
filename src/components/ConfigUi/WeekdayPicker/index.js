@@ -38,7 +38,6 @@ const Day = styled.p`
       background-color: #efefef !important;
       color: #656565 !important;
     `};
-
 `;
 
 const Wrapper = styled.div`
@@ -48,21 +47,25 @@ const Wrapper = styled.div`
   overflow: hidden;
 `;
 
+const weekDays = [
+  {id: 'sunday', label: 'S', title: 'Sunday' },
+  {id: 'monday', label: 'M', title: 'Monday' },
+  {id: 'tuesday', label: 'T', title: 'Tuesday' },
+  {id: 'wednesday', label: 'W', title: 'Wednesday' },
+  {id: 'thursday', label: 'T', title: 'Thursday' },
+  {id: 'friday', label: 'F', title: 'Friday' },
+  {id: 'saturday', label: 'S', title: 'Saturday' }
+]
+
 class WeekdayPicker extends React.Component{
 
-  constructor(props){
-    super(props);
-    this.handleClick = this.handleClick.bind(this);
-  }
-
-  handleClick(e){
+  handleClick = (e) => {
     let active = this.props.activeDays,
-        day = e.target.id;
-    if(active.indexOf(day) == -1){
-        active = active.concat([day]);
-    }
-    else{
-        active = active.filter(e => e !== day)
+      day = e.target.id;
+    if (active.indexOf(day) == -1) {
+      active = active.concat([day]);
+    } else {
+      active = active.filter(e => e !== day)
     }
     this.props.onClick(active);
   }
@@ -70,13 +73,18 @@ class WeekdayPicker extends React.Component{
   render(){
     return (
       <Wrapper disabled={this.props.readOnly}>
-        <Day id='sunday'  title='Sunday' active={this.props.activeDays} onClick={!this.props.readOnly ? this.handleClick : undefined} disabled={this.props.readOnly}>S</Day>
-        <Day id='monday'  title='Monday' active={this.props.activeDays} onClick={!this.props.readOnly ? this.handleClick : undefined} disabled={this.props.readOnly}>M</Day>
-        <Day id="tuesday"  title='Tuesday' active={this.props.activeDays} onClick={!this.props.readOnly ? this.handleClick : undefined} disabled={this.props.readOnly}>T</Day>
-        <Day id="wednesday"  title='Wednesday' active={this.props.activeDays} onClick={!this.props.readOnly ? this.handleClick : undefined} disabled={this.props.readOnly}>W</Day>
-        <Day id="thursday" title='Thursday' active={this.props.activeDays} onClick={!this.props.readOnly ? this.handleClick : undefined} disabled={this.props.readOnly}>T</Day>
-        <Day id="friday"  title='Friday' active={this.props.activeDays} onClick={!this.props.readOnly ? this.handleClick : undefined} disabled={this.props.readOnly}>F</Day>
-        <Day id="saturday"  title='Saturday' active={this.props.activeDays} onClick={!this.props.readOnly ? this.handleClick : undefined} disabled={this.props.readOnly}>S</Day>
+        {weekDays.map((day) =>
+          <Day
+            id={day.id}
+            key={`${day.id}${this.props.id}`}
+            title={day.title}
+            active={this.props.activeDays}
+            onClick={!this.props.readOnly ? this.handleClick : undefined}
+            disabled={this.props.readOnly}
+          >
+            {day.label}
+          </Day>
+        )}
       </Wrapper>
     )
   }
@@ -87,8 +95,9 @@ WeekdayPicker.defaultProps = {
 };
 
 WeekdayPicker.propTypes = {
-  activeDays: PropTypes.array,
-  onClick: PropTypes.func,
+  id: PropTypes.string.isRequired,
+  activeDays: PropTypes.array.isRequired,
+  onClick: PropTypes.func.isRequired,
   readOnly: PropTypes.bool
 }
 

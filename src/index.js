@@ -30,6 +30,8 @@ export { default as SliderExpander } from './components/ConfigUi/SliderExpander'
 export { default as Logo } from './components/ConfigUi/Logos';
 export { default as LegalCopyright } from './components/ConfigUi/LegalCopyright';
 export { default as DetailsPanelMessage } from './components/ConfigUi/DetailsPanelMessage';
+export { default as WeekdayPicker } from './components/ConfigUi/WeekdayPicker';
+export { default as BusinessHoursRule } from './components/ConfigUi/BusinessHoursRule';
 
 // Fields
 export { default as InputField } from './components/ConfigUi/Field/InputField';
@@ -47,6 +49,7 @@ export { TimepickerField } from './components/ConfigUi/Field/TimepickerField';
 export { DatePickerField as DatepickerField } from './components/ConfigUi/Field/DatePickerField';
 export { default as RichTextEditorField } from './components/ConfigUi/Field/RichTextEditorField';
 export { default as NestedListField } from './components/ConfigUi/Field/NestedListField';
+export { default as BusinessHoursRuleField } from './components/ConfigUi/Field/BusinessHoursRuleField';
 
 // File
 export { default as FileUpload } from './components/ConfigUi/FileUpload';
@@ -62,6 +65,7 @@ export { default as Collapsible } from './components/General/Menu/Collapsible';
 export { default as DirectionRow } from './components/General/Menu/DirectionRow';
 export { default as PresenceStateRow } from './components/General/Menu/PresenceStateRow';
 export { default as FormattedTitle } from './components/General/PopoverDialog/FormattedTitle';
+export { default as DatePicker } from './components/General/DatePicker';
 
 // Reporting
 export { default as InteractionDetails } from './components/ConfigUi/InteractionDetails';

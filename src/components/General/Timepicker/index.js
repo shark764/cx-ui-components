@@ -4,19 +4,24 @@ import styled from 'styled-components';
 import downArrow from './down-arrow.png';
 
 const TimepickerContainer = styled.div`
+  background-color: ${props => (props.backgroundColor ? props.backgroundColor : '#FFF')};
   max-width: ${props => (props.twelveHoursMode ? '200px' : '125px')};
-  min-width: ${props => (props.twelveHoursMode ? '170px' : '95px')};
+  min-width: ${props => (props.twelveHoursMode ? '140px' : '95px')};
   border-radius: 3px;
   box-sizing: border-box;
-  border: 1px solid transparent;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2) inset, 0 -1px 0 rgba(0, 0, 0, 0.05) inset;
+  border: 1px solid #EAEAEA;
   padding: 2px;
 `;
 
+const Span = styled.span`
+    background-color: ${props => (props.backgroundColor ? props.backgroundColor : '#FFF')};
+`
+
 const StyledSelect = styled.select`
   appearance: none;
+  background-color: ${props => (props.backgroundColor ? props.backgroundColor : '#FFF')};
   width: ${props => (props.twelveHoursMode ? '32%' : '48%')};
-  height: 32px;
+  height: 30px;
   border: none;
   box-sizing: border-box;
   box-shadow: none;
@@ -32,7 +37,7 @@ const StyledSelect = styled.select`
     background-image: url(${downArrow});
     background-repeat: no-repeat;
     background-position: right 5px center;
-    background-size: 13px 13px;
+    background-size: 10px 10px;
   }
 `;
 
@@ -185,7 +190,7 @@ export default class Timepicker extends Component {
             </option>
           ))}
         </StyledSelect>
-        <span>:</span>
+        <Span>:</Span>
         <StyledSelect
           id="minutesSelector"
           data-automation="minutesSelector"
@@ -221,6 +226,7 @@ export default class Timepicker extends Component {
 Timepicker.propTypes = {
   minutesOnDay: PropTypes.number,
   twelveHoursMode: PropTypes.bool,
+  backgroundColor: PropTypes.string,
   hoursStep: PropTypes.number,
   minutesStep: PropTypes.number,
   nullOption: PropTypes.bool,

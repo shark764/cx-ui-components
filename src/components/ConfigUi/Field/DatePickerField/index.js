@@ -32,6 +32,8 @@ const Picker = props => {
     meta: { touched, error, warning },
     minDate,
     maxDate,
+    format,
+    localeTimeZone,
   } = props;
   const fieldWrapperProps = {
     input: input.name,
@@ -56,15 +58,15 @@ const Picker = props => {
           'data-automation': props['data-automation'],
         }}
         value={input.value}
-        placeholder={placeholder || 'YYYY-MM-DD'}
-        format="YYYY-MM-DD"
+        placeholder={placeholder || `${formatDate(new Date(), format || "MM/DD/YYYY", localeTimeZone || "us")}`}
+        format={format || "MM/DD/YYYY"}
         formatDate={formatDate}
         parseDate={parseDate}
         dayPickerProps={{
           disabledDays: {
             after: maxDate,
             before: minDate,
-          },
+          }
         }}
       />
     </FieldWrapper>
@@ -87,6 +89,8 @@ Picker.propTypes = {
   meta: PropTypes.object,
   minDate: PropTypes.instanceOf(Date),
   maxDate: PropTypes.instanceOf(Date),
+  format: PropTypes.string,
+  localeTimeZone: PropTypes.string,
   'data-automation': PropTypes.string,
 };
 

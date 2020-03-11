@@ -69,7 +69,6 @@ function SimpleCaretIconSVG(props) {
             simpleCaretIconType={props.simpleCaretIconType}
             className="icon"
             d={iconPath}
-            class=""
             fillColor={props.fillColor}
           />
         </svg>
