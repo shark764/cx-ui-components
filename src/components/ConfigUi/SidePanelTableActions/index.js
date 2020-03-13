@@ -55,6 +55,7 @@ export default function SidePanelTableActions({
   ) : (
     <ActionsWrapper>
       {!row.isDefault &&
+        !row.inherited &&
         viewSubEntity && (
           <ActionButton
             className="dtpanel-action-view-item"

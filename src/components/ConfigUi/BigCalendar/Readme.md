@@ -1,0 +1,5 @@
+```js
+<div>
+  <BigCalendar />
+</div>;
+```
