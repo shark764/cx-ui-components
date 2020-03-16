@@ -32,6 +32,9 @@ export { default as LegalCopyright } from './components/ConfigUi/LegalCopyright'
 export { default as DetailsPanelMessage } from './components/ConfigUi/DetailsPanelMessage';
 export { default as WeekdayPicker } from './components/ConfigUi/WeekdayPicker';
 export { default as BusinessHoursRule } from './components/ConfigUi/BusinessHoursRule';
+export { default as BigCalendar } from './components/ConfigUi/BigCalendar';
+export { default as MixCalendar } from './components/ConfigUi/MixCalendar';
+export { default as SmallCalendar } from './components/ConfigUi/SmallCalendar';
 
 // Fields
 export { default as InputField } from './components/ConfigUi/Field/InputField';
