@@ -75,7 +75,7 @@ console.log("state:", state);
       key={index}
       rule={bussinessHour}
       actions={actionsObject}
-      showActions={bussinessHour.showActions} 
+      showActions={bussinessHour.showActions}
     />
   )}
 </div>

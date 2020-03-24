@@ -13,6 +13,7 @@ const BusinessHours = props => {
     saveException,
     onSave,
     showActions,
+    disabled,
     meta: { touched, error, warning },
   } = props;
   const fieldWrapperProps = {
@@ -33,9 +34,10 @@ const BusinessHours = props => {
         rule={input.value}
         actions={actions}
         cancel={cancel}
-        saveException={saveException}
+        saveException={!!error ? false : saveException}
         onSave={onSave}
-        showActions={showActions} 
+        showActions={showActions}
+        disabled={disabled || !!error}
       />
     </FieldWrapper>
   );
@@ -50,6 +52,7 @@ BusinessHours.propTypes = {
   saveException: PropTypes.bool,
   onSave: PropTypes.func,
   showActions: PropTypes.bool,
+  disabled: PropTypes.bool,
   meta: PropTypes.object
 };
 
@@ -59,5 +62,6 @@ BusinessHoursRuleField.propTypes = {
   cancel: PropTypes.func,
   saveException: PropTypes.bool,
   onSave: PropTypes.func,
-  showActions: PropTypes.bool
+  showActions: PropTypes.bool,
+  disabled: PropTypes.bool
 };

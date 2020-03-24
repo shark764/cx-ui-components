@@ -52,7 +52,7 @@ export { TimepickerField } from './components/ConfigUi/Field/TimepickerField';
 export { DatePickerField as DatepickerField } from './components/ConfigUi/Field/DatePickerField';
 export { default as RichTextEditorField } from './components/ConfigUi/Field/RichTextEditorField';
 export { default as NestedListField } from './components/ConfigUi/Field/NestedListField';
-export { default as BusinessHoursRuleField } from './components/ConfigUi/Field/BusinessHoursRuleField';
+export { BusinessHoursRuleField } from './components/ConfigUi/Field/BusinessHoursRuleField';
 
 // File
 export { default as FileUpload } from './components/ConfigUi/FileUpload';

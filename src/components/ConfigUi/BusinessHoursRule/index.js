@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import dotsIcon from './three_dots.png'
 import WeekdayPicker from './../WeekdayPicker';
@@ -14,6 +14,12 @@ const OutsideWrapper = styled.div`
     border: 1px solid #E1E1E1;
     background-color: #F7F7F7;
     min-width: 1482px;
+    ${props =>
+      props.disabled &&
+      css`
+        cursor: not-allowed;
+        color: gray;
+      `};
 `;
 const Icon = styled.div`
     height: 40px;
@@ -30,6 +36,12 @@ const TopBar = styled.div`
     font-size: 24px;
     padding: 7px 11px;
     border-bottom: 1px solid #E1E1E1;
+    ${props =>
+      props.disabled &&
+      css`
+        cursor: not-allowed;
+        color: gray;
+      `};
 `;
 const Content = styled.div`
     min-height: 100px;
@@ -60,6 +72,12 @@ const Name = styled.input`
   border: transparent;
   color: #979797;
   line-height: 40px;
+  ${props =>
+    props.disabled &&
+    css`
+      cursor: not-allowed;
+      color: gray;
+    `};
 `;
 const Row = styled.div`
   margin-bottom: 16px;
@@ -80,6 +98,15 @@ const Input = styled.input`
     background-color: #fafafa;
     cursor: not-allowed;
   }
+  ${props =>
+    props.disabled &&
+    css`
+      text-indent: 1px;
+      text-overflow: '';
+      color: #999999;
+      background-color: #fafafa;
+      cursor: not-allowed;
+  `};
 `;
 const TextArea = styled.textarea`
   background-color: white;
@@ -87,6 +114,15 @@ const TextArea = styled.textarea`
   width: 235px;
   min-height: 75px;
   padding: 5px 10px;
+  ${props =>
+    props.disabled &&
+    css`
+      text-indent: 1px;
+      text-overflow: '';
+      color: #999999;
+      background-color: #fafafa;
+      cursor: not-allowed;
+    `};
 `;
 const Select = styled.select`
   background-color: white;
@@ -113,6 +149,15 @@ const Select = styled.select`
     background-position: right 5px center;
     background-size: 10px 10px;
   }
+  ${props =>
+    props.disabled &&
+    css`
+      text-indent: 1px;
+      text-overflow: '';
+      color: #999999;
+      background-color: #fafafa;
+      cursor: not-allowed;
+    `};
   margin-right: ${props => props.compress ? '16px' : 'none'};
   `
   const Actions = styled.ol`
@@ -184,9 +229,27 @@ const AddButton = styled(Button)`
   height: 30px;
   font-size: 14px;
   padding: 0 !important;
+  ${props =>
+    props.disabled &&
+    css`
+      text-indent: 1px;
+      text-overflow: '';
+      color: #999999;
+      background-color: #fafafa;
+      cursor: not-allowed;
+    `};
 `;
 const CloseIcon = styled(CloseIconSVG)`
   margin-top: 5px;
+  ${props =>
+    props.disabled &&
+    css`
+      text-indent: 1px;
+      text-overflow: '';
+      color: #999999;
+      background-color: #fafafa;
+      cursor: not-allowed;
+    `};
 `;
 
 const types = [
@@ -493,15 +556,16 @@ export default class BusinessHoursRule extends React.Component{
       backgroundColor: '#FFFFFF'
     };
     return (
-      <OutsideWrapper>
-        <TopBar>
+      <OutsideWrapper disabled={this.props.disabled}>
+        <TopBar disabled={this.props.disabled}>
           <Icon />
           <Name
             type="text"
-            name="ruleName" 
+            name="ruleName"
             value={this.props.rule && this.props.rule.name}
-            onChange={this.handleRuleName} 
-            placeholder="(Name)" 
+            onChange={this.handleRuleName}
+            placeholder="(Name)"
+            disabled={this.props.disabled}
           />
           <div style={{float: 'right', marginTop: '2px'}}>
             {!this.props.showActions &&
@@ -514,7 +578,7 @@ export default class BusinessHoursRule extends React.Component{
                 </CancelButton>
                 <SaveButton 
                   buttonType="primary"
-                  disabled={this.props.saveException} //  Prop that validates if the form has all required fields in parent to save the rule
+                  disabled={this.props.disabled || !this.props.saveException} //  Prop that validates if the form has all required fields in parent to save the rule
                   onClick={this.handleSaveException}
                 >
                   Save Exception
@@ -555,7 +619,8 @@ export default class BusinessHoursRule extends React.Component{
                 name="ruleType"
                 value={(this.props.rule && this.props.rule.type)||""}
                 required
-                onChange={this.handleRuleType}>
+                onChange={this.handleRuleType}
+                disabled={this.props.disabled}>
                   <Fragment>
                     <option disabled hidden value="">
                       Select
@@ -574,11 +639,12 @@ export default class BusinessHoursRule extends React.Component{
             <Row>
               <Label htmlFor="ruleDescription" compress>Description</Label>
               <TextArea 
-                style={{marginLeft: '5px'}} 
-                name="ruleDescription" 
-                value={this.props.rule && this.props.rule.description} 
-                onChange={this.handleRuleDescription} 
-                placeholder="Text..." 
+                style={{marginLeft: '5px'}}
+                name="ruleDescription"
+                value={this.props.rule && this.props.rule.description}
+                onChange={this.handleRuleDescription}
+                placeholder="Text..."
+                disabled={this.props.disabled}
               />
             </Row>
           </Column>
@@ -588,7 +654,7 @@ export default class BusinessHoursRule extends React.Component{
               <Select
                 name="ruleRepeats"
                 compress
-                disabled={this.props.rule !== undefined && this.props.rule.type !== undefined && (this.props.rule.type === 'one-time-extended-hours' || this.props.rule.type==='blackout-one-time-exceptions')}
+                disabled={this.props.disabled || (this.props.rule !== undefined && this.props.rule.type !== undefined && (this.props.rule.type === 'one-time-extended-hours' || this.props.rule.type==='blackout-one-time-exceptions'))}
                 value={(this.props.rule && this.props.rule.repeats)||""}
                 required
                 onChange={this.handleRuleRepeats}>
@@ -609,7 +675,7 @@ export default class BusinessHoursRule extends React.Component{
               {(!this.props.rule || (this.props.rule && this.props.rule.repeats !== 'yearly')) && 
                 <Input 
                   name="ruleRepeatsEvery"
-                  disabled={this.props.rule !== undefined && this.props.rule.type !== undefined && (this.props.rule.type === 'one-time-extended-hours' || this.props.rule.type==='blackout-one-time-exceptions')}
+                  disabled={this.props.disabled || (this.props.rule !== undefined && this.props.rule.type !== undefined && (this.props.rule.type === 'one-time-extended-hours' || this.props.rule.type==='blackout-one-time-exceptions'))}
                   onChange={this.handleRuleRepeatsEvery} 
                   value={(this.props.rule && this.props.rule.every)||""}
                   required
@@ -633,6 +699,7 @@ export default class BusinessHoursRule extends React.Component{
                   value={(this.props.rule && this.props.rule.every)||""}
                   required
                   onChange={this.handleRuleRepeatsEvery}
+                  disabled={this.props.disabled}
                 >
                   <Fragment>
                     <option disabled hidden value="">
@@ -668,7 +735,9 @@ export default class BusinessHoursRule extends React.Component{
                     compress
                     value={(this.props.rule && this.props.rule.on && this.props.rule.on.type)||""}
                     required
-                    onChange={this.handleRuleRepeaOnEvery}>
+                    onChange={this.handleRuleRepeaOnEvery}
+                    disabled={this.props.disabled}
+                  >
                       <Fragment>
                         <option disabled hidden value="">
                           Select
@@ -686,7 +755,7 @@ export default class BusinessHoursRule extends React.Component{
                     <Select
                       name="monthlyOnDay"
                       compress
-                      disabled={!this.props.rule || !this.props.rule.on || !this.props.rule.on.type}
+                      disabled={this.props.disabled || (!this.props.rule || !this.props.rule.on || !this.props.rule.on.type)}
                       value={(this.props.rule && this.props.rule.on && this.props.rule.on.value)||""}
                       required
                       onChange={this.handleRuleRepeaOnEveryDay}
@@ -696,21 +765,22 @@ export default class BusinessHoursRule extends React.Component{
                           Select
                         </option>
                         {repeatsOnDay.map((repeatOnDay) => 
-                          <option 
-                            key={repeatOnDay.value} 
-                            value={repeatOnDay.value}>
-                              {repeatOnDay.label}
+                          <option
+                            key={repeatOnDay.value}
+                            value={repeatOnDay.value}
+                          >
+                            {repeatOnDay.label}
                           </option>
                         )}
                       </Fragment>
                     </Select>
                   }
-                  {this.props.rule && this.props.rule.repeats==='yearly' && 
-                    <Input 
+                  {this.props.rule && this.props.rule.repeats==='yearly' &&
+                    <Input
                       type='number'
-                      disabled={!this.props.rule || !this.props.rule.on || !this.props.rule.on.type}
-                      width="100px" 
-                      value={(this.props.rule && this.props.rule.on && this.props.rule.on.value)||""} 
+                      disabled={this.props.disabled || (!this.props.rule || !this.props.rule.on || !this.props.rule.on.type)}
+                      width="100px"
+                      value={(this.props.rule && this.props.rule.on && this.props.rule.on.value)||""}
                       onChange={this.handleRuleRepeaOnEveryDay}
                     />
                   }
@@ -719,13 +789,14 @@ export default class BusinessHoursRule extends React.Component{
             </Row>
             <Row>
               <Label htmlFor="ruleStartDate">Start</Label>
-              <DatePicker 
+              <DatePicker
                 name="ruleStartDate" 
                 onClick={(e) => this.handleDate(e, true)} 
                 selectedDay={this.props.rule && this.props.rule.startDate} 
                 customStyle={datePickerStyle}
                 localeTimeZone="us"
                 format="LL"
+                disabled={this.props.disabled}
               />
               <Label 
                 htmlFor="ruleEndDate" 
@@ -737,7 +808,7 @@ export default class BusinessHoursRule extends React.Component{
               <Select
                 name="ruleEndByDate"
                 onChange={this.handleEndByDate} 
-                disabled={this.props.rule !== undefined && this.props.rule.type !== undefined && (this.props.rule.type === 'one-time-extended-hours' || this.props.rule.type==='blackout-one-time-exceptions')}
+                disabled={this.props.disabled || (this.props.rule !== undefined && this.props.rule.type !== undefined && (this.props.rule.type === 'one-time-extended-hours' || this.props.rule.type==='blackout-one-time-exceptions'))}
                 value={(this.props.rule && this.props.rule.by)||''}
                 compress
               >
@@ -753,6 +824,7 @@ export default class BusinessHoursRule extends React.Component{
                 localeTimeZone="us"
                 format="LL"
                 disabled={(
+                  (this.props.disabled) ||
                   (this.props.rule && this.props.rule.by!=='by') || 
                   (this.props.rule.startDate === undefined) || 
                   (this.props.rule && !this.props.rule.startDate) || 
@@ -770,7 +842,8 @@ export default class BusinessHoursRule extends React.Component{
                 name={`allDayDuration${this.props.rule ? this.props.rule.id : ''}`}
                 checked={(this.props.rule && this.props.rule.hours && this.props.rule.hours.allDay)||false}
                 value="all" 
-                onChange={this.handleRuleHoursInterval} 
+                onChange={this.handleRuleHoursInterval}
+                disabled={this.props.disabled}
               />
               <Label alignLeft>All Day</Label>
               <Input
@@ -779,15 +852,21 @@ export default class BusinessHoursRule extends React.Component{
                 name={`partialDayDuration${this.props.rule ? this.props.rule.id : ''}`}
                 checked={(this.props.rule && this.props.rule.hours && this.props.rule.hours.allDay === false)||false}
                 value="partial"
-                onChange={this.handleRuleHoursInterval} 
+                onChange={this.handleRuleHoursInterval}
+                disabled={this.props.disabled} 
               />
               <Label alignLeft htmlFor="partialDayDuration">Partial Day</Label>
               {this.props.rule && this.props.rule.hours && this.props.rule.hours.allDay === false && 
                 <AddButton 
                   buttonType="secondary"
                   onClick={this.addPartialHour}
+                  disabled={this.props.disabled}
                 >
-                  <PlusIconSVG size={13} plusIconType='secondary' />
+                  <PlusIconSVG 
+                    size={13}
+                    plusIconType='secondary'
+                    disabled={this.props.disabled}
+                    />
                 </AddButton>
               }
             </Row>
@@ -811,6 +890,7 @@ export default class BusinessHoursRule extends React.Component{
                     hoursStep={1}
                     minutesStep={5}
                     onChange={(e) => this.handleRuleStartTime(index, item, e)}
+                    disabled={this.props.disabled}
                     nullOption
                   />
                 </div>
@@ -830,14 +910,17 @@ export default class BusinessHoursRule extends React.Component{
                     hoursStep={1}
                     minutesStep={5}
                     onChange={(e) => this.handleRuleEndTime(index, item, e)}
+                    disabled={this.props.disabled}
                     nullOption
                     />&nbsp;&nbsp;
-                      <CloseIcon 
-                        key={`timePickerCloseIcon${index}`}
-                        onClick={(e) => this.handleRemoveHourInterval(index, item, e)} 
-                        closeIconType="secondary" 
-                        size={20}
-                      />
+                      {!this.props.disabled && 
+                        <CloseIcon 
+                          key={`timePickerCloseIcon${index}`}
+                          onClick={(e) => this.handleRemoveHourInterval(index, item, e)}
+                          closeIconType="secondary"
+                          size={20}
+                        />
+                      }
                 </div>
               </Row>
             ))}
@@ -855,5 +938,6 @@ BusinessHoursRule.propTypes = {
   cancel: PropTypes.func,
   saveException: PropTypes.bool,
   onSave: PropTypes.func,
-  showActions: PropTypes.bool
+  showActions: PropTypes.bool,
+  disabled: PropTypes.disabled
 }

@@ -19,14 +19,14 @@ const Wrapper = styled.div`
 `;
 
 const Header = styled.h4`
-  font-size: 14px;
+  font-size: ${props => props.fontSize ? props.fontSize : '14px'};
   font-weight: 700;
 `;
 
+const handleLineSpacer = lineSpacer => lineSpacer !== undefined ? lineSpacer : "border-top: 1px solid #dadada; flex-grow: 1; margin: 10px 10px 0;";
+
 const LineSpacer = styled.div`
-  border-top: 1px solid #dadada;
-  flex-grow: 1;
-  margin: 10px 10px 0;
+  ${({ customLineSpacer }) => handleLineSpacer(customLineSpacer)};
 `;
 
 const ActionButton = styled.button`
@@ -47,8 +47,8 @@ const ActionButton = styled.button`
 function DetailHeader(props) {
   return (
     <Wrapper id={props.id} className={props.className}>
-      <Header>{props.text}</Header>
-      <LineSpacer />
+      <Header fontSize={props.fontSize}>{props.text}</Header>
+      <LineSpacer customLineSpacer={props.customLineSpacer} />
       {props.onActionButtonClick &&
         props.userHasUpdatePermission &&
         !props.inherited &&
@@ -75,6 +75,8 @@ DetailHeader.propTypes = {
   text: PropTypes.string.isRequired,
   onActionButtonClick: PropTypes.func,
   inherited: PropTypes.bool,
+  customLineSpacer: PropTypes.string,
+  fontSize: PropTypes.string
 };
 
 export default DetailHeader;
