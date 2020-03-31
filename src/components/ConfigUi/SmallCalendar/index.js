@@ -18,6 +18,8 @@ export default class SmallCalendar extends React.Component{
             activeStartDate={this.props.activeStartDate}
             onViewChange={(event)=>{return}}
             navigationLabel={this.props.navigationLabel}
+            onView={this.props.onView}
+            onNavigate={this.props.onNavigate}
         />
       </div>
     );
@@ -31,6 +33,8 @@ SmallCalendar.propTypes = {
   showNavigation: PropTypes.bool,
   activeStartDate: PropTypes.object,
   navigationLabel: PropTypes.func,
+  onView:PropTypes.func,
+  onNavigate:PropTypes.func
 }
 
 SmallCalendar.defaultProps = {

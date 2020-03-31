@@ -3,13 +3,15 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import downArrow from './down-arrow.png';
 
+const InputError = "1px solid red;box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 2px inset, rgba(0, 0, 0, 0.05) 0px -1px 0px inset;";
+
 const TimepickerContainer = styled.div`
   background-color: ${props => (props.backgroundColor ? props.backgroundColor : '#FFF')};
   max-width: ${props => (props.twelveHoursMode ? '200px' : '125px')};
   min-width: ${props => (props.twelveHoursMode ? '140px' : '95px')};
   border-radius: 3px;
   box-sizing: border-box;
-  border: 1px solid #EAEAEA;
+  border: ${props => props.error ? InputError : '1px solid #EAEAEA'};
   padding: 2px;
 `;
 
@@ -175,7 +177,7 @@ export default class Timepicker extends Component {
     }
 
     return (
-      <TimepickerContainer twelveHoursMode={this.props.twelveHoursMode}>
+      <TimepickerContainer error={this.props.error} twelveHoursMode={this.props.twelveHoursMode}>
         <StyledSelect
           id="hoursSelector"
           data-automation="hoursSelector"
@@ -232,6 +234,7 @@ Timepicker.propTypes = {
   nullOption: PropTypes.bool,
   onChange: PropTypes.func.isRequired,
   disabled: PropTypes.bool,
+  error: PropTypes.bool
 };
 
 Timepicker.defaultProps = {

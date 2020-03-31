@@ -40,8 +40,10 @@ const Day = styled.p`
     `};
 `;
 
+const InputError = "1px solid red;box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 2px inset, rgba(0, 0, 0, 0.05) 0px -1px 0px inset;";
+
 const Wrapper = styled.div`
-  border: 1px solid #EAEAEA;
+  border: ${props => props.error ? InputError : '1px solid #EAEAEA'};
   border-radius: 4px;
   display: inline-block;
   overflow: hidden;
@@ -72,7 +74,7 @@ class WeekdayPicker extends React.Component{
 
   render(){
     return (
-      <Wrapper disabled={this.props.readOnly}>
+      <Wrapper error={this.props.error} disabled={this.props.readOnly}>
         {weekDays.map((day) =>
           <Day
             id={day.id}
@@ -98,7 +100,8 @@ WeekdayPicker.propTypes = {
   id: PropTypes.string.isRequired,
   activeDays: PropTypes.array.isRequired,
   onClick: PropTypes.func.isRequired,
-  readOnly: PropTypes.bool
+  readOnly: PropTypes.bool,
+  error: PropTypes.bool
 }
 
 export default WeekdayPicker; 

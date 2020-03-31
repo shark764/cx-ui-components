@@ -6,6 +6,7 @@ initialState = {
       name: 'Test',
       id: '123',
       startDate: new Date("2020-01-16T00:00:01Z"),
+      endDate: new Date("2020-01-30T00:00:01Z"),
       hours: {
         allDay: false,
         intervals: 
@@ -23,7 +24,7 @@ initialState = {
       showActions: false  // Set this value to true once the rule is saved in the api},
     },
     {
-      name: 'Test 2',
+      name: '',
       id: '456',
       startDate: new Date("2020-01-16T00:00:01Z"),
       hours: {
@@ -53,6 +54,36 @@ const actionsObject = {
   "Delete": () => {}
 }
 
+// Error object example to hightlight fields with error
+const error = {
+  name: true,
+  type: true,
+  /*description: true,
+  repeats: true,
+  every: true,
+  on: true,  // weekdayPicker conditional
+  on: {  // not weekdayPicker conditional
+    type: true,
+    value: true
+  },
+  startDate: true,
+  endDate: true,
+  byDate: true,*/
+  hours: {
+    intervals: 
+    [
+      {
+        start: false,
+        end: false
+      },
+      {
+        start: true,
+        end: true
+      }
+    ]
+  }
+}
+
 function handleClick(e, index){
   setState(prevState => ({
     rules: prevState.rules.map((rule, i) => {
@@ -76,6 +107,8 @@ console.log("state:", state);
       rule={bussinessHour}
       actions={actionsObject}
       showActions={bussinessHour.showActions}
+      viewOnly
+      error={index==1?error:null}
     />
   )}
 </div>

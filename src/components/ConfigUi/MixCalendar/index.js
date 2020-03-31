@@ -123,30 +123,6 @@ state:boolean,
 name:string,
 color:string
 */
-const EventType = [
-    {
-      id:0,
-      state:true,
-      name:'Regular Hours',
-      color:'#edd49c'
-    },
-    {
-      id:1,state:true,
-      name:'One-Time extended Hours',
-      color:'#e68596'
-    },
-    {
-      id:2,state:true,
-      name:'Blackout Exceptions',
-      color:'#6cd28f'
-    },
-    {
-      id:3,
-      state:true,
-      name:'Blackout One-Time Exceptions',
-      color:'#887dff'
-    }
-];
 
 //default big calendar event props
 /*
@@ -157,37 +133,6 @@ start:Date obj,
 end:Date obj,
 eventType:string
 */
-const EventsList = [
-    {
-      id: 0,
-      title: 'All Day Event very long title',
-      allDay: true,
-      start: new Date(2020,2,5,4,24,0),
-      end: new Date(2020,2,5,6,0,0),
-      eventTypeID: 0
-    },
-    {
-      id: 1,
-      title: 'Long Event',
-      start: new Date(2020, 1, 7),
-      end: new Date(2020, 1, 10),
-      eventTypeID:2
-    },
-    {
-      id: 2,
-      title: 'DTS STARTS',
-      start: new Date(2020, 2, 13, 0, 0, 0),
-      end: new Date(2020, 2, 20, 0, 0, 0),
-      eventTypeID:1
-    },
-    {
-      id:3,
-      title: 'Gup BD sell',
-      start: new Date(2020,1,27,8,0,0,0),
-      end: new Date(2020,1,27,20,0,0,0),
-      eventTypeID:3
-    }
-  ];
 
 //Const
 const monthList = ['January', 'Feburary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October' ,'November', 'December'];
@@ -196,41 +141,41 @@ const monthList = ['January', 'Feburary', 'March', 'April', 'May', 'June', 'July
 const Toolbar = props => {
   return(
     <Styledpane display="grid" hight="100px" width="232px" TCol="25% 25% 25% 25%" TRow="20% 35% 15% 30%">
-        <Styledpane CS="1" CE="2" RS="2" RE="3" paddng="7px 0 0 34px" onClick={props.DeMonth}>
-          <div>
-            <ArrowIcon direction="left" size={20}></ArrowIcon>
-          </div>
-        </Styledpane>
-        <StyledSLabel CS="2" CE="4" RS="2" fontsz="20px" fontWigt="400" mrgn="5px 0 0 0" txtaln="center">{monthList[props.date.getMonth()].slice(0, 3)+" "+props.date.getFullYear()}</StyledSLabel>
-        <Styledpane CS="4" CE="5" RS="2" RE="3" paddng="7px 0 0 0" onClick={props.InMonth}>
-          <div>
-            <ArrowIcon direction="right" size={20}></ArrowIcon>
-          </div>
-        </Styledpane>
-        <ToolButton CS="1" style={{borderRadius: "4px 0px 0px 4px"}} onClick={()=>{props.changeBCView("day")}}>Day</ToolButton>
-        <ToolButton CS="2" onClick={()=>{props.changeBCView("week")}}>Week</ToolButton>
-        <ToolButton CS="3" onClick={()=>{props.changeBCView("month")}}>Month</ToolButton>
-        <ToolButton CS='4' style={{borderRadius:"0px 4px 4px 0px"}} onClick={()=>{props.changeBCView("year")}}>Year</ToolButton>
+      <Styledpane CS="1" CE="2" RS="2" RE="3" paddng="7px 0 0 34px" onClick={props.DeMonth}>
+        <div>
+          <ArrowIcon direction="left" size={20}></ArrowIcon>
+        </div>
+      </Styledpane>
+      <StyledSLabel CS="2" CE="4" RS="2" fontsz="20px" fontWigt="400" mrgn="5px 0 0 0" txtaln="center">{monthList[props.date.getMonth()].slice(0, 3)+" "+props.date.getFullYear()}</StyledSLabel>
+      <Styledpane CS="4" CE="5" RS="2" RE="3" paddng="7px 0 0 0" onClick={props.InMonth}>
+        <div>
+          <ArrowIcon direction="right" size={20}></ArrowIcon>
+        </div>
+      </Styledpane>
+      <ToolButton CS="1" style={{borderRadius: "4px 0px 0px 4px"}} onClick={()=>{props.changeBCView("day")}}>Day</ToolButton>
+      <ToolButton CS="2" onClick={()=>{props.changeBCView("week")}}>Week</ToolButton>
+      <ToolButton CS="3" onClick={()=>{props.changeBCView("month")}}>Month</ToolButton>
+      <ToolButton CS='4' style={{borderRadius:"0px 4px 4px 0px"}} onClick={()=>{props.changeBCView("year")}}>Year</ToolButton>
     </Styledpane>
   )
 }
 
 //labels
 const Label = props => {
-    return(
-        <div>
-            <Styledpane display="grid" TCol="160px 35px">
-                <StyledSLabel margin="0 0 0 -15px" paddng="10px 0 0 0" color="rgba(128, 128, 128, 0.787)" fontsz="26px" fontWigt= "400">Sections</StyledSLabel>
-                <button style={{display: "none",height: "22px",margin:"15px 0 0 0",width: "fit-content",backgroundColor: "white",border: "1px solid #ccc",borderRadius: "3px"}}><PlusIconSVG size={14} plusIconType="primary"></PlusIconSVG></button>
-            </Styledpane>
-            <Styledpane paddng="26px 0 0 0" display="grid" width="200px">
-                {props.eventType.map((obj)=>{
-                    return  <Styledpane display="grid" TCol="22px 175px" Cgap="8px" paddng="5px 0 0 0">
-                    <StyledCheckBox type="checkbox" bgColor={obj.color} onChange={()=>props.handleCheckboxChange(obj.id)} defaultChecked/><label>{obj.name}</label>
-                    </Styledpane>
-                })}
-            </Styledpane>
-         </div>
+  return (
+    <div key="eventTypeKey">
+      <Styledpane display="grid" TCol="160px 35px">
+        <StyledSLabel margin="0 0 0 -15px" paddng="10px 0 0 0" color="rgba(128, 128, 128, 0.787)" fontsz="26px" fontWigt= "400">Sections</StyledSLabel>
+        <button style={{display: "none",height: "22px",margin:"15px 0 0 0",width: "fit-content",backgroundColor: "white",border: "1px solid #ccc",borderRadius: "3px"}}><PlusIconSVG size={14} plusIconType="primary"></PlusIconSVG></button>
+      </Styledpane>
+      <Styledpane paddng="26px 0 0 0" display="grid" width="200px">
+        {props.eventType.map((obj)=>{
+          return <Styledpane display="grid" TCol="22px 175px" Cgap="8px" paddng="5px 0 0 0">
+          <StyledCheckBox type="checkbox" bgColor={obj.color} onChange={()=>props.handleCheckboxChange(obj.id)} defaultChecked/><label>{obj.name}</label>
+          </Styledpane>
+        })}
+      </Styledpane>
+    </div>
     )
 }
 
@@ -267,7 +212,7 @@ class MixCalendar extends React.Component{
             currentDate: this.props.currentDate||new Date(),
             BCcurrentView: this.props.currentView||Views.MONTH,
             isYearView: this.props.showYearViewCurrently||false,
-            EventType: this.props.eventType||EventType
+            EventType: this.props.eventType||[]
         }
     }
     
@@ -365,69 +310,69 @@ class MixCalendar extends React.Component{
         }
     }
 
-    addNewEventType=(name, color)=>{
-        let stateCopy = this.state.EventType
-        stateCopy.push({id:stateCopy.length, state:true, name:name, color:color})
-        this.setState({EventType:stateCopy})
+    addNewEventType = (name, color) => {
+      let stateCopy = this.state.EventType
+      stateCopy.push({id:stateCopy.length, state:true, name:name, color:color})
+      this.setState({EventType:stateCopy})
     }
 
     render(){
-        
-        return (
-            <Styledpane bgColor="rgb(248, 248, 248)" width="1200px" display="grid" TCol="20% 80%" Cgap="30px" border="20px solid #f8f8f8">
-                <Styledpane CS="1" RS="1" display="grid" TRow="20% 40% 40%">
-                    <div>
-                        <Toolbar 
-                          date={this.state.currentDate} 
-                          DeMonth={this.DeMonth} 
-                          InMonth={this.InMonth} 
-                          updateTheDate={this.updateState} 
-                          changeBCView={this.changeBCView}
-                        />
-                    </div>
-                    
-                    <Styledpane hight="fit-content" mihigh="250px">
-                        <SmallCalendar
-                            onChange={(date)=>this.setState({currentDate:date})}
-                            value={this.state.currentDate}
-                            calendarType="US"
-                            showNavigation={this.props.showNavigation||true}
-                            navigationLabel={
-                              ({ date }) => (monthList[date.getMonth()].slice(0, 3)+" "+date.getFullYear())
-                            }
-                        />
-                    </Styledpane>
-                    <Styledpane width="max-content" color="rgba(128, 128, 128, 0.787)" mrgn="10px 0 0 0" paddng="0 0 0 20px">
-                        <Label 
-                          handleCheckboxChange={this.handleCheckboxChange} 
-                          state={this.state} 
-                          eventType={this.state.EventType} 
-                          addNewEventType={this.addNewEventType}
-                        />
-                    </Styledpane>
-                </Styledpane>
-                {(!this.state.isYearView) ? 
-                    <Styledpane miWid="800px" CS="2" RS="1" mxhigh="610px" ovrflw="scroll">
-                        <Calendar
-                            getNow={()=>{return this.state.currentDate}}
-                            date={this.state.currentDate}
-                            selectable={this.props.selectable||false}
-                            toolbar={this.state.BCtoolbar}
-                            events={this.props.eventList||EventsList}
-                            step={this.props.steps||30}
-                            //Only one day event so dont need to pass start&end accessor
-                            startAccessor='start'
-                            endAccessor='end'
-                            defaultDate={new Date(2020, 1, 1)}
-                            view={this.state.BCcurrentView}
-                            eventPropGetter={this.props.eventPropGetter||this.eventPropGetter}
-                        />
-                    </Styledpane> : <div>
-                        <YearPane date={this.state.currentDate} updateTheDate={this.updateState} year={this.state.currentDate.getFullYear()}/>
-                    </div>
+      return (
+        <Styledpane bgColor="rgb(248, 248, 248)" width="1200px" display="grid" TCol="20% 80%" Cgap="30px" border="20px solid #f8f8f8">
+          <Styledpane CS="1" RS="1" display="grid" TRow="20% 40% 40%">
+            <div>
+              <Toolbar 
+                date={this.state.currentDate} 
+                DeMonth={this.DeMonth} 
+                InMonth={this.InMonth} 
+                updateTheDate={this.updateState} 
+                changeBCView={this.changeBCView}
+              />
+            </div>
+          <Styledpane hight="fit-content" mihigh="250px">
+            <SmallCalendar
+                onChange={(date)=>this.setState({currentDate:date})}
+                value={this.state.currentDate}
+                calendarType="US"
+                showNavigation={this.props.showNavigation||true}
+                navigationLabel={
+                  ({ date }) => (monthList[date.getMonth()].slice(0, 3)+" "+date.getFullYear())
                 }
+            />
+          </Styledpane>
+            <Styledpane width="max-content" color="rgba(128, 128, 128, 0.787)" mrgn="10px 0 0 0" paddng="0 0 0 20px">
+              <Label
+                handleCheckboxChange={this.handleCheckboxChange} 
+                state={this.state} 
+                eventType={this.state.EventType} 
+                addNewEventType={this.addNewEventType}
+              />
             </Styledpane>
-        )
+          </Styledpane>
+          {(!this.state.isYearView) ? 
+            <Styledpane miWid="800px" CS="2" RS="1" mxhigh="610px" ovrflw="scroll">
+              <Calendar
+                  getNow={()=>{return this.state.currentDate}}
+                  date={this.state.currentDate}
+                  selectable={this.props.selectable||false}
+                  toolbar={this.state.BCtoolbar}
+                  events={this.props.eventList||[]}
+                  step={this.props.steps||30}
+                  //Only one day event so dont need to pass start&end accessor
+                  startAccessor='start'
+                  endAccessor='end'
+                  defaultDate={new Date(2020, 1, 1)}
+                  view={this.state.BCcurrentView}
+                  onView={this.props.onView}
+                  onNavigate={this.props.onNavigate}
+                  eventPropGetter={this.props.eventPropGetter||this.eventPropGetter}
+              />
+            </Styledpane> : <div>
+              <YearPane date={this.state.currentDate} updateTheDate={this.updateState} year={this.state.currentDate.getFullYear()}/>
+            </div>
+          }
+      </Styledpane>
+      )
     }
 }
 
@@ -440,7 +385,9 @@ MixCalendar.propTypes = {
   eventType: PropTypes.array.isRequired,
   eventList: PropTypes.array.isRequired,
   selectable: PropTypes.bool,
-  step: PropTypes.number
+  step: PropTypes.number,
+  onView:PropTypes.func,
+  onNavigate:PropTypes.func
 }
 
 export default MixCalendar;

@@ -1,5 +1,8 @@
 ```js
 <div>
-  <BigCalendar />
+  <BigCalendar 
+    onNavigate={() => {}}
+    onView={() => {}}
+  />
 </div>;
 ```
