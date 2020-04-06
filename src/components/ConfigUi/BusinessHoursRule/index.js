@@ -84,7 +84,7 @@ const Name = styled.input`
     css`
       cursor: not-allowed;
       color: gray;
-      background: inherited;
+      background: inherit;
     `};
 `;
 const Row = styled.div`
