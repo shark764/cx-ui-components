@@ -84,6 +84,7 @@ const Name = styled.input`
     css`
       cursor: not-allowed;
       color: gray;
+      background: inherited;
     `};
 `;
 const Row = styled.div`
@@ -766,7 +767,13 @@ export default class BusinessHoursRule extends React.Component{
                   id={this.props.rule && this.props.rule.id}
                   name="on"
                   error={this.props.error && this.props.error.on && this.props.error.on.type === undefined}
-                  readOnly={this.props.rule && (this.props.rule.repeats !== 'weekly' || (this.props.rule.type !== undefined && (this.props.rule.type === 'one-time-extended-hours' || this.props.rule.type==='blackout-one-time-exceptions')))}
+                  readOnly={
+                    this.props.disabled || 
+                    (this.props.rule && 
+                      (this.props.rule.repeats !== 'weekly' || 
+                      (this.props.rule.type !== undefined && 
+                        (this.props.rule.type === 'one-time-extended-hours' 
+                        || this.props.rule.type==='blackout-one-time-exceptions'))))}
                   onClick={this.handleRuleRepeaOnEvery}
                   activeDays={(this.props.rule && Array.isArray(this.props.rule.on) && this.props.rule.on)||[]} 
                 />

@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.60.1] - 2020-04-06
+## Fixed
+- <no-ticket> - BusinessRule component WeekdayPicker was not disabled when component was set as disabled
+              - background for Name field in BusinessRule component was overwritten by config-2
+
 ## [0.60.0] - 2020-03-30
 ## Fixed
 - CXV1-21299 - BusinessRule component endDate not editable when coming from the api.
