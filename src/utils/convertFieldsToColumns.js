@@ -81,6 +81,7 @@ export default function convertFieldsToColumns(fields, tableType) {
             className={'subentity-filter-column-' + field.name}
             onChange={event => onChange(event.target.value)}
             value={filter ? filter.value : ''}
+            placeholder={field.label}
           />
         );
       }

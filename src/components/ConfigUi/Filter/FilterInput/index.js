@@ -23,6 +23,7 @@ function FilterInput(props) {
       className={props.className}
       data-automation={props['data-automation']}
       defaultValue={props.defaultValue}
+      placeholder={props.placeholder}
       value={props.value}
     />
   );

@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+
+## [0.60.3] - 2020-04-07
+## Fixed
+- CXV1-13335 - Generic Lists - List and list item filters should have a placeholder to know what they are for
+
 ## [0.60.2] - 2020-04-06
 ## Fixed
 - <no-ticket> -- background property value fixed for Name field in BusinessRule component
