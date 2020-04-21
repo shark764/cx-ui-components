@@ -321,6 +321,7 @@ export default class BusinessHoursRule extends React.Component{
       }
     }
     this.actionsMenuRef = React.createRef();
+    this.isRelativeKeyword;
   }
 
   showMenu = (e) => {
@@ -356,28 +357,10 @@ export default class BusinessHoursRule extends React.Component{
   }
 
   handleRuleType = (e) => {
-    let ruleType;
-    //  One time exceptions removes 'Repeats' fields, it just uses Start Date and Hours intervals / all day
-    if (e.target.value === 'one-time-extended-hours' || e.target.value === 'blackout-one-time-exceptions') {
-      ruleType = {
-        type: e.target.value,
-        description: this.props.rule && this.props.rule.description,
-        name: this.props.rule && this.props.rule.name,
-        startDate: this.props.rule && this.props.rule.startDate,
-        hours: {
-          allDay: (this.props.rule && this.props.rule.hours && this.props.rule.hours.allDay !== undefined) ? this.props.rule.hours.allDay : undefined,
-          intervals: this.props.rule && this.props.rule.hours && this.props.rule.hours.intervals
-        }
-      }
-    } else {
-      ruleType = {
-        ...this.props.rule,
-        type: e.target.value
-      }
-    }
     this.props.onChange({
       id: this.props.rule.id,
-      ...ruleType
+      ...this.props.rule,
+      type: e.target.value
     });
   }
 
@@ -413,16 +396,18 @@ export default class BusinessHoursRule extends React.Component{
         ...this.props.rule,
         on: e
       });
-    } else if (this.props.rule.on && this.props.rule.on.value) {
+    } else if (this.props.rule.on && this.props.rule.on.value && typeof this.props.rule.on.value !== 'number' && e.target.value !== 'day') {
+      this.isRelativeKeyword = true;
       this.props.onChange({
         ...this.props.rule,
         id: this.props.rule.id,
-        on: { 
-              type: e.target.value, 
-              value: this.props.rule.on.value 
+        on: {
+              type: this.props.rule.on.value,
+              value: e.target.value
             }
       });
-    } else {
+    } else if (e.target.value === 'day') {
+      this.isRelativeKeyword = false;
       this.props.onChange({
         ...this.props.rule,
         id: this.props.rule.id,
@@ -430,16 +415,47 @@ export default class BusinessHoursRule extends React.Component{
               type: e.target.value 
             }
       });
+    } else {
+      this.isRelativeKeyword = true;
+      this.props.onChange({
+        ...this.props.rule,
+        id: this.props.rule.id,
+        on: {
+              value: e.target.value 
+            }
+      });
     }
   }
 
   handleRuleRepeaOnEveryDay = (e) => {
+    this.isRelativeKeyword = true;
+    if(this.props.rule && this.props.rule.on.value !== undefined) {
+      this.props.onChange({
+        ...this.props.rule,
+        id: this.props.rule.id,
+        on: { 
+            value: this.props.rule.on.value, 
+            type: e.target.value
+            }
+      });
+    } else {
+      this.props.onChange({
+        ...this.props.rule,
+        id: this.props.rule.id,
+        on: { 
+            type: e.target.value
+            }
+      });
+    }
+  }
+
+  handleRuleRepeaOnEveryDayValue = (e) => {
     this.props.onChange({
       ...this.props.rule,
       id: this.props.rule.id,
       on: { 
             type:this.props.rule.on.type, 
-            value: e.target.value 
+            value: parseInt(e.target.value) 
           }
     });
   }
@@ -698,7 +714,7 @@ export default class BusinessHoursRule extends React.Component{
                 name="repeats"
                 error={this.props.error && this.props.error.repeats}
                 compress
-                disabled={this.props.disabled || (this.props.rule !== undefined && this.props.rule.type !== undefined && (this.props.rule.type === 'one-time-extended-hours' || this.props.rule.type==='blackout-one-time-exceptions'))}
+                disabled={this.props.disabled}
                 value={(this.props.rule && this.props.rule.repeats)||""}
                 onChange={this.handleRuleRepeats}>
                   <Fragment>
@@ -719,7 +735,7 @@ export default class BusinessHoursRule extends React.Component{
                 <Input 
                   name="every"
                   error={this.props.error && this.props.error.every}
-                  disabled={this.props.disabled || (this.props.rule !== undefined && this.props.rule.type !== undefined && (this.props.rule.type === 'one-time-extended-hours' || this.props.rule.type==='blackout-one-time-exceptions'))}
+                  disabled={this.props.disabled}
                   onChange={this.handleRuleRepeatsEvery} 
                   value={(this.props.rule && this.props.rule.every)||""}
                   width="45px" 
@@ -770,10 +786,7 @@ export default class BusinessHoursRule extends React.Component{
                   readOnly={
                     this.props.disabled || 
                     (this.props.rule && 
-                      (this.props.rule.repeats !== 'weekly' || 
-                      (this.props.rule.type !== undefined && 
-                        (this.props.rule.type === 'one-time-extended-hours' 
-                        || this.props.rule.type==='blackout-one-time-exceptions'))))}
+                      this.props.rule.repeats !== 'weekly')}
                   onClick={this.handleRuleRepeaOnEvery}
                   activeDays={(this.props.rule && Array.isArray(this.props.rule.on) && this.props.rule.on)||[]} 
                 />
@@ -784,7 +797,12 @@ export default class BusinessHoursRule extends React.Component{
                     name="onType"
                     error={this.props.error && this.props.error.on && this.props.error.on.type}
                     compress
-                    value={(this.props.rule && this.props.rule.on && this.props.rule.on.type)||""}
+                    value={(this.props.rule && 
+                            this.props.rule.on &&
+                            ((this.props.rule.on.value !== undefined && this.props.rule.on.value) ||
+                              (this.props.rule.on.type !== undefined && this.props.rule.on.type === 'day' && this.props.rule.on.type)
+                            ))
+                        ||""}
                     onChange={this.handleRuleRepeaOnEvery}
                     disabled={this.props.disabled}
                   >
@@ -802,14 +820,17 @@ export default class BusinessHoursRule extends React.Component{
                       </Fragment>
                   </Select>
                   {this.props.rule && 
-                    (this.props.rule.repeats === 'monthly' || this.props.rule.repeats === 'yearly') && 
-                    (this.props.rule.on === undefined || this.props.rule.on.type !== 'day') && 
+                    (this.props.rule.repeats === 'monthly' || this.props.rule.repeats === 'yearly') && this.props.rule.on && this.props.rule.on.value &&
+                    typeof this.props.rule.on.value === 'string' && (this.props.rule.on === undefined || this.props.rule.on.type !== 'day' || this.isRelativeKeyword === undefined || this.isRelativeKeyword) &&
                     <Select
                       name="onValue"
                       error={this.props.error && this.props.error.value}
                       compress
-                      disabled={this.props.disabled || (!this.props.rule || !this.props.rule.on || !this.props.rule.on.type)}
-                      value={(this.props.rule && this.props.rule.on && this.props.rule.on.value)||""}
+                      disabled={this.props.disabled || (!this.props.rule || !this.props.rule.on)}
+                      value={(this.props.rule && 
+                        this.props.rule.on && this.props.rule.on.value !== undefined && this.props.rule.on.type !== undefined &&
+                        (typeof this.props.rule.on.value === 'string' && this.props.rule.on.type || this.props.rule.on.value))
+                    ||""}
                       onChange={this.handleRuleRepeaOnEveryDay}
                     >
                       <Fragment>
@@ -828,7 +849,7 @@ export default class BusinessHoursRule extends React.Component{
                     </Select>
                   }
                   {this.props.rule && ((this.props.rule.repeats === 'yearly' || this.props.rule.repeats === 'monthly') && 
-                   this.props.rule.on && this.props.rule.on.type === 'day') &&
+                   this.props.rule.on && this.props.rule.on.type === 'day' && typeof this.props.rule.on.value !== 'string'  && (this.isRelativeKeyword !== undefined || !this.isRelativeKeyword)) &&
                     <Input
                       type='number'
                       name="onValue"
@@ -836,7 +857,7 @@ export default class BusinessHoursRule extends React.Component{
                       disabled={this.props.disabled || (!this.props.rule || !this.props.rule.on || !this.props.rule.on.type)}
                       width="100px"
                       value={(this.props.rule && this.props.rule.on && this.props.rule.on.value)||""}
-                      onChange={this.handleRuleRepeaOnEveryDay}
+                      onChange={this.handleRuleRepeaOnEveryDayValue}
                     />
                   }
                 </Fragment>
@@ -864,9 +885,7 @@ export default class BusinessHoursRule extends React.Component{
                 name="byDate"
                 error={this.props.error && this.props.error.byDate}
                 onChange={this.handleEndByDate} 
-                disabled={this.props.disabled || 
-                          (this.props.rule !== undefined && this.props.rule.type !== undefined && 
-                          (this.props.rule.type === 'one-time-extended-hours' || this.props.rule.type==='blackout-one-time-exceptions'))}
+                disabled={this.props.disabled}
                 value={this.state.byDate}
                 compress
               >
@@ -885,9 +904,8 @@ export default class BusinessHoursRule extends React.Component{
                   (this.props.disabled) ||
                   (this.state.byDate==='none') || 
                   (this.props.rule.startDate === undefined) || 
-                  (this.props.rule && !this.props.rule.startDate) || 
-                  (this.props.rule.type !== undefined && (this.props.rule.type === 'one-time-extended-hours' || this.props.rule.type==='blackout-one-time-exceptions'))
-                )}
+                  (this.props.rule && !this.props.rule.startDate))
+                }
               />
             </Row>
           </Column>

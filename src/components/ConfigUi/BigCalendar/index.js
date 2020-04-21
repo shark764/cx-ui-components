@@ -38,8 +38,8 @@ const localizer = momentLocalizer(Moment);
           getNow={this.props.getNow}
           view={this.props.view}
           slotPropGetter={this.props.slotPropGetter}
-          onView={this.props.onView}
           onNavigate={this.props.onNavigate}
+          onView={this.props.onView}
         />
       </div>
     )
@@ -60,7 +60,9 @@ BigCalendar.propTypes = {
   date:PropTypes.object,
   onNavigate:PropTypes.func,
   getNow: PropTypes.func,
-  slotPropGetter:PropTypes.func
+  slotPropGetter:PropTypes.func,
+  onNavigate:PropTypes.func,
+  onView:PropTypes.func
 }
 
 BigCalendar.defaultProps = {

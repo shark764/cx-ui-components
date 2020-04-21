@@ -1,6 +1,22 @@
 ```js
+
+initialState = {
+  dateRange: new Date()
+};
+
+function handleClick(e){
+  console.log("e:", e);
+  setState(prevState => ({
+    displayedDateRage: e,
+  }));
+  console.log("event: ", e);
+}
+
+console.log("MixCalendar state:", state);
+
 <div>
-  <MixCalendar 
+  <MixCalendar
+    onChange={(e) => handleClick(e)}
     currentDate={new Date("2020-01-16T00:00:01Z")}
     eventType={[
       {

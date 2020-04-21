@@ -7,7 +7,7 @@ initialState = {
       id: '123',
       startDate: new Date("2020-01-16T00:00:01Z"),
       endDate: new Date("2020-01-30T00:00:01Z"),
-      repeats: 'weekly',
+      repeats: 'monthly',
       hours: {
         allDay: false,
         intervals: 
@@ -21,6 +21,10 @@ initialState = {
               end: 260,
             }
           ]
+      },
+      on: {
+        type: "day",
+        value: 2
       },
       showActions: false  // Set this value to true once the rule is saved in the api},
     },

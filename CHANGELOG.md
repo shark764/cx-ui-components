@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.60.4] - 2020-04-17
+## Fixed
+- CXV1-22156 - Recurring Event List for Calendar - Business Hours Page
+             - Fixed Business Rule Component based on the recent changes in documentation
 
 ## [0.60.3] - 2020-04-07
 ## Fixed

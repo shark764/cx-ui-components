@@ -2,7 +2,7 @@
 
 import PropTypes from 'prop-types';
 /*for big calendar, share same .css with big Calendar*/
-import { Views } from 'react-big-calendar';
+import { Views, momentLocalizer } from 'react-big-calendar';
 import Calendar from '../BigCalendar';
 /*for small calendar, share same .css with Calendar*/
 import SmallCalendar from '../SmallCalendar';
@@ -11,6 +11,8 @@ import React from 'react';
 /*Icons SVG*/
 import PlusIconSVG from '../../Icons/PlusIconSVG';
 import ArrowIcon from '../../Icons/SimpleCaretIconSVG';
+import moment from 'moment';
+import * as dates from 'react-big-calendar/lib/utils/dates';
 
 /*Styled component*/
 const ToolButton = styled.button`
@@ -115,6 +117,8 @@ const StyledCheckBox = styled.input`
   }
 `;
 
+const localizer = momentLocalizer(moment);
+//
 //default EventType props
 /*
 EventType object should contain:
@@ -169,8 +173,8 @@ const Label = props => {
         <button style={{display: "none",height: "22px",margin:"15px 0 0 0",width: "fit-content",backgroundColor: "white",border: "1px solid #ccc",borderRadius: "3px"}}><PlusIconSVG size={14} plusIconType="primary"></PlusIconSVG></button>
       </Styledpane>
       <Styledpane paddng="26px 0 0 0" display="grid" width="200px">
-        {props.eventType.map((obj)=>{
-          return <Styledpane display="grid" TCol="22px 175px" Cgap="8px" paddng="5px 0 0 0">
+        {props.eventType.map((obj, index)=>{
+          return <Styledpane key={index.toString()} display="grid" TCol="22px 175px" Cgap="8px" paddng="5px 0 0 0">
           <StyledCheckBox type="checkbox" bgColor={obj.color} onChange={()=>props.handleCheckboxChange(obj.id)} defaultChecked/><label>{obj.name}</label>
           </Styledpane>
         })}
@@ -189,11 +193,12 @@ const YearPane = props => {
         <Styledpane bgColor="white" width="fit-content" hight="700px" display="grid" RS="2" CS="1" CE="2" TCol="25% 25% 25% 25%" TRow="33% 33% 33%">
             {dateList.map((date, index)=>{
                 return <Styledpane>
-                <StyledSLabel color="rgb(27, 145, 255)" fontWigt="500" paddng="0 0 0 20px">{monthList[index]}</StyledSLabel>
-                <SmallCalendar 
-                  value={null} 
-                  activeStartDate={date} 
-                  showNavigation={false} 
+                <StyledSLabel key={index.toString()} color="rgb(27, 145, 255)" fontWigt="500" paddng="0 0 0 20px">{monthList[index]}</StyledSLabel>
+                <SmallCalendar
+                  value={null}
+                  key={index.toString()}
+                  activeStartDate={date}
+                  showNavigation={false}
                   onChange={props.updateTheDate}
                   calendarType="US" style={{width:"233px"}}
                 />
@@ -212,102 +217,126 @@ class MixCalendar extends React.Component{
             currentDate: this.props.currentDate||new Date(),
             BCcurrentView: this.props.currentView||Views.MONTH,
             isYearView: this.props.showYearViewCurrently||false,
-            EventType: this.props.eventType||[]
+            EventType: this.props.eventType||[],
+            currentView: 'month'
         }
+    }
+
+    computeDisplayedDateRange = () => {
+      const {currentDate, currentView} = this.state;
+      let start = moment(currentDate).startOf(currentView);
+      let end = moment(currentDate).endOf(currentView);
+      let calendarDateRange;
+      if(currentView == 'month') {
+        start = start.startOf('week');
+        end = end.endOf('week');
+
+      }
+      calendarDateRange = {
+        start: start.toString(), 
+        end: end.toString()
+      }
+      this.props.onChange({ dateRange: calendarDateRange })
+    }
+
+    componentDidMount() {
+      this.computeDisplayedDateRange();
     }
     
-    handleCheckboxChange=(id)=>{
-        const stateCopy = this.state.EventType.slice()
-        stateCopy[id].state=!stateCopy[id].state;
-        this.setState({EventType: stateCopy})
+    handleCheckboxChange = (id) => {
+      const stateCopy = this.state.EventType.slice();
+      stateCopy[id].state=!stateCopy[id].state;
+      this.setState({EventType: stateCopy});
     }
 
-    updateState=date=>{
-        this.setState({currentDate: date})
-        if(this.state.isYearView){
-            this.changeBCView("month")
-        }
+    updateState = (date) => {
+      this.setState({
+        currentDate: date
+      }, this.computeDisplayedDateRange)
+      if(this.state.isYearView){
+        this.changeBCView("month");
+      }
     }
 
-    DeMonth=()=>{
-        var cur = this.state.currentDate
-        cur.setMonth(this.state.currentDate.getMonth()-1)
-        this.setState({currentDate: cur})
-        this.forceUpdate()
+    DeMonth = () => {
+      var cur = this.state.currentDate;
+      cur.setMonth(this.state.currentDate.getMonth()-1);
+      this.setState({currentDate: cur}, this.computeDisplayedDateRange)
+      this.forceUpdate();
     }
 
-    InMonth=()=>{
-        var cur = this.state.currentDate
-        cur.setMonth(this.state.currentDate.getMonth()+1)
-        this.setState({currentDate: cur})
+    InMonth = () => {
+      var cur = this.state.currentDate;
+      cur.setMonth(this.state.currentDate.getMonth()+1);
+      this.setState({currentDate: cur}, this.computeDisplayedDateRange)
     }
 
     //amt:positive to lighten, negative to darken
     LightenDarkenColor(col, amt) {
-        var usePound = false;
-        if (col[0] === "#") {
-            col = col.slice(1);
-            usePound = true;
-        }
-        var num = parseInt(col,16);
-        var r = (num >> 16) + amt;
-        if (r > 255) r = 255;
-        else if  (r < 0) r = 0;
-        var b = ((num >> 8) & 0x00FF) + amt;
-        if (b > 255) b = 255;
-        else if  (b < 0) b = 0;
-        var g = (num & 0x0000FF) + amt;
-        if (g > 255) g = 255;
-        else if (g < 0) g = 0;
-        return (usePound?"#":"") + (g | (b << 8) | (r << 16)).toString(16);
+      var usePound = false;
+      if (col[0] === "#") {
+          col = col.slice(1);
+          usePound = true;
+      }
+      var num = parseInt(col,16);
+      var r = (num >> 16) + amt;
+      if (r > 255) r = 255;
+      else if  (r < 0) r = 0;
+      var b = ((num >> 8) & 0x00FF) + amt;
+      if (b > 255) b = 255;
+      else if  (b < 0) b = 0;
+      var g = (num & 0x0000FF) + amt;
+      if (g > 255) g = 255;
+      else if (g < 0) g = 0;
+      return (usePound?"#":"") + (g | (b << 8) | (r << 16)).toString(16);
     }
 
-    eventPropGetter=(event)=>{
-        let borderLeft;
-        let backgroundColor;
-        let display='';
-        if(event.eventTypeID>this.state.EventType.length){
-            return
+    eventPropGetter = (event) => {
+      let borderLeft;
+      let backgroundColor;
+      let display='';
+      if(event.eventTypeID>this.state.EventType.length){
+        return;
+      }
+      for(let index=0;index<this.state.EventType.length;index++){
+        if(this.state.EventType[index].id === event.eventTypeID){
+          if(!this.state.EventType[index].state) {
+            display='none'
+          }
+          borderLeft=`5px solid ${this.state.EventType[index].color}`
+          backgroundColor=this.LightenDarkenColor(this.state.EventType[index].color, 70)
         }
-        for(let index=0;index<this.state.EventType.length;index++){
-            if(this.state.EventType[index].id===event.eventTypeID){
-                if(!this.state.EventType[index].state){
-                    display='none'
-                }
-                borderLeft=`5px solid ${this.state.EventType[index].color}`
-                backgroundColor=this.LightenDarkenColor(this.state.EventType[index].color, 70)
-            }
-        }
-        let newStyle={
-            display:`${display}`,
-            marginTop:`${event.start.getHours()}px`,
-            paddingBottom:`${event.end.getHours()}px`,
-            borderLeft:`${borderLeft}`,
-            backgroundColor:`${backgroundColor}`
-        }
-        if(event.allDay){
-            newStyle={
-            display:`${display}`,
-            marginTop: '0px',
-            paddingBottom:'55px',
-            borderLeft:`${borderLeft}`,
-            backgroundColor:`${backgroundColor}`}
-        }
-        return {style: newStyle}
-        
+      }
+      let newStyle = {
+          display:`${display}`,
+          marginTop:`${event.start.getHours()}px`,
+          paddingBottom:`${event.end.getHours()}px`,
+          borderLeft:`${borderLeft}`,
+          backgroundColor:`${backgroundColor}`
+      }
+      if(event.allDay){
+          newStyle = {
+          display:`${display}`,
+          marginTop: '0px',
+          paddingBottom:'55px',
+          borderLeft:`${borderLeft}`,
+          backgroundColor:`${backgroundColor}`}
+      }
+      return {style: newStyle}
     }
     
-    changeBCView=(para)=>{
-        
-        if(para==="month"){
-            this.setState({BCcurrentView: Views.MONTH,isYearView:false,BCtoolbar:false})
-        }else if(para==="day"){
-            this.setState({BCcurrentView: Views.DAY,isYearView:false,BCtoolbar:true})
-        }else if(para==="week"){
-            this.setState({BCcurrentView: Views.WEEK, isYearView:false,BCtoolbar:true})
-        }else{
-            this.setState({BCcurrentView: Views.YEAR, isYearView:true,BCtoolbar:false})
-        }
+    changeBCView = (para) => {
+      if(para === "month"){
+        this.setState({BCcurrentView: Views.MONTH,isYearView:false,BCtoolbar:false})
+      }else if(para === "day"){
+        this.setState({BCcurrentView: Views.DAY,isYearView:false,BCtoolbar:true})
+      }else if(para === "week"){
+        this.setState({BCcurrentView: Views.WEEK, isYearView:false,BCtoolbar:true})
+      }else{
+        this.setState({BCcurrentView: Views.YEAR, isYearView:true,BCtoolbar:false})
+      }
+      // We will wait until the state is changed so we can update the range date in Calendar
+      this.setState({ currentView: para }, this.computeDisplayedDateRange);
     }
 
     addNewEventType = (name, color) => {
@@ -331,13 +360,13 @@ class MixCalendar extends React.Component{
             </div>
           <Styledpane hight="fit-content" mihigh="250px">
             <SmallCalendar
-                onChange={(date)=>this.setState({currentDate:date})}
-                value={this.state.currentDate}
-                calendarType="US"
-                showNavigation={this.props.showNavigation||true}
-                navigationLabel={
-                  ({ date }) => (monthList[date.getMonth()].slice(0, 3)+" "+date.getFullYear())
-                }
+              onChange={(date)=>this.setState({currentDate:date}, this.computeDisplayedDateRange)}
+              value={this.state.currentDate}
+              calendarType="US"
+              showNavigation={this.props.showNavigation||true}
+              navigationLabel={
+                ({ date }) => (monthList[date.getMonth()].slice(0, 3)+" "+date.getFullYear())
+              }
             />
           </Styledpane>
             <Styledpane width="max-content" color="rgba(128, 128, 128, 0.787)" mrgn="10px 0 0 0" paddng="0 0 0 20px">
@@ -350,7 +379,7 @@ class MixCalendar extends React.Component{
             </Styledpane>
           </Styledpane>
           {(!this.state.isYearView) ? 
-            <Styledpane miWid="800px" CS="2" RS="1" mxhigh="610px" ovrflw="scroll">
+            <Styledpane miWid="800px" CS="2" RS="1" mxhigh="610px" ovrflw="auto">
               <Calendar
                   getNow={()=>{return this.state.currentDate}}
                   date={this.state.currentDate}
@@ -363,9 +392,9 @@ class MixCalendar extends React.Component{
                   endAccessor='end'
                   defaultDate={new Date(2020, 1, 1)}
                   view={this.state.BCcurrentView}
+                  eventPropGetter={this.props.eventPropGetter||this.eventPropGetter}
                   onView={this.props.onView}
                   onNavigate={this.props.onNavigate}
-                  eventPropGetter={this.props.eventPropGetter||this.eventPropGetter}
               />
             </Styledpane> : <div>
               <YearPane date={this.state.currentDate} updateTheDate={this.updateState} year={this.state.currentDate.getFullYear()}/>
@@ -386,8 +415,14 @@ MixCalendar.propTypes = {
   eventList: PropTypes.array.isRequired,
   selectable: PropTypes.bool,
   step: PropTypes.number,
+  onNavigate:PropTypes.func,
   onView:PropTypes.func,
-  onNavigate:PropTypes.func
+  onChange: PropTypes.func.isRequired
+}
+
+MixCalendar.defaultProps = { // Adding this to avoid warnings, we already have a custom onNavigate and onView handlers
+  onNavigate: () => {},
+  onView: () => {}
 }
 
 export default MixCalendar;
