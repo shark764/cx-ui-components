@@ -3,7 +3,7 @@
 initialState = {
   rules: [
     {
-      name: 'Test',
+      name: 'Super long name test Super long name test Super long name test (should display ellipsis) Super long name test',
       id: '123',
       startDate: new Date("2020-01-16T00:00:01Z"),
       endDate: new Date("2020-01-30T00:00:01Z"),

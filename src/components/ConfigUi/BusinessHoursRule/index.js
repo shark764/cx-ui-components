@@ -79,6 +79,12 @@ const Name = styled.input`
   color: #979797;
   line-height: 40px;
   margin-left: 10px;
+
+  width: 1100px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+
   ${props =>
     props.disabled &&
     css`
@@ -282,12 +288,12 @@ const repeatsOn = [
 ]
 const repeatsOnDay = [
   {label: 'Day', value: 'day'},
-  {label: 'Weekend', value: 'weekend'},
+  {label: 'Weekday', value: 'weekday'},
   {label: 'Weekend Day', value: 'weekend-day'},
   {label: 'Sunday', value: 'sunday'},
   {label: 'Monday', value: 'monday'},
   {label: 'Tuesday', value: 'tuesday'},
-  {label: 'Wednesday', value: 'wedmesday'},
+  {label: 'Wednesday', value: 'wednesday'},
   {label: 'Thursday', value: 'thursday'},
   {label: 'Friday', value: 'friday'},
   {label: 'Saturday', value: 'staruday'}
@@ -618,6 +624,7 @@ export default class BusinessHoursRule extends React.Component{
         }
           <Name
             type="text"
+            title={this.props.rule && this.props.rule.name}
             error={this.props.error && this.props.error.name}
             name="name"
             value={this.props.rule && this.props.rule.name}

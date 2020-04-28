@@ -3,6 +3,7 @@
   <BigCalendar 
     onNavigate={() => {}}
     onView={() => {}}
+    showMoreEventsPopup
   />
 </div>;
 ```

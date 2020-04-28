@@ -309,8 +309,6 @@ class MixCalendar extends React.Component{
       }
       let newStyle = {
           display:`${display}`,
-          marginTop:`${event.start.getHours()}px`,
-          paddingBottom:`${event.end.getHours()}px`,
           borderLeft:`${borderLeft}`,
           backgroundColor:`${backgroundColor}`
       }
@@ -387,6 +385,7 @@ class MixCalendar extends React.Component{
                   toolbar={this.state.BCtoolbar}
                   events={this.props.eventList||[]}
                   step={this.props.steps||30}
+                  showMoreEventsPopup={this.props.showMoreEventsPopup}
                   //Only one day event so dont need to pass start&end accessor
                   startAccessor='start'
                   endAccessor='end'
@@ -415,6 +414,7 @@ MixCalendar.propTypes = {
   eventList: PropTypes.array.isRequired,
   selectable: PropTypes.bool,
   step: PropTypes.number,
+  showMoreEventsPopup: PropTypes.bool,
   onNavigate:PropTypes.func,
   onView:PropTypes.func,
   onChange: PropTypes.func.isRequired
