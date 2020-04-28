@@ -94,6 +94,7 @@ const EndpointsWrapper = styled.div`
   height: 30px !important;
   margin-bottom: 10px;
   align-items: center;
+  justify-content: flex-start;
   :hover {
     background: #d7e9f5;
   }
@@ -113,7 +114,7 @@ const ActionButton = styled(Button)`
   margin-left: auto;
 `;
 const EndpointItem = styled.div`
-  flex: 100 0;
+  flex: 0 1 auto;
   padding: 10px;
   overflow: hidden;
   white-space: nowrap;
