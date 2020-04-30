@@ -367,6 +367,7 @@ class MixCalendar extends React.Component{
               }
             />
           </Styledpane>
+          {this.props.eventList && this.props.eventList.length > 0 &&
             <Styledpane width="max-content" color="rgba(128, 128, 128, 0.787)" mrgn="10px 0 0 0" paddng="0 0 0 20px">
               <Label
                 handleCheckboxChange={this.handleCheckboxChange} 
@@ -375,6 +376,7 @@ class MixCalendar extends React.Component{
                 addNewEventType={this.addNewEventType}
               />
             </Styledpane>
+          }
           </Styledpane>
           {(!this.state.isYearView) ? 
             <Styledpane miWid="800px" CS="2" RS="1" mxhigh="610px" ovrflw="auto">
@@ -385,7 +387,6 @@ class MixCalendar extends React.Component{
                   toolbar={this.state.BCtoolbar}
                   events={this.props.eventList||[]}
                   step={this.props.steps||30}
-                  showMoreEventsPopup={this.props.showMoreEventsPopup}
                   //Only one day event so dont need to pass start&end accessor
                   startAccessor='start'
                   endAccessor='end'
@@ -394,6 +395,7 @@ class MixCalendar extends React.Component{
                   eventPropGetter={this.props.eventPropGetter||this.eventPropGetter}
                   onView={this.props.onView}
                   onNavigate={this.props.onNavigate}
+                  popup={this.props.showMoreEventsPopup}
               />
             </Styledpane> : <div>
               <YearPane date={this.state.currentDate} updateTheDate={this.updateState} year={this.state.currentDate.getFullYear()}/>
@@ -414,10 +416,10 @@ MixCalendar.propTypes = {
   eventList: PropTypes.array.isRequired,
   selectable: PropTypes.bool,
   step: PropTypes.number,
-  showMoreEventsPopup: PropTypes.bool,
-  onNavigate:PropTypes.func,
-  onView:PropTypes.func,
-  onChange: PropTypes.func.isRequired
+  onNavigate: PropTypes.func,
+  onView: PropTypes.func,
+  onChange: PropTypes.func.isRequired,
+  showMoreEventsPopup: PropTypes.bool
 }
 
 MixCalendar.defaultProps = { // Adding this to avoid warnings, we already have a custom onNavigate and onView handlers

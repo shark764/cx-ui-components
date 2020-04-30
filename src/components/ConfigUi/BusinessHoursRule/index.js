@@ -892,7 +892,11 @@ export default class BusinessHoursRule extends React.Component{
                 name="byDate"
                 error={this.props.error && this.props.error.byDate}
                 onChange={this.handleEndByDate} 
-                disabled={this.props.disabled}
+                disabled={this.props.disabled || 
+                    (this.props.rule.type !== undefined && 
+                    (this.props.rule.type === 'one-time-extended-hours' || 
+                    this.props.rule.type==='blackout-one-time-exceptions'))
+                  }
                 value={this.state.byDate}
                 compress
               >
@@ -901,6 +905,12 @@ export default class BusinessHoursRule extends React.Component{
               </Select>
               <DatePicker
                 name="endDate"
+                placeholder={
+                  (this.props.rule.type !== undefined && 
+                    (this.props.rule.type === 'one-time-extended-hours' || 
+                    this.props.rule.type==='blackout-one-time-exceptions') || '') ||
+                    (this.state.byDate !== undefined && this.state.byDate === 'none' || '')
+                  }
                 onClick={(e) => this.handleDate(e)} 
                 selectedDay={(this.props.rule && this.props.rule.endDate)||""}
                 customStyle={this.props.error && this.props.error.endDate ? datePickerErroredStyle : datePickerStyle}
@@ -911,7 +921,10 @@ export default class BusinessHoursRule extends React.Component{
                   (this.props.disabled) ||
                   (this.state.byDate==='none') || 
                   (this.props.rule.startDate === undefined) || 
-                  (this.props.rule && !this.props.rule.startDate))
+                  (this.props.rule && !this.props.rule.startDate) ||
+                  (this.props.rule.type !== undefined && 
+                    (this.props.rule.type === 'one-time-extended-hours' || 
+                    this.props.rule.type==='blackout-one-time-exceptions')))
                 }
               />
             </Row>
