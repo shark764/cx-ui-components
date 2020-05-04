@@ -315,8 +315,6 @@ class MixCalendar extends React.Component{
       if(event.allDay){
           newStyle = {
           display:`${display}`,
-          marginTop: '0px',
-          paddingBottom:'55px',
           borderLeft:`${borderLeft}`,
           backgroundColor:`${backgroundColor}`}
       }
@@ -372,7 +370,7 @@ class MixCalendar extends React.Component{
               <Label
                 handleCheckboxChange={this.handleCheckboxChange} 
                 state={this.state} 
-                eventType={this.state.EventType} 
+                eventType={this.state.EventType}
                 addNewEventType={this.addNewEventType}
               />
             </Styledpane>
@@ -383,7 +381,7 @@ class MixCalendar extends React.Component{
               <Calendar
                   getNow={()=>{return this.state.currentDate}}
                   date={this.state.currentDate}
-                  selectable={this.props.selectable||false}
+                  selectable={this.props.selectable||true}
                   toolbar={this.state.BCtoolbar}
                   events={this.props.eventList||[]}
                   step={this.props.steps||30}
@@ -395,7 +393,7 @@ class MixCalendar extends React.Component{
                   eventPropGetter={this.props.eventPropGetter||this.eventPropGetter}
                   onView={this.props.onView}
                   onNavigate={this.props.onNavigate}
-                  popup={this.props.showMoreEventsPopup}
+                  onShowMore={(events, date) => this.setState({BCcurrentView: Views.DAY, isYearView:false, BCtoolbar:true, currentDate: date}) }
               />
             </Styledpane> : <div>
               <YearPane date={this.state.currentDate} updateTheDate={this.updateState} year={this.state.currentDate.getFullYear()}/>
@@ -419,7 +417,6 @@ MixCalendar.propTypes = {
   onNavigate: PropTypes.func,
   onView: PropTypes.func,
   onChange: PropTypes.func.isRequired,
-  showMoreEventsPopup: PropTypes.bool
 }
 
 MixCalendar.defaultProps = { // Adding this to avoid warnings, we already have a custom onNavigate and onView handlers

@@ -103,16 +103,16 @@ console.log("MixCalendar state:", state);
         {
           id: 7,
           title: 'Lunch',
-          start: new Date(2020, 3, 12, 12, 0, 0, 0),
-          end: new Date(2020, 3, 12, 13, 0, 0, 0),
+          start: new Date(2020, 3, 12, 10, 30, 0, 0),
+          end: new Date(2020, 3, 12, 12, 30, 0, 0),
           desc: 'Power lunch',
           eventTypeID: 1
         },
         {
           id: 8,
           title: 'Meeting',
-          start: new Date(2020, 3, 12, 14, 0, 0, 0),
-          end: new Date(2020, 3, 12, 15, 0, 0, 0),
+          start: new Date(2020, 3, 12, 10, 30, 0, 0),
+          end: new Date(2020, 3, 12, 12, 30, 0, 0),
           eventTypeID: 1
         },
         {

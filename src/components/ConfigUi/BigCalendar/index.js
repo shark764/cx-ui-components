@@ -40,7 +40,8 @@ const localizer = momentLocalizer(Moment);
           slotPropGetter={this.props.slotPropGetter}
           onNavigate={this.props.onNavigate}
           onView={this.props.onView}
-          popup={this.props.popup}
+          popup={false}
+          onShowMore={this.props.onShowMore}
         />
       </div>
     )
@@ -64,7 +65,7 @@ BigCalendar.propTypes = {
   slotPropGetter: PropTypes.func,
   onNavigate: PropTypes.func,
   onView: PropTypes.func,
-  popup: PropTypes.bool
+  onShowMore: PropTypes.func
 }
 
 BigCalendar.defaultProps = {

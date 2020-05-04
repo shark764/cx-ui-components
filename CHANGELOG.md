@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.60.8] - 2020-04-30 
+## Fixed
+- <no-ticket> - BigCalendar popup removed since is not compatible with Config2
+              - ShowMore was added to display selected day on "show more" link
+              - All day events padding removed since it was misplacing other events
+
 ## [0.60.7] - 2020-04-30 
 ## Fixed
 - <no-ticket> - Busines Rule Component validation added on endDate when one-time event type selected
