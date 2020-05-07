@@ -319,12 +319,7 @@ export default class BusinessHoursRule extends React.Component{
     super(props);
     this.state = {
       showMenu: false,
-      byDate: 'none'
-    }
-    if(props.rule.endDate) {
-      this.state = {
-        byDate: 'by'
-      }
+      byDate: props.rule.endDate ? 'by' : 'none'
     }
     this.actionsMenuRef = React.createRef();
     this.isRelativeKeyword;
@@ -516,10 +511,8 @@ export default class BusinessHoursRule extends React.Component{
   updateArrayFn = (array, index, start, end) => {
     if (start === undefined || end === undefined) {
       return array.slice(0, index).concat(array.slice(index + 1, array.length))
-    } else {
-      array[index] = { start, end };
-      return array;
     }
+    return array.map((item, i) => index === i ? { start, end } : item);
   }
 
   handleRuleStartTime = (index, item, e) => {
@@ -627,7 +620,7 @@ export default class BusinessHoursRule extends React.Component{
             title={this.props.rule && this.props.rule.name}
             error={this.props.error && this.props.error.name}
             name="name"
-            value={this.props.rule && this.props.rule.name}
+            value={this.props.rule.name}
             onChange={this.handleRuleName}
             placeholder="(Name)"
             disabled={this.props.disabled}
@@ -966,7 +959,7 @@ export default class BusinessHoursRule extends React.Component{
                 </AddButton>
               }
             </Row>
-            {this.props.rule && this.props.rule.hours && this.props.rule.hours.intervals && !this.props.rule.hours.allDay && (
+            {this.props.rule && this.props.rule.hours && this.props.rule.hours.intervals && !this.props.rule.hours.allDay && 
               this.props.rule.hours.intervals.map((item, index) => 
               <Row key={`timePickerRow${index}`}>
                 <div
@@ -988,7 +981,6 @@ export default class BusinessHoursRule extends React.Component{
                     minutesStep={5}
                     onChange={(e) => this.handleRuleStartTime(index, item, e)}
                     disabled={this.props.disabled}
-                    nullOption
                   />
                 </div>
                 <div 
@@ -1009,7 +1001,6 @@ export default class BusinessHoursRule extends React.Component{
                     minutesStep={5}
                     onChange={(e) => this.handleRuleEndTime(index, item, e)}
                     disabled={this.props.disabled}
-                    nullOption
                   />&nbsp;&nbsp;
                     {!this.props.disabled &&
                       this.props.rule &&
@@ -1025,7 +1016,7 @@ export default class BusinessHoursRule extends React.Component{
                     }
                 </div>
               </Row>
-            ))}
+            )}
           </Column>
         </Content>
       </OutsideWrapper>

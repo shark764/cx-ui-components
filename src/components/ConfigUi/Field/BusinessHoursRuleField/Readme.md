@@ -7,18 +7,19 @@ const { Map } = require('immutable');
     <Form
       initialValues={
         Map({
-          rule: {'id': '123', 'name': 'Test'}
+          rule:{
+                id: 'new-rule',
+                startDate: new Date(),
+                hours: {
+                  allDay: true
+                },
+                name: ''
+              }
         })
       }
     >
       <BusinessHoursRuleField
         name="rule"
-        errorObj={
-          {
-            errorMessage: 'Error....Name is a required field',
-            name: true
-          }
-        }
         cancel={()=>console.log("cancel")}
       />
     </Form>

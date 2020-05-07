@@ -49,7 +49,12 @@ initialState = {
       showActions: true
     },
     {
-      id: '321'
+      id: 'new-rule',
+      startDate: new Date(),
+      hours: {
+        allDay: true
+      },
+      name: ''
     }
   ]
 };

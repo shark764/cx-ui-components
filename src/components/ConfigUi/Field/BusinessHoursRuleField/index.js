@@ -37,7 +37,7 @@ const BusinessHours = props => {
         saveException={!!error ? false : saveException}
         onSave={onSave}
         showActions={showActions}
-        disabled={disabled || !!error}
+        disabled={disabled}
         error={errorObj}
       />
     </FieldWrapper>
