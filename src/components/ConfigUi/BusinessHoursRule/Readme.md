@@ -60,8 +60,8 @@ initialState = {
 };
 
 const actionsObject = {
-  "Copy": () => {},
-  "Delete": () => {}
+  "Copy": () => { console.log('deleted') },
+  "Delete": () => { console.log('copied') }
 }
 
 // Error object example to hightlight fields with error
@@ -117,7 +117,6 @@ console.log("state:", state);
       rule={bussinessHour}
       actions={actionsObject}
       showActions={bussinessHour.showActions}
-      viewOnly
       error={index==1?error:null}
     />
   )}

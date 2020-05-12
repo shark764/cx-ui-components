@@ -38,6 +38,11 @@ export default class DatePicker extends React.Component {
                 before: this.props.minDate,
               }
             ]
+          },
+          containerProps: {
+            style: {
+              minWidth: '270px',
+            }
           }
         }}
         formatDate={formatDate}

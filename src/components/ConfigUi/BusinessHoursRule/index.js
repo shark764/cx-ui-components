@@ -1,6 +1,9 @@
 import React, { Fragment } from 'react';
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
+import { fromEvent } from 'rxjs/observable/fromEvent';
+import 'rxjs/add/operator/map';
+
 import dotsIcon from './three_dots.png'
 import WeekdayPicker from './../WeekdayPicker';
 import DatePicker from './../../General/DatePicker';
@@ -319,8 +322,16 @@ export default class BusinessHoursRule extends React.Component{
     super(props);
     this.state = {
       showMenu: false,
-      byDate: props.rule.endDate ? 'by' : 'none'
-    }
+      byDate: props.rule.endDate ? 'by' : 'none',
+      outsideClick: fromEvent(document, 'click')
+        .map(({ target }) => {
+          if (!this.actionsMenuRef.current || this.actionsMenuRef.current.contains(target) || !this.state.hasFocus) {
+            return;
+          }
+          this.setState({showMenu: false});
+        })
+        .subscribe(),
+    };
     this.actionsMenuRef = React.createRef();
     this.isRelativeKeyword;
   }
@@ -332,21 +343,8 @@ export default class BusinessHoursRule extends React.Component{
     });
   }
 
-  componentDidMount() {
-    document.addEventListener('mousedown', this.handleClickOutside);
-  }
-
   componentWillUnmount() {
-    document.removeEventListener('mousedown', this.handleClickOutside);
-  }
-
-  //  fn to close the actionList dropdown for saved rules in api
-  handleClickOutside = (event) => {
-    if (this.actionsMenuRef.current && !this.actionsMenuRef.current.contains(event.target)) {
-      this.setState({
-        showMenu: false
-      });
-    }
+    this.state.outsideClick.unsubscribe();
   }
 
   handleRuleName = (e) => {
@@ -648,19 +646,23 @@ export default class BusinessHoursRule extends React.Component{
                 <img
                   onClick={this.showMenu} 
                   src={dotsIcon}
-                  ref={this.actionsMenuRef}
                   style={{width:'35px', height:'35px', cursor:'pointer', float: 'right'}} 
                   alt="ruleActions"
                 />
                   {this.state.showMenu ? (
-                  <Actions>
-                    {Object.entries(this.props.actions).map(([ key, val]) =>
+                  <Actions
+                    innerRef={this.actionsMenuRef}
+                  >
+                    {Object.entries(this.props.actions).map(([label, f]) =>
                       <Fragment>
                         <ActionItem
-                          key={`${this.props.rule ? this.props.rule.id : key}`}
-                          onClick={val}
+                          key={`${this.props.rule ? this.props.rule.id : label}`}
+                          onClick={(e) => {
+                            f(this.props.rule);
+                            this.showMenu(e);
+                          }}
                         >
-                          {key}
+                          {label}
                         </ActionItem>
                       </Fragment>
                     )}
@@ -905,7 +907,7 @@ export default class BusinessHoursRule extends React.Component{
                     (this.state.byDate !== undefined && this.state.byDate === 'none' || '')
                   }
                 onClick={(e) => this.handleDate(e)} 
-                selectedDay={(this.props.rule && this.props.rule.endDate)||""}
+                selectedDay={this.props.rule && this.props.rule.endDate}
                 customStyle={this.props.error && this.props.error.endDate ? datePickerErroredStyle : datePickerStyle}
                 minDate={this.props.rule && this.props.rule.startDate}
                 localeTimeZone="us"

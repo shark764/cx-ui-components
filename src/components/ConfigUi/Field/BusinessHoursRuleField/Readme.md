@@ -21,6 +21,11 @@ const { Map } = require('immutable');
       <BusinessHoursRuleField
         name="rule"
         cancel={()=>console.log("cancel")}
+        actions={{
+          "Copy": () => { console.log('deleted') },
+          "Delete": () => { console.log('copied') }
+        }}
+        showActions
       />
     </Form>
 </Store>
