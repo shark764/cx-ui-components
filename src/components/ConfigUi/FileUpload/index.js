@@ -12,8 +12,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import Toast from '../Toast';
-
 const Wrapper = styled.div`
   display: inline-flex;
   width: 100%;
@@ -32,11 +30,12 @@ const Label = styled.span`
 function FileUpload(props) {
   return (
     <Wrapper className={props.className}>
-      <Label>Upload</Label>
+      <Label>{props.label ? props.label : 'Upload'}</Label>
       <input
         id={props.id ? props.id : 'FileUpload'}
         className={props.className}
         type='file'
+        name={props.name}
         accept={props.acceptedFileType}
         onChange={props.onFileSelect}
         onClick={(event) => {
@@ -54,6 +53,8 @@ FileUpload.propTypes = {
   onFileSelect: PropTypes.func,
   acceptedFileType: PropTypes.string,
   disabled: PropTypes.bool,
+  label: PropTypes.string,
+  name: PropTypes.string,
 };
 
 export default FileUpload;
