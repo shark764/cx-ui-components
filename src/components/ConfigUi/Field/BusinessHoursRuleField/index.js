@@ -14,6 +14,7 @@ const BusinessHours = props => {
     onSave,
     showActions,
     disabled,
+    viewOnly,
     meta: { touched, error: {errorMessage, ...errorObj} = {}, warning, error },
   } = props;
   const fieldWrapperProps = {
@@ -39,6 +40,7 @@ const BusinessHours = props => {
         showActions={showActions}
         disabled={disabled}
         error={errorObj}
+        viewOnly={viewOnly}
       />
     </FieldWrapper>
   );
@@ -55,7 +57,8 @@ BusinessHours.propTypes = {
   showActions: PropTypes.bool,
   disabled: PropTypes.bool,
   meta: PropTypes.object,
-  errorObj: PropTypes.object
+  errorObj: PropTypes.object,
+  viewOnly: PropTypes.bool
 };
 
 BusinessHoursRuleField.propTypes = {
@@ -65,5 +68,6 @@ BusinessHoursRuleField.propTypes = {
   saveException: PropTypes.bool,
   onSave: PropTypes.func,
   showActions: PropTypes.bool,
-  disabled: PropTypes.bool
+  disabled: PropTypes.bool,
+  viewOnly: PropTypes.bool
 };

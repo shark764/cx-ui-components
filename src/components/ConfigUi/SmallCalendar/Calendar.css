@@ -6,6 +6,7 @@
   font-family: Arial, Helvetica, sans-serif;
   line-height: 1.125em;
   border: white solid 15px;
+  word-break: initial;
 }
 .react-calendar,
 .react-calendar *,

@@ -17,6 +17,7 @@ import RegularHoursSVG from './../../Icons/RegularHoursSVG';
 import Button from './../Button';
 
 const OutsideWrapper = styled.div`
+    word-break: initial;
     display: inline-block;
     border: 1px solid #E1E1E1;
     background-color: #F7F7F7;
@@ -325,10 +326,12 @@ export default class BusinessHoursRule extends React.Component{
       byDate: props.rule.endDate ? 'by' : 'none',
       outsideClick: fromEvent(document, 'click')
         .map(({ target }) => {
-          if (!this.actionsMenuRef.current || this.actionsMenuRef.current.contains(target) || !this.state.hasFocus) {
-            return;
+          if (!this.props.viewOnly && this.props.showActions) {
+            if (this.actionsMenuRef.current.contains(target)) {
+              return;
+            }
+            this.setState({showMenu: false});
           }
-          this.setState({showMenu: false});
         })
         .subscribe(),
     };
@@ -338,9 +341,9 @@ export default class BusinessHoursRule extends React.Component{
 
   showMenu = (e) => {
     e.preventDefault();
-    this.setState({
-      showMenu: !this.state.showMenu
-    });
+    this.setState((prevState) => ({
+      showMenu: !prevState.showMenu
+    }));
   }
 
   componentWillUnmount() {
@@ -623,7 +626,9 @@ export default class BusinessHoursRule extends React.Component{
             placeholder="(Name)"
             disabled={this.props.disabled}
           />
-          <div style={{float: 'right', marginTop: '2px'}}>
+          <div 
+            style={{float: 'right', marginTop: '2px'}}
+            ref={this.actionsMenuRef}>
             {!this.props.viewOnly && !this.props.showActions &&
               <Fragment>
                 <CancelButton
@@ -650,9 +655,7 @@ export default class BusinessHoursRule extends React.Component{
                   alt="ruleActions"
                 />
                   {this.state.showMenu ? (
-                  <Actions
-                    innerRef={this.actionsMenuRef}
-                  >
+                  <Actions>
                     {Object.entries(this.props.actions).map(([label, f]) =>
                       <Fragment>
                         <ActionItem
