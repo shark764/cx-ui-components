@@ -377,7 +377,7 @@ class MixCalendar extends React.Component{
           }
           </Styledpane>
           {(!this.state.isYearView) ? 
-            <Styledpane miWid="800px" CS="2" RS="1" mxhigh="610px" ovrflw="auto">
+            <Styledpane miWid="800px" CS="2" RS="1" mihigh="695px" ovrflw="auto">
               <Calendar
                   getNow={()=>{return this.state.currentDate}}
                   date={this.state.currentDate}
@@ -394,6 +394,11 @@ class MixCalendar extends React.Component{
                   onView={this.props.onView}
                   onNavigate={this.props.onNavigate}
                   onShowMore={(events, date) => this.setState({BCcurrentView: Views.DAY, isYearView:false, BCtoolbar:true, currentDate: date}) }
+                  elementProps={{
+                    style: {
+                      minHeight: '695px'
+                    }
+                  }}
               />
             </Styledpane> : <div>
               <YearPane date={this.state.currentDate} updateTheDate={this.updateState} year={this.state.currentDate.getFullYear()}/>

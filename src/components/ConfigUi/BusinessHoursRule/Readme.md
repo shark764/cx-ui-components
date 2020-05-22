@@ -116,7 +116,7 @@ console.log("state:", state);
       key={index}
       rule={bussinessHour}
       actions={actionsObject}
-      showActions={bussinessHour.showActions}
+      showActions={index === 1}
       error={index==1?error:null}
     />
   )}

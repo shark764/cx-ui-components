@@ -47,7 +47,20 @@ export default function SidePanelTableActions({
   copySubEntity,
   toggleSubEntityActive,
   itemApiPending,
+  shouldShowViewButtonOnItem,
+  shouldShowUpdateButtonOnItem,
+  shouldShowDeleteButtonOnItem,
+  shouldShowCopyButtonOnItem,
+  shouldShowAddButtonOnItem,
+  shouldShowActiveToggleOnItem,
 }) {
+  const showViewAction = !shouldShowViewButtonOnItem || shouldShowViewButtonOnItem(row);
+  const showUpdateAction = !shouldShowUpdateButtonOnItem || shouldShowUpdateButtonOnItem(row);
+  const showDeleteAction = !shouldShowDeleteButtonOnItem || shouldShowDeleteButtonOnItem(row);
+  const showCopyAction = !shouldShowCopyButtonOnItem || shouldShowCopyButtonOnItem(row);
+  const showAddAction = !shouldShowAddButtonOnItem || shouldShowAddButtonOnItem(row);
+  const showToggleActiveAction = !shouldShowActiveToggleOnItem || shouldShowActiveToggleOnItem(row);
+
   return itemApiPending && (row.id === itemApiPending || row.key === itemApiPending) ? (
     <RightAlign>
       <LoadingSpinner size={28} />
@@ -56,6 +69,7 @@ export default function SidePanelTableActions({
     <ActionsWrapper>
       {!row.isDefault &&
         !row.inherited &&
+        showViewAction &&
         viewSubEntity && (
           <ActionButton
             className="dtpanel-action-view-item"
@@ -69,6 +83,7 @@ export default function SidePanelTableActions({
         )}
       {!row.isDefault &&
         !row.inherited &&
+        showUpdateAction &&
         updateSubEntity && (
           <ActionButton
             className="dtpanel-action-update-item"
@@ -82,6 +97,7 @@ export default function SidePanelTableActions({
         )}
       {!row.isDefault &&
         !row.inherited &&
+        showCopyAction &&
         copySubEntity && (
           <ActionButton
             className="dtpanel-action-copy-item"
@@ -95,6 +111,7 @@ export default function SidePanelTableActions({
         )}
       {!row.isDefault &&
         !row.inherited &&
+        showDeleteAction &&
         deleteSubEntity && (
           <ConfirmationWrapper
             confirmBtnCallback={
@@ -121,6 +138,7 @@ export default function SidePanelTableActions({
           </ConfirmationWrapper>
         )}
       {!row.isDefault &&
+        showAddAction &&
         addSubEntity && (
           <ActionButton
             className="dtpanel-action-add-item"
@@ -134,6 +152,7 @@ export default function SidePanelTableActions({
         )}
       {!row.isDefault &&
         !row.inherited &&
+        showToggleActiveAction &&
         toggleSubEntityActive && (
           <ConfirmationWrapper
             confirmBtnCallback={() => toggleSubEntityActive(row)}

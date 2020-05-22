@@ -2,6 +2,8 @@
 <div>
   <SidePanelTableActions
     row={{ key: 'Row 1' }}
+    shouldShowViewButtonOnItem={() => false}
+    viewSubEntity={() => alert('viewing')}
     updateSubEntity={() => alert('updateSubEntity')}
     deleteSubEntity={() => alert('deleteSubEntity')}
   />

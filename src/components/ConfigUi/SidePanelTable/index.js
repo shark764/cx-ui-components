@@ -115,6 +115,12 @@ function SidePanelTable(props) {
             copySubEntity={props.copySubEntity}
             toggleSubEntityActive={props.toggleSubEntityActive}
             itemApiPending={props.itemApiPending}
+            shouldShowAddButtonOnItem={props.shouldShowAddButtonOnItem}
+            shouldShowActiveToggleOnItem={props.shouldShowAddButtonOnItem}
+            shouldShowCopyButtonOnItem={props.shouldShowCopyButtonOnItem}
+            shouldShowDeleteButtonOnItem={props.shouldShowDeleteButtonOnItem}
+            shouldShowUpdateButtonOnItem={props.shouldShowUpdateButtonOnItem}
+            shouldShowViewButtonOnItem={props.shouldShowViewButtonOnItem}
           />
         ) : (
           <SidePanelTableActions
@@ -122,6 +128,7 @@ function SidePanelTable(props) {
             entityName={props.contains}
             viewSubEntity={props.viewSubEntity}
             itemApiPending={props.itemApiPending}
+
           />
         ),
       width: actions.length > 2 && props.userHasUpdatePermission ? 130 : 90,
@@ -176,6 +183,12 @@ SidePanelTable.propTypes = {
   filtered: PropTypes.array,
   itemApiPending: PropTypes.string,
   defaultSorted: PropTypes.any,
+  shouldShowViewButtonOnItem: PropTypes.func,
+  shouldShowUpdateButtonOnItem: PropTypes.func,
+  shouldShowDeleteButtonOnItem: PropTypes.func,
+  shouldShowCopyButtonOnItem: PropTypes.func,
+  shouldShowAddButtonOnItem: PropTypes.func,
+  shouldShowActiveToggleOnItem: PropTypes.func,
 };
 
 SidePanelTable.defaultProps = {

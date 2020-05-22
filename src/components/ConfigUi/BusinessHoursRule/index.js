@@ -21,7 +21,7 @@ const OutsideWrapper = styled.div`
     display: inline-block;
     border: 1px solid #E1E1E1;
     background-color: #F7F7F7;
-    min-width: 1482px;
+    min-width: 1484px;
     ${props =>
       props.disabled &&
       css`
@@ -58,7 +58,7 @@ const Content = styled.div`
 const Column = styled.div`
     display: inline-block;
     vertical-align: top;
-    width: auto;
+    min-width: ${props => props.isMiddleContainer ? '578px' : 'auto'};
     ${props => props.divider && `
       border-left: 1px solid #C6C6C6;
       margin-left: 20px;
@@ -100,6 +100,7 @@ const Name = styled.input`
 const Row = styled.div`
   margin-bottom: 16px;
   display: flex;
+  min-height: ${props => props.height ? `${props.height}px` : 'auto'};
 `;
 const Input = styled.input`
   width: ${props => props.width ? props.width : 'auto'};
@@ -359,11 +360,28 @@ export default class BusinessHoursRule extends React.Component{
   }
 
   handleRuleType = (e) => {
-    this.props.onChange({
-      id: this.props.rule.id,
-      ...this.props.rule,
-      type: e.target.value
-    });
+    if (e.target.value.includes('one-time')) {
+      this.props.onChange({
+        id: this.props.rule.id,
+        type: e.target.value,
+        name: this.props.rule.name,
+        description: this.props.rule.description,
+        startDate: this.props.rule.startDate,
+        hours: this.props.rule.hours,
+        repeats: 'none'
+      });
+      this.setState({
+        byDate: 'none'
+      })
+    } else {
+      const {repeats, ...ruleNoRepeat } = this.props.rule;
+      this.props.onChange({
+        id: this.props.rule.id,
+        ...ruleNoRepeat,
+        ...(repeats !== 'none' ? {repeats} : {}),
+        type: e.target.value
+      });
+  }
   }
 
   handleRuleDescription = (e) => {
@@ -378,9 +396,7 @@ export default class BusinessHoursRule extends React.Component{
     this.props.onChange({
       ...this.props.rule,
       id: this.props.rule.id,
-      repeats: e.target.value, 
-      every: undefined,
-      on: undefined
+      repeats: e.target.value
     });
   }
 
@@ -477,8 +493,7 @@ export default class BusinessHoursRule extends React.Component{
     if(e.target.value==='none'){
       this.props.onChange({
         ...this.props.rule,
-        id: this.props.rule.id,
-        endDate: undefined,      
+        id: this.props.rule.id   
       });
     }
   }
@@ -688,7 +703,7 @@ export default class BusinessHoursRule extends React.Component{
                     <option disabled hidden value="">
                       Select
                     </option>
-                    {types.map((ruleType) => 
+                    {types.map((ruleType) =>
                       <option 
                         key={ruleType.value} 
                         value={ruleType.value}
@@ -712,31 +727,45 @@ export default class BusinessHoursRule extends React.Component{
               />
             </Row>
           </Column>
-          <Column>
+          <Column
+            isMiddleContainer
+          >
             <Row>
               <Label htmlFor="repeats">Repeats</Label>
               <Select
                 name="repeats"
                 error={this.props.error && this.props.error.repeats}
                 compress
-                disabled={this.props.disabled}
+                disabled={this.props.disabled || (this.props.rule.type && this.props.rule.type.includes('one-time'))}
                 value={(this.props.rule && this.props.rule.repeats)||""}
                 onChange={this.handleRuleRepeats}>
                   <Fragment>
                     <option disabled hidden value="">
                       Select
                     </option>
-                    {repeats.map((ruleRepeat) => 
-                      <option 
-                        key={ruleRepeat.value} 
-                        value={ruleRepeat.value}>
-                          {ruleRepeat.label}
-                      </option>
+                    {repeats.map((ruleRepeat) =>
+                      <Fragment>
+                        <option 
+                          key={ruleRepeat.value} 
+                          value={ruleRepeat.value}>
+                            {ruleRepeat.label}
+                        </option>
+                        {this.props.rule.type && this.props.rule.type.includes('one-time') && 
+                          <option 
+                            key='none' 
+                            value='none'>
+                            None
+                          </option>
+                        }
+                      </Fragment>
                     )}
                   </Fragment>
               </Select>
-              <Label htmlFor="ruleRepeatsEvery" compress>Every</Label>
-              {(!this.props.rule || (this.props.rule && this.props.rule.repeats !== 'yearly')) && 
+              {(!this.props.rule.type || !this.props.rule.type.includes('one-time')) && 
+                <Label htmlFor="ruleRepeatsEvery" compress>Every</Label>}
+              {(!this.props.rule || 
+                (this.props.rule && this.props.rule.repeats !== 'yearly') && 
+                (!this.props.rule.type || !this.props.rule.type.includes('one-time'))) && 
                 <Input 
                   name="every"
                   error={this.props.error && this.props.error.every}
@@ -748,15 +777,19 @@ export default class BusinessHoursRule extends React.Component{
                 />
               }
               {this.props.rule && this.props.rule.repeats === 'daily' && 
+                (!this.props.rule.type || !this.props.rule.type.includes('one-time')) &&
                 <Label compress>day(s)</Label>
               }
-              {this.props.rule && this.props.rule.repeats === 'weekly' && 
+              {this.props.rule && this.props.rule.repeats === 'weekly' &&
+                (!this.props.rule.type || !this.props.rule.type.includes('one-time')) && 
                 <Label compress>week(s)</Label>
               }
-              {this.props.rule && this.props.rule.repeats === 'monthly' && 
+              {this.props.rule && this.props.rule.repeats === 'monthly' &&
+                (!this.props.rule.type || !this.props.rule.type.includes('one-time')) && 
                 <Label compress>month(s)</Label>
               }
-              {this.props.rule && this.props.rule.repeats === 'yearly' && (
+              {this.props.rule && this.props.rule.repeats === 'yearly' &&
+                (!this.props.rule.type || !this.props.rule.type.includes('one-time')) && (
                 <Select
                   name="every"
                   error={this.props.error && this.props.error.every}
@@ -781,9 +814,14 @@ export default class BusinessHoursRule extends React.Component{
                 </Select>
               )}
             </Row>
-            <Row>
-              <Label htmlFor="on">On</Label>
-              {(this.props.rule && this.props.rule.repeats !=='monthly' && this.props.rule.repeats !== 'yearly') && 
+            <Row
+              height={30}>
+              {(!this.props.rule.type || !this.props.rule.type.includes('one-time')) && 
+                (!this.props.rule.repeats || this.props.rule.repeats !== 'daily') &&
+                <Label htmlFor="on">On</Label>}
+              {(this.props.rule && this.props.rule.repeats !=='monthly' && this.props.rule.repeats !== 'yearly') &&
+                (!this.props.rule.type || !this.props.rule.type.includes('one-time')) &&
+                (!this.props.rule.repeats || this.props.rule.repeats !== 'daily') &&
                 <WeekdayPicker
                   id={this.props.rule && this.props.rule.id}
                   name="on"
@@ -796,7 +834,9 @@ export default class BusinessHoursRule extends React.Component{
                   activeDays={(this.props.rule && Array.isArray(this.props.rule.on) && this.props.rule.on)||[]} 
                 />
               }
-              {(!this.props.rule || (this.props.rule.repeats ==='monthly' || this.props.rule.repeats === 'yearly')) && (
+              {(!this.props.rule || (this.props.rule.repeats ==='monthly' || this.props.rule.repeats === 'yearly')) &&
+                (!this.props.rule.type || !this.props.rule.type.includes('one-time')) && 
+                (!this.props.rule.repeats || this.props.rule.repeats !== 'daily') && (
                 <Fragment>
                   <Select
                     name="onType"
@@ -901,6 +941,7 @@ export default class BusinessHoursRule extends React.Component{
                 <option value="none">None</option>
                 <option value="by">By</option>
               </Select>
+              {this.state.byDate !== 'none' &&
               <DatePicker
                 name="endDate"
                 placeholder={
@@ -924,7 +965,7 @@ export default class BusinessHoursRule extends React.Component{
                     (this.props.rule.type === 'one-time-extended-hours' || 
                     this.props.rule.type==='blackout-one-time-exceptions')))
                 }
-              />
+              />}
             </Row>
           </Column>
           <Column divider>
