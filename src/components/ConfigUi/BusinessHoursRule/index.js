@@ -869,7 +869,7 @@ export default class BusinessHoursRule extends React.Component{
                     typeof this.props.rule.on.value === 'string' && (this.props.rule.on === undefined || this.props.rule.on.type !== 'day' || this.isRelativeKeyword === undefined || this.isRelativeKeyword) &&
                     <Select
                       name="onValue"
-                      error={this.props.error && this.props.error.value}
+                      error={this.props.error && this.props.error.on && this.props.error.on.value}
                       compress
                       disabled={this.props.disabled || (!this.props.rule || !this.props.rule.on)}
                       value={(this.props.rule && 
@@ -898,7 +898,7 @@ export default class BusinessHoursRule extends React.Component{
                     <Input
                       type='number'
                       name="onValue"
-                      error={this.props.error && this.props.error.value}
+                      error={this.props.error && this.props.error.on && this.props.error.on.value}
                       disabled={this.props.disabled || (!this.props.rule || !this.props.rule.on || !this.props.rule.on.type)}
                       width="100px"
                       value={(this.props.rule && this.props.rule.on && this.props.rule.on.value)||""}
