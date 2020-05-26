@@ -845,7 +845,8 @@ export default class BusinessHoursRule extends React.Component{
                   <Select
                     name="onType"
                     error={this.props.error && this.props.error.on && 
-                      ((this.props.rule.on.type === 'day' && this.props.error.on.type) || this.props.error.on.value)}
+                      ((this.props.rule && this.props.rule.on && this.props.rule.on.type === 'day' && this.props.error.on.type) || 
+                      this.props.error.on.value)}
                     compress
                     value={(this.props.rule && 
                             this.props.rule.on &&
