@@ -396,7 +396,11 @@ export default class BusinessHoursRule extends React.Component{
     this.props.onChange({
       ...this.props.rule,
       id: this.props.rule.id,
-      repeats: e.target.value
+      repeats: e.target.value,
+      every: (e.target.value === 'yearly' || this.props.rule.repeats === 'yearly') 
+        && e.target.value !== this.props.rule.repeats ? 
+          undefined :
+          this.props.rule.every
     });
   }
 
@@ -840,7 +844,8 @@ export default class BusinessHoursRule extends React.Component{
                 <Fragment>
                   <Select
                     name="onType"
-                    error={this.props.error && this.props.error.on && this.props.error.on.type}
+                    error={this.props.error && this.props.error.on && 
+                      ((this.props.rule.on.type === 'day' && this.props.error.on.type) || this.props.error.on.value)}
                     compress
                     value={(this.props.rule && 
                             this.props.rule.on &&
@@ -869,7 +874,7 @@ export default class BusinessHoursRule extends React.Component{
                     typeof this.props.rule.on.value === 'string' && (this.props.rule.on === undefined || this.props.rule.on.type !== 'day' || this.isRelativeKeyword === undefined || this.isRelativeKeyword) &&
                     <Select
                       name="onValue"
-                      error={this.props.error && this.props.error.on && this.props.error.on.value}
+                      error={this.props.error && this.props.error.on && this.props.error.on.type}
                       compress
                       disabled={this.props.disabled || (!this.props.rule || !this.props.rule.on)}
                       value={(this.props.rule && 

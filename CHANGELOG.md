@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.61.4] - 2020-05-26
+- <no-jira> - Fixes to Business Hour Rule Component
+
 ## [0.61.3] - 2020-05-25
 - <no-jira> - Fixes to the "On" field of Business Hour Rule Component so it now accurately shows errors
 
