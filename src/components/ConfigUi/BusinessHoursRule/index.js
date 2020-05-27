@@ -397,7 +397,7 @@ export default class BusinessHoursRule extends React.Component{
       ...this.props.rule,
       id: this.props.rule.id,
       repeats: e.target.value,
-      every: (e.target.value === 'yearly' || this.props.rule.repeats === 'yearly') 
+      every: (e.target.value === 'yearly' || (this.props.rule && this.props.rule.repeats === 'yearly')) 
         && e.target.value !== this.props.rule.repeats ? 
           undefined :
           this.props.rule.every
@@ -408,7 +408,7 @@ export default class BusinessHoursRule extends React.Component{
     this.props.onChange({
       ...this.props.rule,
       id: this.props.rule.id,
-      every: e.target.value
+      every: !this.props.rule || this.props.rule.repeats !== 'yearly' ? parseInt(e.target.value, 10) : e.target.value,
     });
   }
 
@@ -424,7 +424,7 @@ export default class BusinessHoursRule extends React.Component{
         ...this.props.rule,
         id: this.props.rule.id,
         on: {
-              type: this.props.rule.on.value,
+              type: this.props.rule.on.type,
               value: e.target.value
             }
       });
