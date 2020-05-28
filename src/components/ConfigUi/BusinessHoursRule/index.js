@@ -497,7 +497,8 @@ export default class BusinessHoursRule extends React.Component{
     if(e.target.value==='none'){
       this.props.onChange({
         ...this.props.rule,
-        id: this.props.rule.id   
+        id: this.props.rule.id,
+        endDate: undefined,   
       });
     }
   }
