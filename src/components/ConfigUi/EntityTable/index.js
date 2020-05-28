@@ -315,7 +315,7 @@ class EntityTable extends Component {
       resizable: false,
       filterable: false,
       width: 40,
-      Cell: ({ row }) =>
+      Cell: ({ row }) => {
         /**
          * TODO:
          * Inherited entities shouldn't be included when
@@ -323,7 +323,8 @@ class EntityTable extends Component {
          * And checkbox should be disabled or not visible
          * to user.
          */
-        row._original.inherited ? (
+        const checkBoxNotAvailable = ((this.props.entityMetadata.entityName === 'tenants' && row._original.name.toLowerCase() === 'platform') || row._original.inherited);
+        return checkBoxNotAvailable ? (
           <div style={{ textAlign: 'center' }} title={`Not available`}>
             <span>-</span>
           </div>
@@ -341,7 +342,8 @@ class EntityTable extends Component {
                 data-automation={`${row._original.id}Checkbox`}
               />
             </CheckboxWrapper>
-          ),
+          )
+      }
     };
 
     return (

@@ -12,6 +12,7 @@ import FileUpload from '../../FileUpload';
 const Image = styled.img`
   margin-top: 20px;
   margin-bottom: 20px;
+  margin-left: 160px;
   max-width: 250px;
   height: auto;
 `;

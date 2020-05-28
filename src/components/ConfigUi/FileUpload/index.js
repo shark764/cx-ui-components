@@ -32,7 +32,6 @@ function FileUpload(props) {
     <Wrapper className={props.className}>
       <Label>{props.label ? props.label : 'Upload'}</Label>
       <input
-        id={props.id ? props.id : 'FileUpload'}
         className={props.className}
         type='file'
         name={props.name}
