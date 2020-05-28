@@ -301,7 +301,7 @@ const repeatsOnDay = [
   {label: 'Wednesday', value: 'wednesday'},
   {label: 'Thursday', value: 'thursday'},
   {label: 'Friday', value: 'friday'},
-  {label: 'Saturday', value: 'staruday'}
+  {label: 'Saturday', value: 'saturday'}
 ]
 const repeatsYearlyMonthsInterval = [
   {label: 'January', value: 'january'}, 
@@ -498,7 +498,7 @@ export default class BusinessHoursRule extends React.Component{
       this.props.onChange({
         ...this.props.rule,
         id: this.props.rule.id,
-        endDate: undefined,   
+        endDate: undefined
       });
     }
   }
