@@ -36,16 +36,21 @@ injectGlobal`
 `;
 
 class RootStyles extends React.Component {
-  render() {
-    let customTheme = defaultTheme;
 
-    if (this.props.theme && Object.keys(this.props.theme).length > 0) {
-      Object.keys(this.props.theme).forEach((key) => {
-        if (customTheme[key]) {
-          customTheme[key] = this.props.theme[key];
-        }
-      });
-    }
+  render() {
+    let customTheme = {...defaultTheme};
+
+    if (this.props.theme) {
+      if(Object.keys(this.props.theme).length === 0) {
+        customTheme = defaultTheme;
+      } else {
+        Object.keys(this.props.theme).forEach((key) => {
+          if (customTheme[key]) {
+            customTheme[key] = this.props.theme[key];
+          }
+        });
+      }
+    } 
 
     return <ThemeProvider key={JSON.stringify(customTheme)} theme={customTheme}>{this.props.children}</ThemeProvider>;
   }

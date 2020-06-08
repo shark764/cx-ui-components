@@ -4,8 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.61.10] - 2020-06-08
+- <no-jira> - Apply default theme branding values when tenant branding is updated.
+
 ## [0.61.9] - 2020-05-28
-- <no-jira> - Typo errors in business rule component. 
+- <no-jira> - Typo errors in business rule component.
 
 ## [0.61.8] - 2020-05-28
 - <no-jira> - Make platform tenant non editable in the entity table during bulk actions. 
