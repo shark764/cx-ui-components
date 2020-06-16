@@ -44,7 +44,6 @@ const ColorBox = styled.path`
 
 const ColorBoxSelectedPath = styled.path`
   stroke: ${props => {
-      console.log('******************* fill color *******************', props)
       return (props.fill === 'rgb(0, 0, 0)' || props.fill === 'rgb(0, 0, 255)') ? 'red;' : 'black;'}
   }
   stroke-width: 2;
