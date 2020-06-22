@@ -960,7 +960,7 @@ export default class BusinessHoursRule extends React.Component{
                 onClick={(e) => this.handleDate(e)} 
                 selectedDay={this.props.rule && this.props.rule.endDate}
                 customStyle={this.props.error && this.props.error.endDate ? datePickerErroredStyle : datePickerStyle}
-                minDate={this.props.rule && this.props.rule.startDate}
+                minDate={this.props.rule && this.props.rule.startDate && new Date(this.props.rule.startDate.getTime() + 86400000)}
                 localeTimeZone="us"
                 format="LL"
                 disabled={(

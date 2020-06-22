@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.61.12] - 2020-06-19
+- CXV1-22716 - Make the endDate field on the rule component to have a minimun selectable date of the rule's startDate plus one day
+
 ## [0.61.11] - 2020-06-16
 - <no-jira> - Mask the input field values with bullet points when maskValue prop is set to true.
 
