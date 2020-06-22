@@ -25,7 +25,7 @@ const Alert = styled.p`
 function DetailsPanelAlert(props) {
   return (
     <Alert data-automation="detailsPanelAlertText" id={props.id} className={props.className}>
-      {props.text}
+      {props.text} {props.boldText && <b>{props.boldText}</b>}
     </Alert>
   );
 }
@@ -34,7 +34,8 @@ DetailsPanelAlert.propTypes = {
   className: PropTypes.string,
   id: PropTypes.string,
   text: PropTypes.string.isRequired,
-  'data-automation': PropTypes.string,
+  boldText: PropTypes.string,
+  'data-automation': PropTypes.string
 };
 
 export default DetailsPanelAlert;

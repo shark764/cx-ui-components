@@ -326,9 +326,11 @@ export default class BusinessHoursRule extends React.Component{
       showMenu: false,
       byDate: props.rule.endDate ? 'by' : 'none',
       outsideClick: fromEvent(document, 'click')
+        // eslint-disable-next-line array-callback-return
         .map(({ target }) => {
           if (!this.props.viewOnly && this.props.showActions) {
             if (this.actionsMenuRef.current.contains(target)) {
+              // eslint-disable-next-line array-callback-return
               return;
             }
             this.setState({showMenu: false});
@@ -337,6 +339,7 @@ export default class BusinessHoursRule extends React.Component{
         .subscribe(),
     };
     this.actionsMenuRef = React.createRef();
+    // eslint-disable-next-line no-unused-expressions
     this.isRelativeKeyword;
   }
 
@@ -476,17 +479,18 @@ export default class BusinessHoursRule extends React.Component{
       ...this.props.rule,
       id: this.props.rule.id,
       on: { 
-            type:this.props.rule.on.type, 
-            value: parseInt(e.target.value) 
+            type: this.props.rule.on.type, 
+            value: parseInt(e.target.value, 10) 
           }
     });
   }
 
   handleDate = (e, isStartDate) => {
+    const selectedDate = isStartDate ? new Date(e.setHours(0, 0, 0)) : new Date(e.setHours(23, 59, 59));
     this.props.onChange({
       ...this.props.rule,
       id: this.props.rule.id,
-      [isStartDate ? 'startDate' : 'endDate']: e
+      [isStartDate ? 'startDate' : 'endDate']: selectedDate
     });
   }
 
@@ -494,7 +498,7 @@ export default class BusinessHoursRule extends React.Component{
     this.setState({
       byDate: e.target.value
     });
-    if(e.target.value==='none'){
+    if(e.target.value === 'none'){
       this.props.onChange({
         ...this.props.rule,
         id: this.props.rule.id,
@@ -769,8 +773,8 @@ export default class BusinessHoursRule extends React.Component{
               {(!this.props.rule.type || !this.props.rule.type.includes('one-time')) && 
                 <Label htmlFor="ruleRepeatsEvery" compress>Every</Label>}
               {(!this.props.rule || 
-                (this.props.rule && this.props.rule.repeats !== 'yearly') && 
-                (!this.props.rule.type || !this.props.rule.type.includes('one-time'))) && 
+                ((this.props.rule && this.props.rule.repeats !== 'yearly') && 
+                (!this.props.rule.type || !this.props.rule.type.includes('one-time')))) && 
                 <Input 
                   name="every"
                   error={this.props.error && this.props.error.every}
@@ -881,7 +885,7 @@ export default class BusinessHoursRule extends React.Component{
                       disabled={this.props.disabled || (!this.props.rule || !this.props.rule.on)}
                       value={(this.props.rule && 
                         this.props.rule.on && this.props.rule.on.value !== undefined && this.props.rule.on.type !== undefined &&
-                        (typeof this.props.rule.on.value === 'string' && this.props.rule.on.type || this.props.rule.on.value))
+                        (typeof this.props.rule.on.value === 'string' && (this.props.rule.on.type || this.props.rule.on.value)))
                     ||""}
                       onChange={this.handleRuleRepeaOnEveryDay}
                     >
@@ -952,10 +956,8 @@ export default class BusinessHoursRule extends React.Component{
               <DatePicker
                 name="endDate"
                 placeholder={
-                  (this.props.rule.type !== undefined && 
-                    (this.props.rule.type === 'one-time-extended-hours' || 
-                    this.props.rule.type==='blackout-one-time-exceptions') || '') ||
-                    (this.state.byDate !== undefined && this.state.byDate === 'none' || '')
+                  ((this.props.rule.type !== undefined && (this.props.rule.type === 'one-time-extended-hours' || this.props.rule.type==='blackout-one-time-exceptions')) || '') ||
+                    ((this.state.byDate !== undefined && this.state.byDate === 'none') || '')
                   }
                 onClick={(e) => this.handleDate(e)} 
                 selectedDay={this.props.rule && this.props.rule.endDate}
@@ -965,12 +967,12 @@ export default class BusinessHoursRule extends React.Component{
                 format="LL"
                 disabled={(
                   (this.props.disabled) ||
-                  (this.state.byDate==='none') || 
+                  (this.state.byDate === 'none') || 
                   (this.props.rule.startDate === undefined) || 
                   (this.props.rule && !this.props.rule.startDate) ||
                   (this.props.rule.type !== undefined && 
                     (this.props.rule.type === 'one-time-extended-hours' || 
-                    this.props.rule.type==='blackout-one-time-exceptions')))
+                    this.props.rule.type === 'blackout-one-time-exceptions')))
                 }
               />}
             </Row>
