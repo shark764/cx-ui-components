@@ -96,7 +96,7 @@ function SidePanelTable(props) {
     props.addSubEntity,
     props.copySubEntity,
   ].filter(a => a !== undefined);
-  if (actions.length && (props.userHasUpdatePermission || props.userHasViewPermission) && (!props.inherited || props.shouldShowInheritedViewButtonOnItem)) {
+  if (actions.length && (((props.userHasUpdatePermission || props.userHasViewPermission) && !props.inherited) || (props.inherited || props.showInheritedViewOnlyViewButtonOnItem || props.showInheritedViewOnlyCopyButtonOnItem))) {
     columns.push({
       id: 'actions',
       Header: <span title="Actions">Actions</span>,
@@ -121,7 +121,8 @@ function SidePanelTable(props) {
             shouldShowDeleteButtonOnItem={props.shouldShowDeleteButtonOnItem}
             shouldShowUpdateButtonOnItem={props.shouldShowUpdateButtonOnItem}
             shouldShowViewButtonOnItem={props.shouldShowViewButtonOnItem}
-            shouldShowInheritedViewButtonOnItem={props.shouldShowInheritedViewButtonOnItem}
+            showInheritedViewOnlyViewButtonOnItem={props.showInheritedViewOnlyViewButtonOnItem}
+            showInheritedViewOnlyCopyButtonOnItem={props.showInheritedViewOnlyCopyButtonOnItem}
             isMainEntityInherited={props.inherited}
           />
         ) : (
@@ -191,7 +192,8 @@ SidePanelTable.propTypes = {
   shouldShowCopyButtonOnItem: PropTypes.func,
   shouldShowAddButtonOnItem: PropTypes.func,
   shouldShowActiveToggleOnItem: PropTypes.func,
-  shouldShowInheritedViewButtonOnItem: PropTypes.bool
+  showInheritedViewOnlyViewButtonOnItem: PropTypes.bool,
+  showInheritedViewOnlyCopyButtonOnItem: PropTypes.bool
 };
 
 SidePanelTable.defaultProps = {

@@ -54,10 +54,12 @@ export default function SidePanelTableActions({
   shouldShowCopyButtonOnItem,
   shouldShowAddButtonOnItem,
   shouldShowActiveToggleOnItem,
-  shouldShowInheritedViewButtonOnItem
+  showInheritedViewOnlyViewButtonOnItem,
+  showInheritedViewOnlyCopyButtonOnItem
 }) {
   const showViewAction = !shouldShowViewButtonOnItem || shouldShowViewButtonOnItem(row);
-  const showInheritedViewAction = shouldShowInheritedViewButtonOnItem;
+  const showInheritedViewOnlyViewAction = showInheritedViewOnlyViewButtonOnItem;
+  const showInheritedViewOnlyCopyAction = showInheritedViewOnlyCopyButtonOnItem;
   const showUpdateAction = !shouldShowUpdateButtonOnItem || shouldShowUpdateButtonOnItem(row);
   const showDeleteAction = !shouldShowDeleteButtonOnItem || shouldShowDeleteButtonOnItem(row);
   const showCopyAction = !shouldShowCopyButtonOnItem || shouldShowCopyButtonOnItem(row);
@@ -72,7 +74,7 @@ export default function SidePanelTableActions({
     <ActionsWrapper>
       {!row.isDefault &&
         !row.inherited &&
-        (!isMainEntityInherited || showInheritedViewAction) &&
+        (!isMainEntityInherited || showInheritedViewOnlyViewAction) &&
         showViewAction &&
         viewSubEntity && (
           <ActionButton
@@ -102,7 +104,7 @@ export default function SidePanelTableActions({
         )}
       {!row.isDefault &&
         !row.inherited &&
-        !isMainEntityInherited &&
+        (!isMainEntityInherited || showInheritedViewOnlyCopyAction) &&
         showCopyAction &&
         copySubEntity && (
           <ActionButton
@@ -198,5 +200,6 @@ SidePanelTableActions.propTypes = {
   addSubEntity: PropTypes.func,
   toggleSubEntityActive: PropTypes.func,
   itemApiPending: PropTypes.string,
-  shouldShowInheritedViewButtonOnItem: PropTypes.bool
+  showInheritedViewOnlyViewButtonOnItem: PropTypes.bool,
+  showInheritedViewOnlyCopyButtonOnItem: PropTypes.bool
 };
