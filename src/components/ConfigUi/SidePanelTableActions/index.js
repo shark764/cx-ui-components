@@ -47,20 +47,23 @@ export default function SidePanelTableActions({
   copySubEntity,
   toggleSubEntityActive,
   itemApiPending,
+  isMainEntityInherited,
   shouldShowViewButtonOnItem,
   shouldShowUpdateButtonOnItem,
   shouldShowDeleteButtonOnItem,
   shouldShowCopyButtonOnItem,
   shouldShowAddButtonOnItem,
   shouldShowActiveToggleOnItem,
+  shouldShowInheritedViewButtonOnItem
 }) {
   const showViewAction = !shouldShowViewButtonOnItem || shouldShowViewButtonOnItem(row);
+  const showInheritedViewAction = shouldShowInheritedViewButtonOnItem;
   const showUpdateAction = !shouldShowUpdateButtonOnItem || shouldShowUpdateButtonOnItem(row);
   const showDeleteAction = !shouldShowDeleteButtonOnItem || shouldShowDeleteButtonOnItem(row);
   const showCopyAction = !shouldShowCopyButtonOnItem || shouldShowCopyButtonOnItem(row);
   const showAddAction = !shouldShowAddButtonOnItem || shouldShowAddButtonOnItem(row);
   const showToggleActiveAction = !shouldShowActiveToggleOnItem || shouldShowActiveToggleOnItem(row);
-
+  
   return itemApiPending && (row.id === itemApiPending || row.key === itemApiPending) ? (
     <RightAlign>
       <LoadingSpinner size={28} />
@@ -69,6 +72,7 @@ export default function SidePanelTableActions({
     <ActionsWrapper>
       {!row.isDefault &&
         !row.inherited &&
+        (!isMainEntityInherited || showInheritedViewAction) &&
         showViewAction &&
         viewSubEntity && (
           <ActionButton
@@ -83,6 +87,7 @@ export default function SidePanelTableActions({
         )}
       {!row.isDefault &&
         !row.inherited &&
+        !isMainEntityInherited &&
         showUpdateAction &&
         updateSubEntity && (
           <ActionButton
@@ -97,6 +102,7 @@ export default function SidePanelTableActions({
         )}
       {!row.isDefault &&
         !row.inherited &&
+        !isMainEntityInherited &&
         showCopyAction &&
         copySubEntity && (
           <ActionButton
@@ -111,6 +117,7 @@ export default function SidePanelTableActions({
         )}
       {!row.isDefault &&
         !row.inherited &&
+        !isMainEntityInherited &&
         showDeleteAction &&
         deleteSubEntity && (
           <ConfirmationWrapper
@@ -152,6 +159,7 @@ export default function SidePanelTableActions({
         )}
       {!row.isDefault &&
         !row.inherited &&
+        !isMainEntityInherited &&
         showToggleActiveAction &&
         toggleSubEntityActive && (
           <ConfirmationWrapper
@@ -180,6 +188,7 @@ SidePanelTableActions.propTypes = {
     key: PropTypes.string,
     deleting: PropTypes.bool,
   }).isRequired,
+  isMainEntityInherited: PropTypes.bool,
   entityName: PropTypes.string,
   viewSubEntity: PropTypes.func,
   updateSubEntity: PropTypes.func,
@@ -189,4 +198,5 @@ SidePanelTableActions.propTypes = {
   addSubEntity: PropTypes.func,
   toggleSubEntityActive: PropTypes.func,
   itemApiPending: PropTypes.string,
+  shouldShowInheritedViewButtonOnItem: PropTypes.bool
 };

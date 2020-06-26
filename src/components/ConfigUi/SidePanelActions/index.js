@@ -39,33 +39,37 @@ function SidePanelActions(props) {
         mainText={`This bulk action will affect ${props.bulkItemsAffected} items`}
         secondaryText="Do you want to continue?"
       >
-        <SlimButton
-          type="submit"
-          buttonType="primary"
-          data-automation="sdpanelSubmitButton"
-          disabled={props.isSaving || props.isBulkUpdating || props.pristine || props.invalid}
-          onClick={props.selectedEntityId !== 'bulk' ? props.onSubmit : undefined}
-          id="sdpanel-submit"
-        >
-          {!props.save && (props.isSaving ? 'Saving' : 'Submit')}
-          {props.save && 'Save'}
-        </SlimButton>
+        {!props.hideSubmit && 
+          <SlimButton
+            type="submit"
+            buttonType="primary"
+            data-automation="sdpanelSubmitButton"
+            disabled={props.isSaving || props.isBulkUpdating || props.pristine || props.invalid}
+            onClick={props.selectedEntityId !== 'bulk' ? props.onSubmit : undefined}
+            id="sdpanel-submit"
+          >
+            {!props.save && (props.isSaving ? 'Saving' : 'Submit')}
+            {props.save && 'Save'}
+          </SlimButton>
+        }
       </CancelConfirmationWrapper>
       <CancelConfirmationWrapper
         confirmBtnCallback={props.dirty ? props.onCancel : undefined}
         mainText="You have unsaved changes that will be lost!."
         secondaryText="Click Confirm to discard changes, or Cancel to continue editing."
       >
-        <SlimButton
-          type="button"
-          buttonType="secondary"
-          onClick={!props.dirty ? props.onCancel : undefined}
-          id="sdpanel-cancel"
-          data-automation="sdpanelCancelButton"
-          disabled={props.isSaving || props.isBulkUpdating}
-        >
-          Cancel
-        </SlimButton>
+        {!props.hideCancel && 
+          <SlimButton
+            type="button"
+            buttonType="secondary"
+            onClick={!props.dirty ? props.onCancel : undefined}
+            id="sdpanel-cancel"
+            data-automation="sdpanelCancelButton"
+            disabled={props.isSaving || props.isBulkUpdating}
+          >
+            Cancel
+          </SlimButton>
+        }
       </CancelConfirmationWrapper>
     </div>
   );
@@ -84,11 +88,15 @@ SidePanelActions.propTypes = {
   save: PropTypes.bool,
   selectedEntityId: PropTypes.string,
   bulkItemsAffected: PropTypes.number,
+  hideSubmit: PropTypes.bool,
+  hideCancel: PropTypes.bool
 };
 
 SidePanelActions.defaultProps = {
   selectedEntityId: '',
   bulkItemsAffected: 0,
+  hideSubmit: false,
+  hideCancel: false
 };
 
 export default SidePanelActions;
