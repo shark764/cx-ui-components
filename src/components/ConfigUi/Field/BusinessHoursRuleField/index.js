@@ -8,14 +8,15 @@ import BusinessHoursRule from '../../../ConfigUi/BusinessHoursRule';
 const BusinessHours = props => {
   const {
     input,
-    actions,
+    customActions,
+    deleteAction,
+    copyAction,
     cancel,
-    saveException,
     onSave,
     showActions,
     disabled,
     viewOnly,
-    meta: { touched, error: {errorMessage, ...errorObj} = {}, warning, error },
+    meta: { touched, error: {errorMessage, ...errorObj} = {}, warning, error, dirty },
   } = props;
   const fieldWrapperProps = {
     input: input.name,
@@ -33,9 +34,11 @@ const BusinessHours = props => {
           input.onBlur();
         }}
         rule={input.value}
-        actions={actions}
+        customActions={customActions}
         cancel={cancel}
-        saveException={!!error ? false : saveException}
+        deleteAction={deleteAction}
+        copyAction={dirty && !error && copyAction}
+        saveException={!error && dirty}
         onSave={onSave}
         showActions={showActions}
         disabled={disabled}

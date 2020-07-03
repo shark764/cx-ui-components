@@ -236,8 +236,8 @@ const CancelButton = styled(Button)`
 `;
 const SaveButton = styled(Button)`
   max-width: 85px;
-  font-size: 12px;
-  padding: 3px 15px !important;
+  font-size: 14px;
+  padding: 2px 15px !important;
   &:disabled {
     cursor: not-allowed;
   }
@@ -622,6 +622,8 @@ export default class BusinessHoursRule extends React.Component{
       boxShadow: 'rgba(0, 0, 0, 0.2) 0px 1px 2px inset, rgba(0, 0, 0, 0.05) 0px -1px 0px inset'
     };
 
+    const isCustomActionsObjectValid = this.props.customActions && Object.keys(this.props.customActions).length > 0;
+
     return (
       <OutsideWrapper disabled={this.props.disabled}>
         <TopBar disabled={this.props.disabled}>
@@ -666,11 +668,11 @@ export default class BusinessHoursRule extends React.Component{
                   disabled={this.props.disabled || !this.props.saveException} //  Prop that validates if the form has all required fields in parent to save the rule
                   onClick={this.handleSaveException}
                 >
-                  Save Exception
+                  Add Rule
                 </SaveButton>
               </Fragment>
             }
-            {!this.props.viewOnly && this.props.showActions && 
+            {!this.props.viewOnly && this.props.showActions && (this.props.copyAction || this.props.deleteAction || isCustomActionsObjectValid) &&
               <Fragment>
                 <img
                   onClick={this.showMenu} 
@@ -680,18 +682,39 @@ export default class BusinessHoursRule extends React.Component{
                 />
                   {this.state.showMenu ? (
                   <Actions>
-                    {Object.entries(this.props.actions).map(([label, f]) =>
-                      <Fragment>
-                        <ActionItem
-                          key={`${this.props.rule ? this.props.rule.id : label}`}
-                          onClick={(e) => {
-                            f(this.props.rule);
-                            this.showMenu(e);
-                          }}
-                        >
-                          {label}
-                        </ActionItem>
-                      </Fragment>
+                    {this.props.deleteAction && 
+                      <ActionItem
+                        key='deleteAction'
+                        onClick={(e) => {
+                          this.props.deleteAction(this.props.rule)
+                          this.showMenu(e);
+                        }}
+                      >
+                        Delete
+                      </ActionItem>}
+                    {this.props.copyAction && 
+                      <ActionItem
+                        key='copyAction'
+                        onClick={(e) => {
+                          this.props.copyAction(this.props.rule)
+                          this.showMenu(e);
+                        }}
+                      >
+                        Copy
+                      </ActionItem>}
+                    {isCustomActionsObjectValid && 
+                      Object.entries(this.props.customActions).map(([label, f]) =>
+                        <Fragment>
+                          <ActionItem
+                            key={label}
+                            onClick={(e) => {
+                              f(this.props.rule);
+                              this.showMenu(e);
+                            }}
+                          >
+                            {label}
+                          </ActionItem>
+                        </Fragment>
                     )}
                   </Actions>) : (null)}
               </Fragment>
@@ -1082,12 +1105,14 @@ export default class BusinessHoursRule extends React.Component{
 BusinessHoursRule.propTypes = {
   onChange: PropTypes.func.isRequired,
   rule: PropTypes.object.isRequired,
-  actions: PropTypes.object,
+  customActions: PropTypes.object,
   cancel: PropTypes.func,
   saveException: PropTypes.bool,
   onSave: PropTypes.func,
   showActions: PropTypes.bool,
   viewOnly: PropTypes.bool,
   disabled: PropTypes.bool,
-  error: PropTypes.object
+  error: PropTypes.object,
+  copyAction: PropTypes.func,
+  deleteAction: PropTypes.func
 }
