@@ -37,7 +37,7 @@ const BusinessHours = props => {
         customActions={customActions}
         cancel={cancel}
         deleteAction={deleteAction}
-        copyAction={dirty && !error && copyAction}
+        copyAction={!error && copyAction}
         saveException={!error && dirty}
         onSave={onSave}
         showActions={showActions}
