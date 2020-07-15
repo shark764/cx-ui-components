@@ -109,7 +109,7 @@ const Table = styled(ReactTable)`
         background-color: ${props.theme.accentHoverColor} !important;
       }
     }
-
+    ${props.customColumnStyle}
     .EntityTable,
     .SidePanelTable {
       .pagination-bottom button {
@@ -442,6 +442,7 @@ class EntityTable extends Component {
           getTrProps={this.getTableRowProps}
           minRows={0}
           emptyRowsWhenPaging={false}
+          customColumnStyle={this.props.customColumnStyle}
         />
 
         {this.state.showWarning && (
@@ -493,6 +494,7 @@ EntityTable.propTypes = {
   selectedEntityId: PropTypes.string,
   pristine: PropTypes.bool,
   dirty: PropTypes.bool,
+  customColumnStyle: PropTypes.string,
 };
 
 export default withRouter(EntityTable);
