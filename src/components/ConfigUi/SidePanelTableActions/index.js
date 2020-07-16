@@ -65,7 +65,6 @@ export default function SidePanelTableActions({
   const showCopyAction = !shouldShowCopyButtonOnItem || shouldShowCopyButtonOnItem(row);
   const showAddAction = !shouldShowAddButtonOnItem || shouldShowAddButtonOnItem(row);
   const showToggleActiveAction = !shouldShowActiveToggleOnItem || shouldShowActiveToggleOnItem(row);
-  
   return itemApiPending && (row.id === itemApiPending || row.key === itemApiPending) ? (
     <RightAlign>
       <LoadingSpinner size={28} />
@@ -80,6 +79,7 @@ export default function SidePanelTableActions({
           <ActionButton
             className="dtpanel-action-view-item"
             data-automation="dtpanelActionViewItem"
+            hyperLink={row.viewSubEntityHyperLink}
             title={!row.viewing ? `View` : `row.viewing ${row.key || row.name}`}
             onClick={() => viewSubEntity(row.key || row.id || row.version, row, entityName)}
             disabled={row.viewing}
@@ -95,6 +95,7 @@ export default function SidePanelTableActions({
           <ActionButton
             className="dtpanel-action-update-item"
             data-automation="dtpanelActionUpdateItem"
+            hyperLink={row.updateSubEntityHyperLink}
             title={!row.deleting ? `Update` : undefined}
             onClick={() => updateSubEntity(row.key || row.id || row.version, row, entityName)}
             disabled={row.deleting}
@@ -201,5 +202,11 @@ SidePanelTableActions.propTypes = {
   toggleSubEntityActive: PropTypes.func,
   itemApiPending: PropTypes.string,
   showInheritedViewOnlyViewButtonOnItem: PropTypes.bool,
-  showInheritedViewOnlyCopyButtonOnItem: PropTypes.bool
+  showInheritedViewOnlyCopyButtonOnItem: PropTypes.bool,
+  shouldShowViewButtonOnItem: PropTypes.func,
+  shouldShowUpdateButtonOnItem: PropTypes.func,
+  shouldShowDeleteButtonOnItem: PropTypes.func,
+  shouldShowCopyButtonOnItem: PropTypes.func,
+  shouldShowAddButtonOnItem: PropTypes.func,
+  shouldShowActiveToggleOnItem: PropTypes.func
 };

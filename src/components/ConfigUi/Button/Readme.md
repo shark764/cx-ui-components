@@ -28,5 +28,11 @@ const StyleGuideSpacerDiv = require('../../../utils/StyleGuideSpacer.js');
   <Button buttonType="columnFilter" onClick={() => alert('Column Filter clicked')}>
     Column filter button
   </Button>
+
+  <StyleGuideSpacerDiv />
+
+  <Button buttonType="primary" onClick={() => alert('Primary Button clicked')} hyperLink='https://dev-config.cxengagelabs.net/#/'>
+    Button with Hyperlink
+  </Button>
 </div>;
 ```

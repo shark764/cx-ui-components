@@ -87,21 +87,33 @@ const StyledButton = styled.button`
     `}
 `;
 
+const HyperlinkWrapper = ({ hasHyperLink, wrapper, children }) => 
+  hasHyperLink ? wrapper(children) : children;
+
 function Button(props) {
   return (
-    <StyledButton
-      id={props.id}
-      data-automation={props['data-automation']}
-      className={props.className}
-      buttonType={props.buttonType}
-      type={props.type}
-      disabled={props.disabled}
-      title={props.title}
-      onClick={props.onClick}
-      onMouseDown={props.onMouseDown}
+    <HyperlinkWrapper
+      hasHyperLink={props.hyperLink}
+      wrapper={children => 
+        <a href={props.hyperLink} onClick={(e) => e.preventDefault()}>
+          {children}
+        </a>
+      }
     >
-      {props.children}
-    </StyledButton>
+      <StyledButton
+        id={props.id}
+        data-automation={props['data-automation']}
+        className={props.className}
+        buttonType={props.buttonType}
+        type={props.type}
+        disabled={props.disabled}
+        title={props.title}
+        onClick={props.onClick}
+        onMouseDown={props.onMouseDown}
+      >
+        {props.children}
+      </StyledButton>
+    </HyperlinkWrapper>
   );
 }
 
@@ -121,6 +133,7 @@ Button.propTypes = {
   children: PropTypes.any,
   onClick: PropTypes.func,
   onMouseDown: PropTypes.func,
+  hyperLink: PropTypes.string
 };
 
 Button.defaultProps = {
