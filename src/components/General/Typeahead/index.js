@@ -58,7 +58,8 @@ const Item = styled.div`
   white-space: nowrap;
   overflow-x: hidden;
   text-overflow: ellipsis;
-  ${props => (props.isActiveSuggestion ? `background: #00dfff7d !important;` : '')} &:hover {
+  ${props => (props.isActiveSuggestion ? `background: #00487e !important; color: #fff;` : '')} &:hover {
+    color: #000;
     background: #00dfff7d !important;
   }
 `;

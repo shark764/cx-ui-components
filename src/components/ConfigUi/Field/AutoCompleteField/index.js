@@ -51,7 +51,7 @@ const SuggestionItem = styled.li`
 
   &.suggestion-active {
     color: #fff;
-    background-color: #0097cf;
+    background-color: #00487e;
   }
 `;
 
@@ -238,7 +238,7 @@ class AutoCompleteInput extends Component {
               >
                 {filteredSuggestions.map((suggestion, index) => (
                   <SuggestionItem
-                    className={index === activeSuggestion ? 'suggestion-active' : 'suggestion'}
+                    className={value.length > 1 && index === activeSuggestion ? 'suggestion-active' : 'suggestion'}
                     key={suggestion}
                     onMouseDown={onMouseDown}
                     title={suggestion}
