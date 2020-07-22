@@ -66,8 +66,6 @@ injectGlobal`${importantCss(`
 
   .EntityTable .rt-tbody .rt-tr-group {
     border: none;
-    height: 40px;
-    max-height: 40px;
 
     &:hover {
       background-color: #e6f5ff;
@@ -103,13 +101,13 @@ const Header = styled(PageHeader)`
 const Table = styled(ReactTable)`
   grid-area: table;
   height: 90vh;
+  ${props=> props.customColumnStyle}
   ${props => injectGlobal`
     .EntityTable .rt-tbody .rt-tr-group {
       :hover {
         background-color: ${props.theme.accentHoverColor} !important;
       }
     }
-    ${props.customColumnStyle}
     .EntityTable,
     .SidePanelTable {
       .pagination-bottom button {
