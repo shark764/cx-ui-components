@@ -25,6 +25,7 @@ const SelectInput = props => {
     meta: { touched, error, warning },
     required,
     handleChange,
+    labelWidth
   } = props;
 
   const inputProps = {
@@ -37,8 +38,17 @@ const SelectInput = props => {
     ...(typeof handleChange === 'function' && { onChange: handleChange }),
   };
 
+  const fieldWrapperProps = {
+    input: input.name,
+    label,
+    touched,
+    error,
+    warning,
+    labelWidth
+  };
+
   return (
-    <FieldWrapper inputName={input.name} label={label} touched={touched} error={error} warning={warning}>
+    <FieldWrapper {...fieldWrapperProps}>
       <Select {...inputProps} data-automation={props['data-automation']} hasError={touched && !!error}>
         {options ? (
           <Fragment>
@@ -127,4 +137,5 @@ SelectInput.propTypes = {
   ]),
   required: PropTypes.bool,
   handleChange: PropTypes.func,
+  labelWidth: PropTypes.string,
 };

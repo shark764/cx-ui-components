@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.61.23] - 2020-07-29
+### Changed
+- <no-jira> - Add labelWidth prop to InputField, SelectField.
+- <no-Jira> - Add allowCreateListItem custom element to TransferListField component.
+
 ## [0.61.22] - 2020-07-21
 ### Changed
 - <no-jira> - Fix display problem when switch from contact attribute to other pages.

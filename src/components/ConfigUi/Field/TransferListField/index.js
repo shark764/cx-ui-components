@@ -16,6 +16,7 @@ import styled from 'styled-components';
 import { List } from 'immutable';
 import { camelCaseToRegularFormAndRemoveLastLetter } from 'serenova-js-utils/strings';
 import Button from '../../Button';
+import PlusIconSVG from '../../../Icons/PlusIconSVG';
 import EditIconSVG from '../../../Icons/EditIconSVG';
 import CloseIconSVG from '../../../Icons/CloseIconSVG';
 import LoadingSpinnerSVG from '../../../Icons/LoadingSpinnerSVG';
@@ -70,7 +71,6 @@ const CategoryGripIcon = styled.div`
 `;
 const HierarchyName = styled.div`
   flex: 90 0;
-  padding: 10px;
   color: #656565;
   font-weight: 600;
   overflow: hidden;
@@ -80,7 +80,7 @@ const HierarchyName = styled.div`
 const HeaderActionsWrapper = styled.div`
   display: flex;
   flex-direction: row;
-  flex-grow: 280;
+  flex-grow: 1;
   padding: 10px;
   margin-left: auto;
 `;
@@ -275,6 +275,24 @@ class TransferListInput extends Component {
                             <HierarchyName title={category.get('hierarchy')}>{category.get('hierarchy')}</HierarchyName>
                             {this.props.userHasUpdatePermission && (
                               <HeaderActionsWrapper>
+                                {this.props.allowCreateListItem && (
+                                  <ActionButton
+                                    className="dtpanel-action-add-item"
+                                    data-automation="createListItemButton"
+                                    title={`Create a List Item under : ${category.get('hierarchy')}`}
+                                    onClick={() =>
+                                      this.props.setSelectedSubEntityId(`createListItem:${category.get('categoryUUID')}`)
+                                    }
+                                    disabled={!this.props.userHasUpdatePermission}
+                                    type="button"
+                                  >
+                                    <PlusIconSVG
+                                      size={10}
+                                      editIconType="primary"
+                                      disabled={!this.props.userHasUpdatePermission}
+                                    />
+                                  </ActionButton>
+                                )}
                                 {this.props.allowUpdateCategory && (
                                   <ActionButton
                                     className="dtpanel-action-update-item"
@@ -528,4 +546,5 @@ TransferListInput.propTypes = {
   touched: PropTypes.bool,
   error: PropTypes.string,
   warning: PropTypes.string,
+  allowCreateListItem: PropTypes.bool,
 };

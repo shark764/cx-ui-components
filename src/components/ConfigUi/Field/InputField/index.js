@@ -32,6 +32,7 @@ export const RenderField = props => {
     disabled,
     onFocus,
     hideLabel,
+    labelWidth,
     meta: { touched, error, warning },
   } = props;
 
@@ -61,6 +62,7 @@ export const RenderField = props => {
     error,
     warning,
     hideLabel,
+    labelWidth,
   };
 
   if (componentType === 'input') {
@@ -149,5 +151,6 @@ RenderField.propTypes = {
   disabled: PropTypes.bool,
   meta: PropTypes.object,
   type: PropTypes.string,
+  labelWidth: PropTypes.string,
   componentType: PropTypes.oneOf(['input', 'textarea']),
 };
