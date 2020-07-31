@@ -295,6 +295,7 @@ class EntityTable extends Component {
   }
 
   render() {
+    const bulkChangeItems = this.props.items.filter(item => item.bulkChangeItem);
     const bulkColumn = {
       id: 'bulkId',
       // Changing filter behavior for header toggle to
@@ -386,6 +387,7 @@ class EntityTable extends Component {
                 buttonType="columnFilter"
                 id="table-items-actions-unselect-all-visible"
                 data-automation="unselectAllVisibleButton"
+                disabled={!bulkChangeItems.length}
                 onClick={this.unselectAllVisible}
               >
                 Unselect All Visible
@@ -405,6 +407,7 @@ class EntityTable extends Component {
                 buttonType="columnFilter"
                 id="table-items-actions-unselect-all"
                 data-automation="unselectAllButton"
+                disabled={!bulkChangeItems.length}
                 onClick={this.unselectAll}
               >
                 Unselect All
@@ -493,6 +496,10 @@ EntityTable.propTypes = {
   pristine: PropTypes.bool,
   dirty: PropTypes.bool,
   customColumnStyle: PropTypes.string,
+};
+
+EntityTable.defaultProps = {
+  items: []
 };
 
 export default withRouter(EntityTable);
