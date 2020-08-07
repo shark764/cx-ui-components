@@ -161,6 +161,22 @@ const ActionButton = styled(Button)`
   margin: 5px auto;
 `;
 
+const LoadingWrapper = styled.div`
+  position: absolute;
+  left: 50%;
+  bottom: 50%
+`;
+
+const LoadingComponent = props => {
+  return (
+    props.loading && (
+      <LoadingWrapper>
+        <LoadingSpinner size={60} />
+      </LoadingWrapper>
+    )
+  )
+};
+
 class EntityTable extends Component {
   constructor(props) {
     super(props);
@@ -418,10 +434,12 @@ class EntityTable extends Component {
         </Header>
 
         <Table
+          loading={this.props.fetching}
+          LoadingComponent={LoadingComponent}
           PaginationComponent={Pagination}
           innerRef={r => (this.selectTable = r)}
-          data={this.props.items}
-          noDataText={this.props.fetching ? <LoadingSpinner size={60} /> : 'No results found'}
+          data={this.props.fetching ? [] : this.props.items}
+          noDataText={this.props.fetching ? '' : 'No results found'}
           columns={
             this.props.entityMetadata &&
               this.props.entityMetadata.entityName &&
