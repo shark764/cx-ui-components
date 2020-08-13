@@ -19,6 +19,51 @@ const Textarea = Input.withComponent('textarea').extend`
   padding-top: 10px;
 `;
 
+
+
+const parseNumber = value => {
+  if (value === '') {
+    return null;
+  } else {
+    return parseFloat(value);
+  }
+};
+
+export default function InputField(props) {
+
+  const parseValue = value => {
+    if(value !== undefined) {
+      return props.maskValue ? value.replace(/^\s+/g, '').replace(/./g, '\u2022') : value.replace(/^\s+/g, '');
+    } else {
+      return value;
+    }
+  }
+
+  if (props.dataType === 'number') {
+    return <ReduxFormField {...props} component={RenderField} type="number" parse={parseNumber} />;
+  } 
+  else if (props.dataType === 'password') {
+    return (
+      <ReduxFormField
+        {...props}
+        component={RenderField}
+        type="password"
+        parse={value => (value !== undefined ? value.replace(/^\s+/g, '') : value)}
+      />
+    );
+  } else {
+    return (
+      <ReduxFormField
+        {...props}
+        component={RenderField}
+        parse={parseValue}
+      />
+    );
+    // The above regex prevents user from putting whitespace at the beginning of the input
+    // It also prevents the user from only putting whitespace in the input
+  }
+}
+
 export const RenderField = props => {
   const {
     input,
@@ -33,6 +78,7 @@ export const RenderField = props => {
     onFocus,
     hideLabel,
     labelWidth,
+    autoComplete,
     meta: { touched, error, warning },
   } = props;
 
@@ -66,7 +112,7 @@ export const RenderField = props => {
   };
 
   if (componentType === 'input') {
-    inputElement = <Input {...input} {...inputProps} hasError={touched && !!error} />;
+    inputElement = <Input {...input} {...inputProps} hasError={touched && !!error} autoComplete={autoComplete} />;
   } else if (componentType === 'textarea') {
     inputElement = <Textarea {...input} {...textareaProps} hasError={touched && !!error} />;
   }
@@ -76,48 +122,6 @@ export const RenderField = props => {
     </FieldWrapper>
   );
 };
-
-const parseNumber = value => {
-  if (value === '') {
-    return null;
-  } else {
-    return parseFloat(value);
-  }
-};
-
-export default function InputField(props) {
-
-  const parseValue = value => {
-    if(value !== undefined) {
-      return props.maskValue ? value.replace(/^\s+/g, '').replace(/./g, '\u2022') : value.replace(/^\s+/g, '');
-    } else {
-      return value;
-    }
-  }
-
-  if (props.dataType === 'number') {
-    return <ReduxFormField {...props} component={RenderField} type="number" parse={parseNumber} />;
-  } else if (props.dataType === 'password') {
-    return (
-      <ReduxFormField
-        {...props}
-        component={RenderField}
-        type="password"
-        parse={value => (value !== undefined ? value.replace(/^\s+/g, '') : value)}
-      />
-    );
-  } else {
-    return (
-      <ReduxFormField
-        {...props}
-        component={RenderField}
-        parse={parseValue}
-      />
-    );
-    // The above regex prevents user from putting whitespace at the beginning of the input
-    // It also prevents the user from only putting whitespace in the input
-  }
-}
 
 InputField.propTypes = {
   name: PropTypes.string.isRequired,
@@ -131,11 +135,13 @@ InputField.propTypes = {
   maskValue: PropTypes.bool,
   componentType: PropTypes.oneOf(['input', 'textarea']),
   dataType: PropTypes.oneOf(['string', 'number', 'password']),
+  autoComplete: PropTypes.string
 };
 
 InputField.defaultProps = {
   disabled: false,
   componentType: 'input',
+  autoComplete: undefined
 };
 
 RenderField.propTypes = {
