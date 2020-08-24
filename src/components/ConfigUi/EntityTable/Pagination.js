@@ -162,95 +162,97 @@ export default class Pagination extends Component {
     const activePage = this.props.page + 1;
 
     return (
-      <div className={classnames(className, '-pagination')} style={this.props.style}>
-        <TablePagination className="Table__pagination">
-          <div className="Table__prevPageWrapper">
-            <PageButtonComponent
-              className="Table__pageButton"
-              onClick={() => {
-                if (activePage === 1) return;
-                this.changePage(activePage - 1);
-              }}
-              disabled={activePage === 1}
-            >
-              {this.props.previousText}
-            </PageButtonComponent>
-          </div>
-          <div className="Table__visiblePagesWrapper">
-            {visiblePages.map((page, index, array) => {
-              return (
-                <PageButtonComponent
-                  key={page}
-                  className={activePage === page ? 'Table__pageButton Table__pageButton--active' : 'Table__pageButton'}
-                  onClick={this.changePage.bind(null, page)}
-                >
-                  {array[index - 1] + 2 < page ? `...${page}` : page}
-                </PageButtonComponent>
-              );
-            })}
-          </div>
-          <div className="Table__nextPageWrapper">
-            <PageButtonComponent
-              className="Table__pageButton"
-              onClick={() => {
-                if (activePage === this.props.pages) return;
-                this.changePage(activePage + 1);
-              }}
-              disabled={activePage === this.props.pages}
-            >
-              {this.props.nextText}
-            </PageButtonComponent>
-          </div>
-        </TablePagination>
+      pageSizeOptions && pageSizeOptions.length > 1 && (
+        <div className={classnames(className, '-pagination')} style={this.props.style}>
+          <TablePagination className="Table__pagination">
+            <div className="Table__prevPageWrapper">
+              <PageButtonComponent
+                className="Table__pageButton"
+                onClick={() => {
+                  if (activePage === 1) return;
+                  this.changePage(activePage - 1);
+                }}
+                disabled={activePage === 1}
+              >
+                {this.props.previousText}
+              </PageButtonComponent>
+            </div>
+            <div className="Table__visiblePagesWrapper">
+              {visiblePages.map((page, index, array) => {
+                return (
+                  <PageButtonComponent
+                    key={page}
+                    className={activePage === page ? 'Table__pageButton Table__pageButton--active' : 'Table__pageButton'}
+                    onClick={this.changePage.bind(null, page)}
+                  >
+                    {array[index - 1] + 2 < page ? `...${page}` : page}
+                  </PageButtonComponent>
+                );
+              })}
+            </div>
+            <div className="Table__nextPageWrapper">
+              <PageButtonComponent
+                className="Table__pageButton"
+                onClick={() => {
+                  if (activePage === this.props.pages) return;
+                  this.changePage(activePage + 1);
+                }}
+                disabled={activePage === this.props.pages}
+              >
+                {this.props.nextText}
+              </PageButtonComponent>
+            </div>
+          </TablePagination>
 
-        <PaginationList className="-center">
-          <span className="-pageInfo">
-            {this.props.pageText}
-            {showPageJump ? (
-              <div className="-pageJump">
-                <input
-                  type={this.state.page === '' ? 'text' : 'number'}
-                  onChange={e => {
-                    const val = e.target.value;
-                    const page = val;
-                    if (val === '') {
-                      return this.setState({ page: val });
-                    }
-                    this.setState({ page: this.getSafePage(page) });
-                  }}
-                  value={this.state.page === '' ? '' : this.state.page === 0 ? 1 : this.state.page}
-                  onBlur={this.applyPage}
-                  onKeyPress={e => {
-                    if (e.which === 13 || e.keyCode === 13) {
-                      this.applyPage();
-                    }
-                  }}
-                />
-              </div>
-            ) : (
-              <span className="-currentPage">{page + 1}</span>
-            )}
-            {showTotalPages ? (
-              <React.Fragment>
-                {this.props.ofText} <span className="-totalPages">{pages || 1}</span>
-              </React.Fragment>
-            ) : null}
-          </span>
-          {showPageSizeOptions && (
-            <span className="select-wrap -pageSizeOptions">
-              {`Show per page `}
-              <select onChange={e => onPageSizeChange(Number(e.target.value))} value={pageSize}>
-                {pageSizeOptions.map((option, i) => (
-                  // eslint-disable-next-line react/no-array-index-key
-                  <option key={i} value={option}>
-                    {option} {this.props.rowsText}
-                  </option>
-                ))}
-              </select>
+          <PaginationList className="-center">
+            <span className="-pageInfo">
+              {this.props.pageText}
+              {showPageJump ? (
+                <div className="-pageJump">
+                  <input
+                    type={this.state.page === '' ? 'text' : 'number'}
+                    onChange={e => {
+                      const val = e.target.value;
+                      const page = val;
+                      if (val === '') {
+                        return this.setState({ page: val });
+                      }
+                      this.setState({ page: this.getSafePage(page) });
+                    }}
+                    value={this.state.page === '' ? '' : this.state.page === 0 ? 1 : this.state.page}
+                    onBlur={this.applyPage}
+                    onKeyPress={e => {
+                      if (e.which === 13 || e.keyCode === 13) {
+                        this.applyPage();
+                      }
+                    }}
+                  />
+                </div>
+              ) : (
+                <span className="-currentPage">{page + 1}</span>
+              )}
+              {showTotalPages ? (
+                <React.Fragment>
+                  {this.props.ofText} <span className="-totalPages">{pages || 1}</span>
+                </React.Fragment>
+              ) : null}
             </span>
-          )}
-        </PaginationList>
-      </div>
+            {showPageSizeOptions && (
+              <span className="select-wrap -pageSizeOptions">
+                {`Show per page `}
+                <select onChange={e => onPageSizeChange(Number(e.target.value))} value={pageSize}>
+                  {pageSizeOptions.map((option, i) => (
+                    // eslint-disable-next-line react/no-array-index-key
+                    <option key={i} value={option}>
+                      {option} {this.props.rowsText}
+                    </option>
+                  ))}
+                </select>
+              </span>
+            )}
+          </PaginationList>
+        </div>
+      )
     );
   }
 }

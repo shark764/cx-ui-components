@@ -19,7 +19,7 @@ import Button from '../Button';
 import PageHeader from '../PageHeader';
 import LoadingSpinner from '../../Icons/LoadingSpinnerSVG';
 
-import { importantCss } from '../../../utils';
+import { importantCss, getClosestHighestValues } from '../../../utils';
 import { filterDefaultMethod } from '../../../utils/filterMethod';
 
 import Checkbox from '../Checkbox';
@@ -429,7 +429,7 @@ class EntityTable extends Component {
               ? [bulkColumn, ...this.props.columns]
               : [...this.props.columns]
           }
-          pageSizeOptions={this.state.pageSizeOptions}
+          pageSizeOptions={getClosestHighestValues(this.state.pageSizeOptions, this.props.items.length)}
           pageSize={this.state.pageSize}
           onPageSizeChange={pageSize => this.setState({ pageSize })}
           defaultPageSize={this.state.defaultPageSize}

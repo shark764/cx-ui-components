@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.61.28] - 2020-08-24
+### Fixed
+- CXV1-16097 - Pagination table show more rows than actual count of items (not valid issue anymore, 
+               however, dynamic pagination options was set to show only page numbers closest to data length)
+
 ## [0.61.27] - 2020-08-13
 ### Changed
 - <no-Jira> - Removed Loading Component from EntityTable as it is not comptabile with all the entity pages.

@@ -16,7 +16,7 @@ import ReactTable from 'react-table';
 import 'react-table/react-table.css';
 
 import SidePanelTableActions from '../SidePanelTableActions';
-import { importantCss, convertFieldsToColumns } from '../../../utils';
+import { importantCss, convertFieldsToColumns, getClosestHighestValues } from '../../../utils';
 import { filterDefaultMethod } from '../../../utils/filterMethod';
 import LoadingSpinner from '../../Icons/LoadingSpinnerSVG';
 
@@ -144,7 +144,7 @@ function SidePanelTable(props) {
       noDataText={props.fetching ? <LoadingSpinner size={60} /> : 'No results found'}
       columns={columns}
       defaultPageSize={5}
-      pageSizeOptions={props.pageSizeOptions}
+      pageSizeOptions={getClosestHighestValues(props.pageSizeOptions, props.items.length)}
       pageSize={props.pageSize}
       onPageSizeChange={pageSize => props.setPageSize(pageSize, props.items.length)}
       showPagination={props.pagination}
