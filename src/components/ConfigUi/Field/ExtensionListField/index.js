@@ -148,7 +148,8 @@ class ExtensionListInput extends Component {
                   <div ref={provided.innerRef} {...provided.droppableProps}>
                     {this.props.input.value &&
                       this.props.input.value.map((li, index) => (
-                        <Draggable
+                        (li.get('hide') === false) && (
+                          <Draggable
                           draggableId={li.get('id') || generateUUID()}
                           index={index}
                           key={li.get('id') || generateUUID()}
@@ -250,7 +251,7 @@ class ExtensionListInput extends Component {
                             </Fragment>
                           )}
                         </Draggable>
-                      ))}
+                        )))}
                     {provided.placeholder}
                   </div>
                 )}
