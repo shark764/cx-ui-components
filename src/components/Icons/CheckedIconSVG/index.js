@@ -6,7 +6,7 @@ const SvgWrapper = styled.div`
   display: inline-block;
   cursor: pointer;
   &:hover > svg > .icon {
-    fill: darken(0.30, ${props => props.theme.primaryColor});
+    fill: darken(0.3, ${props => props.theme.primaryColor});
   }
   ${props => props.size && `width: ${props.size}px;`};
   ${props =>
@@ -46,7 +46,6 @@ function CheckedIconSVG(props) {
             checkedIconType={props.checkedIconType}
             className="icon"
             d="m22,0c-12.2,0-22,9.8-22,22s9.8,22 22,22 22-9.8 22-22-9.8-22-22-22zm12.7,15.1l0,0-16,16.6c-0.2,0.2-0.4,0.3-0.7,0.3-0.3,0-0.6-0.1-0.7-0.3l-7.8-8.4-.2-.2c-0.2-0.2-0.3-0.5-0.3-0.7s0.1-0.5 0.3-0.7l1.4-1.4c0.4-0.4 1-0.4 1.4,0l.1,.1 5.5,5.9c0.2,0.2 0.5,0.2 0.7,0l13.4-13.9h0.1c0.4-0.4 1-0.4 1.4,0l1.4,1.4c0.4,0.3 0.4,0.9 0,1.3z"
-            class=""
             fillColor={props.fillColor}
           />
         </svg>

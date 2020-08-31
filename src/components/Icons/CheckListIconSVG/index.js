@@ -48,7 +48,6 @@ function CheckListIconSVG(props) {
                 checkListIconType={props.checkListIconType}
                 className="icon"
                 d="M109.172,0L94.508,14.664c-1.124-0.637-2.389-0.983-3.68-1.008h-80c-4.418,0-8,3.582-8,8v80c0,4.418,3.582,8,8,8h80    c4.418,0,8-3.582,8-8V32.968l21.656-21.656L109.172,0z M82.828,93.656h-64v-64h60.688L50.828,58.344L40.484,48L29.172,59.312    l16,16c3.124,3.123,8.188,3.123,11.312,0l26.344-26.344V93.656z"
-                class=""
                 fillColor={props.fillColor}
               />
             </g>
@@ -59,7 +58,6 @@ function CheckListIconSVG(props) {
                 checkListIconType={props.checkListIconType}
                 className="icon"
                 d="M109.172,144l-14.664,14.664c-1.124-0.637-2.389-0.983-3.68-1.008h-80c-4.418,0-8,3.582-8,8v80c0,4.418,3.582,8,8,8h80    c4.418,0,8-3.582,8-8v-68.688l21.656-21.656L109.172,144z M82.828,237.656h-64v-64h60.688l-28.688,28.688L40.484,192    l-11.312,11.312l16,16c3.124,3.123,8.188,3.123,11.312,0l26.344-26.344V237.656z"
-                class=""
                 fillColor={props.fillColor}
               />
             </g>
@@ -70,7 +68,6 @@ function CheckListIconSVG(props) {
                 checkListIconType={props.checkListIconType}
                 className="icon"
                 d="M109.172,280l-14.664,14.664c-1.124-0.637-2.389-0.983-3.68-1.008h-80c-4.418,0-8,3.582-8,8v80c0,4.418,3.582,8,8,8h80    c4.418,0,8-3.582,8-8v-68.688l21.656-21.656L109.172,280z M82.828,373.656h-64v-64h60.688l-28.688,28.688L40.484,328    l-11.312,11.312l16,16c3.124,3.123,8.188,3.123,11.312,0l26.344-26.344V373.656z"
-                class=""
                 fillColor={props.fillColor}
               />
             </g>

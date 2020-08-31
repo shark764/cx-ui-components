@@ -58,7 +58,6 @@ function DirectionIconSVG(props) {
             directionIconType={props.directionIconType}
             className="icon"
             d={iconPath}
-            class=""
             fillColor={props.fillColor}
           />
         </svg>

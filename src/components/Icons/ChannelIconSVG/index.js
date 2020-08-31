@@ -73,7 +73,7 @@ function ChannelIconSVG(props) {
     <Fragment>
       <SvgWrapper size={props.size} className={`ChannelIconSVG ${props.className}`} onClick={props.onClick}>
         <svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox={viewBox}>
-          <StyledPath channelIconType={props.channelIconType} className="icon" d={iconPath} class="">
+          <StyledPath channelIconType={props.channelIconType} className="icon" d={iconPath}>
             {animationContent}
           </StyledPath>
           {props.channelType === 'voice' && (
@@ -81,7 +81,6 @@ function ChannelIconSVG(props) {
               channelIconType={props.channelIconType}
               className="icon"
               d="M12,13.62a3.9,3.9,0,0,1-4-3.8V6.3a3.9,3.9,0,0,1,4-3.8,4,4,0,0,1,4,3.86V9.88A3.89,3.89,0,0,1,12,13.62ZM12,4.5a1.9,1.9,0,0,0-2,1.8V9.82a1.89,1.89,0,0,0,2,1.8,1.9,1.9,0,0,0,2-1.74V6.36A2,2,0,0,0,12,4.5Z"
-              class=""
             >
               {animationContent}
             </StyledPath>
@@ -91,7 +90,6 @@ function ChannelIconSVG(props) {
               channelIconType={props.channelIconType}
               className="icon"
               d="M15,21.5H9a1,1,0,0,1,0-2h6a1,1,0,0,1,0,2Z"
-              class=""
             >
               {animationContent}
             </StyledPath>

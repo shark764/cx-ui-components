@@ -6,7 +6,7 @@ const SvgWrapper = styled.div`
   display: inline-block;
   cursor: pointer;
   &:hover > svg > .icon {
-    fill: darken(0.30, ${props => props.theme.primaryColor});
+    fill: darken(0.3, ${props => props.theme.primaryColor});
   }
   ${props => props.size && `width: ${props.size}px;`};
   ${props =>
@@ -71,7 +71,7 @@ function PresenceStateIconSVG(props) {
               points="7.74 14.84 10.6 12 7.74 9.16 9.16 7.74 12.03 10.56 14.84 7.74 16.26 9.16 13.44 12 16.26 14.84 14.84 16.26 12.03 13.41 9.16 16.26 7.74 14.84"
             />
           )}
-          <StyledPath presenceStateIconType={props.presenceStateIconType} className="icon" d={iconPath} class="" />
+          <StyledPath presenceStateIconType={props.presenceStateIconType} className="icon" d={iconPath} />
           {props.presenceStateMode === 'notready' && (
             <StyledRect
               presenceStateIconType={props.presenceStateIconType}
