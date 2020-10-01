@@ -1,6 +1,6 @@
 {
   "name": "cx-ui-components",
-  "version": "0.61.30",
+  "version": "0.62.0",
   "description": "Front end react components for any cx-related projects",
   "main": "./src/index.js",
   "scripts": {
@@ -42,6 +42,7 @@
     "react-router-dom": "^5.1.2",
     "react-table": "^6.7.6",
     "react-window": "^1.7.1",
+    "recharts": "^1.8.5",
     "redux-form": "^7.2.3",
     "toastr": "^2.1.4"
   },

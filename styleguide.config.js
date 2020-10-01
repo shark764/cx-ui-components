@@ -27,6 +27,11 @@ module.exports = {
           description: 'Side panel details layout will be different per entity',
           components: 'src/components/ConfigUi/SidePanelDetails/**/index.js',
         },
+        {
+          name: 'Reporting',
+          description: 'Reporting related components. This components use [Recharts](https://recharts.org/en-US/).',
+          components: 'src/components/ConfigUi/Reporting/**/index.js',
+        },
       ],
     },
     {
