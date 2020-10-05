@@ -106,6 +106,7 @@ export { default as EyeIconSVG } from './components/Icons/EyeIconSVG';
 export { default as CheckListIconSVG } from './components/Icons/CheckListIconSVG';
 export { default as FilterIconSVG } from './components/Icons/FilterIconSVG';
 export { default as TypingIndicator } from './components/Icons/TypingIndicator';
+export { default as UserIconSVG } from './components/Icons/UserIconSVG';
 
 // Constants
 export { defaultTheme } from './constants';

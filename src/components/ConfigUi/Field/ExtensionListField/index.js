@@ -18,6 +18,7 @@ const Grip = styled.div`
 margin-top: 0px;
 margin-right 14px;
 display: inline-block;
+cursor: ${props => props.disabled ? 'not-allowed' : 'inherit'}
 `;
 
 const InputWrapper = styled(Input)`
@@ -143,7 +144,7 @@ class ExtensionListInput extends Component {
         {this.props.input.value && this.props.input.value.size > 0 && (
           <ListWrapper type={this.props.input.name}>
             <DragDropContext onDragEnd={this.onDragEnd} onDragStart={this.onDragStart}>
-              <Droppable droppableId={this.props.input.name}>
+              <Droppable droppableId={this.props.input.name} isDropDisabled={this.props.disabled}>
                 {provided => (
                   <div ref={provided.innerRef} {...provided.droppableProps}>
                     {this.props.input.value &&
@@ -153,6 +154,7 @@ class ExtensionListInput extends Component {
                           draggableId={li.get('id') || generateUUID()}
                           index={index}
                           key={li.get('id') || generateUUID()}
+                          isDragDisabled={this.props.disabled}
                         >
                           {provided => (
                             <Fragment>
@@ -161,34 +163,33 @@ class ExtensionListInput extends Component {
                                 {...provided.draggableProps}
                                 {...provided.dragHandleProps}
                               >
-                                <Grip className="list-item-grip-icon">:::</Grip>
+                                <Grip className="list-item-grip-icon" disabled={this.props.disabled}>:::</Grip>
 
                                 <StyledSelect
                                   className="list-item-text"
                                   data-automation="extensionList"
                                   onChange={e => this.saveRefrence(e, 'type', index)}
                                   value={li.get('type')}
-                                  disabled={li.get('type') === 'webrtc'}
+                                  disabled={this.props.disabled || li.get('type') === 'webrtc'}
                                 >
-                                  <option value="pstn">PSTN</option>
-                                  {li.get('type') === 'webrtc' && <option value="webrtc">webRTC</option>}
-                                  <option value="sip">SIP</option>
+                                  <option value="pstn">{this.props.extensionLabels && this.props.extensionLabels['pstn'] || 'PSTN'}</option>
+                                  {li.get('type') === 'webrtc' && <option value="webrtc">{this.props.extensionLabels && this.props.extensionLabels['webrtc'] || 'WebRTC'}</option>}
+                                  <option value="sip">{this.props.extensionLabels && this.props.extensionLabels['sip'] || 'SIP'}</option>
                                 </StyledSelect>
 
                                 {li.get('type') === 'webrtc' && (
                                   <ListItemText className="list-item-text"> {li.get('provider')} </ListItemText>
                                 )}
 
-                                {index === 0 && <PrimaryText className="list-item-text"> primary </PrimaryText>}
-
+                                {index === 0 && <PrimaryText className="list-item-text">{this.props.primaryText || 'primary'}</PrimaryText>}
                                 <RemoveButton
                                   className="list-item-remove-button"
-                                  onClick={e => li.get('type') !== 'webrtc' && this.removeListItem(index)}
+                                  onClick={e => (li.get('type') !== 'webrtc' || this.props.disabled) && this.removeListItem(index)}
                                 >
                                   <CloseIconSVG
                                     closeIconType="secondary"
                                     size={12}
-                                    disabled={li.get('type') === 'webrtc'}
+                                    disabled={li.get('type') !== 'webrtc' || this.props.disabled}
                                   />
                                 </RemoveButton>
 
@@ -197,6 +198,7 @@ class ExtensionListInput extends Component {
                                     className="list-item-text"
                                     onChange={e => this.saveRefrence(e, 'region', index)}
                                     value={li.get('region')}
+                                    disabled={this.props.disabled}
                                   >
                                     {regions.map((region, index) => (
                                       <option key={index} value={region.value}>
@@ -218,6 +220,7 @@ class ExtensionListInput extends Component {
                                       typeof this.props.meta.error[index] === 'string' &&
                                       this.props.meta.error[index] !== 'Label is required'
                                     }
+                                    disabled={this.props.disabled}
                                   />
                                 )}
 
@@ -234,7 +237,7 @@ class ExtensionListInput extends Component {
                                   onChange={e => this.saveRefrence(e, 'description', index)}
                                   placeholder="Label"
                                   data-automation="extensionLabelInput"
-                                  disabled={li.get('type') === 'webrtc'}
+                                  disabled={this.props.disabled || li.get('type') === 'webrtc'}
                                   hasError={
                                     this.props.meta.error &&
                                     typeof this.props.meta.error[index] === 'string' &&
@@ -272,6 +275,7 @@ ExtensionListField.propTypes = {
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
+  extensionLabels: PropTypes.object
 };
 
 ExtensionListField.defaultProps = {
@@ -286,4 +290,5 @@ ExtensionListInput.propTypes = {
   touched: PropTypes.bool,
   error: PropTypes.string,
   warning: PropTypes.string,
+  extensionLabels: PropTypes.object
 };
