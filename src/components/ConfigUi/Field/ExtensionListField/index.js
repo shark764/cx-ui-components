@@ -217,19 +217,18 @@ class ExtensionListInput extends Component {
                                     data-automation="extensionInput"
                                     hasError={
                                       this.props.meta.error &&
-                                      typeof this.props.meta.error[index] === 'string' &&
-                                      this.props.meta.error[index] !== 'Label is required'
+                                      this.props.meta.error[index] &&
+                                      this.props.meta.error[index].value
                                     }
                                     disabled={this.props.disabled}
                                   />
                                 )}
 
                                 {this.props.meta.error &&
-                                  typeof this.props.meta.error[index] === 'string' &&
-                                  (this.props.meta.error[index] === 'Valid Phone Number Required' ||
-                                    this.props.meta.error[index] === 'Valid SIP Address Required') && (
-                                    <ErrorInExtension>{this.props.meta.error[index]}</ErrorInExtension>
-                                  )}
+                                  this.props.meta.error[index] &&
+                                  this.props.meta.error[index].value && 
+                                    <ErrorInExtension>{this.props.meta.error[index].message}</ErrorInExtension>
+                                }
 
                                 <InputWrapper
                                   className="list-item-text"
@@ -240,16 +239,16 @@ class ExtensionListInput extends Component {
                                   disabled={this.props.disabled || li.get('type') === 'webrtc'}
                                   hasError={
                                     this.props.meta.error &&
-                                    typeof this.props.meta.error[index] === 'string' &&
-                                    this.props.meta.error[index] === 'Label is required'
+                                    this.props.meta.error[index] &&
+                                    this.props.meta.error[index].label
                                   }
                                 />
 
                                 {this.props.meta.error &&
-                                  typeof this.props.meta.error[index] === 'string' &&
-                                  this.props.meta.error[index] === 'Label is required' && (
-                                    <ErrorInExtension>{this.props.meta.error[index]}</ErrorInExtension>
-                                  )}
+                                  this.props.meta.error[index] &&
+                                  this.props.meta.error[index].label &&
+                                    <ErrorInExtension>{this.props.meta.error[index].message}</ErrorInExtension>
+                                }
                               </ListItem>
                             </Fragment>
                           )}
