@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.64.0] - 2020-10-23
+### Added
+- CXV1-23290 - Add LineChart component for Forecast dashboards.
+- CXV1-23289 - Add RefreshIconSVG component.
+
 ## [0.63.3] - 2020-10-22
 ### Fixed
 - <no-jira> - Rule component fixes related to CXV1-23253 (Day input in Business Hours rule creation allow values greater than 31 and negatives.)
@@ -11,7 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.63.2] - 2020-10-07
 ### Added
 - CXV1-23080 - Reporting Components - Build PieChart Component
-- CXV1-23081 - Reporting Components - Build Stat Component
+- CXV1-23081 - Reporting Components - Build Widget Component
 - CXV1-23078 - Reporting Components - Build BarChart Component
 
 ## [0.63.1] - 2020-10-05

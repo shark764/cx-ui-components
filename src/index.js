@@ -107,6 +107,10 @@ export { default as CheckListIconSVG } from './components/Icons/CheckListIconSVG
 export { default as FilterIconSVG } from './components/Icons/FilterIconSVG';
 export { default as TypingIndicator } from './components/Icons/TypingIndicator';
 export { default as UserIconSVG } from './components/Icons/UserIconSVG';
+export { default as BarChart } from './components/ConfigUi/Reporting/BarChart';
+export { default as Gauge } from './components/ConfigUi/Reporting/Gauge';
+export { default as ReportingWidget } from './components/ConfigUi/Reporting/Widget';
+export { default as RefreshIconSVG } from './components/Icons/RefreshIconSVG';
 
 // Constants
 export { defaultTheme } from './constants';

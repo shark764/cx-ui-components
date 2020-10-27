@@ -1,3 +1,7 @@
+/*
+ * Copyright © 2015-2020 Serenova, LLC. All rights reserved.
+ */
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
@@ -13,7 +17,7 @@ import {
 import { injectGlobal } from 'styled-components';
 import { importantCss } from '../../../../utils';
 
-const DEFAULT_COLORS = ['#23cdf4', '#0088FE', '#07487a', '#001b1e', '#00C49F', '#54B84F', '#b7e3b3'];
+const DEFAULT_COLORS = ['#4CAF50', '#FFA500', '#07487a', '#001b1e', '#00C49F', '#54B84F', '#b7e3b3'];
 
 injectGlobal`${importantCss(`
   .chart--clickable > .recharts-wrapper {
@@ -48,7 +52,7 @@ function BarChart({
         )}
         {showLegend && <Legend />}
         {dataKeys.map((item, index) => (
-          <Bar key={index} dataKey={toCapitalizedWords(item)} fill={getIndexColor(index)} />
+          <Bar key={index.toString()} dataKey={toCapitalizedWords(item)} fill={getIndexColor(index)} />
         ))}
       </RechartsBarChart>
     </ResponsiveContainer>
@@ -87,8 +91,8 @@ BarChart.propTypes = {
   data: PropTypes.array.isRequired,
   dataKeys: PropTypes.arrayOf(PropTypes.string).isRequired,
   xDataKey: PropTypes.string.isRequired,
-  width: PropTypes.number,
-  height: PropTypes.number,
+  width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   showLegend: PropTypes.bool,
   showTooltip: PropTypes.bool,
   percentageYLabels: PropTypes.bool,

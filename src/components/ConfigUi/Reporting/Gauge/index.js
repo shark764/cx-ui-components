@@ -1,10 +1,14 @@
+/*
+ * Copyright © 2015-2020 Serenova, LLC. All rights reserved.
+ */
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import { ResponsiveContainer, PieChart, Pie, Cell, Legend, Tooltip, Text } from 'recharts';
 import { injectGlobal } from 'styled-components';
 import { importantCss } from '../../../../utils';
 
-const DEFAULT_COLORS = ['#23cdf4', '#0088FE', '#07487a', '#001b1e', '#00C49F', '#54B84F', '#b7e3b3'];
+const DEFAULT_COLORS = ['#FF0000', '#23cdf4', '#0088FE', '#07487a', '#001b1e', '#00C49F', '#54B84F', '#b7e3b3'];
 
 injectGlobal`${importantCss(`
   .gauge--clickable > .recharts-wrapper {
@@ -15,8 +19,11 @@ injectGlobal`${importantCss(`
 function Gauge({
   percentage,
   data,
+  cy,
   width,
   height,
+  startAngle,
+  endAngle,
   showLegend = false,
   showTooltip = false,
   showNameLabels = false,
@@ -24,6 +31,7 @@ function Gauge({
   colors = DEFAULT_COLORS,
   digitsAfterPeriod = 0,
   onClick,
+  dataKey
 }) {
   if (!percentage && !data) {
     return;
@@ -35,19 +43,19 @@ function Gauge({
     <ResponsiveContainer width={width} height={height} className={getClasses()}>
       <PieChart onClick={onClick}>
         <Pie
-          cy="66%"
+          cy={cy}
           data={gaugeData}
-          startAngle={180}
-          endAngle={0}
+          startAngle={startAngle}
+          endAngle={endAngle}
           innerRadius={getRadius('inner')}
           outerRadius={getRadius('outer')}
           paddingAngle={0}
           label={getCustomLabel()}
           labelLine={!percentage}
-          dataKey="value"
+          dataKey={dataKey}
         >
           {gaugeData.map((_, index) => (
-            <Cell key={index} fill={getIndexColor(index)} />
+            <Cell key={index.toString()} fill={getIndexColor(index)} />
           ))}
         </Pie>
         {showLegend && <Legend />}
@@ -118,8 +126,8 @@ function Gauge({
 Gauge.propTypes = {
   percentage: PropTypes.number,
   data: PropTypes.array,
-  width: PropTypes.number,
-  height: PropTypes.number,
+  width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   showLegend: PropTypes.bool,
   showTooltip: PropTypes.bool,
   showNameLabels: PropTypes.bool,
@@ -127,6 +135,16 @@ Gauge.propTypes = {
   colors: PropTypes.array,
   digitsAfterPeriod: PropTypes.number,
   onClick: PropTypes.func,
+  startAngle: PropTypes.number,
+  endAngle: PropTypes.number,
+  dataKey: PropTypes.string.isRequired,
+  cy: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+};
+
+Gauge.defaultProps = {
+  cy: "66%",
+  startAngle: 180,
+  endAngle: 0
 };
 
 export default Gauge;

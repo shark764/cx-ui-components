@@ -19,7 +19,7 @@ const Input = styled.input`
   width: ${props => props.listWidth}px;
   background-color: ${props => (props.noBackground ? 'transparent' : props.disabled ? '#efefef' : 'white')};
   padding: 2px 35px 0 20px;
-  color: ${props => (props.noBackground ? '#ccc' : 'initial')};
+  color: ${props => (props.noBackground ? (props.customInputColor ? props.customInputColor : '#ccc') : 'initial')};
   border: 1px solid lightgray;
   border-radius: 3px;
   font-size: 17px;
@@ -272,6 +272,7 @@ export default class Typeahead extends Component {
           onChange={this.onChange}
           listWidth={this.props.listWidth}
           noBackground={this.props.noBackground}
+          customInputColor={this.props.customInputColor}
           data-automation={this.props['data-automation']}
         />
         <SearchIconWrapper searchIconType="primary" inputWidth={this.props.listWidth} />
@@ -312,4 +313,5 @@ Typeahead.propTypes = {
   className: PropTypes.string,
   'data-automation': PropTypes.string,
   noBackground: PropTypes.bool,
+  customInputColor: PropTypes.string,
 };

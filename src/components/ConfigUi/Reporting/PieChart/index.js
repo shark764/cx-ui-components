@@ -1,3 +1,7 @@
+/*
+ * Copyright © 2015-2020 Serenova, LLC. All rights reserved.
+ */
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import { ResponsiveContainer, PieChart as RechartPieChart, Pie, Cell, Legend, Tooltip, Text } from 'recharts';
@@ -25,6 +29,8 @@ function PieChart({
   colors = DEFAULT_COLORS,
   digitsAfterPeriod = 0,
   onClick,
+  dataKey,
+  nameKey
 }) {
   return (
     <ResponsiveContainer width={width} height={height} className={getClasses()}>
@@ -35,10 +41,11 @@ function PieChart({
           outerRadius={getOuterRadius()}
           label={getCustomLabel()}
           labelLine={!showInnerLabels}
-          dataKey="value"
+          dataKey={dataKey}
+          nameKey={nameKey}
         >
           {data.map((_, index) => (
-            <Cell key={index} fill={getIndexColor(index)} />
+            <Cell key={index.toString()} fill={getIndexColor(index)} />
           ))}
         </Pie>
         {showLegend && <Legend />}
@@ -119,6 +126,8 @@ PieChart.propTypes = {
   colors: PropTypes.array,
   digitsAfterPeriod: PropTypes.number,
   onClick: PropTypes.func,
+  dataKey: PropTypes.string,
+  nameKey: PropTypes.string
 };
 
 export default PieChart;
