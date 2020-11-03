@@ -24,6 +24,13 @@ class UploadFile extends React.Component {
     if (file) {
       if (file.size > maxFileSize || acceptedFileType.indexOf(file.type) === -1) {
         Toast.error(toastError);
+      } else if (file.type === 'text/xml') {
+        const reader = new FileReader();
+        reader.readAsText(file);
+        reader.onloadend = e => {
+          this.props.uploadFile(file, name);
+          this.props.input.onChange(e.target.result);
+        };
       } else {
         this.props.uploadFile(file, name);
         this.props.input.onChange(URL.createObjectURL(file));
@@ -60,7 +67,7 @@ UploadFile.propTypes = {
   disabled: PropTypes.bool,
   toastError: PropTypes.string.isRequired,
   uploadFile: PropTypes.func,
-  fileType: PropTypes.oneOf(['image']),
+  fileType: PropTypes.oneOf(['image', 'text/xml']),
   input: PropTypes.object.isRequired,
   maxFileSize: PropTypes.number.isRequired,
   acceptedFileType: PropTypes.string.isRequired
