@@ -198,7 +198,7 @@ class ExtensionListInput extends Component {
                                     className="list-item-text"
                                     onChange={e => this.saveRefrence(e, 'region', index)}
                                     value={li.get('region')}
-                                    disabled={this.props.disabled}
+                                    disabled={this.props.disabled || !this.props.canUpdateRegion}
                                   >
                                     {regions.map((region, index) => (
                                       <option key={index} value={region.value}>
@@ -213,7 +213,7 @@ class ExtensionListInput extends Component {
                                     className="list-item-text"
                                     value={this.props.input.value.getIn([index, 'value'])}
                                     onChange={e => this.saveRefrence(e, 'value', index)}
-                                    placeholder="Extension"
+                                    placeholder={ (placeholders && placeholders.extension) || "Extension"}
                                     data-automation="extensionInput"
                                     hasError={
                                       this.props.meta.error &&
@@ -234,7 +234,7 @@ class ExtensionListInput extends Component {
                                   className="list-item-text"
                                   value={this.props.input.value.getIn([index, 'description'])}
                                   onChange={e => this.saveRefrence(e, 'description', index)}
-                                  placeholder="Label"
+                                  placeholder={(placeholders && placeholders.label) || 'Label'}
                                   data-automation="extensionLabelInput"
                                   disabled={this.props.disabled || li.get('type') === 'webrtc'}
                                   hasError={
@@ -289,5 +289,8 @@ ExtensionListInput.propTypes = {
   touched: PropTypes.bool,
   error: PropTypes.string,
   warning: PropTypes.string,
-  extensionLabels: PropTypes.object
+  extensionLabels: PropTypes.object,
+  canUpdateRegion: PropTypes.bool,
+  placeholders: PropTypes.object,
+  primaryText: PropTypes.string
 };
