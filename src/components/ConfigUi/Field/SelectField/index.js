@@ -25,7 +25,8 @@ const SelectInput = props => {
     meta: { touched, error, warning },
     required,
     handleChange,
-    labelWidth
+    labelWidth,
+    placeholder
   } = props;
 
   const inputProps = {
@@ -54,7 +55,7 @@ const SelectInput = props => {
           <Fragment>
             {!required && (
               <option disabled hidden value="">
-                -- Please select --
+                {placeholder || '-- Please select --'}
               </option>
             )}
             {options.map((option, index) => (
@@ -110,6 +111,7 @@ SelectField.propTypes = {
   /** Will have an empty option when false */
   required: PropTypes.bool,
   handleChange: PropTypes.func,
+  placeholder: PropTypes.string
 };
 
 SelectField.defaultProps = {
@@ -137,5 +139,5 @@ SelectInput.propTypes = {
   ]),
   required: PropTypes.bool,
   handleChange: PropTypes.func,
-  labelWidth: PropTypes.string,
+  labelWidth: PropTypes.string
 };

@@ -189,7 +189,7 @@ class ExtensionListInput extends Component {
                                   <CloseIconSVG
                                     closeIconType="secondary"
                                     size={12}
-                                    disabled={li.get('type') !== 'webrtc' || this.props.disabled}
+                                    disabled={li.get('type') === 'webrtc' || this.props.disabled}
                                   />
                                 </RemoveButton>
 
@@ -213,7 +213,7 @@ class ExtensionListInput extends Component {
                                     className="list-item-text"
                                     value={this.props.input.value.getIn([index, 'value'])}
                                     onChange={e => this.saveRefrence(e, 'value', index)}
-                                    placeholder={ (placeholders && placeholders.extension) || "Extension"}
+                                    placeholder={(this.props.placeholders && this.props.placeholders.extension) || "Extension"}
                                     data-automation="extensionInput"
                                     hasError={
                                       this.props.meta.error &&
@@ -234,7 +234,7 @@ class ExtensionListInput extends Component {
                                   className="list-item-text"
                                   value={this.props.input.value.getIn([index, 'description'])}
                                   onChange={e => this.saveRefrence(e, 'description', index)}
-                                  placeholder={(placeholders && placeholders.label) || 'Label'}
+                                  placeholder={(this.props.placeholders && this.props.placeholders.label) || 'Label'}
                                   data-automation="extensionLabelInput"
                                   disabled={this.props.disabled || li.get('type') === 'webrtc'}
                                   hasError={
