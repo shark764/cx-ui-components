@@ -325,6 +325,7 @@ export default class BusinessHoursRule extends React.Component{
     this.state = {
       showMenu: false,
       byDate: props.rule.endDate ? 'by' : 'none',
+      onType: { on: { type: '', value: '' } },
       outsideClick: fromEvent(document, 'click')
         // eslint-disable-next-line array-callback-return
         .map(({ target }) => {
@@ -673,7 +674,7 @@ export default class BusinessHoursRule extends React.Component{
                       </ActionItem>}
                     {isCustomActionsObjectValid && 
                       Object.entries(this.props.customActions).map(([label, f]) =>
-                        <Fragment>
+                        <Fragment key={label}>
                           <ActionItem
                             key={label}
                             onClick={(e) => {
@@ -745,7 +746,7 @@ export default class BusinessHoursRule extends React.Component{
                       Select
                     </option>
                     {repeats.map((ruleRepeat) =>
-                      <Fragment>
+                      <Fragment key={ruleRepeat.value} >
                         <option 
                           key={ruleRepeat.value} 
                           value={ruleRepeat.value}>
@@ -888,12 +889,12 @@ export default class BusinessHoursRule extends React.Component{
                   {this.props.rule && (this.props.rule.repeats === 'yearly' || this.props.rule.repeats === 'monthly') && 
                    this.props.rule.on && this.props.rule.on.value === 'day' &&
                     <Input
-                      type='number'
+                      type="number"
                       name="onType"
                       error={this.props.error && this.props.error.on && this.props.error.on.type}
                       disabled={this.props.disabled || (!this.props.rule || !this.props.rule.on || !this.props.rule.on.value)}
                       width="100px"
-                      value={(this.props.rule && this.props.rule.on && this.props.rule.on.type)}
+                      value={(this.props.rule && this.props.rule.on && this.props.rule.on.type) || ""}
                       onChange={this.handleRuleRepeaOnEveryDayValue}
                     />
                   }
@@ -1071,6 +1072,6 @@ BusinessHoursRule.propTypes = {
   viewOnly: PropTypes.bool,
   disabled: PropTypes.bool,
   error: PropTypes.object,
-  copyAction: PropTypes.func,
+  copyAction: PropTypes.oneOfType([PropTypes.func, PropTypes.boolean]),
   deleteAction: PropTypes.func
 }
