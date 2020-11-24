@@ -1,6 +1,6 @@
 {
   "name": "cx-ui-components",
-  "version": "0.64.4",
+  "version": "0.64.5",
   "description": "Front end react components for any cx-related projects",
   "main": "./src/index.js",
   "scripts": {
@@ -38,7 +38,6 @@
     "react-big-calendar": "^0.24.0",
     "react-calendar": "^3.0.0",
     "react-day-picker": "^7.3.1",
-    "react-intl": "^2.9.0",
     "react-router-dom": "^5.1.2",
     "react-table": "^6.7.6",
     "react-window": "^1.7.1",

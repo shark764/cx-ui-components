@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.64.5] - 2020-11-19
+### Added
+- CXv1-22919 - Config 2 - Language Preference Button
+- <no-jira> - GlobeIconSVG Component
+
+### Fixed
+- <no-jira> - Fixed some issues with SettingIconSVG
+
 ## [0.64.4] - 2020-11-09
 ### Added
 - <no-jira> - Cleaning Business Hours Rule Component Warnings

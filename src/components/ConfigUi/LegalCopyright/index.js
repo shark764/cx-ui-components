@@ -1,46 +1,41 @@
 import React from 'react';
-// import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
-import messages from './message';
 import styled from 'styled-components';
-import urls from 'serenova-js-utils';
+
+const LegalContainer = styled.div`
+  color: white;
+  text-align: center;
+`;
 
 const Copyright = styled.div`
-  color: white;
-  text-align: center;
+  margin-bottom: 1em;
 `;
-const LegalTerms = styled.div`
-  color: white;
-  text-align: center;
-  display: inline-block;
-  font-size: 13px;
-  margin-top: 15px;
-`;
+
 const Legal = styled.div`
-  display: inline-block;
-  text-align: center;
+  font-size: 13px;
 `;
+
 const Link = styled.a`
-  color: white;
-  display: inline-block;
+ color: white;
 `;
-const FormattedMessage = styled.div``; /**This is just till i18n is being implemented*/
 
 export default function LegalCopyright(props) {
 
   return (
-    <Copyright automation="serenova_copyright">
-      <FormattedMessage>{messages.copyright.defaultMessage}</FormattedMessage>
-      <LegalTerms automation="serenova_legal">
-        <Legal>{messages.legal.defaultMessage}</Legal>
-        <Link href={urls}>
-          <FormattedMessage>{messages.legalLabel.defaultMessage}</FormattedMessage>
+    <LegalContainer>
+      <Copyright automation="serenova_copyright">
+        {props.messages.copyright}
+      </Copyright>
+      <Legal automation="serenova_legal">
+        <span>{props.messages.legal}</span>
+        <Link href='https://legal.cxengagelabs.net/cxengage-legal/index.html'>
+          {props.messages.legalLabel}
         </Link>
-      </LegalTerms>
-    </Copyright>
+      </Legal>
+    </LegalContainer>
   );
 }
 
 LegalCopyright.contextTypes = {
-  toolbarMode: PropTypes.bool
+  messages: PropTypes.object
 };

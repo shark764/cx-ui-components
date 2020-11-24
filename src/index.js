@@ -70,6 +70,7 @@ export { default as DirectionRow } from './components/General/Menu/DirectionRow'
 export { default as PresenceStateRow } from './components/General/Menu/PresenceStateRow';
 export { default as FormattedTitle } from './components/General/PopoverDialog/FormattedTitle';
 export { default as DatePicker } from './components/General/DatePicker';
+export { default as LanguagePicker } from './components/General/LanguagePicker';
 
 // Reporting
 export { default as InteractionDetails } from './components/ConfigUi/InteractionDetails';
@@ -111,6 +112,7 @@ export { default as BarChart } from './components/ConfigUi/Reporting/BarChart';
 export { default as Gauge } from './components/ConfigUi/Reporting/Gauge';
 export { default as ReportingWidget } from './components/ConfigUi/Reporting/Widget';
 export { default as RefreshIconSVG } from './components/Icons/RefreshIconSVG';
+export { default as GlobeIconSVG } from './components/Icons/GlobeIconSVG';
 
 // Constants
 export { defaultTheme } from './constants';
