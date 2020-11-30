@@ -113,7 +113,7 @@ class SubMenu extends React.Component {
                     checked={item.active}
                     data-automation="subMenuToggleItem"
                   />
-                  <ItemText>{item.name}</ItemText>
+                  <ItemText>{item.customName ? item.customName : item.name}</ItemText>
                 </ListItem>
               </label>,
               item.name === 'All' && <Seperator key={`${item.name}-seperator`} />,

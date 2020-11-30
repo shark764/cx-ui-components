@@ -24,12 +24,12 @@ export default function LegalCopyright(props) {
   return (
     <LegalContainer>
       <Copyright automation="serenova_copyright">
-        {props.messages.copyright}
+        {props.messages && props.messages.copyright}
       </Copyright>
       <Legal automation="serenova_legal">
-        <span>{props.messages.legal}</span>
+        <span>{props.messages && props.messages.legal}</span>
         <Link href='https://legal.cxengagelabs.net/cxengage-legal/index.html'>
-          {props.messages.legalLabel}
+          {props.messages && props.messages.legalLabel}
         </Link>
       </Legal>
     </LegalContainer>
