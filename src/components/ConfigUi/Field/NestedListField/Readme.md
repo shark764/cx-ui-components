@@ -6,7 +6,8 @@ const { Map, List } = require('immutable');
 // TODO: This component example doesn't drag and drop categories. Should fix it later
 
 <Store>
-  <Form 
+  <Form
+    name="NestedListFieldForm"
     initialValues={Map({ 
         reasons: List([
             Map({

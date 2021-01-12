@@ -6,12 +6,17 @@ function Form(props) {
   return <form onSubmit={props.handleSubmit}>{props.children}</form>;
 }
 
-export default reduxForm({
-  form: 'mockForm',
-  onSubmit: values =>
-    window.alert(`You submitted:\n\n${JSON.stringify(values, null, 2)}`),
-})(Form);
+const ReduxFormConstructor = props => {
+  const { name, ...otherProps } = props;
+  const ReduxForm = reduxForm({
+    form: name ? name : 'mockForm',
+    onSubmit: values => 
+      window.alert(`You submitted:\n\n${JSON.stringify(values, null, 2)}`),
+  })(Form);
+  return <ReduxForm {...otherProps} />
+} 
 
+export default ReduxFormConstructor;
 Form.propTypes = {
   handleSubmit: PropTypes.func,
   children: PropTypes.any,
