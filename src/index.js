@@ -54,6 +54,7 @@ export { default as RichTextEditorField } from './components/ConfigUi/Field/Rich
 export { default as NestedListField } from './components/ConfigUi/Field/NestedListField';
 export { BusinessHoursRuleField } from './components/ConfigUi/Field/BusinessHoursRuleField';
 export { default as FileUploadField } from './components/ConfigUi/Field/FileUploadField';
+export { default as CapacityRuleField } from './components/ConfigUi/Field/CapacityRuleField';
 
 // File
 export { default as FileUpload } from './components/ConfigUi/FileUpload';
