@@ -166,7 +166,7 @@ const GroupWrapper = styled.div`
   flex-direction: row;
   padding: 3px;
   margin-bottom: 3px;
-  border: 1px solid #48484820
+  border: 1px solid #48484820;
   box-sizing: border-box;
 `;
 
@@ -377,7 +377,7 @@ class CapacityRuleComponent extends React.Component {
                   <InteractionInputWrapperDiv>
                     <Label htmlFor='interaction'>{numInteractionsLabel}: *</Label>
                     <Input 
-                      value={group.interactions}
+                      value={group.get('interactions')}
                       placeholder={numInteractionsPlaceholder}
                       onChange={(e) => this.changeGroupInteractionsNumber(i, e.target.value)}
                       name={'interactions'}
