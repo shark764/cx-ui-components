@@ -27,7 +27,7 @@ const Header = styled.h2`
   display: inline-block;
   font-size: 21px;
   font-weight: 700;
-  color: #474747;
+  color: ${props=> props.headerColor ? props.headerColor : '#474747'};
   margin: 0;
 `;
 
@@ -52,7 +52,7 @@ function PageHeader(props) {
   return (
     <Wrapper id={props.id} className={props.className}>
       <PageHeaderLeftSide>
-        <Header>{props.text}</Header>
+        <Header headerColor={props.headerColor}>{props.text}</Header>
         {props.helpLink && (
           <Link href={props.helpLink} target="_blank">
             <HelpIconOuterWrapper>
@@ -73,6 +73,7 @@ PageHeader.propTypes = {
   id: PropTypes.string,
   text: PropTypes.string.isRequired,
   helpLink: PropTypes.string,
+  headerColor: PropTypes.string,
 };
 
 export default PageHeader;

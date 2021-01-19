@@ -11,7 +11,7 @@ const DEFAULT_COLORS = { info: '#aaa', success: '#54b84f', warning: '#f58c00', e
 const Label = styled.h3`
   font-size: 21px;
   font-weight: 700;
-  color: #474747;
+  color: #999999;
 `;
 
 const Value = styled.p`
@@ -28,7 +28,6 @@ const Wrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   height: 100%;
-  border: 1px solid lightgray;
 `;
 
 function Widget({ className, label, value, componentType = 'info', color, children }) {

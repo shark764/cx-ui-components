@@ -14,7 +14,7 @@ import {
   Legend,
   Tooltip,
 } from 'recharts';
-import { injectGlobal } from 'styled-components';
+import styled, { injectGlobal } from 'styled-components';
 import { importantCss } from '../../../../utils';
 
 const DEFAULT_COLORS = ['#4CAF50', '#FFA500', '#07487a', '#001b1e', '#00C49F', '#54B84F', '#b7e3b3'];
@@ -23,7 +23,17 @@ injectGlobal`${importantCss(`
   .chart--clickable > .recharts-wrapper {
     cursor: pointer;
   }
+  .recharts-legend-wrapper {
+    color: #999999;
+    font-weight: 600;
+  }
 `)}`;
+
+const Wrapper = styled.div`
+  position: relative;
+  width: 100%;
+  grid-area: chart;
+`;
 
 function BarChart({
   data,
@@ -31,31 +41,35 @@ function BarChart({
   xDataKey,
   width,
   height,
-  showLegend = false,
-  showTooltip = false,
+  showLegend = true,
+  showTooltip = true,
   percentageYLabels = false,
   colors = DEFAULT_COLORS,
   onClick,
+  children
 }) {
   return (
-    <ResponsiveContainer width={width} height={height} className={getClasses()}>
-      <RechartsBarChart data={toHumanReadableLabels(data)} onClick={onClick}>
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey={toCapitalizedWords(xDataKey)} />
-        <YAxis unit={percentageYLabels ? '%' : ''} />
-        {showTooltip && (
-          <Tooltip
-            formatter={value => {
-              return percentageYLabels ? `${value}%` : value;
-            }}
-          />
-        )}
-        {showLegend && <Legend />}
-        {dataKeys.map((item, index) => (
-          <Bar key={index.toString()} dataKey={toCapitalizedWords(item)} fill={getIndexColor(index)} />
-        ))}
-      </RechartsBarChart>
-    </ResponsiveContainer>
+    <Wrapper>
+      {children}
+      <ResponsiveContainer width={width} height={height} className={getClasses()}>
+        <RechartsBarChart data={toHumanReadableLabels(data)} onClick={onClick}>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey={toCapitalizedWords(xDataKey)} />
+          <YAxis unit={percentageYLabels ? '%' : ''} />
+          {showTooltip && (
+            <Tooltip
+              formatter={value => {
+                return percentageYLabels ? `${value}%` : value;
+              }}
+            />
+          )}
+          {showLegend && <Legend verticalAlign="top" height={36} align="center" style={{ color: '#999999', fontWeight: 600 }} />}
+          {dataKeys.map((item, index) => (
+            <Bar key={index.toString()} dataKey={toCapitalizedWords(item)} fill={getIndexColor(index)} />
+          ))}
+        </RechartsBarChart>
+      </ResponsiveContainer>
+    </Wrapper>
   );
 
   function getClasses() {
@@ -99,6 +113,7 @@ BarChart.propTypes = {
   displayVertical: PropTypes.bool,
   colors: PropTypes.array,
   onClick: PropTypes.func,
+  children: PropTypes.any,
 };
 
 export default BarChart;

@@ -23,11 +23,12 @@ export default class DatePicker extends React.Component {
   }
 
   render() {
+    const { containerBackground, ...inputCustomStyles } = this.props.customStyle;
     return (
       <DayPickerInput
         value={this.props.selectedDay}
         placeholder={this.props.placeholder || `${formatDate(new Date(), this.props.format || "MM/DD/YYYY", this.props.localeTimeZone || "us")}`}
-        inputProps={{ disabled: this.props.disabled, style: this.props.customStyle }}
+        inputProps={{ disabled: this.props.disabled, style: inputCustomStyles }}
         dayPickerProps={{
           locale: this.props.localeTimeZone,
           localeUtils: MomentLocaleUtils,
@@ -42,6 +43,7 @@ export default class DatePicker extends React.Component {
           containerProps: {
             style: {
               minWidth: '270px',
+              backgroundColor: containerBackground
             }
           }
         }}

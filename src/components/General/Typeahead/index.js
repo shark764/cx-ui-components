@@ -17,10 +17,10 @@ const Input = styled.input`
   box-sizing: border-box;
   height: 36px;
   width: ${props => props.listWidth}px;
-  background-color: ${props => (props.noBackground ? 'transparent' : props.disabled ? '#efefef' : 'white')};
+  background-color: ${props => (props.customStyle && props.customStyle.noBackground ? 'transparent' : props.disabled ? '#efefef' : 'white')};
   padding: 2px 35px 0 20px;
-  color: ${props => (props.noBackground ? (props.customInputColor ? props.customInputColor : '#ccc') : 'initial')};
-  border: 1px solid lightgray;
+  color: ${props => (props.customStyle && props.customStyle.noBackground ? (props.customInputColor ? props.customInputColor : '#ccc') : 'initial')};
+  border: ${props => (props.customStyle && props.customStyle.inputborder) ? props.customStyle.inputborder : '1px solid lightgray'};
   border-radius: 3px;
   font-size: 17px;
   cursor: ${props => (props.disabled ? 'not-allowed' : 'default')};
@@ -46,7 +46,7 @@ const SuggestionsContainer = styled.div`
 `;
 
 const Suggestion = styled.div`
-  background: ${props => (props.index % 2 ? '#ededed;' : '#fff;')};
+  background: ${props => (props.index % 2 ? (props.customStyle && props.customStyle.suggestionBackgroundEvenListItem) ? props.customStyle.suggestionBackgroundEvenListItem : '#ededed;' : (props.customStyle && props.customStyle.suggestionBackgroundOddListItem) ? props.customStyle.suggestionBackgroundOddListItem : '#fff;')};
   font-size: 17px;
   font-family: 'Arial';
 `;
@@ -83,7 +83,7 @@ const NoSuggestionsMessage = styled.div`
   padding-top: 5px;
   padding-bottom: 5px;
   box-sizing: border-box;
-  background: white;
+  background: ${props => (props.customStyle && props.customStyle.noOptionsTxtBackroundColor) ? props.customStyle.noOptionsTxtBackroundColor : 'white'};
 `;
 
 export default class Typeahead extends Component {
@@ -149,11 +149,11 @@ export default class Typeahead extends Component {
   resetActive = isHiding => {
     const newSuggestions = isHiding
       ? this.props.options.map(option => {
-          return Object.assign(option, { active: false });
-        })
+        return Object.assign(option, { active: false });
+      })
       : [...this.state.suggestions].map(option => {
-          return Object.assign(option, { active: false });
-        });
+        return Object.assign(option, { active: false });
+      });
 
     const index =
       this.props.selectedOption && isHiding
@@ -239,7 +239,7 @@ export default class Typeahead extends Component {
   ItemRenderer = props => {
     const { label, active } = props.data[props.index];
     return (
-      <Suggestion index={props.index} style={props.style}>
+      <Suggestion index={props.index} style={props.style} customStyle={props.data && props.data['customStyle']}>
         <Item
           isActiveSuggestion={active}
           onClick={() => {
@@ -270,12 +270,12 @@ export default class Typeahead extends Component {
           placeholder={!this.props.disabled ? this.props.placeholder : undefined}
           onFocus={this.hasFocus}
           onChange={this.onChange}
+          customStyle={this.props.customStyle}
           listWidth={this.props.listWidth}
-          noBackground={this.props.noBackground}
           customInputColor={this.props.customInputColor}
           data-automation={this.props['data-automation']}
         />
-        <SearchIconWrapper searchIconType="primary" inputWidth={this.props.listWidth} />
+        <SearchIconWrapper searchIconType={(this.props.customStyle && this.props.customStyle.searchIconType) ? this.props.customStyle.searchIconType : "primary"} inputWidth={this.props.listWidth} />
         {this.state.hasFocus && (
           <SuggestionsContainer width={this.props.listWidth}>
             {this.state.suggestions.length > 0 && (
@@ -284,7 +284,7 @@ export default class Typeahead extends Component {
                 height={this.props.listHeight > suggestionListHeight ? suggestionListHeight : this.props.listHeight}
                 itemCount={this.state.suggestions.length}
                 itemSize={28}
-                itemData={this.state.suggestions}
+                itemData={{ ...this.state.suggestions, customStyle: this.props.customStyle }}
                 width={this.props.listWidth}
                 initialScrollOffset={initialOffset}
               >
@@ -292,7 +292,7 @@ export default class Typeahead extends Component {
               </List>
             )}
             {this.state.suggestions.length === 0 && (
-              <NoSuggestionsMessage>{this.props.noSuggestionsMessage}</NoSuggestionsMessage>
+              <NoSuggestionsMessage customStyle={this.props.customStyle}>{this.props.noSuggestionsMessage}</NoSuggestionsMessage>
             )}
           </SuggestionsContainer>
         )}
@@ -312,6 +312,6 @@ Typeahead.propTypes = {
   selectedOption: PropTypes.object,
   className: PropTypes.string,
   'data-automation': PropTypes.string,
-  noBackground: PropTypes.bool,
   customInputColor: PropTypes.string,
+  customStyle: PropTypes.object,
 };

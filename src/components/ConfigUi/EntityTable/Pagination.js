@@ -240,7 +240,7 @@ export default class Pagination extends Component {
             {showPageSizeOptions && (
               <span className="select-wrap -pageSizeOptions">
                 {`Show per page `}
-                <select onChange={e => onPageSizeChange(Number(e.target.value))} value={pageSize}>
+                <select className="-selectRows" onChange={e => onPageSizeChange(Number(e.target.value))} value={pageSize}>
                   {pageSizeOptions.map((option, i) => (
                     // eslint-disable-next-line react/no-array-index-key
                     <option key={i} value={option}>
