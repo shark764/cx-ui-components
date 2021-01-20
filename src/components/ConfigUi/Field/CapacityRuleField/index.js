@@ -226,16 +226,29 @@ class CapacityRuleComponent extends React.Component {
     this.props.input.value.setIn(['groups', index, 'interactions'], value)
   );
 
-  addGroup = () => this.props.input.onChange(
-    this.props.input.value.updateIn(['groups'], groups => groups.push(fromJS({
-      channels: [''],
-      interactions: ""
-    })))
-  );
+  addGroup = () =>{
+    this.setState(({ currentListItemsList: prevCurrentListItemsList }) => ({
+      currentListItemsList: [...prevCurrentListItemsList, '']
+    }))
+    this.props.input.onChange(
+      this.props.input.value.updateIn(['groups'], groups => groups.push(fromJS({
+        channels: [''],
+        interactions: ""
+      })))
+    );
+  } 
 
-  removeGroup = index => this.props.input.onChange(
-    this.props.input.value.deleteIn(['groups', index])
-  );
+  removeGroup = index => {
+    this.setState(({ currentListItemsList: prevCurrentListItemsList }) => {
+      const newList = [...prevCurrentListItemsList.slice(0, index), ...prevCurrentListItemsList.slice(index + 1)]
+      return {
+        currentListItemsList: newList
+      }
+    })
+    this.props.input.onChange(
+      this.props.input.value.deleteIn(['groups', index])
+    );
+  }
 
   render() {
     const {
