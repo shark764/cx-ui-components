@@ -35,6 +35,7 @@ export { default as BusinessHoursRule } from './components/ConfigUi/BusinessHour
 export { default as BigCalendar } from './components/ConfigUi/BigCalendar';
 export { default as MixCalendar } from './components/ConfigUi/MixCalendar';
 export { default as SmallCalendar } from './components/ConfigUi/SmallCalendar';
+export { default as Slider } from './components/ConfigUi/Slider';
 
 // Fields
 export { default as InputField } from './components/ConfigUi/Field/InputField';
