@@ -32,7 +32,13 @@ injectGlobal`${importantCss(`
 const Wrapper = styled.div`
   position: relative;
   width: 100%;
-  grid-area: chart;
+  grid-area: ${props=> props.gridArea && props.gridArea};
+`;
+
+const StatName = styled.h2`
+  color: #ffffff;
+  font-size: 21px;
+  font-weight: normal;
 `;
 
 function BarChart({
@@ -46,11 +52,13 @@ function BarChart({
   percentageYLabels = false,
   colors = DEFAULT_COLORS,
   onClick,
-  children
+  statName,
+  gridArea,
+  id
 }) {
   return (
-    <Wrapper>
-      {children}
+    <Wrapper gridArea={gridArea} id={id}>
+      <StatName>{statName}</StatName>
       <ResponsiveContainer width={width} height={height} className={getClasses()}>
         <RechartsBarChart data={toHumanReadableLabels(data)} onClick={onClick}>
           <CartesianGrid strokeDasharray="3 3" />
@@ -113,7 +121,9 @@ BarChart.propTypes = {
   displayVertical: PropTypes.bool,
   colors: PropTypes.array,
   onClick: PropTypes.func,
-  children: PropTypes.any,
+  id: PropTypes.string,
+  gridArea: PropTypes.string,
+  statName: PropTypes.string,
 };
 
 export default BarChart;
