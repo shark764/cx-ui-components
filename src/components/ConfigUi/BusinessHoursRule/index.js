@@ -325,7 +325,6 @@ export default class BusinessHoursRule extends React.Component{
     this.state = {
       showMenu: false,
       byDate: props.rule.endDate ? 'by' : 'none',
-      onType: { on: { type: '', value: '' } },
       outsideClick: fromEvent(document, 'click')
         // eslint-disable-next-line array-callback-return
         .map(({ target }) => {
@@ -349,6 +348,15 @@ export default class BusinessHoursRule extends React.Component{
     this.setState((prevState) => ({
       showMenu: !prevState.showMenu
     }));
+  }
+
+  componentDidUpdate({ rule: { endDate: prevEndDate }}) {
+    const { endDate } = this.props.rule
+    if ((prevEndDate && !endDate) || (!prevEndDate && endDate)) {
+      this.setState({
+        byDate: (prevEndDate && !endDate && 'none') || (!prevEndDate && endDate && 'by')
+      });
+    }
   }
 
   componentWillUnmount() {

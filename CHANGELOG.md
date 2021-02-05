@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.66.2] - 2021-02-02
+### Fixed
+- CXV1-23860 - The Business hour component shows an end date of current date for a rule with no end date on view-mode
+
 ## [0.66.1] - 2021-01-28
 ### Fixed
 - <no-jira> - Added heading to BarChart component.
