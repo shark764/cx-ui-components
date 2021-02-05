@@ -99,7 +99,7 @@ function SidePanelTable(props) {
   if (actions.length && (((props.userHasUpdatePermission || props.userHasViewPermission) && !props.inherited) || (props.inherited || props.showInheritedViewOnlyViewButtonOnItem || props.showInheritedViewOnlyCopyButtonOnItem))) {
     columns.push({
       id: 'actions',
-      Header: <span title="Actions">Actions</span>,
+      Header: <span title={`${props.actionHeaderMessage || 'Actions'}`}>{`${props.actionHeaderMessage || 'Actions'}`}</span>,
       filterable: false,
       sortable: false,
       accessor: d =>
@@ -193,7 +193,8 @@ SidePanelTable.propTypes = {
   shouldShowAddButtonOnItem: PropTypes.func,
   shouldShowActiveToggleOnItem: PropTypes.func,
   showInheritedViewOnlyViewButtonOnItem: PropTypes.bool,
-  showInheritedViewOnlyCopyButtonOnItem: PropTypes.bool
+  showInheritedViewOnlyCopyButtonOnItem: PropTypes.bool,
+  actionHeaderMessage: PropTypes.string
 };
 
 SidePanelTable.defaultProps = {
