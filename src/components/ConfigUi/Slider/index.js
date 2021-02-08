@@ -11,13 +11,38 @@
 import React from 'react';
 import 'rc-slider/assets/index.css';
 import PropTypes from 'prop-types';
-import { default as RcSlider, createSliderWithTooltip } from 'rc-slider';
+import { default as RcSlider, SliderTooltip } from 'rc-slider';
+import styled from 'styled-components';
 
 const { Handle } = RcSlider;
 
+const Wrapper = styled.div`
+  display: inline-flex;
+  width: 100%;
+  margin-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 10px;
+  font-size: 14px;
+  vertical-align: middle;
+
+`;
+
+const Label = styled.span`
+  display: inline-table;
+  width: 30%;
+`;
+
+const SubLabel = styled.span`
+  color: gray;
+  font-size: 13px;
+`;
+
 function Slider(props) {
   const {
+    label,
+    subLabel,
     initialValue,
+    value,
     min,
     max,
     step,
@@ -38,20 +63,31 @@ function Slider(props) {
     disabled
   } = props;
 
-  const SliderWithTooltip = tooltip ? createSliderWithTooltip(RcSlider) : RcSlider;
-
   const CustomHandle = props => {
-    const { value, ...restProps } = props;
+    // Properties when tooltip is enabled or for custom label inside the handle dragger
+    const { value, dragging, index, ...restProps } = props;
+    const { visible, placement, prefixCls, overlay } = tooltipProps || {};
     return (
-      <Handle value={value} {...restProps} >
-        {handleLabel && textFormatter(value)}
-      </Handle>
+      <SliderTooltip
+        prefixCls={prefixCls || "rc-slider-tooltip"}
+        overlay={overlay || `${value} %`}
+        visible={tooltip && (visible || dragging)}
+        placement={tooltip && (placement || 'top')}
+        key={index}
+      >
+        <Handle value={value} {...restProps} >
+          {handleLabel && textFormatter(value)}
+        </Handle>
+      </SliderTooltip>
     );
   };
 
   return (
-      <SliderWithTooltip
+    <Wrapper className={props.className}>
+      {label && <Label>{label} {subLabel && <SubLabel>{subLabel}</SubLabel>}</Label>}
+      <RcSlider
         defaultValue={initialValue}
+        value={value}
         min={min}
         max={max}
         step={step}
@@ -64,16 +100,18 @@ function Slider(props) {
         trackStyle={trackStyle}
         railStyle={railStyle}
         marks={marks}
-        tipProps={tooltipProps}
-        handle={handleLabel ? CustomHandle : undefined}
+        handle={handleLabel || tooltip ? CustomHandle : undefined}
         handleStyle={handleStyle}
-        tipFormatter={textFormatter}
         disabled={disabled}
       />
+    </Wrapper>
   );
 };
 
 Slider.propTypes = {
+  label: PropTypes.string,
+  subLabel: PropTypes.string,
+  className: PropTypes.string,
   initialValue: PropTypes.number,
   min: PropTypes.number,
   max: PropTypes.number,
@@ -93,13 +131,14 @@ Slider.propTypes = {
   handleStyle: PropTypes.object,
   textFormatter: PropTypes.func,
   disabled: PropTypes.bool,
-  value: PropTypes.string
+  value: PropTypes.string,
+  dragging: PropTypes.bool,
+  index: PropTypes.number
 };
 
 Slider.defaultProps = {
   dots: false,
   tooltip: false,
-  initialValue: 0,
   handleStyle: {
     borderColor: '#04B45F',
     height: 35,

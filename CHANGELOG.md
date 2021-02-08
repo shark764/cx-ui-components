@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.67.0] - 2021-02-03
+### Added
+- CXV1-23859 - Capacity Rule by Percentage - Slider Field Component.
+
 ## [0.66.3] - 2021-02-0
 ### Added
 - <no-jira> - Added prop so the SidePanelTable can get the header for Actions column

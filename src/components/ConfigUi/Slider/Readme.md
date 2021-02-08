@@ -1,12 +1,23 @@
 ```js
   const style = { width: 600, margin: 50 };
 
-  function handleOnChange(e) {
-    console.log('handleOnChange', e);
-  }
-
+  initialState = {
+    basicSlider: 25,
+    sliderWithMarks: 0,
+    sliderWithTooltip: 50,
+    sliderValue: 75
+  };
+  
   function textFormatter(v) {
     return `${v}%`;
+  }
+
+  function handleOnBeforeChange(e) {
+    console.log('handleOnBeforeChange', e);
+  }
+
+    function onAfterChange(e) {
+    console.log('onAfterChange', e);
   }
 
   <div style={style}>
@@ -14,7 +25,7 @@
     <Slider
       min={0}
       max={100}
-      initialValue={25}
+      value={state.basicSlider}
       step={25}
       disabled
     />
@@ -23,9 +34,15 @@
     
     <p>Slider with Marks</p>
     <Slider
+      label={'SMS'}
+      subLabel={`(max ${4})`}
       min={0}
       max={100}
       initialValue={0}
+      value={state.sliderWithMarks}
+      onChange={(e) =>  setState({
+        sliderWithMarks: e
+      })}
       step={25}
       marks={{
         0: 0,
@@ -49,13 +66,17 @@
     <br />
     <br />
 
-    <p>Slider with Tooltip and Custom Handle Style</p>
+    <p>Slider with Tooltip and Custom Handle Style (no label)</p>
     <Slider
       min={0}
       max={100}
       initialValue={0}
+      value={state.sliderWithTooltip}
+      onChange={(e) =>  setState({
+        sliderWithTooltip: e
+      })}
       tooltip
-      tipProps={{visible: true}}
+      tooltipProps={{visible: true, placement: 'bottom'}}
       step={25}
       textFormatter={textFormatter}
       handleStyle={{
@@ -72,13 +93,20 @@
 
     <p>Slider with Custom Handled</p>
     <Slider
+      label={'Messaging'}
+      subLabel={`(max ${1})`}
       min={0}
       max={100}
       initialValue={0}
+      value={state.sliderValue}
       handleLabel
       step={25}
       textFormatter={textFormatter}
-      onChange={handleOnChange}
+      onChange={(e) =>  setState({
+        sliderValue: e
+      })}
+      onBeforeChange={handleOnBeforeChange}
+      onAfterChange={onAfterChange}
     />
   </div>
 ;
