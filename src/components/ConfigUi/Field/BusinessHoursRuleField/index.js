@@ -31,7 +31,6 @@ const BusinessHours = props => {
       <BusinessHoursRule
         onChange={rule => {
           input.onChange(rule);
-          input.onBlur();
         }}
         rule={input.value}
         customActions={customActions}
@@ -44,6 +43,7 @@ const BusinessHours = props => {
         disabled={disabled}
         error={errorObj}
         viewOnly={viewOnly}
+        onBlur={() => input.onBlur(undefined)}
       />
     </FieldWrapper>
   );

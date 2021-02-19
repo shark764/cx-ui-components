@@ -51,6 +51,7 @@ export default class DatePicker extends React.Component {
         parseDate={parseDate}
         onDayChange={this.handleDayChange}
         format={this.props.format || "MM/DD/YYYY"}
+        inputProps={this.props.inputProps}
       />
     );
   }
@@ -67,5 +68,6 @@ DatePicker.propTypes = {
   localeTimeZone: PropTypes.string,
   selectedDay: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]),
   minDate: PropTypes.instanceOf(Date),  
-  maxDate: PropTypes.instanceOf(Date)
+  maxDate: PropTypes.instanceOf(Date),
+  inputProps: PropTypes.object
 };

@@ -430,6 +430,7 @@ export default class BusinessHoursRule extends React.Component{
         ...this.props.rule,
         on: e
       });
+      this.props.onBlur();
     } else { 
       this.props.onChange({
         ...this.props.rule,
@@ -629,6 +630,7 @@ export default class BusinessHoursRule extends React.Component{
             onChange={this.handleRuleName}
             placeholder="(Name)"
             disabled={this.props.disabled}
+            onBlur={this.props.onBlur}
           />
           <div 
             style={{float: 'right', marginTop: '2px'}}
@@ -708,7 +710,9 @@ export default class BusinessHoursRule extends React.Component{
                 error={this.props.error && this.props.error.type}
                 value={(this.props.rule && this.props.rule.type)||""}
                 onChange={this.handleRuleType}
-                disabled={this.props.disabled}>
+                disabled={this.props.disabled}
+                onBlur={this.props.onBlur}
+              >
                   <Fragment>
                     <option disabled hidden value="">
                       Select
@@ -734,6 +738,7 @@ export default class BusinessHoursRule extends React.Component{
                 onChange={this.handleRuleDescription}
                 placeholder="Text..."
                 disabled={this.props.disabled}
+                onBlur={this.props.onBlur}
               />
             </Row>
           </Column>
@@ -748,7 +753,9 @@ export default class BusinessHoursRule extends React.Component{
                 compress
                 disabled={this.props.disabled || (this.props.rule.type && this.props.rule.type.includes('one-time'))}
                 value={(this.props.rule && this.props.rule.repeats)||""}
-                onChange={this.handleRuleRepeats}>
+                onChange={this.handleRuleRepeats}
+                onBlur={this.props.onBlur}
+              >
                   <Fragment>
                     <option disabled hidden value="">
                       Select
@@ -784,6 +791,7 @@ export default class BusinessHoursRule extends React.Component{
                   value={(this.props.rule && this.props.rule.every)||""}
                   width="45px" 
                   compress
+                  onBlur={this.props.onBlur}
                 />
               }
               {this.props.rule && this.props.rule.repeats === 'daily' && 
@@ -807,6 +815,7 @@ export default class BusinessHoursRule extends React.Component{
                   value={(this.props.rule && this.props.rule.every)||""}
                   onChange={this.handleRuleRepeatsEvery}
                   disabled={this.props.disabled}
+                  onBlur={this.props.onBlur}
                 >
                   <Fragment>
                     <option disabled hidden value="">
@@ -855,6 +864,7 @@ export default class BusinessHoursRule extends React.Component{
                             this.props.rule.on.value)||""}
                     onChange={this.handleRuleRepeaOnEvery}
                     disabled={this.props.disabled}
+                    onBlur={this.props.onBlur}
                   >
                       <Fragment>
                         <option disabled hidden value="">
@@ -878,6 +888,7 @@ export default class BusinessHoursRule extends React.Component{
                       disabled={this.props.disabled || (!this.props.rule || !this.props.rule.on)}
                       value={(this.props.rule && this.props.rule.on && this.props.rule.on.type)||""}
                       onChange={this.handleRuleRepeaOnEveryDay}
+                      onBlur={this.props.onBlur}
                     >
                       <Fragment>
                         <option disabled hidden value="">
@@ -904,6 +915,7 @@ export default class BusinessHoursRule extends React.Component{
                       width="100px"
                       value={(this.props.rule && this.props.rule.on && this.props.rule.on.type) || ""}
                       onChange={this.handleRuleRepeaOnEveryDayValue}
+                      onBlur={this.props.onBlur}
                     />
                   }
                 </Fragment>
@@ -919,6 +931,9 @@ export default class BusinessHoursRule extends React.Component{
                 localeTimeZone="us"
                 format="LL"
                 disabled={this.props.disabled}
+                inputProps={{
+                  onBlur: this.props.onBlur
+                }}
               />
               <Label 
                 htmlFor="endDate" 
@@ -938,6 +953,7 @@ export default class BusinessHoursRule extends React.Component{
                   }
                 value={this.state.byDate}
                 compress
+                onBlur={this.props.onBlur}
               >
                 <option value="none">None</option>
                 <option value="by">By</option>
@@ -964,6 +980,9 @@ export default class BusinessHoursRule extends React.Component{
                     (this.props.rule.type === 'one-time-extended-hours' || 
                     this.props.rule.type === 'blackout-one-time-exceptions')))
                 }
+                inputProps={{
+                  onBlur: this.props.onBlur
+                }}
               />}
             </Row>
           </Column>
@@ -1026,6 +1045,7 @@ export default class BusinessHoursRule extends React.Component{
                     minutesStep={5}
                     onChange={(e) => this.handleRuleStartTime(index, item, e)}
                     disabled={this.props.disabled}
+                    onBlur={this.props.onBlur}
                   />
                 </div>
                 <div 
@@ -1046,6 +1066,7 @@ export default class BusinessHoursRule extends React.Component{
                     minutesStep={5}
                     onChange={(e) => this.handleRuleEndTime(index, item, e)}
                     disabled={this.props.disabled}
+                    onBlur={this.props.onBlur}
                   />&nbsp;&nbsp;
                     {!this.props.disabled &&
                       this.props.rule &&
@@ -1081,5 +1102,6 @@ BusinessHoursRule.propTypes = {
   disabled: PropTypes.bool,
   error: PropTypes.object,
   copyAction: PropTypes.oneOfType([PropTypes.func, PropTypes.boolean]),
-  deleteAction: PropTypes.func
+  deleteAction: PropTypes.func,
+  onBlur: PropTypes.func
 }

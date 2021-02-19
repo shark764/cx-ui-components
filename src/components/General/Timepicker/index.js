@@ -185,6 +185,7 @@ export default class Timepicker extends Component {
           onChange={this.onHoursChange}
           twelveHoursMode={this.props.twelveHoursMode}
           disabled={this.props.disabled}
+          onBlur={this.props.onBlur}
         >
           {hoursOptions.map(({ label, value }) => (
             <option key={value.toString()} value={value}>
@@ -200,6 +201,7 @@ export default class Timepicker extends Component {
           onChange={this.onMinutesChange}
           twelveHoursMode={this.props.twelveHoursMode}
           disabled={this.props.minutesOnDay <= -1 || this.props.disabled}
+          onBlur={this.props.onBlur}
         >
           {minutesOptions.map(({ label, value }) => (
             <option key={value.toString()} value={value}>
@@ -215,6 +217,7 @@ export default class Timepicker extends Component {
             onChange={this.onAMPMChange}
             twelveHoursMode={this.props.twelveHoursMode}
             disabled={this.props.minutesOnDay <= -1 || this.props.disabled}
+            onBlur={this.props.onBlur}
           >
             <option value="am">AM</option>
             <option value="pm">PM</option>
@@ -234,7 +237,8 @@ Timepicker.propTypes = {
   nullOption: PropTypes.bool,
   onChange: PropTypes.func.isRequired,
   disabled: PropTypes.bool,
-  error: PropTypes.bool
+  error: PropTypes.bool,
+  onBlur: PropTypes.func
 };
 
 Timepicker.defaultProps = {
