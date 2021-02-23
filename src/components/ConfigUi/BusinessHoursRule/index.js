@@ -961,10 +961,7 @@ export default class BusinessHoursRule extends React.Component{
               {this.state.byDate !== 'none' &&
               <DatePicker
                 name="endDate"
-                placeholder={
-                  ((this.props.rule.type !== undefined && (this.props.rule.type === 'one-time-extended-hours' || this.props.rule.type==='blackout-one-time-exceptions')) || '') ||
-                    ((this.state.byDate !== undefined && this.state.byDate === 'none') || '')
-                  }
+                placeholder='Select an end date'
                 onClick={(e) => this.handleDate(e)} 
                 selectedDay={this.props.rule && this.props.rule.endDate}
                 customStyle={this.props.error && this.props.error.endDate ? datePickerErroredStyle : datePickerStyle}
