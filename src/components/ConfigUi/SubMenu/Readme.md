@@ -2,6 +2,8 @@
 const items = [
   { active: true, name: 'filter1' },
   { active: true, name: 'filter2' },
+  { active: true, name: 'Test case for a long name' },
+  { active: true, name: 'filter3', customName: "Test case for a long customName" },
 ];
 
 <div style={{ position: 'relative', height: '150px' }}>

@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.67.3] - 2021-02-24
+### Fixed
+- CXV1-23805 - Agent State Monitoring Drop Down Filter views are truncated
+
 ## [0.67.2] - 2021-02-23
 ### Added
 - <no-jira> - Fix on BusinessHoursRule end date picker placeholder
@@ -118,7 +122,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.61.28] - 2020-08-24
 ### Fixed
-- CXV1-16097 - Pagination table show more rows than actual count of items (not valid issue anymore, 
+- CXV1-16097 - Pagination table show more rows than actual count of items (not valid issue anymore,
                however, dynamic pagination options was set to show only page numbers closest to data length)
 
 ## [0.61.27] - 2020-08-13
@@ -161,7 +165,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - <no-jira> - Adjust entity table to make it works with contact attributes.
 
 ## [0.61.17] - 2020-07-07
-- CXV1-22813 - copy button is missing in editing a draft 
+- CXV1-22813 - copy button is missing in editing a draft
 
 ## [0.61.16] - 2020-07-02
 - CXV1-22700 - Draft shouldn't save when clicking on "Add Rule" button on a rule
@@ -188,7 +192,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - <no-jira> - Typo errors in business rule component.
 
 ## [0.61.8] - 2020-05-28
-- <no-jira> - Make platform tenant non editable in the entity table during bulk actions. 
+- <no-jira> - Make platform tenant non editable in the entity table during bulk actions.
 
 ## [0.61.7] - 2020-05-28
 - <no-jira> - Fix to endDate field so it gets resetted to undefined when selecting "None" on the "End" selector of the Business Hour Rule component
@@ -222,13 +226,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.60.9] - 2020-05-07
 - <no-ticket> - Fix to Business Hours Rule component when used as a redux-form field
 
-## [0.60.8] - 2020-04-30 
+## [0.60.8] - 2020-04-30
 ## Fixed
 - <no-ticket> - BigCalendar popup removed since is not compatible with Config2
               - ShowMore was added to display selected day on "show more" link
               - All day events padding removed since it was misplacing other events
 
-## [0.60.7] - 2020-04-30 
+## [0.60.7] - 2020-04-30
 ## Fixed
 - <no-ticket> - Busines Rule Component validation added on endDate when one-time event type selected
               - Hide Sections List when no events available or empty list on calendar
@@ -266,7 +270,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Fixed
 - CXV1-21299 - BusinessRule component endDate not editable when coming from the api.
 ## Aded
-             - Validations added to all inputs in BusinessRule component and BusinessRuleField 
+             - Validations added to all inputs in BusinessRule component and BusinessRuleField
              - SVG icons added for BusinessRule types
              - Viewonly mode added
              - Calendar onNavigate and onView handlers added
@@ -379,7 +383,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.56.8] - 2019-11-12
 ## Fixed
-- CXV1-20600 - paging | user page | config -UI 2 
+- CXV1-20600 - paging | user page | config -UI 2
 
 ## [0.56.7] - 2019-11-07
 ## Added
@@ -492,7 +496,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.50.0] - 2019-08-29
 ### Added
-- CXV1-18753-Added-WordWrapIcon. 
+- CXV1-18753-Added-WordWrapIcon.
 - CXV1-18685 - Message Templates component RichText Editor.
 
 ##[0.49.3] - 2019-08-28
@@ -624,19 +628,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * CXV1-16219 - Simple Input component
 
 ## [0.36.8] - 2019-03-08
-### Fixed 
+### Fixed
 * removed unneeded bulkaction check for table row selector
 
 ## [0.36.7] - 2019-03-08
-### Fixed 
+### Fixed
 * removed unneeded bulkaction check for actions menu
 
 ## [0.36.6] - 2019-03-08
-### Fixed 
+### Fixed
 * Move alpha flag for bulk actions button and replace it with a new boolean prop
 
 ## [0.36.5] - 2019-03-06
-### Fixed 
+### Fixed
 * ConfirmationWrapper change the logic for the arrow function when user delete outbound identifier lists.
 * CXV1-17194 - Config 2 - Outbound Identifiers "This cannot be undone" warning appears when deleting Outbound identifier lists.
 

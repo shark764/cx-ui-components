@@ -35,7 +35,7 @@ const ItemList = styled.ul`
   padding-left: 0px;
   max-height: 65vh;
   max-width: 65vw;
-  overflow: auto;
+  overflow: hidden;
 `;
 const ListItem = styled.li`
   display: flex;
@@ -55,6 +55,7 @@ const Seperator = styled.div`
 `;
 const ItemText = styled.span`
   margin-left: 20px;
+  white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
 `;
@@ -113,7 +114,7 @@ class SubMenu extends React.Component {
                     checked={item.active}
                     data-automation="subMenuToggleItem"
                   />
-                  <ItemText>{item.customName ? item.customName : item.name}</ItemText>
+                  <ItemText title={item.customName ? item.customName : item.name}>{item.customName ? item.customName : item.name}</ItemText>
                 </ListItem>
               </label>,
               item.name === 'All' && <Seperator key={`${item.name}-seperator`} />,
