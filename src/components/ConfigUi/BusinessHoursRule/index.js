@@ -629,6 +629,7 @@ export default class BusinessHoursRule extends React.Component{
             value={this.props.rule.name}
             onChange={this.handleRuleName}
             placeholder="(Name)"
+            data-automation="ruleNameInput"
             disabled={this.props.disabled}
             onBlur={this.props.onBlur}
           />
@@ -639,12 +640,14 @@ export default class BusinessHoursRule extends React.Component{
               <Fragment>
                 <CancelButton
                   buttonType="secondary"
+                  data-automation="ruleCancelButton"
                   onClick={this.handleCancel}
                 >
                   Cancel
                 </CancelButton>
                 <SaveButton 
                   buttonType="primary"
+                  data-automation="ruleAddButton"
                   disabled={this.props.disabled || !this.props.saveException} //  Prop that validates if the form has all required fields in parent to save the rule
                   onClick={this.handleSaveException}
                 >
@@ -656,6 +659,7 @@ export default class BusinessHoursRule extends React.Component{
               <Fragment>
                 <img
                   onClick={this.showMenu} 
+                  data-automation="ruleActionImage"
                   src={dotsIcon}
                   style={{width:'35px', height:'35px', cursor:'pointer', float: 'right'}} 
                   alt="ruleActions"
@@ -712,7 +716,7 @@ export default class BusinessHoursRule extends React.Component{
                 onChange={this.handleRuleType}
                 disabled={this.props.disabled}
                 onBlur={this.props.onBlur}
-              >
+                data-automation="ruleTypeList">
                   <Fragment>
                     <option disabled hidden value="">
                       Select
@@ -737,6 +741,7 @@ export default class BusinessHoursRule extends React.Component{
                 value={this.props.rule && this.props.rule.description}
                 onChange={this.handleRuleDescription}
                 placeholder="Text..."
+                data-automation="ruleDescriptionInput"
                 disabled={this.props.disabled}
                 onBlur={this.props.onBlur}
               />
@@ -755,6 +760,7 @@ export default class BusinessHoursRule extends React.Component{
                 value={(this.props.rule && this.props.rule.repeats)||""}
                 onChange={this.handleRuleRepeats}
                 onBlur={this.props.onBlur}
+                data-automation="ruleRepeatList"
               >
                   <Fragment>
                     <option disabled hidden value="">
@@ -789,6 +795,7 @@ export default class BusinessHoursRule extends React.Component{
                   disabled={this.props.disabled}
                   onChange={this.handleRuleRepeatsEvery} 
                   value={(this.props.rule && this.props.rule.every)||""}
+                  data-automation="ruleEveryInput"
                   width="45px" 
                   compress
                   onBlur={this.props.onBlur}
@@ -814,6 +821,7 @@ export default class BusinessHoursRule extends React.Component{
                   compress
                   value={(this.props.rule && this.props.rule.every)||""}
                   onChange={this.handleRuleRepeatsEvery}
+                  data-automation="ruleEveryList"
                   disabled={this.props.disabled}
                   onBlur={this.props.onBlur}
                 >
@@ -863,6 +871,7 @@ export default class BusinessHoursRule extends React.Component{
                             this.props.rule.on &&
                             this.props.rule.on.value)||""}
                     onChange={this.handleRuleRepeaOnEvery}
+                    data-automation="ruleOnValueList"
                     disabled={this.props.disabled}
                     onBlur={this.props.onBlur}
                   >
@@ -883,6 +892,7 @@ export default class BusinessHoursRule extends React.Component{
                     (this.props.rule.repeats === 'monthly' || this.props.rule.repeats === 'yearly') && this.props.rule.on &&this.props.rule.on.value !== 'day' &&
                     <Select
                       name="onType"
+                      data-automation="ruleOnTypeList"
                       error={this.props.error && this.props.error.on && this.props.error.on.type}
                       compress
                       disabled={this.props.disabled || (!this.props.rule || !this.props.rule.on)}
@@ -910,6 +920,7 @@ export default class BusinessHoursRule extends React.Component{
                     <Input
                       type="number"
                       name="onType"
+                      data-automation="ruleOnTypeInput"
                       error={this.props.error && this.props.error.on && this.props.error.on.type}
                       disabled={this.props.disabled || (!this.props.rule || !this.props.rule.on || !this.props.rule.on.value)}
                       width="100px"
@@ -925,6 +936,7 @@ export default class BusinessHoursRule extends React.Component{
               <Label htmlFor="startDate">Start</Label>
               <DatePicker
                 name="startDate"
+                data-automation="ruleStartDateInput"
                 onClick={(e) => this.handleDate(e, true)}
                 selectedDay={this.props.rule && this.props.rule.startDate}
                 customStyle={this.props.error && this.props.error.startDate ? datePickerErroredStyle : datePickerStyle}
@@ -944,6 +956,7 @@ export default class BusinessHoursRule extends React.Component{
               </Label>
               <Select
                 name="byDate"
+                data-automation="ruleByDateList"
                 error={this.props.error && this.props.error.byDate}
                 onChange={this.handleEndByDate} 
                 disabled={this.props.disabled || 
@@ -952,6 +965,7 @@ export default class BusinessHoursRule extends React.Component{
                     this.props.rule.type==='blackout-one-time-exceptions'))
                   }
                 value={this.state.byDate}
+                data-automation="ruleByDateList"
                 compress
                 onBlur={this.props.onBlur}
               >
@@ -961,6 +975,7 @@ export default class BusinessHoursRule extends React.Component{
               {this.state.byDate !== 'none' &&
               <DatePicker
                 name="endDate"
+                data-automation="ruleEndDateInput"
                 placeholder='Select an end date'
                 onClick={(e) => this.handleDate(e)} 
                 selectedDay={this.props.rule && this.props.rule.endDate}
@@ -992,6 +1007,7 @@ export default class BusinessHoursRule extends React.Component{
                 name={`allDayDuration${this.props.rule ? this.props.rule.id : ''}`}
                 checked={(this.props.rule && this.props.rule.hours && this.props.rule.hours.allDay)||false}
                 value="all" 
+                data-automation="ruleAllDayRadio"
                 onChange={this.handleRuleHoursInterval}
                 disabled={this.props.disabled}
               />
@@ -1002,6 +1018,7 @@ export default class BusinessHoursRule extends React.Component{
                 name={`partialDayDuration${this.props.rule ? this.props.rule.id : ''}`}
                 checked={(this.props.rule && this.props.rule.hours && this.props.rule.hours.allDay === false)||false}
                 value="partial"
+                data-automation="rulePartialRadio"
                 onChange={this.handleRuleHoursInterval}
                 disabled={this.props.disabled} 
               />
@@ -1010,6 +1027,7 @@ export default class BusinessHoursRule extends React.Component{
                 <AddButton 
                   buttonType="secondary"
                   onClick={this.addPartialHour}
+                  data-automation="ruleAddPartialHourButton"
                   disabled={this.props.disabled}
                 >
                   <PlusIconSVG 
