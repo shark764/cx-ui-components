@@ -12,7 +12,9 @@ const SubMenuDiv = styled.div`
   top: 37px;
   z-index: 3;
   width: 260px;
+  max-height: 47vh;
   box-shadow: 0px 0px 2px 0px rgba(42, 45, 41, 0.63);
+  overflow-y: auto;
 `;
 const SubMenuTopArrow = styled.div`
   border-width: 9px;
@@ -68,9 +70,9 @@ class SubMenu extends React.Component {
           <ClickMask onClick={() => this.props.setSubMenuVisibility('none', this.props.tableType)} />
         )}
 
-        {this.props.currentVisibleSubMenu === this.props.menuType && <SubMenuTopArrow key="SubMenuTopArrow" />}
+        {this.props.currentVisibleSubMenu === this.props.menuType && <SubMenuTopArrow key="SubMenuTopArrow"/> }
         <SubMenuDiv key="SubMenu" className={`DropDown-SubMenu ${this.props.className}`}>
-          <ItemList>
+          <ItemList >
             {this.props.selectionType === 'checkbox' && (
               <Fragment>
                 <label>
