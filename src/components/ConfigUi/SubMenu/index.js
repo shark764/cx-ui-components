@@ -12,9 +12,7 @@ const SubMenuDiv = styled.div`
   top: 37px;
   z-index: 3;
   width: 260px;
-  max-height: 47vh;
   box-shadow: 0px 0px 2px 0px rgba(42, 45, 41, 0.63);
-  overflow-y: auto;
 `;
 const SubMenuTopArrow = styled.div`
   border-width: 9px;
@@ -35,9 +33,9 @@ const SubMenuTopArrow = styled.div`
 const ItemList = styled.ul`
   list-style-type: none;
   padding-left: 0px;
-  max-height: 65vh;
+  max-height: 55vh;
   max-width: 65vw;
-  overflow: hidden;
+  overflow: auto;
 `;
 const ListItem = styled.li`
   display: flex;
