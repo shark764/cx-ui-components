@@ -31,6 +31,9 @@ class UploadFile extends React.Component {
           this.props.uploadFile(file, name);
           this.props.input.onChange(e.target.result);
         };
+      } else if (file.type.includes('audio')) {
+        this.props.uploadFile(file, name);
+        this.props.input.onChange(file);
       } else {
         this.props.uploadFile(file, name);
         this.props.input.onChange(URL.createObjectURL(file));
