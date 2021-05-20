@@ -36,6 +36,8 @@ export { default as BigCalendar } from './components/ConfigUi/BigCalendar';
 export { default as MixCalendar } from './components/ConfigUi/MixCalendar';
 export { default as SmallCalendar } from './components/ConfigUi/SmallCalendar';
 export { default as Slider } from './components/ConfigUi/Slider';
+export { default as Tooltip } from './components/ConfigUi/Tooltip';
+export { default as MaxChannelDropdown } from './components/ConfigUi/MaxChannelDropdown';
 
 // Fields
 export { default as InputField } from './components/ConfigUi/Field/InputField';
@@ -56,6 +58,7 @@ export { default as NestedListField } from './components/ConfigUi/Field/NestedLi
 export { BusinessHoursRuleField } from './components/ConfigUi/Field/BusinessHoursRuleField';
 export { default as FileUploadField } from './components/ConfigUi/Field/FileUploadField';
 export { default as CapacityRuleField } from './components/ConfigUi/Field/CapacityRuleField';
+export { default as CapacityRuleSliderField } from './components/ConfigUi/Field/CapacityRuleSliderField';
 
 // File
 export { default as FileUpload } from './components/ConfigUi/FileUpload';
@@ -115,6 +118,7 @@ export { default as Gauge } from './components/ConfigUi/Reporting/Gauge';
 export { default as ReportingWidget } from './components/ConfigUi/Reporting/Widget';
 export { default as RefreshIconSVG } from './components/Icons/RefreshIconSVG';
 export { default as GlobeIconSVG } from './components/Icons/GlobeIconSVG';
+export { default as MaxIndicatorSVG } from './components/Icons/MaxIndicatorSVG';
 
 // Constants
 export { defaultTheme } from './constants';

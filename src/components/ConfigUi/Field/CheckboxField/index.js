@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import { List } from 'immutable';
 import { Field as ReduxFormField } from 'redux-form/immutable';
 import FieldWrapper from '../FieldWrapper';
-import ClickMask from '../../ClickMask';
 import DropdownButton from '../../DropdownButton';
 
 const SubMenuDiv = styled.div`

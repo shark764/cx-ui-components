@@ -5,18 +5,14 @@
     basicSlider: 25,
     sliderWithMarks: 0,
     sliderWithTooltip: 50,
-    sliderValue: 75
+    maxSliderValue: 0
   };
-  
-  function textFormatter(v) {
-    return `${v}%`;
-  }
 
   function handleOnBeforeChange(e) {
     console.log('handleOnBeforeChange', e);
   }
 
-    function onAfterChange(e) {
+  function onAfterChange(e) {
     console.log('onAfterChange', e);
   }
 
@@ -78,7 +74,6 @@
       tooltip
       tooltipProps={{visible: true, placement: 'bottom'}}
       step={25}
-      textFormatter={textFormatter}
       handleStyle={{
         borderColor: '#3396FF',
         height: 25,
@@ -91,19 +86,19 @@
     <br />
     <br />
 
-    <p>Slider with Custom Handled</p>
+    <p>Slider with Custom Tooltip</p>
     <Slider
       label={'Messaging'}
-      subLabel={`(max ${1})`}
       min={0}
       max={100}
       initialValue={0}
-      value={state.sliderValue}
+      value={state.maxSliderValue}
       handleLabel
       step={25}
-      textFormatter={textFormatter}
+      tooltip
+      tooltipText="Siuuuuuuuuuuu"
       onChange={(e) =>  setState({
-        sliderValue: e
+        maxSliderValue: e
       })}
       onBeforeChange={handleOnBeforeChange}
       onAfterChange={onAfterChange}

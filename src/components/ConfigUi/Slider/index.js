@@ -11,31 +11,41 @@
 import React from 'react';
 import 'rc-slider/assets/index.css';
 import PropTypes from 'prop-types';
-import { default as RcSlider, SliderTooltip } from 'rc-slider';
+import { default as RcSlider } from 'rc-slider';
 import styled from 'styled-components';
+import Tooltip from '../Tooltip';
 
 const { Handle } = RcSlider;
 
 const Wrapper = styled.div`
   display: inline-flex;
-  width: 100%;
   margin-left: 10px;
   padding-right: 10px;
   padding-bottom: 10px;
   font-size: 14px;
   vertical-align: middle;
-
+  width: 100%;
 `;
 
 const Label = styled.span`
+  font-family: Arial, Helvetica;
   display: inline-table;
-  width: 30%;
+  font-weight: bold;
+  width: 25%;
+  margin-right: 40px;
+  white-space: nowrap;
 `;
 
 const SubLabel = styled.span`
   color: gray;
   font-size: 13px;
 `;
+
+const RcSliderWrapper = styled(RcSlider)`
+  &.rc-slider-disabled {
+    background-color: inherit;
+  }
+`
 
 function Slider(props) {
   const {
@@ -54,9 +64,11 @@ function Slider(props) {
     activeDotStyle,
     trackStyle,
     railStyle,
+    disabledTrackStyle,
+    tooltipText,
+    tooltipProps,
     marks,
     tooltip,
-    tooltipProps,
     handleLabel,
     handleStyle,
     textFormatter,
@@ -66,26 +78,35 @@ function Slider(props) {
   const CustomHandle = props => {
     // Properties when tooltip is enabled or for custom label inside the handle dragger
     const { value, dragging, index, ...restProps } = props;
-    const { visible, placement, prefixCls, overlay } = tooltipProps || {};
     return (
-      <SliderTooltip
-        prefixCls={prefixCls || "rc-slider-tooltip"}
-        overlay={overlay || `${value} %`}
-        visible={tooltip && (visible || dragging)}
-        placement={tooltip && (placement || 'top')}
-        key={index}
-      >
-        <Handle value={value} {...restProps} >
-          {handleLabel && textFormatter(value)}
-        </Handle>
-      </SliderTooltip>
+      <Handle value={value} {...restProps} >
+        {tooltip && tooltipText ?
+          <Tooltip content={tooltipText} tooltipProps={tooltipProps} direction="bottom">
+            {handleLabel && textFormatter(value)}
+          </Tooltip> : (handleLabel && textFormatter(value))}
+      </Handle>
     );
   };
 
+  const defaultHandleStyle = {
+    position: 'relative',
+    borderColor: disabled ? '#B7E3B3' : value === 0 ? '#D3D3D3' : '#04B45F',
+    height: 35,
+    width: 36,
+    marginLeft: 0,
+    marginTop: -16,
+    backgroundColor: disabled ? '#B7E3B3' : value === 0 ? '#D3D3D3' : '#04B45F',
+    fontSize: '12px',
+    color: 'white',
+    fontWeight: 'bold',
+    paddingTop: '9px',
+    textAlign: 'center'
+  }
+
   return (
-    <Wrapper className={props.className}>
+    <Wrapper>
       {label && <Label>{label} {subLabel && <SubLabel>{subLabel}</SubLabel>}</Label>}
-      <RcSlider
+      <RcSliderWrapper
         defaultValue={initialValue}
         value={value}
         min={min}
@@ -97,11 +118,11 @@ function Slider(props) {
         dots={dots}
         dotStyle={dotStyle}
         activeDotStyle={activeDotStyle}
-        trackStyle={trackStyle}
+        trackStyle={disabled ? disabledTrackStyle : trackStyle}
         railStyle={railStyle}
         marks={marks}
         handle={handleLabel || tooltip ? CustomHandle : undefined}
-        handleStyle={handleStyle}
+        handleStyle={!handleStyle ? defaultHandleStyle : { ...defaultHandleStyle, ...handleStyle }}
         disabled={disabled}
       />
     </Wrapper>
@@ -124,14 +145,16 @@ Slider.propTypes = {
   activeDotStyle: PropTypes.object,
   trackStyle: PropTypes.object,
   railStyle: PropTypes.object,
+  disabledTrackStyle: PropTypes.object,
   marks: PropTypes.object,
   tooltip: PropTypes.bool,
+  tooltipText: PropTypes.string,
   tooltipProps: PropTypes.object,
   handleLabel: PropTypes.bool,
   handleStyle: PropTypes.object,
   textFormatter: PropTypes.func,
   disabled: PropTypes.bool,
-  value: PropTypes.string,
+  value: PropTypes.number,
   dragging: PropTypes.bool,
   index: PropTypes.number
 };
@@ -139,21 +162,12 @@ Slider.propTypes = {
 Slider.defaultProps = {
   dots: false,
   tooltip: false,
-  handleStyle: {
-    borderColor: '#04B45F',
-    height: 35,
-    width: 36,
-    marginLeft: 0,
-    marginTop: -16,
-    backgroundColor: '#04B45F',
-    fontSize: '12px',
-    color: 'white',
-    fontWeight: 'bold',
-    paddingTop: '9px',
-    textAlign: 'center'
-  },
   trackStyle: { backgroundColor: '#04B45F', height: 4 },
-  railStyle: { backgroundColor: '#D8D8D8', height: 4 }
+  disabledTrackStyle: { backgroundColor: '#B7E3B3', height: 4 },
+  railStyle: { backgroundColor: '#D8D8D8', height: 4 },
+  textFormatter: function textFormatter(v) {
+    return v > 0 ? `${v}%` : `${v}`;
+  }
 }
 
 export default Slider;
