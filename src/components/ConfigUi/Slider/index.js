@@ -90,12 +90,12 @@ function Slider(props) {
 
   const defaultHandleStyle = {
     position: 'relative',
-    borderColor: disabled ? '#B7E3B3' : value === 0 ? '#D3D3D3' : '#04B45F',
+    borderColor: disabled ? '#B7E3B3' : value === 0 ? '#D3D3D3' : '#4CAF50',
     height: 35,
     width: 36,
     marginLeft: 0,
     marginTop: -16,
-    backgroundColor: disabled ? '#B7E3B3' : value === 0 ? '#D3D3D3' : '#04B45F',
+    backgroundColor: disabled ? '#B7E3B3' : value === 0 ? '#D3D3D3' : '#4CAF50',
     fontSize: '12px',
     color: 'white',
     fontWeight: 'bold',

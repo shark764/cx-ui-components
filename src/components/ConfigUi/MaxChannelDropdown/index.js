@@ -33,8 +33,6 @@ const MaxChannelWrapper = styled.div`
   ${props =>
     props.disabled &&
     css`
-      text-indent: 1px;
-      text-overflow: '';
       color: #999999;
       background-color: #fafafa;
       cursor: not-allowed;
@@ -66,13 +64,10 @@ const SelectInput = styled.select`
   ${props =>
     props.disabled &&
     css`
-      text-indent: 1px;
-      text-overflow: '';
       color: #999999;
       background-color: #fafafa;
       cursor: not-allowed;
     `};
-  margin-right: ${props => props.compress ? '16px' : 'none'};
 `
 
 const ConditionalWrapper = ({ condition, wrapper, children }) =>
@@ -82,12 +77,11 @@ const calculateNumberOfInteractions = (weight) => weight > 4 ? Math.floor(100 / 
 
 class MaxChannelDropdown extends React.Component {
   constructor(props) {
-    const numbOfInteractions = props.capacityOverride || calculateNumberOfInteractions(props.weight);
+    const numbOfInteractions = calculateNumberOfInteractions(props.weight);
     super(props);
     this.state = {
       numbOfInteractions: numbOfInteractions,
-      value: props.dropdownValue,
-      fullCapacity: false
+      value: props.dropdownValue
     };
   }
 
@@ -96,20 +90,10 @@ class MaxChannelDropdown extends React.Component {
     if (prevProps.dropdownValue !== this.props.dropdownValue) {
       this.setState({ value: this.props.dropdownValue })
     }
-    // Updating the value when we use the dropdown directly
-    if (prevState.value !== this.state.value) {
-      this.setState({
-        fullCapacity:
-          (
-            this.props.weight === 100 ||
-            this.state.value === this.state.numbOfInteractions
-          )
-      });
-    }
     // When we receive a different weight, we use it to calculate the number of interactions and we set the latter as a value
     if (prevProps.weight !== this.props.weight) {
       const numberOfInteractions = calculateNumberOfInteractions(this.props.weight);
-      this.setState({ numbOfInteractions: !this.props.capacityOverride ? numberOfInteractions : this.props.capacityOverride });
+      this.setState({ numbOfInteractions: numberOfInteractions });
     }
   }
 
@@ -169,7 +153,6 @@ MaxChannelDropdown.propTypes = {
   onChange: PropTypes.func,
   weight: PropTypes.number.isRequired,
   dropdownValue: PropTypes.number,
-  capacityOverride: PropTypes.number,
   tooltipText: PropTypes.string,
   tooltipProps: PropTypes.object
 };

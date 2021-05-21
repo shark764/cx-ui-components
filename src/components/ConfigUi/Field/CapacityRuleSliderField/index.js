@@ -22,11 +22,13 @@ const FieldWrapperStyled = styled.div`
    align-items: baseline;
    flex-wrap: nowrap;
    width: 100%;
+   padding-top: 7px;
  `
 
 const Label = styled.label`
    color: red;
    margin-left: 25px;
+   margin-top: 10px;
  `
 
 const Wrapper = styled.div`
@@ -57,8 +59,6 @@ class CapacityRuleSliderComponent extends React.Component {
 
   // CC-79: REQ-2e & REQ-2f
   handleMaxChannelValue(rule, originalWeight, index) {
-    const capacityOverride = rule.get('capacityOverride');
-
     // New weight value set after slider onChange method && originalWeight param set onBeforeChange for comparison reasons
     const newWeightValue = rule.get('weight');
 
@@ -70,24 +70,19 @@ class CapacityRuleSliderComponent extends React.Component {
     const originalMaxValue = rule.get('max');
 
     if (newWeightValue > 0) {
-      if (!capacityOverride) {
-        if (originalMaxValue === originalUpperLimit) {
+      if (originalMaxValue === originalUpperLimit) {
+        this.handleMaxValueOnChange(newUpperLimit, index);
+      } else if (originalMaxValue < originalUpperLimit) {
+        if (originalMaxValue >= newUpperLimit) {
           this.handleMaxValueOnChange(newUpperLimit, index);
-        } else if (originalMaxValue < originalUpperLimit) {
-          if (originalMaxValue >= newUpperLimit) {
-            this.handleMaxValueOnChange(newUpperLimit, index);
-          } else {
-            this.handleMaxValueOnChange(originalMaxValue, index);
-          }
-        }
-      } else {
-        if (newWeightValue >= 5) {
-          this.handleMaxValueOnChange(capacityOverride, index);
+        } else {
+          this.handleMaxValueOnChange(originalMaxValue, index);
         }
       }
     } else {
       this.handleMaxValueOnChange(0, index);
     }
+
   }
 
   render() {
@@ -130,12 +125,9 @@ class CapacityRuleSliderComponent extends React.Component {
     return (
       <Wrapper>
         {this.props.input.value && this.props.input.value.size > 0 && this.props.input.value.map((rule, index) => {
-
-          const capacityOverride = rule.get('capacityOverride');
           const channelMax = rule.get('max');
           const channelWeight = rule.get('weight');
           const channelName = capitalizeFirstLetter(rule.get('channels').get(0));
-
           return (
             <FieldWrapper
               {...fieldWrapperProps}
@@ -157,7 +149,7 @@ class CapacityRuleSliderComponent extends React.Component {
                       .setIn([index, 'weight'], sliderValue > 4 ? sliderValue : 0)
                   )}
                   // Updating calculated max value of dropdown in state after moving the slider
-                  onAfterChange={() => this.handleMaxChannelValue(rule, originalWeight, index)}
+                  onAfterChange={!channelName === 'Voice' && (() => this.handleMaxChannelValue(rule, originalWeight, index))}
                   handleLabel={handleLabel}
                   textFormatter={textFormatter}
                   disabled={disabled}
@@ -167,17 +159,15 @@ class CapacityRuleSliderComponent extends React.Component {
                   handleStyle={{ zIndex: (value.size + 100) - index }}
                 />
                 <MaxChannelDropdownWrapper
-                  weight={channelWeight}
+                  weight={channelName === 'Voice' ? (channelWeight === 0 ? 0 : 100) : channelWeight}
                   onChange={(e) => this.handleMaxValueOnChange(parseInt(e.target.value, 10), index)}
                   tooltip={tooltip}
                   tooltipText={maxChannelDropdownTooltip || (maxChannelDropdownTooltips && maxChannelDropdownTooltips[index])}
                   tooltipProps={maxChannelDropdownTooltipProps}
-                  dropdownValue={channelMax}
-                  capacityOverride={capacityOverride}
+                  dropdownValue={channelName === 'Voice' ? (channelWeight === 0 ? 0 : 1) : channelMax}
                   disabled={(channelWeight > 4 && channelName === 'Voice') || disabled}
                 />
               </FieldWrapperStyled>
-              <br />
             </FieldWrapper>
           )
         }
