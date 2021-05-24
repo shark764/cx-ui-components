@@ -85,7 +85,7 @@ class MaxChannelDropdown extends React.Component {
     };
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps) {
     // Updating the value when we received a value directly as a prop
     if (prevProps.dropdownValue !== this.props.dropdownValue) {
       this.setState({ value: this.props.dropdownValue })

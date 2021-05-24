@@ -58,7 +58,7 @@ class CapacityRuleSliderComponent extends React.Component {
   )
 
   // CC-79: REQ-2e & REQ-2f
-  handleMaxChannelValue(rule, originalWeight, index) {
+  handleMaxChannelValue(rule, originalWeight, channelName, index) {
     // New weight value set after slider onChange method && originalWeight param set onBeforeChange for comparison reasons
     const newWeightValue = rule.get('weight');
 
@@ -69,18 +69,22 @@ class CapacityRuleSliderComponent extends React.Component {
     // Original max value
     const originalMaxValue = rule.get('max');
 
-    if (newWeightValue > 0) {
-      if (originalMaxValue === originalUpperLimit) {
-        this.handleMaxValueOnChange(newUpperLimit, index);
-      } else if (originalMaxValue < originalUpperLimit) {
-        if (originalMaxValue >= newUpperLimit) {
-          this.handleMaxValueOnChange(newUpperLimit, index);
-        } else {
-          this.handleMaxValueOnChange(originalMaxValue, index);
-        }
-      }
+    if (channelName === 'Voice') {
+      newWeightValue > 0 ? this.handleMaxValueOnChange(1, index) : this.handleMaxValueOnChange(0, index);
     } else {
-      this.handleMaxValueOnChange(0, index);
+      if (newWeightValue > 0) {
+        if (originalMaxValue === originalUpperLimit) {
+          this.handleMaxValueOnChange(newUpperLimit, index);
+        } else if (originalMaxValue < originalUpperLimit) {
+          if (originalMaxValue >= newUpperLimit) {
+            this.handleMaxValueOnChange(newUpperLimit, index);
+          } else {
+            this.handleMaxValueOnChange(originalMaxValue, index);
+          }
+        }
+      } else {
+        this.handleMaxValueOnChange(0, index);
+      }
     }
 
   }
@@ -149,9 +153,8 @@ class CapacityRuleSliderComponent extends React.Component {
                       .setIn([index, 'weight'], sliderValue > 4 ? sliderValue : 0)
                   )}
                   // Updating calculated max value of dropdown in state after moving the slider
-                  onAfterChange={!channelName === 'Voice' && (() => this.handleMaxChannelValue(rule, originalWeight, index))}
+                  onAfterChange={() => this.handleMaxChannelValue(rule, originalWeight, channelName, index)}
                   handleLabel={handleLabel}
-                  textFormatter={textFormatter}
                   disabled={disabled}
                   tooltip={tooltip}
                   tooltipText={sliderTooltip || (sliderTooltips && sliderTooltips[index])}
@@ -164,7 +167,7 @@ class CapacityRuleSliderComponent extends React.Component {
                   tooltip={tooltip}
                   tooltipText={maxChannelDropdownTooltip || (maxChannelDropdownTooltips && maxChannelDropdownTooltips[index])}
                   tooltipProps={maxChannelDropdownTooltipProps}
-                  dropdownValue={channelName === 'Voice' ? (channelWeight === 0 ? 0 : 1) : channelMax}
+                  dropdownValue={channelMax}
                   disabled={(channelWeight > 4 && channelName === 'Voice') || disabled}
                 />
               </FieldWrapperStyled>
