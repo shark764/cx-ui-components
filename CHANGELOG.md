@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.69.3] - 2021-05-25
+### fixed
+- CXV1-26889 - Max Channel Dropdown is disabled in all channels when weight is > 50
+
 ## [0.69.2] - 2021-05-24
 ### fixed
 - CXV1-24359 - CapacityRuleSliderField onAfterChange was not triggered because of wrong validation

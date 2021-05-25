@@ -114,7 +114,7 @@ class MaxChannelDropdown extends React.Component {
       <DropdownWrapper name={this.props.name}>
         <Label>{this.props.label ? this.props.label : 'Max:'}</Label>
         <MaxChannelWrapper
-          disabled={(this.props.weight < 5) || (this.props.weight > 50) || (this.props.disabled)}
+          disabled={this.props.weight < 5 || this.props.disabled}
         >
           <ConditionalWrapper
             condition={this.props.tooltipText}
@@ -133,7 +133,7 @@ class MaxChannelDropdown extends React.Component {
           <SelectInput
             value={this.state.value > 0 ? this.state.value : 0}
             onChange={this.props.onChange}
-            disabled={this.props.weight < 5 || this.props.weight > 50 || this.props.disabled}
+            disabled={this.props.weight < 5 || this.props.disabled}
           >
             {itemList.reverse().map((option, index) => (
               <option value={option.value} key={index.toString()}>{option.label}</option>
