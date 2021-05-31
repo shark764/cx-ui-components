@@ -42,6 +42,9 @@ const SubLabel = styled.span`
 `;
 
 const RcSliderWrapper = styled(RcSlider)`
+  &.rc-slider {
+    pointer-events: none;
+  }
   &.rc-slider-disabled {
     background-color: inherit;
   }
@@ -100,7 +103,8 @@ function Slider(props) {
     color: 'white',
     fontWeight: 'bold',
     paddingTop: '9px',
-    textAlign: 'center'
+    textAlign: 'center',
+    pointerEvents: 'auto'
   }
 
   return (
@@ -162,7 +166,7 @@ Slider.propTypes = {
 Slider.defaultProps = {
   dots: false,
   tooltip: false,
-  trackStyle: { backgroundColor: '#04B45F', height: 4 },
+  trackStyle: { backgroundColor: '#4CAF50', height: 4 },
   disabledTrackStyle: { backgroundColor: '#B7E3B3', height: 4 },
   railStyle: { backgroundColor: '#D8D8D8', height: 4 },
   textFormatter: function textFormatter(v) {

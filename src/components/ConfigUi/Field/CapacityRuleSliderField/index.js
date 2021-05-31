@@ -69,8 +69,6 @@ class CapacityRuleSliderComponent extends React.Component {
     // Original max value
     const originalMaxValue = rule.get('max');
 
-    const initialSliderAction = originalWeight === newWeightValue;
-
     if (channelName === 'Voice') {
       newWeightValue > 0 ? this.handleMaxValueOnChange(1, index) : this.handleMaxValueOnChange(0, index);
     } else {
@@ -80,8 +78,6 @@ class CapacityRuleSliderComponent extends React.Component {
         } else if (originalMaxValue < originalUpperLimit) {
           if (originalMaxValue >= newUpperLimit) {
             this.handleMaxValueOnChange(newUpperLimit, index);
-          } else if (originalMaxValue <= originalUpperLimit && initialSliderAction) {
-            this.handleMaxValueOnChange(originalUpperLimit, index);
           } else {
             this.handleMaxValueOnChange(originalMaxValue, index);
           }
