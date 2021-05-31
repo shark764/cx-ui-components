@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.69.5] - 2021-05-28
+### fixed
+- <no-ticket> - Using onClick handler first time, doesn't set the right initial max value as requirements when not using the slider
+
 ## [0.69.4] - 2021-05-28
 ### fixed
 - CXV1-26889 - Max Channel Dropdown is not setting the right Max value when clicking directly in Slider track

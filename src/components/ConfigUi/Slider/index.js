@@ -79,7 +79,7 @@ function Slider(props) {
     // Properties when tooltip is enabled or for custom label inside the handle dragger
     const { value, dragging, index, ...restProps } = props;
     return (
-      <Handle value={value} {...restProps} >
+      <Handle value={value} {...restProps}>
         {tooltip && tooltipText ?
           <Tooltip content={tooltipText} tooltipProps={tooltipProps} direction="bottom">
             {handleLabel && textFormatter(value)}
@@ -90,12 +90,12 @@ function Slider(props) {
 
   const defaultHandleStyle = {
     position: 'relative',
-    borderColor: disabled ? '#B7E3B3' : value === 0 ? '#D3D3D3' : '#4CAF50',
+    borderColor: disabled && value > 0 ? '#B7E3B3' : value === 0 ? '#D3D3D3' : '#4CAF50',
     height: 35,
     width: 36,
     marginLeft: 0,
     marginTop: -16,
-    backgroundColor: disabled ? '#B7E3B3' : value === 0 ? '#D3D3D3' : '#4CAF50',
+    backgroundColor: disabled && value > 0 ? '#B7E3B3' : value === 0 ? '#D3D3D3' : '#4CAF50',
     fontSize: '12px',
     color: 'white',
     fontWeight: 'bold',
