@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 import { List, fromJS } from 'immutable';
@@ -108,7 +108,7 @@ const VoiceContainer = styled.div`
   align-items: center;
 `;
 
-const GroupsContainer= styled.div`
+const GroupsContainer = styled.div`
   flex-basis: 75%;
 `;
 
@@ -191,7 +191,7 @@ class CapacityRuleComponent extends React.Component {
     };
   };
 
-  changeSelect = (i, value) =>  this.setState(({ currentListItemsList: prevCurrentListItemsList }) => {
+  changeSelect = (i, value) => this.setState(({ currentListItemsList: prevCurrentListItemsList }) => {
     prevCurrentListItemsList.splice(i, 1, value)
     return {
       currentListItemsList: prevCurrentListItemsList
@@ -206,11 +206,11 @@ class CapacityRuleComponent extends React.Component {
         this.props.input.onChange(this.props.input.value.set('voice', true))
       } else {
         this.props.input.onChange(
-          !this.props.input.value.get('groups').get(i) || 
-          !this.props.input.value.getIn(['groups', i, 'channels']) || 
-          !this.props.input.value.getIn(['groups', i, 'channels']).size ||
-          !this.props.input.value.getIn(['groups', i, 'channels', 0]) ? 
-            this.props.input.value.setIn(['groups', i, 'channels'], List([this.state.currentListItemsList[i]])) : 
+          !this.props.input.value.get('groups').get(i) ||
+            !this.props.input.value.getIn(['groups', i, 'channels']) ||
+            !this.props.input.value.getIn(['groups', i, 'channels']).size ||
+            !this.props.input.value.getIn(['groups', i, 'channels', 0]) ?
+            this.props.input.value.setIn(['groups', i, 'channels'], List([this.state.currentListItemsList[i]])) :
             this.props.input.value.updateIn(['groups', i, 'channels'], channels => channels.push(this.state.currentListItemsList[i]))
         );
       }
@@ -226,7 +226,7 @@ class CapacityRuleComponent extends React.Component {
     this.props.input.value.setIn(['groups', index, 'interactions'], value)
   );
 
-  addGroup = () =>{
+  addGroup = () => {
     this.setState(({ currentListItemsList: prevCurrentListItemsList }) => ({
       currentListItemsList: [...prevCurrentListItemsList, '']
     }))
@@ -236,7 +236,7 @@ class CapacityRuleComponent extends React.Component {
         interactions: ""
       })))
     );
-  } 
+  }
 
   removeGroup = index => {
     this.setState(({ currentListItemsList: prevCurrentListItemsList }) => {
@@ -253,10 +253,10 @@ class CapacityRuleComponent extends React.Component {
   render() {
     const {
       props: {
-        meta: { 
+        meta: {
           error,
           warning,
-          touched 
+          touched
         },
         input: {
           value
@@ -274,7 +274,7 @@ class CapacityRuleComponent extends React.Component {
       },
       state: {
         currentListItemsList
-      }  
+      }
     } = this;
 
     const fieldWrapperProps = {
@@ -285,7 +285,7 @@ class CapacityRuleComponent extends React.Component {
 
     return (
       <Wrapper>
-        <AddGroupWrapper>
+        {!disabled && <AddGroupWrapper>
           <ActionButton
             className="add-group"
             data-automation="addGroup"
@@ -293,26 +293,25 @@ class CapacityRuleComponent extends React.Component {
               e.preventDefault();
               this.addGroup();
             }}
-            disabled={disabled}
             title={addGroupPopover}
           >
             <PlusIconSVG size={12} />
           </ActionButton>
-        </AddGroupWrapper>
+        </AddGroupWrapper>}
         <CapacityRuleContainer>
           <VoiceContainer>
             {value && value.get('voice') && (
               <VoiceItem>
                 {options.find(({ value }) => value === 'voice').label}
-                {!disabled && 
+                {!disabled &&
                   <RemoveVoiceButton
                     className="remove-voice-channel"
                     data-automation="removeLVoiceChannel"
                     onClick={this.removeVoice}
                     title={removeItem}
                   >
-                    <CloseIconSVG 
-                      size={11} 
+                    <CloseIconSVG
+                      size={11}
                       closeIconType="secondary"
                     />
                   </RemoveVoiceButton>
@@ -321,75 +320,76 @@ class CapacityRuleComponent extends React.Component {
             )}
           </VoiceContainer>
           <GroupsContainer>
-            {value && value.get('groups') && value.get('groups').size > 0 && value.get('groups').map((group, i) => 
+            {value && value.get('groups') && value.get('groups').size > 0 && value.get('groups').map((group, i) =>
               <GroupWrapper>
                 {!disabled &&
-                  <RemoveGroup 
-                    onClick={() => this.removeGroup(i)} 
+                  <RemoveGroup
+                    onClick={() => this.removeGroup(i)}
                     title={removeGroup}>
                     <CloseIconSVG size={12} closeIconType="secondary" />
                   </RemoveGroup>
                 }
-                <FieldWrapper 
-                  {...fieldWrapperProps} 
+                <FieldWrapper
+                  {...fieldWrapperProps}
                   error={error && error[i] && error[i].message}
                   warning={warning && warning[i]}
                 >
-                  <StyledSelect
-                    value={currentListItemsList[i]}
-                    onChange={({ target: { value }}) => this.changeSelect(i, value)}
-                    disabled={disabled}
-                    hasError={touched && error && error[i] && error[i].isSelectedValueInvalid}
-                    key={i}
-                  >
-                    {!currentListItemsList[i] && 
-                      <option disabled hidden value="">
-                        {selectPlaceholder || '-- Please select --'}
-                      </option>
-                    }
-                    {options && options.length && 
-                      options.filter(({ value: optionValue }) =>
-                        (optionValue === 'voice' && !value.get('voice')) ||
-                        (optionValue !== 'voice' && (!group.get('channels') || !group.get('channels').size || 
-                          !group.get('channels').some(channel => channel === optionValue))))
-                        .map(({ value: optionValue, label }, index) => 
-                          <option key={index} value={optionValue}>{label}</option>)}
-                  </StyledSelect>
-                  <ActionButton
-                    className="channel-item-add-button"
-                    data-automation="channelItemAddButton"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      this.handleAddItem(i);
-                    }}
-                    disabled={!currentListItemsList[i] || disabled}
-                  >
-                    <PlusIconSVG size={12} />
-                  </ActionButton>
+                  {!disabled && <Fragment>
+                    <StyledSelect
+                      value={currentListItemsList[i]}
+                      onChange={({ target: { value } }) => this.changeSelect(i, value)}
+                      hasError={touched && error && error[i] && error[i].isSelectedValueInvalid}
+                      key={i}
+                    >
+                      {!currentListItemsList[i] &&
+                        <option disabled hidden value="">
+                          {selectPlaceholder || '-- Please select --'}
+                        </option>
+                      }
+                      {options && options.length &&
+                        options.filter(({ value: optionValue }) =>
+                          (optionValue === 'voice' && !value.get('voice')) ||
+                          (optionValue !== 'voice' && (!group.get('channels') || !group.get('channels').size ||
+                            !group.get('channels').some(channel => channel === optionValue))))
+                          .map(({ value: optionValue, label }, index) =>
+                            <option key={index} value={optionValue}>{label}</option>)}
+                    </StyledSelect>
+                    <ActionButton
+                      className="channel-item-add-button"
+                      data-automation="channelItemAddButton"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        this.handleAddItem(i);
+                      }}
+                      disabled={!currentListItemsList[i]}
+                    >
+                      <PlusIconSVG size={12} />
+                    </ActionButton>
+                  </Fragment>}
                   {group.get('channels') && group.get('channels').size > 0 && group.getIn(['channels', 0]) && (
-                      <ListWrapper>
-                        {group.get('channels').map((channel, index) => 
-                          <ListItem>
-                              <ListItemText className="channel-item-text">
-                              {options.find(({ value }) => value === channel).label}
-                              </ListItemText>
-                              {!disabled && 
-                                <RemoveButton
-                                className="list-item-remove-button"
-                                data-automation="removeListItemButton"
-                                onClick={() => this.removeListItem(i, index)}
-                                title={removeItem}
-                                >
-                                  <CloseIconSVG closeIconType="secondary" size={12} />
-                                </RemoveButton>
-                              }
-                          </ListItem>
-                        )}
-                      </ListWrapper>
+                    <ListWrapper>
+                      {group.get('channels').map((channel, index) =>
+                        <ListItem>
+                          <ListItemText className="channel-item-text">
+                            {options.find(({ value }) => value === channel).label}
+                          </ListItemText>
+                          {!disabled &&
+                            <RemoveButton
+                              className="list-item-remove-button"
+                              data-automation="removeListItemButton"
+                              onClick={() => this.removeListItem(i, index)}
+                              title={removeItem}
+                            >
+                              <CloseIconSVG closeIconType="secondary" size={12} />
+                            </RemoveButton>
+                          }
+                        </ListItem>
+                      )}
+                    </ListWrapper>
                   )}
                   <InteractionInputWrapperDiv>
                     <Label htmlFor='interaction'>{numInteractionsLabel}: *</Label>
-                    <Input 
+                    <Input
                       value={group.get('interactions')}
                       placeholder={numInteractionsPlaceholder}
                       onChange={(e) => this.changeGroupInteractionsNumber(i, e.target.value)}
@@ -398,8 +398,8 @@ class CapacityRuleComponent extends React.Component {
                       hasError={error && error[i] && error[i].isInteractionsNumberInvalid}
                     />
                   </InteractionInputWrapperDiv>
-              </FieldWrapper>
-            </GroupWrapper>
+                </FieldWrapper>
+              </GroupWrapper>
             )}
           </GroupsContainer>
         </CapacityRuleContainer>
