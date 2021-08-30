@@ -32,7 +32,7 @@ const parseNumber = value => {
 export default function InputField(props) {
 
   const parseValue = value => {
-    if(value !== undefined) {
+    if (value !== undefined) {
       return props.maskValue ? value.replace(/^\s+/g, '').replace(/./g, '\u2022') : value.replace(/^\s+/g, '');
     } else {
       return value;
@@ -41,7 +41,7 @@ export default function InputField(props) {
 
   if (props.dataType === 'number') {
     return <ReduxFormField {...props} component={RenderField} type="number" parse={parseNumber} />;
-  } 
+  }
   else if (props.dataType === 'password') {
     return (
       <ReduxFormField
@@ -79,6 +79,11 @@ export const RenderField = props => {
     hideLabel,
     labelWidth,
     autoComplete,
+    minValue,
+    maxValue,
+    alignInptTextToRight,
+    dataType,
+    integersOnlyAllowed,
     meta: { touched, error, warning },
   } = props;
 
@@ -91,6 +96,9 @@ export const RenderField = props => {
     disabled,
     type,
     onFocus,
+    min: minValue,
+    max: maxValue,
+    alignInptTextToRight
   };
 
   const textareaProps = {
@@ -111,8 +119,25 @@ export const RenderField = props => {
     labelWidth,
   };
 
+  // This function doesn't let the user to enter keys other than "[0-9]", "Delete", "Backspace" & "Tab" in to the input element (example: config2 queues page)
+  const handleKeyDown = (e) => {
+    if (dataType === 'number' && integersOnlyAllowed) {
+      if (
+        e.keyCode !== 8 && // backspace
+        e.keyCode !== 9 && // tab
+        e.keyCode !== 37 && // arrow left
+        e.keyCode !== 39 && // arrow right
+        e.keyCode !== 46 && // delete
+        !(e.keyCode >= 48 && e.keyCode <= 57) && // 0-9
+        !(e.keyCode >= 96 && e.keyCode <= 105) // number pad 0-9
+      ) {
+        e.preventDefault();
+      }
+    }
+  }
+
   if (componentType === 'input') {
-    inputElement = <Input {...input} {...inputProps} hasError={touched && !!error} autoComplete={autoComplete} />;
+    inputElement = <Input {...input} {...inputProps} hasError={touched && !!error} autoComplete={autoComplete} onKeyDown={handleKeyDown} />
   } else if (componentType === 'textarea') {
     inputElement = <Textarea {...input} {...textareaProps} hasError={touched && !!error} />;
   }
@@ -159,4 +184,8 @@ RenderField.propTypes = {
   type: PropTypes.string,
   labelWidth: PropTypes.string,
   componentType: PropTypes.oneOf(['input', 'textarea']),
+  minValue: PropTypes.string,
+  maxValue: PropTypes.string,
+  alignInptTextToRight: PropTypes.bool,
+  integersOnlyAllowed: PropTypes.bool,
 };

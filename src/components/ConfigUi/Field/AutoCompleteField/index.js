@@ -78,7 +78,7 @@ class AutoCompleteInput extends Component {
     document.removeEventListener('mousedown', this.onClick, false);
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps) {
     const { activeSuggestion, filteredSuggestions } = this.state;
     if (this.scrollContainer !== null) {
       // Access to DOM element, so we can move scroll since
@@ -89,6 +89,12 @@ class AutoCompleteInput extends Component {
         scrollContainerNode.scrollTop =
           (scrollContainerNode.clientHeight / filteredSuggestions.length) * (activeSuggestion - 1);
       }
+    }
+    // Reset input value when the form field value is set to empty
+    const { input: { value: currentVal } } = this.props;
+    const { input: { value: prevValue } } = prevProps;
+    if (currentVal === '' && currentVal !== prevValue) {
+      this.setState({ value: currentVal })
     }
   }
 
@@ -196,11 +202,12 @@ class AutoCompleteInput extends Component {
         labelHelpText,
         placeholder,
         disabled,
+        labelWidth,
         meta: { touched, error, warning },
       },
     } = this;
 
-    const fieldProps = { label, labelHelpText, touched, error, warning };
+    const fieldProps = { label, labelHelpText, touched, error, warning, labelWidth };
     const inputProps = {
       id,
       className,
@@ -278,6 +285,7 @@ AutoCompleteInput.propTypes = {
   error: PropTypes.string,
   warning: PropTypes.string,
   suggestedDropDownWidth: PropTypes.string,
+  labelWidth: PropTypes.string,
 };
 
 AutoCompleteField.propTypes = {

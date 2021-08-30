@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const Input = styled.input`
   width: 100%;
@@ -9,6 +9,7 @@ export const Input = styled.input`
   border-color: ${props => (props.hasError ? 'red' : 'transparent')};
   background-color: ${props => (props.disabled ? '#efefef' : 'inherit')};
   cursor: ${props => (props.disabled ? 'not-allowed' : 'text')};
+  ${props => props.alignInptTextToRight && css`text-align: right;`};
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2) inset,
     0 -1px 0 rgba(0, 0, 0, 0.05) inset;
 
